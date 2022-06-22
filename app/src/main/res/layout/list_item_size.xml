@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
+    android:layout_width="100dp"
+    android:layout_height="100dp"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/tv_size"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/alexis_gtwalsheim_light"
+        android:fontFeatureSettings="tnum"
+        android:gravity="center"
+        tools:text="XL"
+        android:textSize="30sp" />
+
+    <View
+        android:id="@+id/vMargin"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/tv_size"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone" />
+
+
+</RelativeLayout>

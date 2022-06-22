@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottomsheet_kranjang"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="100dp"
+        android:layout_height="5dp"
+        android:background="@color/grey"
+        android:alpha="0.7"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="0dp"
+        android:layout_gravity="center_horizontal"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounder_bottomsheet"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/buttons_size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="30dp">
+
+                    <TextView
+                        android:id="@+id/txet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/alexis_gtwalsheim_regular"
+                        android:fontFeatureSettings="tnum"
+                        android:gravity="center"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="Size"
+                        android:textColor="@color/grey_700"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent" />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="24dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_ruler"
+                        app:layout_constraintBottom_toTopOf="@+id/txet"
+                        app:layout_constraintLeft_toLeftOf="@+id/txet"
+                        app:layout_constraintRight_toRightOf="@+id/txet"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/grey_700" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.alexis.shop.utils.circle_layout_manager.CircleRecyclerView
+                    android:id="@+id/recy_size_chooser"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:clipToPadding="false"
+                    android:overScrollMode="never"
+                    android:visibility="visible"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="20dp"
+                android:weightSum="3">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/addtokranjang"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounder_yellow_transparent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/dwccxaf"
+                            android:layout_width="40dp"
+                            android:layout_height="50dp"
+                            android:padding="5dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/ic_chart"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="0dp"
+                            android:paddingTop="15dp"
+                            android:paddingBottom="15dp"
+                            android:src="@drawable/ic_plus"
+                            app:layout_constraintBottom_toBottomOf="@id/dwccxaf"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toLeftOf="@id/dwccxaf"
+                            app:layout_constraintTop_toTopOf="@id/dwccxaf" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <com.skydoves.androidveil.VeilLayout
+                        android:id="@+id/grey_button_addkranjang"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="invisible"
+                        app:veilLayout_veiled="true"
+                        app:veilLayout_shimmerEnable="true"
+                        app:veilLayout_baseColor="@color/transparent"
+                        app:veilLayout_highlightColor="@color/white"
+                        app:veilLayout_baseAlpha="0.6"
+                        app:veilLayout_highlightAlpha="1.0"
+                        app:veilLayout_dropOff="0.5"
+                        app:veilLayout_radius="6dp"
+                        android:background="@drawable/rounder_grey_background"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/select_size">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:text="Select a Size"
+                                android:textColor="@color/white"
+                                android:textSize="22sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </com.skydoves.androidveil.VeilLayout>
+
+                    <TextView
+                        android:id="@+id/tv_select_size"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:text="Select a Size"
+                        android:textColor="@color/grey_700"
+                        android:textSize="16sp"
+                        android:textAllCaps="true"
+                        android:visibility="invisible"
+                        android:fontFamily="@font/alexis_gtwalsheim_regular"
+                        android:gravity="center_horizontal|center_vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

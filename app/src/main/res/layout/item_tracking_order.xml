@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/tv_timestamp"
+        android:layout_width="wrap_content"
+        android:textSize="12sp"
+        android:lines="1"
+        tools:text="03Nov 12:10"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:fontFamily="@font/roboto_regular"
+        android:textColor="@color/white1"/>
+
+    <TextView
+        android:id="@+id/tv_description"
+        android:layout_width="wrap_content"
+        android:textSize="12sp"
+        android:lines="1"
+        android:paddingStart="10dp"
+        android:paddingEnd="0dp"
+        android:fontFamily="@font/roboto_regular"
+        tools:text="delivered, received by Nawi [Jakarta]"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:textColor="@color/white1"/>
+
+
+</LinearLayout>

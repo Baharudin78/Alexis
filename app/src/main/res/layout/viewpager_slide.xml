@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@null" />
+
+    <com.alexis.shop.utils.CirclePageIndicator
+        android:id="@+id/indicator"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:padding="10dp" />
+
+    <View
+        android:id="@+id/left_slider"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"/>
+
+    <View
+        android:id="@+id/right_slider"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"/>
+
+    <LinearLayout
+        android:id="@+id/pager_dots"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:orientation="vertical">
+    </LinearLayout>
+</RelativeLayout>

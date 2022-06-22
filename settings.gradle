@@ -1,0 +1,3 @@
+include ':discretescroll'
+include ':app'
+rootProject.name = "Alexis"

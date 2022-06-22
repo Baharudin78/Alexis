@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="350dp"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:id="@+id/parent"
+    android:background="@color/black"
+    tools:context=".ui.shopping_bag.adapter.ShoppingBagViewHolder"
+    app:layoutDescription="@xml/item_shopping_bag_scene">
+
+    <TextView
+        android:fontFeatureSettings="tnum"
+        android:id="@+id/txt_reserve"
+        android:fontFamily="@font/alexis_gtwalsheim_light"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="0dp"
+        android:textColor="@color/white"
+        android:paddingBottom="10dp"
+        android:text="@string/en_reserve_item_shopbag"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/allbackgr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:paddingHorizontal="5dp"
+        android:background="@drawable/rounder_white_transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vGLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/MaxRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vGRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.65" />
+
+        <LinearLayout
+            android:id="@+id/layImage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="30dp"
+            app:layout_constraintLeft_toRightOf="@+id/vGLeft"
+            app:layout_constraintRight_toLeftOf="@+id/vGRight"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ImageView
+                android:id="@+id/image_item"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginVertical="17dp"
+                android:layout_marginEnd="10dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/background4" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lin_detail_item"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toRightOf="@id/vGRight"
+            app:layout_constraintRight_toLeftOf="@id/MaxRight"
+            app:layout_constraintTop_toTopOf="@id/layImage">
+
+            <TextView
+                android:id="@+id/item_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/alexis_gtwalsheim_regular"
+                android:fontFeatureSettings="tnum"
+                android:gravity="right"
+                android:text="Rp 80.000"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/item_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/alexis_gtwalsheim_regular"
+                android:fontFeatureSettings="tnum"
+                android:gravity="right"
+                android:text="Sweater"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/item_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/alexis_gtwalsheim_regular"
+                android:fontFeatureSettings="tnum"
+                android:gravity="right"
+                android:text="x2"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/item_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:alpha="0.7"
+                android:fontFamily="@font/alexis_gtwalsheim_light"
+                android:fontFeatureSettings="tnum"
+                android:gravity="end"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="1DYSDWD-G0H"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/item_size"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:alpha="0.7"
+                android:fontFamily="@font/alexis_gtwalsheim_light"
+                android:fontFeatureSettings="tnum"
+                android:gravity="end"
+                android:text="Size M"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/item_weight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:alpha="0.7"
+                android:fontFamily="@font/alexis_gtwalsheim_light"
+                android:fontFeatureSettings="tnum"
+                android:gravity="end"
+                android:text="450 gr"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vIconAdder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.86" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/MaxRight"
+            app:layout_constraintStart_toEndOf="@+id/layImage"
+            app:layout_constraintTop_toBottomOf="@+id/lin_detail_item">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/vIconMid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.58"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/vIconMid2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="14dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/hIconTop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.33"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/hIconBot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.67"/>
+
+            <ImageView
+                android:id="@+id/btn_1"
+                android:layout_width="12dp"
+                android:layout_height="0dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_trash"
+                android:layout_marginVertical="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/hIconTop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/btn_2"
+                android:layout_width="17dp"
+                android:layout_height="0dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginVertical="10dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_lovepanah"
+                app:layout_constraintBottom_toTopOf="@+id/hIconBot"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/hIconTop" />
+
+
+            <ImageView
+                android:id="@+id/btn_3"
+                android:layout_width="12dp"
+                android:layout_height="0dp"
+                android:layout_alignParentEnd="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_pen"
+                android:layout_marginVertical="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/hIconBot" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.motion.widget.MotionLayout>

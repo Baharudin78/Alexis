@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.account.ReturnFragment">
+
+    <com.github.mmin18.widget.RealtimeBlurView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:realtimeBlurRadius="20dp"
+        app:realtimeOverlayColor="@color/transparent_expanmenu" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:clickable="true"
+        android:focusable="true"
+        android:fitsSystemWindows="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/hGuideTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.15"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/cancel_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.03"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/cancel_mid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.09"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/cancel_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.03"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/cancel_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.1"/>
+
+        <TextView
+            android:fontFeatureSettings="tnum" android:fontFamily="@font/alexis_gtwalsheim_bold"  android:id="@+id/txt_wl"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="Return"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textSize="@dimen/fragment_title_size"
+            app:layout_constraintTop_toBottomOf="@id/cancel_mid"
+            app:layout_constraintBottom_toTopOf="@id/hGuideTop"/>
+
+        <ImageView
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_cancel"
+            app:layout_constraintLeft_toRightOf="@+id/cancel_left"
+            app:layout_constraintRight_toLeftOf="@id/cancel_right"
+            app:layout_constraintTop_toBottomOf="@id/cancel_top"
+            app:layout_constraintBottom_toTopOf="@+id/cancel_mid"
+            app:tint="@color/white" />
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_back"
+            app:layout_constraintLeft_toRightOf="@+id/cancel_left"
+            app:layout_constraintRight_toLeftOf="@id/cancel_right"
+            app:layout_constraintTop_toBottomOf="@id/btn_cancel"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_wl"
+            app:tint="@color/white" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:scrollbars="none"
+            app:layout_constraintTop_toBottomOf="@+id/hGuideTop"
+            app:layout_constraintBottom_toBottomOf="parent">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycle_return"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/item_return_list"
+                    tools:itemCount="2"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/lato"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/recycle_return">
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/midA"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.25"/>
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/midB"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.65"/>
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/maxB"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.95"/>
+                    <TextView
+                        android:fontFeatureSettings="tnum" android:fontFamily="@font/alexis_gtwalsheim_regular"  android:id="@+id/nprice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rp"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="0dp"
+                        android:gravity="right"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:textSize="15sp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toRightOf="@id/midB"/>
+                    <TextView
+                        android:fontFeatureSettings="tnum" android:fontFamily="@font/alexis_gtwalsheim_regular"  android:id="@+id/item_price"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="80.000"
+                        android:gravity="right"
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        android:textColor="@color/white"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toRightOf="@id/nprice"
+                        app:layout_constraintRight_toLeftOf="@id/maxB"/>
+
+                    <TextView
+                        android:fontFeatureSettings="tnum"
+                        android:fontFamily="@font/alexis_gtwalsheim_regular"
+                        android:id="@+id/item_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Total Refund"
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        android:layout_marginStart="10dp"
+                        android:textColor="@color/white"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toRightOf="@id/midA"
+                        app:layout_constraintRight_toLeftOf="@id/midB"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="35dp"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@+id/lato">
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_alias"
+                        style="@style/Widget.Design.TextInputLayout"
+                        android:textColorHint="@color/white1"
+                        android:backgroundTint="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ed_alias"
+                            android:textColor="@color/white1"
+                            android:text="8826 4120 1251 5518"
+                            android:backgroundTint="@color/white"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/alexis_gtwalsheim_regular"
+                            android:hint="Courier Receipt No" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginHorizontal="25dp"
+                        android:weightSum="3">
+                        <TextView
+                            android:fontFeatureSettings="tnum" android:id="@+id/ship_1"
+                            android:fontFamily="@font/alexis_gtwalsheim_light"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingVertical="5dp"
+                            android:paddingHorizontal="8dp"
+                            android:layout_marginHorizontal="15dp"
+                            android:textColor="@color/white1"
+                            android:layout_weight="1"
+                            android:text="JNE"/>
+                        <TextView
+                            android:fontFeatureSettings="tnum" android:id="@+id/ship_2"
+                            android:fontFamily="@font/alexis_gtwalsheim_light"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingVertical="5dp"
+                            android:paddingHorizontal="8dp"
+                            android:layout_marginHorizontal="15dp"
+                            android:textColor="@color/white1"
+                            android:layout_weight="1"
+                            android:text="Wahana"/>
+                        <TextView
+                            android:fontFeatureSettings="tnum" android:id="@+id/ship_3"
+                            android:fontFamily="@font/alexis_gtwalsheim_light"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:textColor="@color/white1"
+                            android:paddingVertical="5dp"
+                            android:paddingHorizontal="8dp"
+                            android:layout_marginHorizontal="15dp"
+                            android:layout_weight="1"
+                            android:text="Pos"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginHorizontal="25dp"
+                        android:weightSum="3">
+                        <TextView
+                            android:fontFeatureSettings="tnum" android:id="@+id/ship_4"
+                            android:fontFamily="@font/alexis_gtwalsheim_light"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingVertical="5dp"
+                            android:paddingHorizontal="8dp"
+                            android:layout_marginHorizontal="15dp"
+                            android:textColor="@color/white1"
+                            android:layout_weight="1"
+                            android:text="JNT"/>
+                        <TextView
+                            android:fontFeatureSettings="tnum" android:id="@+id/ship_5"
+                            android:fontFamily="@font/alexis_gtwalsheim_light"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingVertical="5dp"
+                            android:paddingHorizontal="8dp"
+                            android:layout_marginHorizontal="15dp"
+                            android:textColor="@color/white1"
+                            android:layout_weight="1"
+                            android:text="SiCepat"/>
+                        <TextView
+                            android:fontFeatureSettings="tnum" android:id="@+id/ship_6"
+                            android:fontFamily="@font/alexis_gtwalsheim_light"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:textColor="@color/white1"
+                            android:paddingVertical="5dp"
+                            android:paddingHorizontal="8dp"
+                            android:layout_marginHorizontal="15dp"
+                            android:layout_weight="1"
+                            android:text="Lion"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginHorizontal="25dp"
+                        android:weightSum="3">
+                        <TextView
+                            android:fontFeatureSettings="tnum" android:id="@+id/ship_7"
+                            android:fontFamily="@font/alexis_gtwalsheim_light"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingVertical="5dp"
+                            android:paddingHorizontal="8dp"
+                            android:layout_marginHorizontal="15dp"
+                            android:textColor="@color/white1"
+                            android:layout_weight="1"
+                            android:text="Tiki"/>
+                        <TextView
+                            android:fontFeatureSettings="tnum" android:id="@+id/ship_8"
+                            android:fontFamily="@font/alexis_gtwalsheim_light"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingVertical="5dp"
+                            android:paddingHorizontal="8dp"
+                            android:layout_marginHorizontal="15dp"
+                            android:textColor="@color/white1"
+                            android:layout_weight="1"
+                            android:text="AntarAja"/>
+                        <TextView
+                            android:fontFeatureSettings="tnum" android:id="@+id/ship_9"
+                            android:fontFamily="@font/alexis_gtwalsheim_light"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:textColor="@color/white1"
+                            android:paddingVertical="5dp"
+                            android:paddingHorizontal="8dp"
+                            android:layout_marginHorizontal="15dp"
+                            android:layout_weight="1"
+                            android:text="Ninja"/>
+                    </LinearLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_bank_name"
+                        style="@style/Widget.Design.TextInputLayout"
+                        android:textColorHint="@color/white1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ed_bank_name"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/alexis_gtwalsheim_light"
+                            android:backgroundTint="@color/white"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="15sp"
+                            android:hint="Bank Name" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_acc_name"
+                        style="@style/Widget.Design.TextInputLayout"
+                        android:textColorHint="@color/white1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ed_acc_name"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/alexis_gtwalsheim_light"
+                            android:backgroundTint="@color/white"
+                            android:textSize="15sp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Account Name" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_acc_num"
+                        style="@style/Widget.Design.TextInputLayout"
+                        android:textColorHint="@color/white1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ed_acc_num"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/alexis_gtwalsheim_light"
+                            android:backgroundTint="@color/white"
+                            android:layout_width="match_parent"
+                            android:textSize="15sp"
+                            android:layout_height="wrap_content"
+                            android:hint="Account Number" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/footer"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:paddingBottom="30dp"
+                        android:layout_marginTop="35dp"
+                        android:paddingTop="20dp"
+                        app:layout_constraintTop_toBottomOf="@+id/h4Footer"
+                        app:layout_constraintBottom_toBottomOf="parent">
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/lemid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.4"/>
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/xlemid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.15"/>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/bll"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            app:layout_constraintTop_toBottomOf="@id/xlemid"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/lemid">
+                            <androidx.constraintlayout.widget.Guideline
+                                android:id="@+id/no_mid"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                app:layout_constraintGuide_percent="0.5"/>
+                            <androidx.constraintlayout.widget.Guideline
+                                android:id="@+id/line_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                app:layout_constraintGuide_percent="0.6"/>
+                            <ImageView android:id="@+id/i_return"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:src="@drawable/ic_return"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintBottom_toTopOf="@id/line_text"
+                                app:layout_constraintRight_toLeftOf="@+id/no_mid"
+                                app:tint="@color/white" />
+                            <TextView
+                                android:fontFeatureSettings="tnum" android:fontFamily="@font/alexis_gtwalsheim_light"
+                                android:id="@+id/t_return"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:text="Return"
+                                android:textColor="@color/white"
+                                android:gravity="center"
+                                app:layout_constraintTop_toBottomOf="@+id/line_text"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toLeftOf="@+id/no_mid"
+                                app:layout_constraintBottom_toBottomOf="parent"/>
+                            <ImageView
+                                android:id="@+id/i_contact"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:src="@drawable/ic_contact"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintLeft_toRightOf="@+id/no_mid"
+                                app:layout_constraintBottom_toTopOf="@id/line_text"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:tint="@color/white"/>
+                            <TextView
+                                android:fontFeatureSettings="tnum" android:fontFamily="@font/alexis_gtwalsheim_light"
+                                android:id="@+id/t_contact"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:text="Contact"
+                                android:textColor="@color/white"
+                                android:gravity="center"
+                                app:layout_constraintTop_toBottomOf="@+id/line_text"
+                                app:layout_constraintLeft_toRightOf="@+id/no_mid"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"/>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/rounder_button_grey"
+                            android:paddingLeft="30dp"
+                            android:paddingRight="30dp"
+                            android:alpha="0.5"
+                            android:layout_marginHorizontal="15dp"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintLeft_toRightOf="@+id/bll"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent">
+
+                            <com.airbnb.lottie.LottieAnimationView
+                                android:id="@+id/submitglide"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:lottie_loop="true"
+                                app:lottie_rawRes="@raw/arrow_submit_button_white"
+                                android:scaleType="fitXY"/>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

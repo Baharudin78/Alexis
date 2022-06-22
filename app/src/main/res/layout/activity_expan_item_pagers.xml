@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/parent"
+    tools:context=".ui.detail.ExpanItemPagersActivity">
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:transitionName="hahaha"
+        tools:targetApi="lollipop" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:fitsSystemWindows="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/hGuideButtons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.115"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/topBars"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/hGuideButtons">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/hGuideLogo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.5"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clTop"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/hGuideLogo">
+                <!-- HOME/OPTION BUTTON -->
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/vGuideHome0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.04"/>
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/vGuideHome00"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.13"/>
+
+                <ImageView android:id="@+id/option"
+                    android:layout_width="0dp"
+                    android:padding="3dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_option"
+                    app:tint="@color/black"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/vGuideHome0"
+                    app:layout_constraintRight_toLeftOf="@id/vGuideHome00"/>
+
+                <!-- ALEXIS LOGO -->
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/vALogo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.3"/>
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/vBLogo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.4"/>
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/vCLogo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.7"/>
+
+                <ImageView android:id="@+id/a_tx"
+                    android:layout_width="0dp"
+                    android:padding="5dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/logo_alexis"
+                    app:tint="@color/black"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/vALogo"
+                    app:layout_constraintRight_toLeftOf="@id/vBLogo"
+                    android:transitionName="a_transition"/>
+
+                <ImageView android:id="@+id/logo_alexis"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/logo_text_alexis"
+                    app:tint="@color/black"
+                    app:layout_constraintLeft_toRightOf="@+id/vBLogo"
+                    app:layout_constraintRight_toLeftOf="@+id/vCLogo"
+                    app:layout_constraintBottom_toBottomOf="@+id/a_tx"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:transitionName="alex_transition"/>
+
+                <!-- CART BUTTON -->
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/vGuideCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.87"/>
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/vGuideCartMax"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.96"/>
+
+                <ImageView android:id="@+id/cart"
+                    android:layout_width="0dp"
+                    android:padding="3dp"
+                    android:layout_height="0dp"
+                    android:src="@drawable/ic_chart"
+                    android:transitionName="back2cart"
+                    android:scaleType="fitCenter"
+                    app:tint="@color/black"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/vGuideCartMax"
+                    app:layout_constraintLeft_toRightOf="@id/vGuideCart"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintLeft_toLeftOf="@id/cart"
+                    app:layout_constraintRight_toRightOf="@id/cart"
+                    app:layout_constraintTop_toTopOf="@id/cart"
+                    app:layout_constraintBottom_toBottomOf="@id/cart">
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/vbd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent="0.4"/>
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/vbX"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent="0.8"/>
+                    <TextView
+                        android:fontFeatureSettings="tnum" android:id="@+id/count_cart"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:text="0"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/alexis_gtwalsheim_light"
+                        app:layout_constraintTop_toBottomOf="@id/vbd"
+                        app:layout_constraintBottom_toTopOf="@+id/vbX"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- CART BUTTON -->
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/vGuideLoved"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.87"/>
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/vGuideLovedMax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.96"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gA"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.04"/>
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.13"/>
+            <ImageView
+                android:id="@+id/btn_back"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:padding="3dp"
+                android:src="@drawable/ic_back"
+                app:layout_constraintTop_toBottomOf="@+id/clTop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/gA"
+                app:layout_constraintRight_toLeftOf="@id/gB"
+                app:tint="@color/black" />
+
+            <ImageView android:id="@+id/loved"
+                android:layout_width="0dp"
+                android:padding="3dp"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_love"
+                android:transitionName="back2wishlist"
+                app:tint="@color/black"
+                app:layout_constraintTop_toBottomOf="@+id/clTop"
+                app:layout_constraintRight_toLeftOf="@+id/vGuideLovedMax"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/vGuideLoved"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintLeft_toLeftOf="@id/loved"
+                app:layout_constraintRight_toRightOf="@id/loved"
+                app:layout_constraintTop_toTopOf="@id/loved"
+                app:layout_constraintBottom_toBottomOf="@id/loved">
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/fbd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.23"/>
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/fbX"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.75"/>
+                <TextView
+                    android:fontFeatureSettings="tnum" android:id="@+id/count_loved"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="12sp"
+                    android:text="0"
+                    android:fontFamily="@font/alexis_gtwalsheim_light"
+                    app:layout_constraintTop_toBottomOf="@id/fbd"
+                    app:layout_constraintBottom_toTopOf="@+id/fbX"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/transparent_menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

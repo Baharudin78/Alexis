@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.menu.UnavailableScanFragment">
+
+    <com.github.mmin18.widget.RealtimeBlurView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:realtimeBlurRadius="20dp"
+        app:realtimeOverlayColor="@color/transparent_expanmenu" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:fitsSystemWindows="true"
+        android:focusable="true">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/hGuideTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.15" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/cancel_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.03" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/cancel_mid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.09" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/cancel_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.03" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/cancel_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.1" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/cancel_left2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.89" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/cancel_right2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.97" />
+
+        <ImageView
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_cancel"
+            app:layout_constraintBottom_toTopOf="@+id/cancel_mid"
+            app:layout_constraintLeft_toRightOf="@+id/cancel_left"
+            app:layout_constraintRight_toLeftOf="@id/cancel_right"
+            app:layout_constraintTop_toBottomOf="@id/cancel_top"
+            app:tint="@color/white" />
+
+        <ImageView
+            android:id="@+id/btn_scan"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_scanning"
+            app:layout_constraintBottom_toTopOf="@+id/cancel_mid"
+            app:layout_constraintLeft_toRightOf="@+id/cancel_left2"
+            app:layout_constraintRight_toLeftOf="@id/cancel_right2"
+            app:layout_constraintTop_toBottomOf="@id/cancel_top"
+            app:tint="@color/white" />
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="@+id/hGuideTop"
+            app:layout_constraintLeft_toRightOf="@+id/cancel_left"
+            app:layout_constraintRight_toLeftOf="@id/cancel_right"
+            app:layout_constraintTop_toBottomOf="@id/btn_cancel"
+            app:tint="@color/white" />
+
+        <LinearLayout
+            android:id="@+id/recycle_order"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hGuideTop">
+
+            <com.budiyev.android.codescanner.CodeScannerView
+                android:id="@+id/view_scanner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:autoFocusButtonVisible="false"
+                app:flashButtonVisible="false" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

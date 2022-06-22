@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="white1">#BFBEBE</color>
+    <color name="white_transparent">#A3C8C3C3</color>
+    <color name="white_transparent2">#DAECE7E7</color>
+    <color name="white_transparent3">#DA424141</color>
+
+    <color name="grey">#E1DCDC</color>
+    <color name="grey_200">#DCD9D9</color>
+    <color name="grey_500">#BCBABA</color>
+    <color name="grey_600">#A4A4A4</color>
+    <color name="grey_700">#8C8C8C</color>
+    <color name="grey_800">#727272</color>
+    <color name="grey_1200">#353535</color>
+
+    <color name="yellow_button">#FAA838</color>
+    <color name="grey_tipis">#F0F0F0</color>
+
+    <color name="transparent">#00FFFFFF</color>
+    <color name="transparent_30percent">#4D000000</color>
+    <color name="transparent_80percent">#20EDE8E8</color>
+    <color name="transparent_100percent">#00EDE8E8</color>
+    <color name="transparent_expanmenu">#B2000000</color>
+
+    <color name="colorPrimary">#5d4037</color>
+
+    <!-- Circle Page Indicator -->
+    <color name="default_circle_indicator_fill_color">@color/black</color>
+    <color name="default_circle_indicator_page_color">@android:color/transparent</color>
+    <color name="default_circle_indicator_stroke_color">@color/black</color>
+
+    <!-- Color from Alexis PDF -->
+    <color name="alexis_orange">#DA9C26</color>
+    <color name="alexis_orange_button">#F9B028</color>
+    <color name="alexis_grey_transparent_button">#65E6E6E6</color>
+</resources>

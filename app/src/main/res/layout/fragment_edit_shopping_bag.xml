@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.shopping_bag.EditShoppingBagFragment">
+    <com.github.mmin18.widget.RealtimeBlurView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:realtimeBlurRadius="20dp"
+        app:realtimeOverlayColor="@color/transparent_expanmenu" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:fitsSystemWindows="true">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/hGuideTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.15" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/cancel_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.03" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/cancel_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.03" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/cancel_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.1" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/max_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.9" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/max_bott"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.86" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/txt_wl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.09" />
+
+        <ImageView
+            android:id="@+id/btn_cancel2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_cancel"
+            app:layout_constraintBottom_toTopOf="@+id/txt_wl"
+            app:layout_constraintLeft_toRightOf="@+id/cancel_left"
+            app:layout_constraintRight_toLeftOf="@id/cancel_right"
+            app:layout_constraintTop_toBottomOf="@id/cancel_top"
+            app:tint="@color/white" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="25dp"
+            android:background="@drawable/rounder_white_transparent"
+            app:layout_constraintBottom_toTopOf="@+id/max_bott"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hGuideTop">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/vGLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.1" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/MaxRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.9" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/MaxTop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.07" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/ImgMaxBot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.7" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/TopButtonMax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.88" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/MaxBot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.95" />
+
+            <ImageView
+                android:id="@+id/image_item"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginHorizontal="35dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/background4"
+                app:layout_constraintBottom_toTopOf="@id/ImgMaxBot"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/MaxTop" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/edit_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/TopButtonMax"
+                app:layout_constraintLeft_toRightOf="@+id/vGLeft"
+                app:layout_constraintRight_toLeftOf="@+id/MaxRight"
+                app:layout_constraintTop_toBottomOf="@id/ImgMaxBot">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/TxtSizeBot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.3" />
+
+                <LinearLayout
+                    android:id="@+id/size_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:gravity="bottom"
+                    android:orientation="horizontal"
+                    android:weightSum="5"
+                    app:layout_constraintBottom_toTopOf="@+id/TxtSizeBot"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_xs"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/alexis_gtwalsheim_regular"
+                        android:fontFeatureSettings="tnum"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="XS"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_s"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/alexis_gtwalsheim_regular"
+                        android:fontFeatureSettings="tnum"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="S"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_m"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/alexis_gtwalsheim_regular"
+                        android:fontFeatureSettings="tnum"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="M"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_l"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/alexis_gtwalsheim_regular"
+                        android:fontFeatureSettings="tnum"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="L"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_xl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/alexis_gtwalsheim_regular"
+                        android:fontFeatureSettings="tnum"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="XL"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/size_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    android:visibility="invisible"
+                    android:weightSum="5"
+                    app:layout_constraintTop_toBottomOf="@+id/size_tv">
+
+                    <EditText
+                        android:id="@+id/ed_xs"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8.5dp"
+                        android:layout_marginRight="8.5dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/white"
+                        android:fontFamily="@font/alexis_gtwalsheim_regular"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:maxEms="2"
+                        android:singleLine="true"
+                        android:text="0"
+                        android:textColor="@color/white" />
+
+                    <EditText
+                        android:id="@+id/ed_s"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8.5dp"
+                        android:layout_marginRight="8.5dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/white"
+                        android:fontFamily="@font/alexis_gtwalsheim_regular"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:maxEms="2"
+                        android:singleLine="true"
+                        android:text="0"
+                        android:textColor="@color/white" />
+
+                    <EditText
+                        android:id="@+id/ed_m"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8.5dp"
+                        android:layout_marginRight="8.5dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/white"
+                        android:fontFamily="@font/alexis_gtwalsheim_regular"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:maxEms="2"
+                        android:singleLine="true"
+                        android:text="0"
+                        android:textColor="@color/white" />
+
+                    <EditText
+                        android:id="@+id/ed_l"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8.5dp"
+                        android:layout_marginRight="8.5dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/white"
+                        android:fontFamily="@font/alexis_gtwalsheim_regular"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:maxEms="2"
+                        android:singleLine="true"
+                        android:text="0"
+                        android:textColor="@color/white" />
+
+                    <EditText
+                        android:id="@+id/ed_xl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8.5dp"
+                        android:layout_marginRight="8.5dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/white"
+                        android:fontFamily="@font/alexis_gtwalsheim_regular"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:maxEms="2"
+                        android:singleLine="true"
+                        android:text="0"
+                        android:textColor="@color/white" />
+
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/edit_btn"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/MaxBot"
+                app:layout_constraintLeft_toRightOf="@+id/vGLeft"
+                app:layout_constraintRight_toLeftOf="@+id/MaxRight"
+                app:layout_constraintTop_toBottomOf="@id/TopButtonMax">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/pot1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.25" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/pot1b"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.3" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/pot2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.6" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/pot3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.7" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/pot3b"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="1" />
+
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/tingA"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.1" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/tingB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.9" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="30dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/pot1">
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/hhd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent="0.65" />
+
+                    <ImageView
+                        android:id="@+id/i_contact"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:src="@drawable/ic_size"
+                        app:layout_constraintBottom_toTopOf="@+id/hhd"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/white" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:fontFamily="@font/alexis_gtwalsheim_light"
+                        android:fontFeatureSettings="tnum"
+                        android:gravity="center"
+                        android:text="Size"
+                        android:textColor="@color/white"
+                        android:textSize="10sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/hhd" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/ok_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/rounder_button_voucher"
+                    app:layout_constraintBottom_toBottomOf="@id/tingB"
+                    app:layout_constraintLeft_toRightOf="@id/pot3"
+                    app:layout_constraintRight_toLeftOf="@+id/pot3b"
+                    app:layout_constraintTop_toTopOf="@id/tingA">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="7dp"
+                        android:src="@drawable/ic_check"
+                        app:tint="@color/white" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/add_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/rounder_button_voucher"
+                    app:layout_constraintBottom_toBottomOf="@+id/tingB"
+                    app:layout_constraintLeft_toRightOf="@+id/pot1b"
+                    app:layout_constraintRight_toLeftOf="@id/pot2"
+                    app:layout_constraintTop_toTopOf="@+id/tingA">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/alexis_gtwalsheim_bold"
+                        android:fontFeatureSettings="tnum"
+                        android:gravity="center"
+                        android:text=">1"
+                        android:textColor="@color/white"
+                        android:textSize="25sp"
+                        android:textStyle="bold" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

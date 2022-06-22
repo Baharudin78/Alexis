@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.github.mmin18.widget.RealtimeBlurView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:realtimeBlurRadius="20dp"
+        app:realtimeOverlayColor="@color/transparent_expanmenu" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:fitsSystemWindows="true"
+        android:focusable="true">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/cancel_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.03" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/cancel_bot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.09" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/cancel_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.03" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/cancel_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.1" />
+
+        <ImageView
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_cancel"
+            app:layout_constraintBottom_toTopOf="@+id/cancel_bot"
+            app:layout_constraintLeft_toRightOf="@+id/cancel_left"
+            app:layout_constraintRight_toLeftOf="@id/cancel_right"
+            app:layout_constraintTop_toBottomOf="@id/cancel_top"
+            app:tint="@color/white" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cancel_bot">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/top_wa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.4" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/top_mail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.55" />
+
+            <TextView
+                android:id="@+id/textTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/alexis_gtwalsheim_bold"
+                android:fontFeatureSettings="tnum"
+                android:gravity="center"
+                android:text="@string/about_us"
+                android:textColor="@color/white"
+                android:textSize="@dimen/fragment_title_size"
+                app:layout_constraintBottom_toTopOf="@+id/top_wa"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_wa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/alexis_gtwalsheim_regular"
+                android:fontFeatureSettings="tnum"
+                android:gravity="center"
+                android:text="@string/phone_number_alexis"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:drawableStartCompat="@drawable/ic_whatsapp"
+                app:drawableTint="@color/white"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/top_wa" />
+
+            <TextView
+                android:id="@+id/txt_mail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/alexis_gtwalsheim_regular"
+                android:fontFeatureSettings="tnum"
+                android:gravity="center"
+                android:text="@string/email_alexis"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:drawableStartCompat="@drawable/ic_email_transparent"
+                app:drawableTint="@color/white"
+                app:layout_constraintBottom_toTopOf="@+id/top_mail"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <TextView
+                android:id="@+id/contact_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/alexis_gtwalsheim_regular"
+                android:fontFeatureSettings="tnum"
+                android:gravity="center"
+                android:textColor="@color/white1"
+                android:textSize="12sp"
+                android:text="@string/open_hours_alexis"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/top_mail"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

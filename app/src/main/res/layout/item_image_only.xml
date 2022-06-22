@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="73dp"
+    android:layout_height="match_parent"
+    android:paddingStart="8dp"
+    android:paddingEnd="0dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
+    <RelativeLayout
+        android:id="@+id/base_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp">
+        <ImageView
+            android:id="@+id/image_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/background4"
+            android:background="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+        <View
+            android:id="@+id/is_returned"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparent_30percent"/>
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

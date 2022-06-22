@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Alexis</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="tag_is_center">tagIsCenter</string>
+
+    <string name="en_referinfo">Refer and earn Rp 5.000 Voucher after the receipient completes a transaction.</string>
+
+    <string name="en_pointinfo">Get Rp 10.000 Voucher by redeeming 500 points. Voucher expires in 1 month.</string>
+
+    <string name="en_infodropshiping">We will print your name as the Sender, discard
+the price tag and use plain packaging material
+without our logo.</string>
+
+    <string name="en_infodetailorder">You may return the product within 3 days. See Return Guide.</string>
+
+    <string name="en_info1st_purchase">Please note that the clothing size information in the clothing label is different from the size in the Online Shop. See Size Guide for explanations.</string>
+
+    <string name="en_reserve_item_shopbag">Product in Shopping Cart will reserved for you in ... hour</string>
+
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A pellentesque sit amet porttitor eget dolor. Pulvinar elementum integer enim neque volutpat. Convallis posuere morbi leo urna molestie at elementum eu facilisis. Egestas sed tempus urna et pharetra pharetra massa. Ultrices neque ornare aenean euismod elementum nisi. Nam aliquam sem et tortor consequat. Vitae proin sagittis nisl rhoncus mattis rhoncus urna. Eu mi bibendum neque egestas congue quisque egestas. Lectus mauris ultrices eros in cursus turpis massa. Urna neque viverra justo nec ultrices dui sapien. Nullam ac tortor vitae purus faucibus ornare suspendisse sed nisi. Eget sit amet tellus cras adipiscing enim eu.
+
+Tincidunt vitae semper quis lectus nulla at. Aliquam ut porttitor leo a diam sollicitudin tempor. Gravida dictum fusce ut placerat orci nulla pellentesque. Ultricies leo integer malesuada nunc vel. Et leo duis ut diam quam nulla porttitor massa. Scelerisque viverra mauris in aliquam sem fringilla ut morbi tincidunt. Egestas fringilla phasellus faucibus scelerisque eleifend donec pretium vulputate sapien. Nibh venenatis cras sed felis eget velit aliquet. Purus gravida quis blandit turpis cursus in. Sit amet venenatis urna cursus eget nunc scelerisque viverra mauris. Nullam vehicula ipsum a arcu cursus vitae. Elementum facilisis leo vel fringilla est ullamcorper eget. Iaculis eu non diam phasellus vestibulum lorem. Lectus nulla at volutpat diam ut. Id faucibus nisl tincidunt eget. Morbi tristique senectus et netus et malesuada fames.</string>
+
+    <string name="open_hours_alexis">Monday to Friday from 09:00 to 24:00.\nWeekend &amp; Holiday from 10:00 to 21:00.</string>
+    <string name="about_us">About Us</string>
+    <string name="phone_number_alexis">0811 994 9994</string>
+    <string name="email_alexis">hello@alexis.fashion</string>
+
+    <string name="auth_error">%s Failed</string>
+
+    <string name="quantity">x%s</string>
+    <string name="size">Size %s</string>
+    <string name="weight">%sgr</string>
+    <string name="price">Rp %s</string>
+
+</resources>

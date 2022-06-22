@@ -1,0 +1,25 @@
+<animated-selector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="NewApi">
+
+    <item
+        android:id="@+id/box"
+        android:drawable="@drawable/ic_checkbox"
+        android:state_checked="false"/>
+
+    <item
+        android:id="@+id/check"
+        android:drawable="@drawable/ic_check"
+        android:state_checked="true"/>
+
+    <transition
+        android:drawable="@drawable/avd_box_to_check"
+        android:fromId="@id/box"
+        android:toId="@id/check"/>
+
+    <transition
+        android:drawable="@drawable/avd_check_to_box"
+        android:fromId="@id/check"
+        android:toId="@id/box"/>
+
+</animated-selector>

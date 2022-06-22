@@ -1,0 +1,31 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Alexis" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/grey_200</item>
+        <item name="colorPrimaryVariant">@color/grey_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/grey_500</item>
+        <item name="colorSecondaryVariant">@color/grey_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
+
+    <style name="boldText">
+        <item name="android:fontFamily">@font/alexis_gtwalsheim_bold</item>
+    </style>
+
+    <style name="regularText">
+        <item name="android:fontFamily">@font/alexis_gtwalsheim_regular</item>
+    </style>
+
+    <style name="lightText">
+        <item name="android:fontFamily">@font/alexis_gtwalsheim_light</item>
+    </style>
+
+</resources>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:orientation="vertical">
+          <TextView
+               android:fontFeatureSettings="tnum" android:fontFamily="@font/alexis_gtwalsheim_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:paddingRight="5dp"
+            android:text="product price savings"
+            android:gravity="right"/>
+          <TextView
+               android:fontFeatureSettings="tnum" android:fontFamily="@font/alexis_gtwalsheim_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:paddingRight="5dp"
+            android:text="shipping savings"
+            android:gravity="right"/>
+          <TextView
+               android:fontFeatureSettings="tnum" android:fontFamily="@font/alexis_gtwalsheim_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:paddingRight="5dp"
+            android:text="voucher/discount"
+            android:gravity="right"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:orientation="vertical">
+          <TextView
+               android:fontFeatureSettings="tnum" android:fontFamily="@font/alexis_gtwalsheim_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:paddingRight="5dp"
+            android:text="> Rp"
+            android:gravity="right"/>
+          <TextView
+               android:fontFeatureSettings="tnum" android:fontFamily="@font/alexis_gtwalsheim_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:paddingRight="5dp"
+            android:text="Rp"
+            android:gravity="right"/>
+          <TextView
+               android:fontFeatureSettings="tnum" android:fontFamily="@font/alexis_gtwalsheim_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:paddingRight="5dp"
+            android:text="Rp"
+            android:gravity="right"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:orientation="vertical">
+          <TextView
+               android:fontFeatureSettings="tnum" android:id="@+id/sv_price"
+            android:fontFamily="@font/alexis_gtwalsheim_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:paddingRight="5dp"
+            android:text="390.000"
+            android:gravity="right"/>
+          <TextView
+               android:fontFeatureSettings="tnum" android:id="@+id/sv_shipping"
+            android:fontFamily="@font/alexis_gtwalsheim_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:paddingRight="5dp"
+            android:text="10.000"
+            android:gravity="right"/>
+          <TextView
+               android:fontFeatureSettings="tnum" android:id="@+id/sv_diskon"
+            android:fontFamily="@font/alexis_gtwalsheim_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:paddingRight="5dp"
+            android:text="30.000"
+            android:gravity="right"/>
+    </LinearLayout>
+
+
+</LinearLayout>

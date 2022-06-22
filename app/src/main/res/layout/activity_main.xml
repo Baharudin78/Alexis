@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested_base"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/base_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.github.mmin18.widget.RealtimeBlurView
+        android:id="@+id/blur_first"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        app:realtimeBlurRadius="20dp"
+        app:realtimeOverlayColor="@color/transparent_80percent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/hGuideButtons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="100dp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/topBars"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/hGuideButtons"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/hGuideLogo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clTop"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:animateLayoutChanges="true"
+                app:layout_constraintBottom_toTopOf="@+id/hGuideLogo"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+                <!-- HOME/OPTION BUTTON -->
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/vGuideHome0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.04" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/vGuideHome00"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.13" />
+
+                <CheckBox
+                    android:id="@+id/option"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/menu_to_close"
+                    android:buttonTint="@color/white"
+                    app:layout_constraintLeft_toRightOf="@+id/vGuideHome0"
+                    app:layout_constraintRight_toLeftOf="@id/vGuideHome00"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!-- ALEXIS LOGO -->
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/vALogo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.3" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/vBLogo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.4" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/vCLogo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.7" />
+
+                <ImageView
+                    android:id="@+id/a_tx"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:src="@drawable/logo_alexis"
+                    android:transitionName="a_transition"
+                    app:layout_constraintLeft_toRightOf="@id/vALogo"
+                    app:layout_constraintRight_toLeftOf="@id/vBLogo"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/white" />
+
+                <ImageView
+                    android:id="@+id/logo_alexis"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/logo_text_alexis"
+                    android:transitionName="alex_transition"
+                    app:layout_constraintBottom_toBottomOf="@+id/a_tx"
+                    app:layout_constraintLeft_toRightOf="@+id/vBLogo"
+                    app:layout_constraintRight_toLeftOf="@+id/vCLogo"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/white" />
+
+                <!-- CART BUTTON -->
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/vGuideCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.87" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/vGuideCartMax"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.96" />
+
+                <ImageView
+                    android:id="@+id/cart"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:padding="3dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_chart"
+                    android:transitionName="back2cart"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/vGuideCart"
+                    app:layout_constraintRight_toLeftOf="@+id/vGuideCartMax"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/white" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="@id/cart"
+                    app:layout_constraintLeft_toLeftOf="@id/cart"
+                    app:layout_constraintRight_toRightOf="@id/cart"
+                    app:layout_constraintTop_toTopOf="@id/cart">
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/vbd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent="0.4" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/vbX"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent="0.8" />
+
+                    <TextView
+                        android:id="@+id/count_cart"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:fontFamily="@font/alexis_gtwalsheim_light"
+                        android:fontFeatureSettings="tnum"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toTopOf="@+id/vbX"
+                        app:layout_constraintTop_toBottomOf="@id/vbd" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- CART BUTTON -->
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/vGuideLoved"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.87" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/vGuideLovedMax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.96" />
+
+            <ImageView
+                android:id="@+id/loved"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:padding="3dp"
+                android:src="@drawable/ic_love"
+                android:transitionName="back2wishlist"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/vGuideLoved"
+                app:layout_constraintRight_toLeftOf="@+id/vGuideLovedMax"
+                app:layout_constraintTop_toBottomOf="@+id/clTop"
+                app:tint="@color/white" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@id/loved"
+                app:layout_constraintLeft_toLeftOf="@id/loved"
+                app:layout_constraintRight_toRightOf="@id/loved"
+                app:layout_constraintTop_toTopOf="@id/loved">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/fbd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.23" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/fbX"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.75" />
+
+                <TextView
+                    android:id="@+id/count_loved"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:fontFamily="@font/alexis_gtwalsheim_light"
+                    android:fontFeatureSettings="tnum"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/fbX"
+                    app:layout_constraintTop_toBottomOf="@id/fbd" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/transparent_menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

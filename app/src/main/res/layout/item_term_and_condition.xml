@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="20dp"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="1.Introduction"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:fontFamily="@font/alexis_gtwalsheim_regular"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:id="@+id/body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white1"
+        android:textStyle="bold"
+        android:layout_below="@id/title"
+        android:alpha="0.8"
+        android:textSize="14sp"
+        tools:text="iwdoqbdoqbdoqd iqndiq diqndq"
+        android:fontFamily="@font/alexis_gtwalsheim_light"/>
+
+</RelativeLayout>

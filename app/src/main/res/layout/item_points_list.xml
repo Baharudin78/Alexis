@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="20dp"
+    android:paddingBottom="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/spt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.8"/>
+    <TextView
+        android:fontFeatureSettings="tnum" android:fontFamily="@font/alexis_gtwalsheim_regular"  android:id="@+id/id4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="42.923"
+        android:textStyle=""
+        android:gravity="right"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textColor="@color/white"
+        app:layout_constraintLeft_toRightOf="@id/spt"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/detail_mode"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounder_white_transparent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/spt"
+        app:layout_constraintTop_toTopOf="parent">
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/maxA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05"/>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/mid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.6"/>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/maxB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95"/>
+
+        <TextView
+            android:fontFeatureSettings="tnum" android:fontFamily="@font/alexis_gtwalsheim_regular"  android:id="@+id/id1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="20 Jul 20"
+            android:gravity="center|left"
+            android:paddingTop="10dp"
+            android:paddingBottom="2dp"
+            android:textColor="@color/white"
+            android:alpha="0.7"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/maxA"
+            app:layout_constraintRight_toLeftOf="@+id/mid"/>
+
+        <TextView
+            android:fontFeatureSettings="tnum" android:fontFamily="@font/alexis_gtwalsheim_regular"  android:id="@+id/id2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Online Shop"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:paddingTop="5dp"
+            android:paddingBottom="10dp"
+            android:textColor="@color/white"
+            app:layout_constraintLeft_toRightOf="@+id/maxA"
+            app:layout_constraintRight_toLeftOf="@+id/mid"
+            app:layout_constraintTop_toBottomOf="@+id/id1"/>
+
+        <TextView
+            android:fontFeatureSettings="tnum"
+            android:fontFamily="@font/alexis_gtwalsheim_regular"
+            android:id="@+id/id3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="1.142.923"
+            android:gravity="right"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/id2"
+            app:layout_constraintLeft_toRightOf="@+id/mid"
+            app:layout_constraintRight_toLeftOf="@+id/maxB"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

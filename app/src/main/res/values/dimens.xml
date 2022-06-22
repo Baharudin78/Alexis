@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+
+    <dimen name="fragment_title_size">24sp</dimen>
+
+    <!-- Circle Page Indicator -->
+    <dimen name="default_circle_indicator_radius">4dp</dimen>
+    <dimen name="default_circle_indicator_stroke_width">1dp</dimen>
+
+    <!-- Navbar -->
+    <dimen name="alexis_navbar_size">@dimen/sl_toolbar_size</dimen>
+    <dimen name="dimens">18sp</dimen>
+
+</resources>
