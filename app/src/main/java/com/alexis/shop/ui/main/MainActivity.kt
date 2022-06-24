@@ -23,7 +23,7 @@ import com.alexis.shop.R
 import com.alexis.shop.data.Resource
 import com.alexis.shop.data.source.dummy.getListProduct
 import com.alexis.shop.domain.model.product.Product
-import com.alexis.shop.domain.model.product.ProductsModel
+import com.alexis.shop.domain.model.product.modelbaru.ProductBaruModel
 import com.alexis.shop.domain.model.wishlist.WishlistModel
 import com.alexis.shop.ui.detail.ExpanItemPagersActivity
 import com.alexis.shop.ui.detail.adapter.entity.LandingPage
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var loved: ImageView
     private lateinit var count_loved: TextView
     private lateinit var logo: ImageView
-    private lateinit var products: ArrayList<Product>
+   // private lateinit var products: ArrayList<Product>
     private var countCart = 0
     private var countLoved = 0
     private val adapter = BaseListAdapter(ItemTypeFactoryImpl())
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
         getProductCategory()
 
-        products = getListProduct()
+      //  products = getListProduct()
 
         option = findViewById(R.id.option)
         cart = findViewById(R.id.cart)
@@ -370,12 +370,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun addProductToAdapter(product: List<ProductsModel>) {
-        val listDouble = ArrayList<ProductsModel>()
+    private fun addProductToAdapter(product: List<ProductBaruModel>) {
+        val listDouble = ArrayList<ProductBaruModel>()
         product.forEach {
-            if(it.imageType.lowercase() == double) {
-                listDouble.add(it)
-            } else {
+//            if(it.imageType.lowercase() == double) {
+//                listDouble.add(it)
+//            } else {
                 if(listDouble.isNotEmpty()) {
                     val subCategoryTypeAProduct = SubCategoryTypeAProduct(
                         listDouble,
@@ -391,7 +391,7 @@ class MainActivity : AppCompatActivity() {
                     getWidthResolution(applicationContext)
                 )
                 adapter.addItem(subCategoryProduct)
-            }
+           // }
         }
     }
 

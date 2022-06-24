@@ -4,6 +4,7 @@ import com.alexis.shop.data.remote.auth.LoginResponse
 import com.alexis.shop.data.remote.auth.RegisterResponse
 import com.alexis.shop.data.remote.checkout.CheckoutAddressGetResponse
 import com.alexis.shop.data.remote.checkout.CheckoutAddressPostResponse
+import com.alexis.shop.data.remote.model.productbaru.ProductBaruResponse
 import com.alexis.shop.data.remote.product.ProductsGetByIdResponse
 import com.alexis.shop.data.remote.product.ProductsResponse
 import com.alexis.shop.data.remote.product.category.ProductCategoryResponse
@@ -67,7 +68,8 @@ interface ApiService {
     suspend fun deleteWishlist(@Query("wishlist_id") wishlistId: Int): WishlistGetResponse
 
     @GET(UrlConstant.PRODUCTS_URL)
-    suspend fun getAllProduct(): ProductsResponse
+    //suspend fun getAllProduct(): ProductsResponse
+    suspend fun getAllProduct(): ProductBaruResponse
 
     @GET(UrlConstant.PRODUCTS_URL)
     suspend fun getProductById(@Query("product_id") productId: Int): ProductsGetByIdResponse

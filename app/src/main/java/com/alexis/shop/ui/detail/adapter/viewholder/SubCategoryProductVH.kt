@@ -6,7 +6,7 @@ import android.widget.LinearLayout
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.isVisible
 import com.alexis.shop.R
-import com.alexis.shop.domain.model.product.ProductsModel
+import com.alexis.shop.domain.model.product.modelbaru.ProductBaruModel
 import com.alexis.shop.ui.detail.ExpanItemPagersActivity
 import com.alexis.shop.ui.detail.adapter.entity.SubCategoryProduct
 import com.alexis.shop.ui.main.MainActivity
@@ -30,16 +30,16 @@ class SubCategoryProductVH(
     }
 
     override fun bind(element: SubCategoryProduct) {
-        title.text = element.productModels.englishName
+        title.text = element.productModels.name
         price.text = element.productModels.price.toString()
-        image.loadImage(element.productModels.thumbnail)
+        image.loadImage(element.productModels.product_image?.imageProduct?.map { it.image_url }.toString())
 
-        when (element.productModels.imageType) {
-            "double" -> typeASetting(element)
-            "single" -> typeBSetting(element)
-            "C" -> typeCSetting(element)
-            else -> typeCSetting(element)
-        }
+//        when (element.productModels.imageType) {
+//            "double" -> typeASetting(element)
+//            "single" -> typeBSetting(element)
+//            "C" -> typeCSetting(element)
+//            else -> typeCSetting(element)
+//        }
 
         itemView.setOnClickListener {
             openDetail(itemView, element.productModels)
@@ -81,21 +81,22 @@ class SubCategoryProductVH(
         lTitleimage.layoutParams = layoutParamsTitle
     }
 
-    private fun openDetail(itemView: View, data: ProductsModel) {
+    private fun openDetail(itemView: View, data: ProductBaruModel) {
         val context = itemView.context as MainActivity
         val intent = Intent(context, ExpanItemPagersActivity::class.java).apply {
             putExtra(ExpanItemPagersActivity.EXTRA_DATA, data)
         }
 
-        if (data.imageType == "C") {
-            context.startActivity(intent)
-        } else {
+//        if (data.imageType == "C") {
+//            context.startActivity(intent)
+//        }
+       // else {
             val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                 context,
                 itemView,
                 "shared_transition"
             )
             context.resultLauncher.launch(intent, options)
-        }
+       // }
     }
 }

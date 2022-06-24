@@ -6,7 +6,7 @@ object UrlConstant {
     const val REGISTER_URL = AUTH_URL + "register"
     const val ACTIVATE_URL = AUTH_URL + "activate"
 
-    const val PRODUCTS_URL = "products/"
+    const val PRODUCTS_URL = "mw/products/"
     const val CATEGORY_URL = PRODUCTS_URL + "category"
     const val SIZE_FILTER_URL = PRODUCTS_URL + "size-code"
     const val SHOPPING_BAG_URL = PRODUCTS_URL + "cart"

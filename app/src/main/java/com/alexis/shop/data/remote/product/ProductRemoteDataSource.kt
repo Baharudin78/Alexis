@@ -1,8 +1,10 @@
 package com.alexis.shop.data.remote.product
 
 import android.util.Log
+import com.alexis.shop.data.remote.model.productbaru.ProductBaruResponse
 import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.data.remote.network.ApiService
+import com.google.android.gms.common.api.Api
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -12,13 +14,29 @@ import javax.inject.Singleton
 
 @Singleton
 class ProductRemoteDataSource @Inject constructor(private val apiService: ApiService) {
-    suspend fun getAllProduct(): Flow<ApiResponse<ProductsResponse>> {
+//    suspend fun getAllProduct(): Flow<ApiResponse<ProductsResponse>> {
+//        return flow {
+//            try {
+//                val response = apiService.getAllProduct()
+//                if (response.data?.products?.isNotEmpty() == true) {
+//                    emit(ApiResponse.Success(response))
+//                } else {
+//                    emit(ApiResponse.Empty)
+//                }
+//            } catch (e: Exception) {
+//                emit(ApiResponse.Error(e.toString()))
+//                Log.e("RemoteDataSource", e.toString())
+//            }
+//        }.flowOn(Dispatchers.IO)
+//    }
+
+    suspend fun getAllProduct(): Flow<ApiResponse<ProductBaruResponse>> {
         return flow {
             try {
                 val response = apiService.getAllProduct()
-                if (response.data?.products?.isNotEmpty() == true) {
+                if (response.data?.product?.isNotEmpty()== true) {
                     emit(ApiResponse.Success(response))
-                } else {
+                }else {
                     emit(ApiResponse.Empty)
                 }
             } catch (e: Exception) {
