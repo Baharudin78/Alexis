@@ -1,6 +1,8 @@
 package com.alexis.shop.data.remote.model.productbaru
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 data class ProductBaruResponse(
     val code: Int,
@@ -10,30 +12,33 @@ data class ProductBaruResponse(
     val status: String
 )
 data class Data(
+    @field:SerializedName("items")
     val product : List<ProductItems>? = null
 )
 data class ProductItems(
     val barcode: String,
-    val change_to_listed: Any,
-    val change_to_stored: Any,
+    val change_to_listed: String,
+    val change_to_stored: String,
     val color_id: String,
     val item_code: String,
     val material_id: String,
     val name: String,
     val price: Int,
     val product_id: Int,
-    val product_image: ImageProduct? = null,
+    val product_image: List<ImageModel>? = null,
     val size_id: String,
     val status: String,
     val stock: Int,
     val stock_keeping_unit: String,
-    val style_id: Any,
+    val style_id: String,
     val subcategory_id: Int,
     val weight: Int
 )
-data class ImageProduct(
-    val imageProduct : List<ImageModel>? = null
-)
+//data class ImageProduct(
+//    @field:SerializedName("product_image")
+//    val imageProduct : List<ImageModel>? = null
+//)
+@Parcelize
 data class ImageModel(
     val bag_wishlist_order_display: Int,
     val image_url: String,
@@ -42,4 +47,4 @@ data class ImageModel(
     val product_item_code: String,
     val product_list_display: String,
     val type: String
-)
+) : Parcelable

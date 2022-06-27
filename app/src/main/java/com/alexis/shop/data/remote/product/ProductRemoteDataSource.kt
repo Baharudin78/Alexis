@@ -9,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import retrofit2.Response
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -33,14 +34,20 @@ class ProductRemoteDataSource @Inject constructor(private val apiService: ApiSer
     suspend fun getAllProduct(): Flow<ApiResponse<ProductBaruResponse>> {
         return flow {
             try {
+                Log.d("RemoteDataSource", "1")
                 val response = apiService.getAllProduct()
+
                 if (response.data?.product?.isNotEmpty()== true) {
+                    Log.d("RemoteDataSource", "2")
                     emit(ApiResponse.Success(response))
-                }else {
+                }
+                else {
+                    Log.d("RemoteDataSource", "3")
                     emit(ApiResponse.Empty)
                 }
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
+                Log.d("RemoteDataSource", "4")
                 Log.e("RemoteDataSource", e.toString())
             }
         }.flowOn(Dispatchers.IO)

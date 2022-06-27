@@ -33,6 +33,7 @@ import com.alexis.shop.data.source.dummy.SizeList
 import com.alexis.shop.databinding.BottomsheetAddcartItemBinding
 import com.alexis.shop.databinding.FragmentPageBinding
 import com.alexis.shop.domain.model.product.*
+import com.alexis.shop.domain.model.product.modelbaru.ProductBaruModel
 import com.alexis.shop.ui.detail.ExpanItemPagersActivity.Companion.BACK_TO_CART
 import com.alexis.shop.ui.detail.ExpanItemPagersActivity.Companion.BACK_TO_WISHLIST
 import com.alexis.shop.ui.detail.adapter.ImageOrderAdapter
@@ -56,7 +57,8 @@ class PageFragment : Fragment(R.layout.fragment_page) {
     private val viewModel: DetailViewModel by viewModels()
 
     private val binding: FragmentPageBinding by viewBinding()
-    private var product: ProductsModel? = null
+    //private var product: ProductsModel? = null
+    private var product: ProductBaruModel? = null
     private var productDetailData: ProductsByIdModel? = null
     private lateinit var ivArrayDotsPager: Array<ImageView?>
 
@@ -115,7 +117,7 @@ class PageFragment : Fragment(R.layout.fragment_page) {
     }
 
     private fun getProductById() {
-        viewModel.getProductById(product?.id.orZero()).observe(viewLifecycleOwner) { response ->
+        viewModel.getProductById(product?.product_id.orZero()).observe(viewLifecycleOwner) { response ->
             if (response != null) {
                 when (response) {
                     is Resource.Loading -> {}
@@ -178,7 +180,7 @@ class PageFragment : Fragment(R.layout.fragment_page) {
     private fun postWishlist() {
         activity?.let {
             if(product != null) {
-                viewModel.postWishlist(product?.id.toString()).observe(viewLifecycleOwner) { response ->
+                viewModel.postWishlist(product?.product_id.toString()).observe(viewLifecycleOwner) { response ->
                     if (response != null) {
                         when (response) {
                             is Resource.Loading -> {}
@@ -207,7 +209,7 @@ class PageFragment : Fragment(R.layout.fragment_page) {
     private fun postShoppingBag(size: String) {
         activity?.let {
             if(product != null) {
-                viewModel.postShoppingBag(product?.id.toString(), 1, size).observe(viewLifecycleOwner) { response ->
+                viewModel.postShoppingBag(product?.product_id.toString(), 1, size).observe(viewLifecycleOwner) { response ->
                     if (response != null) {
                         when (response) {
                             is Resource.Loading -> {}
@@ -588,7 +590,7 @@ class PageFragment : Fragment(R.layout.fragment_page) {
         const val PRODUCT = "product"
 
         @JvmStatic
-        fun newInstance(product: ProductsModel) =
+        fun newInstance(product: ProductBaruModel) =
             PageFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(PRODUCT, product)

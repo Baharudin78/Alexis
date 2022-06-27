@@ -1,7 +1,6 @@
 package com.alexis.shop.domain.model.product.modelbaru
 
 import android.os.Parcelable
-import com.alexis.shop.data.remote.model.productbaru.ImageProduct
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.RawValue
 
@@ -16,7 +15,7 @@ data class ProductBaruModel(
     val name: String? ="",
     val price: Int? =0,
     val product_id: Int? =0,
-    val product_image: @RawValue ImageProduct? = null,
+    val product_image: @RawValue List<ImagesModel>? = null,
     val size_id: String? ="",
     val status: String? ="",
     val stock: Int? =0,
@@ -26,10 +25,10 @@ data class ProductBaruModel(
     val weight: Int? =0
 ): Parcelable
 
-data class ImageProductModel(
-    val imageProduct : List<ImageModel>? = null
-)
-data class ImageModel(
+//data class ImageProductModel(
+//    val imageProduct : List<ImagesModel>? = null
+//)
+data class ImagesModel(
     val bag_wishlist_order_display: Int,
     val image_url: String,
     val product_detail_display: Int,

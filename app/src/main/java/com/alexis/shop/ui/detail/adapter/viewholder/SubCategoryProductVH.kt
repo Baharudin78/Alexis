@@ -32,7 +32,8 @@ class SubCategoryProductVH(
     override fun bind(element: SubCategoryProduct) {
         title.text = element.productModels.name
         price.text = element.productModels.price.toString()
-        image.loadImage(element.productModels.product_image?.imageProduct?.map { it.image_url }.toString())
+        //image.loadImage(element.productModels.product_image?.imageProduct?.map { it.image_url }.toString())
+        image.loadImage(element.productModels.product_image?.map { it.image_url }.toString())
 
 //        when (element.productModels.imageType) {
 //            "double" -> typeASetting(element)

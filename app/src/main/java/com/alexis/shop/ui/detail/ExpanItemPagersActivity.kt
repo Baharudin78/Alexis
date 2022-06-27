@@ -12,8 +12,8 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.*
 import androidx.viewpager2.widget.ViewPager2
 import com.alexis.shop.R
-import com.alexis.shop.data.source.dummy.getListProduct
 import com.alexis.shop.domain.model.product.ProductsModel
+import com.alexis.shop.domain.model.product.modelbaru.ProductBaruModel
 import com.alexis.shop.domain.model.wishlist.WishlistModel
 import com.alexis.shop.ui.detail.adapter.ExpanFragmentPagerAdapter
 import com.alexis.shop.ui.menu.MenuFragment
@@ -29,7 +29,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class ExpanItemPagersActivity : AppCompatActivity() {
     private lateinit var pagerAdapter: ExpanFragmentPagerAdapter
     private lateinit var fragments: ArrayList<Fragment>
-    var productsModel: ProductsModel? = null
+   // var productsModel: ProductsModel? = null
+    var productsModel: ProductBaruModel? = null
     lateinit var btn_menu: ImageView
     lateinit var btn_cart: ImageView
     lateinit var btn_love: ImageView
@@ -118,7 +119,7 @@ class ExpanItemPagersActivity : AppCompatActivity() {
     }
 
     private fun getIntentData() {
-        intent.getParcelableExtra<ProductsModel>(EXTRA_DATA)?.let {
+        intent.getParcelableExtra<ProductBaruModel>(EXTRA_DATA)?.let {
             productsModel = it
         }
     }

@@ -67,14 +67,14 @@ interface ApiService {
     @DELETE(UrlConstant.WISHLIST_URL)
     suspend fun deleteWishlist(@Query("wishlist_id") wishlistId: Int): WishlistGetResponse
 
-    @GET(UrlConstant.PRODUCTS_URL)
+    @GET("mw/products/")
     //suspend fun getAllProduct(): ProductsResponse
     suspend fun getAllProduct(): ProductBaruResponse
 
-    @GET(UrlConstant.PRODUCTS_URL)
+    @GET("mw/products/{productId}")
     suspend fun getProductById(@Query("product_id") productId: Int): ProductsGetByIdResponse
 
-    @GET(UrlConstant.CATEGORY_URL)
+    @GET("mw/product-category")
     suspend fun getAllProductCategory(): ProductCategoryResponse
 
     @GET(UrlConstant.STORE_LOCATION_URL)
