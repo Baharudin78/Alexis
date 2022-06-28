@@ -32,8 +32,10 @@ class ProductCategoryRepository @Inject constructor(
                     id = it.id.orZero(),
                     nameInEng = it.nameInEng.orEmpty(),
                     nameInId = it.nameInId.orEmpty(),
-                    createdAt = it.createdAt.orEmpty(),
-                    updatedAt = it.updatedAt.orEmpty()
+                    //createdAt = it.createdAt.orEmpty(),
+                    //updatedAt = it.updatedAt.orEmpty(),
+                    merchandiseName = it.merchandiseName.orEmpty(),
+                    icon = it.icon.orEmpty()
                 )
             )
         }

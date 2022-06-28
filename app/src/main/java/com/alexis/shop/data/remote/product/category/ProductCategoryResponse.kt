@@ -17,7 +17,7 @@ data class ProductCategoryResponse(
 )
 
 data class ProductCategoryData (
-	@field:SerializedName("product_category")
+	@field:SerializedName("items")
 	val productCategory: List<ProductCategoryItemResponse>? = null,
 )
 
