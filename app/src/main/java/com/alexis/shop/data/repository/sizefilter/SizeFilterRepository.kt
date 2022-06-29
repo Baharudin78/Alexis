@@ -35,8 +35,8 @@ class SizeFilterRepository @Inject constructor(
                     id = it.id.orEmpty(),
                     name = it.name.orEmpty(),
                     selection = it.selection.orEmpty(),
-                    createdAt = it.createdAt.orEmpty(),
-                    updatedAt = it.updatedAt.orEmpty()
+                   // createdAt = it.createdAt.orEmpty(),
+                    //updatedAt = it.updatedAt.orEmpty()
                 )
             )
         }

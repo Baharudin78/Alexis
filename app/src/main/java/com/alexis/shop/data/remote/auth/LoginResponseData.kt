@@ -8,6 +8,7 @@ data class LoginResponseData(
     var userId: Int?,
     @SerializedName("nama_lengkap")
     var fullName: String?,
+    @SerializedName("email")
     var email: String?,
     @SerializedName("no_telp")
     var phone: String?,

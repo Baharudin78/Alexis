@@ -3,6 +3,7 @@ package com.alexis.shop.ui.account.login
 import android.app.Activity
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -61,7 +62,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                     justOut()
                 }, 1000L)
             }
-            loginButton.setOnClickListener { validateLogin() }
+            loginButton.setOnClickListener {
+                validateLogin()
+            }
             btnRegister.setOnClickListener {
                 requireActivity().supportFragmentManager.accountNavigator(
                     RegisterFragment()
@@ -95,9 +98,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         changeButtonLoginStatus(false)
         viewModel.login(email, password).observe(viewLifecycleOwner) { response ->
             if (response != null) {
+                Log.d("LOGIN", "0")
                 when (response) {
-                    is Resource.Loading -> {}
+                    is Resource.Loading -> {
+                        Log.d("LOGIN", "1")
+                    }
                     is Resource.Success -> {
+                        Log.d("LOGIN", "2")
                         response.data?.let {
                             viewModel.saveLoginCredential(it)
                             requireActivity().supportFragmentManager.menuNavigator(
@@ -107,6 +114,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                         changeButtonLoginStatus(true)
                     }
                     is Resource.Error -> {
+                        Log.d("LOGIN", "3")
                         changeButtonLoginStatus(true)
                         Toast.makeText(binding.root.context, getString(R.string.auth_error, "Login"), Toast.LENGTH_SHORT).show()
                     }

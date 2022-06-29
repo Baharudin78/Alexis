@@ -6,7 +6,6 @@ import com.alexis.shop.data.remote.checkout.CheckoutAddressGetResponse
 import com.alexis.shop.data.remote.checkout.CheckoutAddressPostResponse
 import com.alexis.shop.data.remote.model.productbaru.ProductBaruResponse
 import com.alexis.shop.data.remote.product.ProductsGetByIdResponse
-import com.alexis.shop.data.remote.product.ProductsResponse
 import com.alexis.shop.data.remote.product.category.ProductCategoryResponse
 import com.alexis.shop.data.remote.shoppingbag.ShoppingBagDeleteResponse
 import com.alexis.shop.data.remote.shoppingbag.ShoppingBagPostResponse
@@ -19,7 +18,7 @@ import com.alexis.shop.data.remote.wishlist.WishlistPostResponse
 import retrofit2.http.*
 
 interface ApiService {
-    @POST(UrlConstant.REGISTER_URL)
+    @POST("mw/auth/register")
     @FormUrlEncoded
     suspend fun registration(
         @Field("nama_lengkap") name: String,
@@ -28,7 +27,7 @@ interface ApiService {
         @Field("password") password: String
     ): RegisterResponse
 
-    @POST(UrlConstant.LOGIN_URL)
+    @POST("mw/auth/login")
     @FormUrlEncoded
     suspend fun login(
         @Field("username") username: String,
@@ -83,7 +82,7 @@ interface ApiService {
     @GET(UrlConstant.STORE_LOCATION_URL)
     suspend fun getStoreLocationByName(@Query("name") name: String): StoreLocationByNameResponse
 
-    @GET(UrlConstant.SIZE_FILTER_URL)
+    @GET("mw/product-size/")
     suspend fun getSizeFilter(): SizeFilterResponse
 
     @GET(UrlConstant.VOUCHER)
