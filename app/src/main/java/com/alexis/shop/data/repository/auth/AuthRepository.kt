@@ -1,5 +1,6 @@
 package com.alexis.shop.data.repository.auth
 
+import android.util.Log
 import com.alexis.shop.data.local.AuthLocalDataSource
 import com.alexis.shop.data.remote.auth.AuthRemoteDataSource
 import com.alexis.shop.data.remote.network.ApiResponse
@@ -29,6 +30,7 @@ class AuthRepository @Inject constructor(
             emit(Resource.Loading())
             when (val apiResponse = remoteDataSource.login(email, password).first()) {
                 is ApiResponse.Success -> {
+                    Log.w("LOGIN", "Sukses")
                     with(apiResponse.data) {
                         emit(Resource.Success(
                             LoginModel(
@@ -48,15 +50,18 @@ class AuthRepository @Inject constructor(
         }
     }
 
+
     override fun register(
         name: String,
         phone: String,
         email: String,
-        password: String
+        password: String,
+        confirmPassword : String,
+        tanggalLahir : String
     ): Flow<Resource<RegisterModel>> {
         return flow<Resource<RegisterModel>> {
             emit(Resource.Loading())
-            when (val apiResponse = remoteDataSource.register(name, phone, email, password).first()) {
+            when (val apiResponse = remoteDataSource.register(name, phone, email, password,confirmPassword, tanggalLahir).first()) {
                 is ApiResponse.Success -> {
                     with(apiResponse.data) {
                         emit(Resource.Success(

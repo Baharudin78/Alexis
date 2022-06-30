@@ -196,6 +196,30 @@
                         android:textSize="15sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/input_tanggal"
+                    style="@style/Widget.Design.TextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="20dp"
+                    android:textColorHint="@color/white1">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/ed_tanggal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white"
+                        android:fontFamily="@font/alexis_gtwalsheim_light"
+                        android:hint="Tanggal Lahir"
+                        android:inputType="date"
+                        android:maxLength="16"
+                        android:textColor="@color/white"
+                        android:textSize="15sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
                 <CheckBox
                     android:id="@+id/cb_terms"
                     android:layout_width="match_parent"

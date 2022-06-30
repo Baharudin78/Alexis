@@ -73,6 +73,10 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                     inputPassword2.startAnimation(shake)
                     edPassword2.errorSignEditText(viewLifecycleOwner)
                 }
+                !AuthValidationHelper.isValidDate(edTanggal.text.toString()) ->{
+                    inputTanggal.startAnimation(shake)
+                    edTanggal.errorSignEditText(viewLifecycleOwner)
+                }
                 !cbTerms.isChecked -> {
                     cbTerms.startAnimation(shake)
                     popUpOnBottom(requireContext(), "check this agreement first").showAlignBottom(
@@ -83,15 +87,17 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                     edName.text.toString(),
                     edPhone.text.toString(),
                     edEmail.text.toString(),
-                    edPassword.text.toString()
+                    edPassword.text.toString(),
+                    edPassword2.text.toString(),
+                    edTanggal.text.toString()
                 )
             }
         }
     }
 
-    private fun doRegister(name: String, phone: String, email: String, password: String) {
+    private fun doRegister(name: String, phone: String, email: String, password: String,confirmPassword : String, tanggalLahir : String) {
         changeButtonRegisterStatus(false)
-        viewModel.register(name, phone, email, password).observe(viewLifecycleOwner) { response ->
+        viewModel.register(name, phone, email, password,confirmPassword, tanggalLahir).observe(viewLifecycleOwner) { response ->
             if (response != null) {
                 when (response) {
                     is Resource.Loading -> {}

@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface IAuthRepository {
     fun login(email: String, password: String): Flow<Resource<LoginModel>>
-    fun register(name: String, phone: String, email: String, password: String): Flow<Resource<RegisterModel>>
+    fun register(name: String, phone: String, email: String, password: String,confirmPassword :String, tanggalLahir : String): Flow<Resource<RegisterModel>>
     fun activeUser(email: String): Flow<Resource<ActivateUserModel>>
     fun logout()
     fun saveLoginCredential(loginModel: LoginModel)

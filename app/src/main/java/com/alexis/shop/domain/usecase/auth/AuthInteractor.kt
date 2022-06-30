@@ -15,8 +15,10 @@ class AuthInteractor @Inject constructor(private val repository: IAuthRepository
         name: String,
         phone: String,
         email: String,
-        password: String
-    ): Flow<Resource<RegisterModel>> = repository.register(name, phone, email, password)
+        password: String,
+        confirmPassword : String,
+        tanggalLahir : String
+    ): Flow<Resource<RegisterModel>> = repository.register(name, phone, email, password,confirmPassword, tanggalLahir)
 
     override fun activeUser(email: String): Flow<Resource<ActivateUserModel>> = repository.activeUser(email)
 

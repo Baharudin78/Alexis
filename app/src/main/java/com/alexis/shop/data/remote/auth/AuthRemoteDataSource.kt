@@ -19,11 +19,13 @@ class AuthRemoteDataSource @Inject constructor(private val apiService: ApiServic
         name: String,
         phone: String,
         email: String,
-        password: String
+        password: String,
+        confirmPassword : String,
+        tanggalLahir : String
     ): Flow<ApiResponse<RegisterResponse>> {
         return flow {
             try {
-                val response = apiService.registration(name, phone, email, password)
+                val response = apiService.registration(name, phone, email, password,confirmPassword, tanggalLahir)
                 if (!response.data.email.isNullOrEmpty()) {
                     emit(ApiResponse.Success(response))
                 } else {
@@ -39,14 +41,18 @@ class AuthRemoteDataSource @Inject constructor(private val apiService: ApiServic
     suspend fun login(email: String, password: String): Flow<ApiResponse<LoginResponse>> {
         return flow {
             try {
+                Log.w("LOGIN", "1")
                 val response = apiService.login(email, password)
                 if (response.data.id.orZero() > 0) {
+                    Log.w("LOGIN", "2")
                     emit(ApiResponse.Success(response))
                 } else {
+                    Log.w("LOGIN", "3")
                     emit(ApiResponse.Empty)
                 }
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.message.toString()))
+                Log.w("LOGIN", "4")
                 Log.e("RemoteDataSource", e.message.toString())
             }
         }.flowOn(Dispatchers.IO)

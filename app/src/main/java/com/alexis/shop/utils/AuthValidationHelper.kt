@@ -1,5 +1,10 @@
 package com.alexis.shop.utils
 
+import android.widget.Toast
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
+import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 object AuthValidationHelper {
@@ -8,6 +13,11 @@ object AuthValidationHelper {
     private const val MIN_PASSWORD_LENGTH = 8
     private const val MAX_PASSWORD_LENGTH = 16
     private const val EMAIL = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$"
+    private val pattern: Pattern? = null
+    private var matcher: Matcher? = null
+
+    private const val DATE_PATTERN =
+        "(0?[1-9]|1[012]) [/.-] (0?[1-9]|[12][0-9]|3[01]) [/.-] ((19|20)\\d\\d)"
 
     fun isFormValid(value: String?): Boolean {
         return !value.isNullOrEmpty()
@@ -48,6 +58,23 @@ object AuthValidationHelper {
             return false
         }
         return false
+    }
+
+    fun isValidDate(date: String?): Boolean {
+        val sdf = SimpleDateFormat("MM/dd/yyyy")
+        var testDate: Date? = null
+        try {
+            testDate = sdf.parse(date)
+        } catch (e: ParseException) {
+           // errorMessage = "the date you provided is in an invalid date" +
+                    " format."
+            return false
+        }
+        if (!sdf.format(testDate).equals(date)) {
+            //errorMessage = "The date that you provided is invalid."
+            return false
+        }
+        return true
     }
 
     fun isEmailValid(email: String?): Boolean {

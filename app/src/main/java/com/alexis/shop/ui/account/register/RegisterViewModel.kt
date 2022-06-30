@@ -8,6 +8,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(private val useCase: AuthUseCase) : ViewModel() {
-    fun register(name: String, phone: String, email: String, password: String) =
-        useCase.register(name, phone, email, password).asLiveData()
+    fun register(name: String, phone: String, email: String, password: String,confirmPassword : String, tanggalLahir : String) =
+        useCase.register(name, phone, email, password,confirmPassword, tanggalLahir).asLiveData()
 }

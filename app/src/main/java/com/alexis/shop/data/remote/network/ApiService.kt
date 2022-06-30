@@ -24,7 +24,9 @@ interface ApiService {
         @Field("nama_lengkap") name: String,
         @Field("no_telp") phone: String,
         @Field("email") email: String,
-        @Field("password") password: String
+        @Field("password") password: String,
+        @Field("confirm_password") confirmPassword: String,
+        @Field("tanggal_lahir") tanggalLahir: String
     ): RegisterResponse
 
     @POST("mw/auth/login")
