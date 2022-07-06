@@ -7,6 +7,7 @@ import com.alexis.shop.data.remote.checkout.CheckoutAddressPostResponse
 import com.alexis.shop.data.remote.model.productbaru.ProductBaruResponse
 import com.alexis.shop.data.remote.product.ProductsGetByIdResponse
 import com.alexis.shop.data.remote.product.category.ProductCategoryResponse
+import com.alexis.shop.data.remote.product.category.subcategory.SubProductCategoryResponse
 import com.alexis.shop.data.remote.shoppingbag.ShoppingBagDeleteResponse
 import com.alexis.shop.data.remote.shoppingbag.ShoppingBagPostResponse
 import com.alexis.shop.data.remote.shoppingbag.ShoppingBagResponse
@@ -62,8 +63,8 @@ interface ApiService {
         @Field("user_id") userId: Int
     ): WishlistPostResponse
 
-    @GET(UrlConstant.WISHLIST_URL)
-    suspend fun getWishlist(@Query("user_id") userId: Int): WishlistGetResponse
+    @GET("mw/wishlist/customer/{user_id}")
+    suspend fun getWishlist(@Query("customer_id") userId: Int): WishlistGetResponse
 
     @DELETE(UrlConstant.WISHLIST_URL)
     suspend fun deleteWishlist(@Query("wishlist_id") wishlistId: Int): WishlistGetResponse
@@ -78,11 +79,13 @@ interface ApiService {
     @GET("mw/product-category")
     suspend fun getAllProductCategory(): ProductCategoryResponse
 
-    @GET(UrlConstant.STORE_LOCATION_URL)
+    suspend fun getSubProductCategory() : SubProductCategoryResponse
+
+    @GET("mw/store-location")
     suspend fun getAllStoreLocation(): AllStoreLocationResponse
 
-    @GET(UrlConstant.STORE_LOCATION_URL)
-    suspend fun getStoreLocationByName(@Query("name") name: String): StoreLocationByNameResponse
+    @GET("mw/store-location")
+    suspend fun getStoreLocationByName(@Query("province") name: String): StoreLocationByNameResponse
 
     @GET("mw/product-size/")
     suspend fun getSizeFilter(): SizeFilterResponse

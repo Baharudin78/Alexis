@@ -1,10 +1,15 @@
 package com.alexis.shop.data.repository.product
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.alexis.shop.data.Resource
 import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.data.remote.product.category.ProductCategoryItemResponse
 import com.alexis.shop.data.remote.product.category.ProductCategoryRemoteDataSource
+import com.alexis.shop.data.remote.product.category.subcategory.SubProductCategoryItemResponse
+import com.alexis.shop.data.remote.product.category.subcategory.SubProductCategoryResponse
 import com.alexis.shop.domain.model.product.category.ProductCategoryModel
+import com.alexis.shop.domain.model.product.category.subcategory.SubCategoryModel
 import com.alexis.shop.domain.repository.product.IProductCategoryRepository
 import com.alexis.shop.utils.orZero
 import kotlinx.coroutines.flow.first
@@ -24,6 +29,9 @@ class ProductCategoryRepository @Inject constructor(
         }
     }
 
+//    override suspend fun getSubCategoryProduct(): Resource<List<SubProductCategoryResponse>> {
+//    }
+
     private fun generateCategoryList(data: List<ProductCategoryItemResponse>?): List<ProductCategoryModel> {
         val generateValue = ArrayList<ProductCategoryModel>()
         data?.forEach {
@@ -41,4 +49,17 @@ class ProductCategoryRepository @Inject constructor(
         }
         return generateValue
     }
+
+//    private fun generateSubCategory(data : List<SubProductCategoryItemResponse>?) : List<SubCategoryModel> {
+//        val generateValue = ArrayList<SubCategoryModel>()
+//        data?.forEach {
+//            generateValue.add(
+//                SubCategoryModel(
+//                    id = it.id.orZero(),
+//
+//                )
+//            )
+//        }
+//        return generateValue
+//    }
 }

@@ -11,7 +11,7 @@ data class DataStoreLocationResponse(
 	@field:SerializedName("message")
 	val message: String? = null,
 
-	@field:SerializedName("store_location")
+	@field:SerializedName("items")
 	val storeLocation: List<AllStoreItemResponse>? = null
 )
 
