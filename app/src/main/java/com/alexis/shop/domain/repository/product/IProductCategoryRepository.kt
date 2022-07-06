@@ -7,5 +7,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface IProductCategoryRepository {
     suspend fun getAllProductCategory(): Resource<List<ProductCategoryModel>>
+
     //suspend fun getSubCategoryProduct() : Resource<List<SubProductCategoryResponse>>
 }
