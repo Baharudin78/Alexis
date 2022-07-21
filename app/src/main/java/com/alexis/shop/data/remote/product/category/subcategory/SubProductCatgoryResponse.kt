@@ -19,5 +19,5 @@ data class SubProductCategoryResponse(
 
 data class SubProductCategoryData (
     @field:SerializedName("items")
-    val productCategory: List<SubProductCategoryItemResponse>? = null,
+    val subProductCategory: List<SubProductCategoryItemResponse>? = null,
 )

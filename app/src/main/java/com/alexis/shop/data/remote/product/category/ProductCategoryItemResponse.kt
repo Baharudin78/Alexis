@@ -13,9 +13,6 @@ data class ProductCategoryItemResponse(
     @field:SerializedName("name_in_id")
     val nameInId: String? = null,
 
-//    @field:SerializedName("created_at")
-//    val createdAt: String? = null,
-
     @field:SerializedName("icon")
     val icon : String? = null,
 

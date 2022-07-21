@@ -308,7 +308,7 @@ class MainActivity : AppCompatActivity() {
                     is Resource.Error -> {
                         Toast.makeText(
                             applicationContext,
-                            getString(R.string.auth_error, "Get Product"),
+                             getString(R.string.auth_error, "Get Product"),
                             Toast.LENGTH_SHORT
                         ).show()
                     }

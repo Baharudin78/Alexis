@@ -28,6 +28,7 @@ data class ProductBaruModel(
 //data class ImageProductModel(
 //    val imageProduct : List<ImagesModel>? = null
 //)
+@Parcelize
 data class ImagesModel(
     val bag_wishlist_order_display: Int,
     val image_url: String,
@@ -36,4 +37,4 @@ data class ImagesModel(
     val product_item_code: String,
     val product_list_display: String,
     val type: String
-)
+) : Parcelable

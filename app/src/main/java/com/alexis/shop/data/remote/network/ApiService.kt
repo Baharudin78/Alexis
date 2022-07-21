@@ -79,6 +79,7 @@ interface ApiService {
     @GET("mw/product-category")
     suspend fun getAllProductCategory(): ProductCategoryResponse
 
+    @GET("mw/product-subcategory")
     suspend fun getSubProductCategory() : SubProductCategoryResponse
 
     @GET("mw/store-location")
@@ -90,7 +91,7 @@ interface ApiService {
     @GET("mw/product-size/")
     suspend fun getSizeFilter(): SizeFilterResponse
 
-    @GET(UrlConstant.VOUCHER)
+    @GET("mw/voucher")
     suspend fun getVoucher(): SizeFilterResponse
 
     @GET(UrlConstant.CHECKOUT_ADDRESS)

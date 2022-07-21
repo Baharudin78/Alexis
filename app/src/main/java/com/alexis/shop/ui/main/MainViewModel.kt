@@ -3,6 +3,7 @@ package com.alexis.shop.ui.main
 import androidx.lifecycle.*
 import com.alexis.shop.data.Resource
 import com.alexis.shop.domain.model.product.category.ProductCategoryModel
+import com.alexis.shop.domain.model.product.category.subcategory.SubCategoryModel
 import com.alexis.shop.domain.model.wishlist.WishlistModel
 import com.alexis.shop.domain.usecase.auth.AuthUseCase
 import com.alexis.shop.domain.usecase.product.ProductUseCase
@@ -22,6 +23,7 @@ class MainViewModel @Inject constructor(
     private val productCategoryUseCase: ProductCategoryUseCase
 ) : ViewModel() {
     private var productCategory: MutableLiveData<List<ProductCategoryModel>> = MutableLiveData()
+    private var subProductCategory : MutableLiveData<List<SubCategoryModel>> = MutableLiveData()
 
     fun getAllProduct() = productUseCase.getAllProduct().asLiveData()
 
@@ -31,6 +33,16 @@ class MainViewModel @Inject constructor(
                 is Resource.Loading -> {}
                 is Resource.Success -> productCategory.postValue(response.data)
                 is Resource.Error -> productCategory.postValue(listOf())
+            }
+        }
+    }
+
+    fun getSubCategoryData() {
+        viewModelScope.launch {
+            when(val response = productCategoryUseCase.getSubProductCategory()) {
+                is Resource.Loading -> {}
+                is Resource.Success -> subProductCategory.postValue(response.data)
+                is Resource.Error -> subProductCategory.postValue(listOf())
             }
         }
     }

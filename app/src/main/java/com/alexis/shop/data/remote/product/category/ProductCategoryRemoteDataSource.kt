@@ -33,7 +33,7 @@ class ProductCategoryRemoteDataSource @Inject constructor(private val apiService
         return flow {
             try {
                 val response = apiService.getSubProductCategory()
-                if (response.data != null && response.data.productCategory?.isNotEmpty() == true) {
+                if (response.data != null && response.data.subProductCategory?.isNotEmpty() == true) {
                     emit(ApiResponse.Success(response))
                 }else {
                     emit(ApiResponse.Empty)
