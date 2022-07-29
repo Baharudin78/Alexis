@@ -70,10 +70,9 @@ interface ApiService {
     suspend fun deleteWishlist(@Query("wishlist_id") wishlistId: Int): WishlistGetResponse
 
     @GET("mw/products/")
-    //suspend fun getAllProduct(): ProductsResponse
     suspend fun getAllProduct(): ProductBaruResponse
 
-    @GET("mw/products/{productId}")
+    @GET("mw/products/{productId}/detail")
     suspend fun getProductById(@Query("product_id") productId: Int): ProductsGetByIdResponse
 
     @GET("mw/product-category")

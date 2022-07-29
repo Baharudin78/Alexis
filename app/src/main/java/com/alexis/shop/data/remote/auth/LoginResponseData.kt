@@ -3,6 +3,7 @@ package com.alexis.shop.data.remote.auth
 import com.google.gson.annotations.SerializedName
 
 data class LoginResponseData(
+    @SerializedName("id")
     var id: Int?,
     @SerializedName("user_id")
     var userId: Int?,

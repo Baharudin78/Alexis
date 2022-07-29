@@ -1,5 +1,14 @@
 package com.alexis.shop.data.remote.auth
 
+import com.google.gson.annotations.SerializedName
+
 data class LoginResponse(
-    var data: LoginResponseData,
+    @SerializedName("data")
+    var data: Data,
+    var code : Int,
+    val status : String
 )
+ data class Data(
+     @SerializedName("item")
+     val user : LoginResponseData
+ )

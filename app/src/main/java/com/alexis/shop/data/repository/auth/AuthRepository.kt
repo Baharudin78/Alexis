@@ -34,12 +34,12 @@ class AuthRepository @Inject constructor(
                     with(apiResponse.data) {
                         emit(Resource.Success(
                             LoginModel(
-                                id = this.data.id.orZero(),
-                                userId = this.data.userId.orZero(),
-                                fullName = this.data.fullName.orEmpty(),
-                                email = this.data.email.orEmpty(),
-                                phone = this.data.phone.orEmpty(),
-                                birthDate = this.data.birthDate.orEmpty()
+                                id = this.data.user.id.orZero(),
+                                userId = this.data.user.userId.orZero(),
+                                fullName = this.data.user.fullName.orEmpty(),
+                                email = this.data.user.email.orEmpty(),
+                                phone = this.data.user.phone.orEmpty(),
+                                birthDate = this.data.user.birthDate.orEmpty()
                             )
                         ))
                     }

@@ -64,6 +64,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             }
             loginButton.setOnClickListener {
                 validateLogin()
+
             }
             btnRegister.setOnClickListener {
                 requireActivity().supportFragmentManager.accountNavigator(

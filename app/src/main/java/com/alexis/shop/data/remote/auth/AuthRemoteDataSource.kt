@@ -43,8 +43,10 @@ class AuthRemoteDataSource @Inject constructor(private val apiService: ApiServic
             try {
                 Log.w("LOGIN", "1")
                 val response = apiService.login(email, password)
-                if (response.data.id.orZero() > 0) {
+                Log.w("LOGIN", "${response}")
+                if (response.data.user.id.orZero() > 0) {
                     Log.w("LOGIN", "2")
+                    Log.w("LOGIN", "${response.data}")
                     emit(ApiResponse.Success(response))
                 } else {
                     Log.w("LOGIN", "3")

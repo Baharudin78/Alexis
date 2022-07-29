@@ -1,6 +1,5 @@
 package com.alexis.shop.data.remote.product.category.subcategory
 
-import com.alexis.shop.data.remote.product.category.ProductCategoryItemResponse
 import com.google.gson.annotations.SerializedName
 
 data class SubProductCategoryResponse(
