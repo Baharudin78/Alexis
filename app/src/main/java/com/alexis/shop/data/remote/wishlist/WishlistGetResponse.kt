@@ -19,7 +19,7 @@ data class WishlistGetResponse(
 
 data class DataGetWishlist(
 
-	@field:SerializedName("wishlist")
+	@field:SerializedName("items")
 	val wishlist: List<WishlistItem>? = null
 )
 

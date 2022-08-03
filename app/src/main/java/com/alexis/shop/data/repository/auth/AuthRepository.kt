@@ -66,9 +66,9 @@ class AuthRepository @Inject constructor(
                     with(apiResponse.data) {
                         emit(Resource.Success(
                             RegisterModel(
-                                fullName = this.data.fullName.orEmpty(),
-                                email = this.data.email.orEmpty(),
-                                phone = this.data.phone.orEmpty()
+                                fullName = this.data.user.fullName.orEmpty(),
+                                email = this.data.user.email.orEmpty(),
+                                phone = this.data.user.phone.orEmpty()
                             )
                         ))
                     }

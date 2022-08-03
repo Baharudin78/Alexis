@@ -5,6 +5,7 @@ import com.alexis.shop.data.remote.auth.RegisterResponse
 import com.alexis.shop.data.remote.checkout.CheckoutAddressGetResponse
 import com.alexis.shop.data.remote.checkout.CheckoutAddressPostResponse
 import com.alexis.shop.data.remote.model.productbaru.ProductBaruResponse
+import com.alexis.shop.data.remote.model.voucher.VoucherResponse
 import com.alexis.shop.data.remote.product.ProductsGetByIdResponse
 import com.alexis.shop.data.remote.product.category.ProductCategoryResponse
 import com.alexis.shop.data.remote.product.category.subcategory.SubProductCategoryResponse
@@ -91,7 +92,7 @@ interface ApiService {
     suspend fun getSizeFilter(): SizeFilterResponse
 
     @GET("mw/voucher")
-    suspend fun getVoucher(): SizeFilterResponse
+    suspend fun getVoucher(): VoucherResponse
 
     @GET(UrlConstant.CHECKOUT_ADDRESS)
     suspend fun getCheckOutAddress(@Query("user_id") userId: Int): CheckoutAddressGetResponse

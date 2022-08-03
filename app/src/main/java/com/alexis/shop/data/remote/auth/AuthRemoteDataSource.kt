@@ -26,7 +26,7 @@ class AuthRemoteDataSource @Inject constructor(private val apiService: ApiServic
         return flow {
             try {
                 val response = apiService.registration(name, phone, email, password,confirmPassword, tanggalLahir)
-                if (!response.data.email.isNullOrEmpty()) {
+                if (!response.data.user.email.isNullOrEmpty()) {
                     emit(ApiResponse.Success(response))
                 } else {
                     emit(ApiResponse.Empty)
