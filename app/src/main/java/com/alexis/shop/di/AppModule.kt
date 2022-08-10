@@ -14,6 +14,8 @@ import com.alexis.shop.domain.usecase.sizefilter.SizeFilterInteractor
 import com.alexis.shop.domain.usecase.sizefilter.SizeFilterUseCase
 import com.alexis.shop.domain.usecase.storelocation.StoreLocationInteractor
 import com.alexis.shop.domain.usecase.storelocation.StoreLocationUseCase
+import com.alexis.shop.domain.usecase.voucher.VoucherInteractor
+import com.alexis.shop.domain.usecase.voucher.VoucherUseCase
 import com.alexis.shop.domain.usecase.wishlist.WishlistInteractor
 import com.alexis.shop.domain.usecase.wishlist.WishlistUseCase
 import dagger.Binds
@@ -56,4 +58,8 @@ abstract class AppModule {
     @Binds
     @ViewModelScoped
     abstract fun provideCheckoutAddressUseCase(interactor: CheckoutAddressInteractor): CheckoutAddressUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun provideVoucherUseCase(interactor : VoucherInteractor) : VoucherUseCase
 }
