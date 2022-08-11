@@ -1,4 +1,4 @@
-package com.alexis.shop.data.remote.product.category
+package com.alexis.shop.data.remote.response.product.category
 
 import com.google.gson.annotations.SerializedName
 

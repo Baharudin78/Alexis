@@ -1,12 +1,11 @@
 package com.alexis.shop.data.repository.product
 
-import android.util.Log
 import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.domain.repository.product.IProductRepository
 import com.alexis.shop.data.Resource
 import com.alexis.shop.data.remote.model.productbaru.ImageModel
 import com.alexis.shop.data.remote.model.productbaru.ProductItems
-import com.alexis.shop.data.remote.product.*
+import com.alexis.shop.data.remote.response.product.*
 import com.alexis.shop.domain.model.product.*
 import com.alexis.shop.domain.model.product.modelbaru.ImagesModel
 import com.alexis.shop.domain.model.product.modelbaru.ProductBaruModel
@@ -25,7 +24,7 @@ class ProductRepository @Inject constructor(
     override fun getAllProduct(): Flow<Resource<List<ProductBaruModel>>> {
         return flow<Resource<List<ProductBaruModel>>> {
             emit(Resource.Loading())
-            when (val apiResponse = remoteDataSource.   getAllProduct().first()) {
+            when (val apiResponse = remoteDataSource.getAllProduct().first()) {
                 is ApiResponse.Success ->
                     emit(Resource.Success(generateListProducts(apiResponse.data.data?.product)))
                 is ApiResponse.Empty -> listOf<ProductBaruModel>()

@@ -1,9 +1,9 @@
-package com.alexis.shop.data.remote.product.category
+package com.alexis.shop.data.remote.response.product.category
 
 import android.util.Log
 import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.data.remote.network.ApiService
-import com.alexis.shop.data.remote.product.category.subcategory.SubProductCategoryResponse
+import com.alexis.shop.data.remote.response.product.category.subcategory.SubProductCategoryResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -29,11 +29,11 @@ class ProductCategoryRemoteDataSource @Inject constructor(private val apiService
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun getSubProductCategory() : Flow<ApiResponse<SubProductCategoryResponse>> {
+    suspend fun getSubProductCategory() : Flow<ApiResponse<ProductCategoryResponse>> {
         return flow {
             try {
                 val response = apiService.getSubProductCategory()
-                if (response.data != null && response.data.subProductCategory?.isNotEmpty() == true) {
+                if (response.data != null && response.data.productCategory?.map { it.subSubCategory }?.isNotEmpty() == true) {
                     emit(ApiResponse.Success(response))
                 }else {
                     emit(ApiResponse.Empty)

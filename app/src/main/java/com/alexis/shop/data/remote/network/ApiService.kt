@@ -1,14 +1,14 @@
 package com.alexis.shop.data.remote.network
 
-import com.alexis.shop.data.remote.auth.LoginResponse
-import com.alexis.shop.data.remote.auth.RegisterResponse
-import com.alexis.shop.data.remote.checkout.CheckoutAddressGetResponse
-import com.alexis.shop.data.remote.checkout.CheckoutAddressPostResponse
+import com.alexis.shop.data.remote.response.auth.LoginResponse
+import com.alexis.shop.data.remote.response.auth.RegisterResponse
+import com.alexis.shop.data.remote.response.checkout.CheckoutAddressGetResponse
+import com.alexis.shop.data.remote.response.checkout.CheckoutAddressPostResponse
 import com.alexis.shop.data.remote.model.productbaru.ProductBaruResponse
 import com.alexis.shop.data.remote.model.voucher.VoucherResponse
-import com.alexis.shop.data.remote.product.ProductsGetByIdResponse
-import com.alexis.shop.data.remote.product.category.ProductCategoryResponse
-import com.alexis.shop.data.remote.product.category.subcategory.SubProductCategoryResponse
+import com.alexis.shop.data.remote.response.product.ProductsGetByIdResponse
+import com.alexis.shop.data.remote.response.product.category.ProductCategoryResponse
+import com.alexis.shop.data.remote.response.product.category.subcategory.SubProductCategoryResponse
 import com.alexis.shop.data.remote.shoppingbag.ShoppingBagDeleteResponse
 import com.alexis.shop.data.remote.shoppingbag.ShoppingBagPostResponse
 import com.alexis.shop.data.remote.shoppingbag.ShoppingBagResponse
@@ -80,7 +80,7 @@ interface ApiService {
     suspend fun getAllProductCategory(): ProductCategoryResponse
 
     @GET("mw/product-subcategory")
-    suspend fun getSubProductCategory() : SubProductCategoryResponse
+    suspend fun getSubProductCategory() : ProductCategoryResponse
 
     @GET("mw/store-location")
     suspend fun getAllStoreLocation(): AllStoreLocationResponse

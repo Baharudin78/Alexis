@@ -12,7 +12,7 @@ fun getMenuList(isLogged: Boolean, dataCategory: List<ProductCategoryModel>?): A
 	var id = 1
 	var reverseId = 16
 	dataCategory?.forEach {
-		when(it.nameInId.lowercase()) {
+		when(it.category.lowercase()) {
 			"clothings", "pakaian" -> {
 				dataMenu.add(MenuModel(id, reverseId, R.drawable.ic_cloting, "Clothings"))
 				id++

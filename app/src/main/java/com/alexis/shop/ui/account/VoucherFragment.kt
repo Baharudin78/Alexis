@@ -9,7 +9,9 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.alexis.shop.BaseFragment
 import com.alexis.shop.R
+import com.alexis.shop.databinding.FragmentVoucherBinding
 import com.alexis.shop.ui.menu.adapter.VOUCHER_FRAGMENT
 import com.alexis.shop.ui.menu.adapter.VoucherAdapter
 import com.alexis.shop.utils.*
@@ -17,7 +19,7 @@ import com.alexis.shop.utils.*
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-class VoucherFragment : Fragment() {
+class VoucherFragment : BaseFragment<FragmentVoucherBinding>() {
     private var param1: String? = null
     private var param2: String? = null
 
@@ -25,6 +27,8 @@ class VoucherFragment : Fragment() {
     lateinit var recycle: RecyclerView
     lateinit var cancel_button: ImageView
     lateinit var back_button: ImageView
+
+    override fun getViewBinding(): FragmentVoucherBinding = FragmentVoucherBinding.inflate(layoutInflater)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,18 +39,18 @@ class VoucherFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val root = inflater.inflate(R.layout.fragment_voucher, container, false)
-        title = root.findViewById(R.id.txt_wl)
-        recycle = root.findViewById(R.id.recycle_voucher)
-        cancel_button = root.findViewById(R.id.btn_cancel)
-        back_button = root.findViewById(R.id.btn_back)
-
-        return root
-    }
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        val root = inflater.inflate(R.layout.fragment_voucher, container, false)
+//        title = root.findViewById(R.id.txt_wl)
+//        recycle = root.findViewById(R.id.recycle_voucher)
+//        cancel_button = root.findViewById(R.id.btn_cancel)
+//        back_button = root.findViewById(R.id.btn_back)
+//
+//        return root
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -85,4 +89,6 @@ class VoucherFragment : Fragment() {
                 }
             }
     }
+
+
 }

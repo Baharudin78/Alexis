@@ -1,4 +1,4 @@
-package com.alexis.shop.data.remote.auth
+package com.alexis.shop.data.remote.response.auth
 
 import android.util.Log
 import com.alexis.shop.data.remote.network.ApiResponse

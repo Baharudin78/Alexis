@@ -1,4 +1,4 @@
-package com.alexis.shop.data.remote.checkout
+package com.alexis.shop.data.remote.response.checkout
 
 import com.google.gson.annotations.SerializedName
 

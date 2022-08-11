@@ -2,10 +2,10 @@ package com.alexis.shop.data.repository.product
 
 import com.alexis.shop.data.Resource
 import com.alexis.shop.data.remote.network.ApiResponse
-import com.alexis.shop.data.remote.product.category.ProductCategoryItemResponse
-import com.alexis.shop.data.remote.product.category.ProductCategoryRemoteDataSource
-import com.alexis.shop.data.remote.product.category.subcategory.SubProductCategoryItemResponse
-import com.alexis.shop.data.remote.product.category.subcategory.SubProductCategoryResponse
+import com.alexis.shop.data.remote.response.product.category.ProductCategoryItemResponse
+import com.alexis.shop.data.remote.response.product.category.ProductCategoryRemoteDataSource
+import com.alexis.shop.data.remote.response.product.category.SubCategoryModelBaru
+import com.alexis.shop.data.remote.response.product.category.subcategory.SubProductCategoryItemResponse
 import com.alexis.shop.domain.model.product.category.ProductCategoryModel
 import com.alexis.shop.domain.model.product.category.subcategory.SubCategoryModel
 import com.alexis.shop.domain.repository.product.IProductCategoryRepository
@@ -28,9 +28,9 @@ class ProductCategoryRepository @Inject constructor(
         }
     }
 
-    override suspend fun getSubCategoryProduct(): Resource<List<SubCategoryModel>> {
+    override suspend fun getSubCategoryProduct(): Resource<List<SubCategoryModelBaru>> {
         return when(val apiResponseSub = remoteDataSource.getSubProductCategory().first()) {
-            is ApiResponse.Success -> Resource.Success(generateSubCategoryList(apiResponseSub.data.data?.subProductCategory))
+            is ApiResponse.Success -> Resource.Success(generateSubCategoryList(apiResponseSub.data.data?.productCategory.map { it.subSubCategory }))
             is ApiResponse.Empty -> Resource.Success(listOf())
             is ApiResponse.Error -> Resource.Error(apiResponseSub.errorMessage)
         }
@@ -41,10 +41,10 @@ class ProductCategoryRepository @Inject constructor(
         data?.forEach {
             generateValue.add(
                 ProductCategoryModel(
-                    id = it.id.orZero(),
-                    nameInEng = it.nameInEng.orEmpty(),
-                    nameInId = it.nameInId.orEmpty(),
-                    merchandiseName = it.merchandiseName.orEmpty(),
+                 //   id = it.id.orZero(),
+                   // nameInEng = it.nameInEng.orEmpty(),
+                    category = it.category.orEmpty(),
+                   // merchandiseName = it.merchandiseName.orEmpty(),
                     icon = it.icon.orEmpty()
                 )
             )

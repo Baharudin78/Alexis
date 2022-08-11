@@ -1,4 +1,4 @@
-package com.alexis.shop.data.remote.checkout
+package com.alexis.shop.data.remote.response.checkout
 
 import android.util.Log
 import com.alexis.shop.data.remote.network.ApiResponse

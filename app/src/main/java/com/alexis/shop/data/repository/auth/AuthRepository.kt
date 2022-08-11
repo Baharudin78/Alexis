@@ -2,7 +2,7 @@ package com.alexis.shop.data.repository.auth
 
 import android.util.Log
 import com.alexis.shop.data.local.AuthLocalDataSource
-import com.alexis.shop.data.remote.auth.AuthRemoteDataSource
+import com.alexis.shop.data.remote.response.auth.AuthRemoteDataSource
 import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.domain.model.auth.ActivateUserModel
 import com.alexis.shop.domain.model.auth.LoginModel
