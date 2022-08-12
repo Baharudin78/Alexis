@@ -109,6 +109,9 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
     private fun initMenu() {
         mainViewModel.getProductCategoryData().observe(viewLifecycleOwner) { dataCategory ->
             listMenu = getMenuList(viewModel.isUserLogin(), dataCategory)
+            mainViewModel.getSubCategoryData().observe(viewLifecycleOwner) {
+
+            }
             addDataMenuAdapter()
             //addDataSosmedAdapter()
         }

@@ -80,7 +80,7 @@ interface ApiService {
     suspend fun getAllProductCategory(): ProductCategoryResponse
 
     @GET("mw/product-subcategory")
-    suspend fun getSubProductCategory() : ProductCategoryResponse
+    suspend fun getSubProductCategory() : SubProductCategoryResponse
 
     @GET("mw/store-location")
     suspend fun getAllStoreLocation(): AllStoreLocationResponse

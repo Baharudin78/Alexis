@@ -22,15 +22,14 @@ class ProductCategoryRepository @Inject constructor(
     override suspend fun getAllProductCategory(): Resource<List<ProductCategoryModel>> {
         return when (val apiResponse = remoteDataSource.getAllProductCategory().first()) {
             is ApiResponse.Success -> Resource.Success(generateCategoryList(apiResponse.data.data?.productCategory))
-           // is ApiResponse.Success -> Resource.Success(generateCategoryList(apiResponse.data.data?.productCategory))
             is ApiResponse.Empty -> Resource.Success(listOf())
             is ApiResponse.Error -> Resource.Error(apiResponse.errorMessage)
         }
     }
 
-    override suspend fun getSubCategoryProduct(): Resource<List<SubCategoryModelBaru>> {
+    override suspend fun getSubCategoryProduct(): Resource<List<SubCategoryModel>> {
         return when(val apiResponseSub = remoteDataSource.getSubProductCategory().first()) {
-            is ApiResponse.Success -> Resource.Success(generateSubCategoryList(apiResponseSub.data.data?.productCategory.map { it.subSubCategory }))
+            is ApiResponse.Success -> Resource.Success(generateSubCategoryList(apiResponseSub.data.data?.subProductCategory))
             is ApiResponse.Empty -> Resource.Success(listOf())
             is ApiResponse.Error -> Resource.Error(apiResponseSub.errorMessage)
         }
@@ -41,10 +40,7 @@ class ProductCategoryRepository @Inject constructor(
         data?.forEach {
             generateValue.add(
                 ProductCategoryModel(
-                 //   id = it.id.orZero(),
-                   // nameInEng = it.nameInEng.orEmpty(),
                     category = it.category.orEmpty(),
-                   // merchandiseName = it.merchandiseName.orEmpty(),
                     icon = it.icon.orEmpty()
                 )
             )
@@ -58,25 +54,7 @@ class ProductCategoryRepository @Inject constructor(
             generateValue.add(
                 SubCategoryModel(
                     id = it.id.orZero(),
-                    marketPrice = it.marketPrice.orZero(),
-                    maxListingPeriod = it.maxListingPeriod.orZero(),
-                    minListing = it.minListing.orZero(),
-                    nameInEng = it.nameInEng,
-                    nameInEngSelection = it.nameInEngSelection,
-                    nameInId = it.nameInId,
-                    nameInIdSelection = it.nameInIdSelection,
-                    packageId = it.packageId,
-                    packageRealWeight = it.packageRealWeight,
-                    packageVolumeWeight = it.packageVolumeWeight,
-                    productCategoryId = it.productCategoryId,
-                    productMaterialId = it.product_materialId,
-                    productSizeId = it.productSizeId,
-                    sellingPrice = it.sellingPrice,
-                    sequence = it.sequence,
-                    sizeInTray = it.sizeInTray,
-                    styleInHomepage = it.styleInHomepage,
-                    targetDailyListingQty = it.targetDailyListingQty,
-                    totalProduct = it.totalProduct
+                    merchandiseName = it.merchandiseName.orEmpty()
                 )
             )
         }

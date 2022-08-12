@@ -68,6 +68,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
         getProductCategory()
+        getSubProductCategory()
 
       //  products = getListProduct()
 
@@ -398,5 +399,7 @@ class MainActivity : AppCompatActivity() {
     private fun getProductCategory() {
         viewModel.callProductCategoryData()
     }
-
+    private fun getSubProductCategory() {
+        viewModel.callSubCategoryData()
+    }
 }

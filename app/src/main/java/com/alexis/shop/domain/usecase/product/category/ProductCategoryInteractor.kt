@@ -11,7 +11,6 @@ class ProductCategoryInteractor @Inject constructor(private val repository: IPro
     override suspend fun getAllProductCategory(): Resource<List<ProductCategoryModel>> {
         return repository.getAllProductCategory()
     }
-
     override suspend fun getSubProductCategory(): Resource<List<SubCategoryModel>> {
         return repository.getSubCategoryProduct()
     }
