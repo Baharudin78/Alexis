@@ -29,10 +29,10 @@ class ProductCategoryRemoteDataSource @Inject constructor(private val apiService
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun getSubProductCategory() : Flow<ApiResponse<SubProductCategoryResponse>> {
+    suspend fun getSubProductCategory(name : String) : Flow<ApiResponse<SubProductCategoryResponse>> {
         return flow {
             try {
-                val response = apiService.getSubProductCategory()
+                val response = apiService.getSubProductCategory(name)
                 if (response.data != null && response.data.subProductCategory?.isNotEmpty() == true) {
                     emit(ApiResponse.Success(response))
                 }else {

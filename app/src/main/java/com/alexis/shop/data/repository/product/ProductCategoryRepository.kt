@@ -4,7 +4,6 @@ import com.alexis.shop.data.Resource
 import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.data.remote.response.product.category.ProductCategoryItemResponse
 import com.alexis.shop.data.remote.response.product.category.ProductCategoryRemoteDataSource
-import com.alexis.shop.data.remote.response.product.category.SubCategoryModelBaru
 import com.alexis.shop.data.remote.response.product.category.subcategory.SubProductCategoryItemResponse
 import com.alexis.shop.domain.model.product.category.ProductCategoryModel
 import com.alexis.shop.domain.model.product.category.subcategory.SubCategoryModel
@@ -27,8 +26,8 @@ class ProductCategoryRepository @Inject constructor(
         }
     }
 
-    override suspend fun getSubCategoryProduct(): Resource<List<SubCategoryModel>> {
-        return when(val apiResponseSub = remoteDataSource.getSubProductCategory().first()) {
+    override suspend fun getSubCategoryProduct(name : String): Resource<List<SubCategoryModel>> {
+        return when(val apiResponseSub = remoteDataSource.getSubProductCategory(name).first()) {
             is ApiResponse.Success -> Resource.Success(generateSubCategoryList(apiResponseSub.data.data?.subProductCategory))
             is ApiResponse.Empty -> Resource.Success(listOf())
             is ApiResponse.Error -> Resource.Error(apiResponseSub.errorMessage)

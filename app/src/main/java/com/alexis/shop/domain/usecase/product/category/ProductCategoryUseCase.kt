@@ -7,5 +7,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface ProductCategoryUseCase {
     suspend fun getAllProductCategory(): Resource<List<ProductCategoryModel>>
-    suspend fun getSubProductCategory() : Resource<List<SubCategoryModel>>
+    suspend fun getSubProductCategory(name : String) : Resource<List<SubCategoryModel>>
 }

@@ -2,7 +2,6 @@ package com.alexis.shop.ui.main
 
 import androidx.lifecycle.*
 import com.alexis.shop.data.Resource
-import com.alexis.shop.data.remote.response.product.category.SubCategoryModelBaru
 import com.alexis.shop.domain.model.product.category.ProductCategoryModel
 import com.alexis.shop.domain.model.product.category.subcategory.SubCategoryModel
 import com.alexis.shop.domain.model.wishlist.WishlistModel
@@ -38,9 +37,9 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun callSubCategoryData() {
+    fun callSubCategoryData(name : String) {
         viewModelScope.launch {
-            when(val response = productCategoryUseCase.getSubProductCategory()) {
+            when(val response = productCategoryUseCase.getSubProductCategory(name)) {
                 is Resource.Loading -> {}
                 is Resource.Success -> subProductCategory.postValue(response.data)
                 is Resource.Error -> subProductCategory.postValue(listOf())
@@ -48,7 +47,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun getSubCategoryData() : MutableLiveData<List<SubCategoryModel>> {
+    fun getSubCategoryData(name : String) : MutableLiveData<List<SubCategoryModel>> {
         return subProductCategory
     }
     fun getProductCategoryData(): MutableLiveData<List<ProductCategoryModel>> {

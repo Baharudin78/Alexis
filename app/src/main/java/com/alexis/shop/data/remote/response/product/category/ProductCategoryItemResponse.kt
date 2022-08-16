@@ -10,21 +10,12 @@ data class ProductCategoryItemResponse(
 //    @field:SerializedName("updated_at")
 //    val updatedAt: String? = null,
 
-    @field:SerializedName("category")
+    @field:SerializedName("name_in_eng")
     val category: String? = null,
 
     @field:SerializedName("icon")
     val icon : String? = null,
 
-    @field:SerializedName("sub_category")
-    val subSubCategory : List<SubCategoryModelBaru>? = null,
 
 )
 
-data class SubCategoryModelBaru(
-    @field:SerializedName("merchandise_name")
-    val merchandiseName : String? = null,
-
-    @field:SerializedName("id")
-    val id: Int? = null
-)

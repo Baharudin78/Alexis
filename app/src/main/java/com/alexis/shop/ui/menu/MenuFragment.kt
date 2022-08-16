@@ -15,6 +15,8 @@ import com.alexis.shop.R
 import com.alexis.shop.domain.model.menu.MenuModel
 import com.alexis.shop.data.source.dummy.getMenuList
 import com.alexis.shop.databinding.FragmentMenuBinding
+import com.alexis.shop.domain.model.product.category.ProductCategoryModel
+import com.alexis.shop.domain.model.product.modelbaru.ProductBaruModel
 import com.alexis.shop.ui.account.MyAccountFragment
 import com.alexis.shop.ui.account.login.LoginFragment
 import com.alexis.shop.ui.main.MainActivity
@@ -42,7 +44,7 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
     private val mainViewModel: MainViewModel by activityViewModels()
     private var param1: String? = null
     private var param2: String? = null
-
+    private var product: ProductCategoryModel? = null
     private val binding: FragmentMenuBinding by viewBinding()
     private val menuAdapter = GroupAdapter<GroupieViewHolder>()
     private val sosmedAdapter = GroupAdapter<GroupieViewHolder>()
@@ -109,7 +111,7 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
     private fun initMenu() {
         mainViewModel.getProductCategoryData().observe(viewLifecycleOwner) { dataCategory ->
             listMenu = getMenuList(viewModel.isUserLogin(), dataCategory)
-            mainViewModel.getSubCategoryData().observe(viewLifecycleOwner) {
+            mainViewModel.getSubCategoryData(product?.category.orEmpty()).observe(viewLifecycleOwner) {
 
             }
             addDataMenuAdapter()

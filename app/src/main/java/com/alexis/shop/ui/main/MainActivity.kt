@@ -23,6 +23,7 @@ import com.alexis.shop.R
 import com.alexis.shop.data.Resource
 import com.alexis.shop.data.source.dummy.getListProduct
 import com.alexis.shop.domain.model.product.Product
+import com.alexis.shop.domain.model.product.category.ProductCategoryModel
 import com.alexis.shop.domain.model.product.modelbaru.ProductBaruModel
 import com.alexis.shop.domain.model.wishlist.WishlistModel
 import com.alexis.shop.ui.detail.ExpanItemPagersActivity
@@ -49,6 +50,7 @@ class MainActivity : AppCompatActivity() {
     private var booleanColor = false
     private val double = "double"
     lateinit var option: CheckBox
+    private var product: ProductCategoryModel? = null
     private lateinit var cart: ImageView
     private lateinit var count_cart: TextView
     private lateinit var loved: ImageView
@@ -400,6 +402,6 @@ class MainActivity : AppCompatActivity() {
         viewModel.callProductCategoryData()
     }
     private fun getSubProductCategory() {
-        viewModel.callSubCategoryData()
+        viewModel.callSubCategoryData(product?.category.orEmpty())
     }
 }

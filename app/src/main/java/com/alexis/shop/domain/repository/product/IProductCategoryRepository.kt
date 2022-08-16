@@ -6,5 +6,5 @@ import com.alexis.shop.domain.model.product.category.subcategory.SubCategoryMode
 
 interface IProductCategoryRepository {
     suspend fun getAllProductCategory(): Resource<List<ProductCategoryModel>>
-    suspend fun getSubCategoryProduct() : Resource<List<SubCategoryModel>>
+    suspend fun getSubCategoryProduct(name : String) : Resource<List<SubCategoryModel>>
 }
