@@ -14,5 +14,7 @@ data class LoginResponseData(
     @SerializedName("no_telp")
     var phone: String?,
     @SerializedName("tanggal_lahir")
-    var birthDate: String?
+    var birthDate: String?,
+    @SerializedName("token")
+    var token : String?
 )

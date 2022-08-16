@@ -39,7 +39,8 @@ class AuthRepository @Inject constructor(
                                 fullName = this.data.user.fullName.orEmpty(),
                                 email = this.data.user.email.orEmpty(),
                                 phone = this.data.user.phone.orEmpty(),
-                                birthDate = this.data.user.birthDate.orEmpty()
+                                birthDate = this.data.user.birthDate.orEmpty(),
+                                token = this.data.user.token.orEmpty()
                             )
                         ))
                     }

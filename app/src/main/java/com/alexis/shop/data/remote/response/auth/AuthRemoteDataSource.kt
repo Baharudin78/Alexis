@@ -41,20 +41,14 @@ class AuthRemoteDataSource @Inject constructor(private val apiService: ApiServic
     suspend fun login(email: String, password: String): Flow<ApiResponse<LoginResponse>> {
         return flow {
             try {
-                Log.w("LOGIN", "1")
                 val response = apiService.login(email, password)
-                Log.w("LOGIN", "${response}")
                 if (response.data.user.id.orZero() > 0) {
-                    Log.w("LOGIN", "2")
-                    Log.w("LOGIN", "${response.data}")
                     emit(ApiResponse.Success(response))
                 } else {
-                    Log.w("LOGIN", "3")
                     emit(ApiResponse.Empty)
                 }
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.message.toString()))
-                Log.w("LOGIN", "4")
                 Log.e("RemoteDataSource", e.message.toString())
             }
         }.flowOn(Dispatchers.IO)

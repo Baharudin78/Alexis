@@ -99,13 +99,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         changeButtonLoginStatus(false)
         viewModel.login(email, password).observe(viewLifecycleOwner) { response ->
             if (response != null) {
-                Log.d("LOGIN", "0")
                 when (response) {
                     is Resource.Loading -> {
-                        Log.d("LOGIN", "1")
                     }
                     is Resource.Success -> {
-                        Log.d("LOGIN", "2")
                         response.data?.let {
                             viewModel.saveLoginCredential(it)
                             requireActivity().supportFragmentManager.menuNavigator(

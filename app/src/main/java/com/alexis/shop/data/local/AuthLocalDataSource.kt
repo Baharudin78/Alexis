@@ -16,6 +16,7 @@ class AuthLocalDataSource @Inject constructor(context: Context) {
         private const val EMAIL = "EMAIL"
         private const val PHONE = "PHONE"
         private const val BIRTH_DATE = "BIRTH_DATE"
+        private const val TOKEN = "TOKEN"
     }
 
     private val preferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -28,6 +29,7 @@ class AuthLocalDataSource @Inject constructor(context: Context) {
             putString(EMAIL, loginModel.email)
             putString(PHONE, loginModel.phone)
             putString(BIRTH_DATE, loginModel.birthDate)
+            putString(TOKEN, loginModel.token)
         }.apply()
     }
 
@@ -38,7 +40,8 @@ class AuthLocalDataSource @Inject constructor(context: Context) {
             fullName = preferences.getString(FULL_NAME, "").orEmpty(),
             email = preferences.getString(EMAIL, "").orEmpty(),
             phone = preferences.getString(PHONE, "").orEmpty(),
-            birthDate = preferences.getString(BIRTH_DATE, "").orEmpty()
+            birthDate = preferences.getString(BIRTH_DATE, "").orEmpty(),
+            token = preferences.getString(TOKEN, "").orEmpty()
         )
     }
 

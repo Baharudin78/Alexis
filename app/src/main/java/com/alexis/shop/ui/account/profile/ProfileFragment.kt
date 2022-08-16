@@ -238,9 +238,9 @@ class ProfileFragment : Fragment() {
 
     private fun getProfileData() {
         val profileData = viewModel.getProfileData()
-        click_name.setText(profileData.fullName)
-        click_email.setText(profileData.email)
-        click_phone.setText(profileData.phone)
+//        click_name.setText(profileData.fullName)
+//        click_email.setText(profileData.email)
+//        click_phone.setText(profileData.phone)
     }
 
     companion object {

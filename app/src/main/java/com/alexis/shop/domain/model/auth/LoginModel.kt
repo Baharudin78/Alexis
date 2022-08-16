@@ -6,5 +6,6 @@ data class LoginModel(
     var fullName: String,
     var email: String,
     var phone: String,
-    var birthDate: String
+    var birthDate: String,
+    var token : String
 )
