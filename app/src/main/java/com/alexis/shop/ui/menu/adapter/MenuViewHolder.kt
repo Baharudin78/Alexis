@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alexis.shop.R
 import com.alexis.shop.domain.model.menu.MenuModel
+import com.alexis.shop.domain.model.product.category.subcategory.SubCategoryModel
 import com.alexis.shop.utils.gone
 import com.alexis.shop.utils.visible
 
@@ -20,7 +21,7 @@ class MenuViewHolder (inflater: LayoutInflater, parent: ViewGroup) :
     var visibleSub = false
 
     fun bind(context: Context, item: MenuModel) {
-        val lSubmenu: ArrayList<String> = ArrayList()
+        val lSubmenu: ArrayList<SubCategoryModel> = ArrayList()
         if (item.icon == 0) {
             line.visible()
             title.gone()
@@ -30,16 +31,16 @@ class MenuViewHolder (inflater: LayoutInflater, parent: ViewGroup) :
             title.text = item.title
         }
         if (item.title == "Clothings"){
-            lSubmenu.add("Tops 60k")
-            lSubmenu.add("Dresses 60k")
-            lSubmenu.add("Knitwear 60k")
-            lSubmenu.add("Skirt 60k")
-            lSubmenu.add("Pants 80k")
-            lSubmenu.add("Jeans 80k")
-            lSubmenu.add("Blazer 80k")
-            lSubmenu.add("Knitted Sweater 80k")
-            lSubmenu.add("Sweatshirt 80k")
-            lSubmenu.add("Jacket 80k")
+//            lSubmenu.add("Tops 60k")
+//            lSubmenu.add("Dresses 60k")
+//            lSubmenu.add("Knitwear 60k")
+//            lSubmenu.add("Skirt 60k")
+//            lSubmenu.add("Pants 80k")
+//            lSubmenu.add("Jeans 80k")
+//            lSubmenu.add("Blazer 80k")
+//            lSubmenu.add("Knitted Sweater 80k")
+//            lSubmenu.add("Sweatshirt 80k")
+//            lSubmenu.add("Jacket 80k")
         }
 
         submenu.apply {

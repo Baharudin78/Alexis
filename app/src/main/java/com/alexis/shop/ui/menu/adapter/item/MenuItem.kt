@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexis.shop.R
 import com.alexis.shop.domain.model.menu.MenuModel
 import com.alexis.shop.databinding.ItemMenuMainBinding
+import com.alexis.shop.domain.model.product.category.subcategory.SubCategoryModel
 import com.alexis.shop.ui.detail.SubCategoryPageActivity
 import com.alexis.shop.ui.menu.adapter.SubMenuAdapter
 import com.alexis.shop.utils.*
@@ -24,7 +25,7 @@ class MenuItem(
 
 	override fun bind(viewBinding: ItemMenuMainBinding, position: Int) {
 		viewBinding.apply {
-			val lSubmenu: ArrayList<String> = ArrayList()
+			val lSubmenu: ArrayList<SubCategoryModel> = ArrayList()
 			if(item.icon == 0) {
 				sparateLine.visible()
 				textMenu.gone()
@@ -36,28 +37,28 @@ class MenuItem(
 
 			when(item.title) {
 				"Clothings" -> {
-					lSubmenu.add("Tops 60k")
-					lSubmenu.add("Dresses 60k")
-					lSubmenu.add("Knitwear 60k")
-					lSubmenu.add("Skirt 60k")
-					lSubmenu.add("Pants 80k")
-					lSubmenu.add("Jeans 80k")
-					lSubmenu.add("Blazer 80k")
-					lSubmenu.add("Knitted Sweater 80k")
-					lSubmenu.add("Sweatshirt 80k")
-					lSubmenu.add("Jacket 80k")
+//					lSubmenu.add("Tops 60k")
+//					lSubmenu.add("Dresses 60k")
+//					lSubmenu.add("Knitwear 60k")
+//					lSubmenu.add("Skirt 60k")
+//					lSubmenu.add("Pants 80k")
+//					lSubmenu.add("Jeans 80k")
+//					lSubmenu.add("Blazer 80k")
+//					lSubmenu.add("Knitted Sweater 80k")
+//					lSubmenu.add("Sweatshirt 80k")
+//					lSubmenu.add("Jacket 80k")
 				}
 				"Bags" -> {
-					lSubmenu.add("Bags")
-					lSubmenu.add("Bags 60k")
-					lSubmenu.add("Bags 80k")
-					lSubmenu.add("Bags 100k")
+//					lSubmenu.add("Bags")
+//					lSubmenu.add("Bags 60k")
+//					lSubmenu.add("Bags 80k")
+//					lSubmenu.add("Bags 100k")
 				}
 				"Shoes" -> {
-					lSubmenu.add("Shoes")
-					lSubmenu.add("Shoes 60k")
-					lSubmenu.add("Shoes 80k")
-					lSubmenu.add("Shoes 100k")
+//					lSubmenu.add("Shoes")
+//					lSubmenu.add("Shoes 60k")
+//					lSubmenu.add("Shoes 80k")
+//					lSubmenu.add("Shoes 100k")
 				}
 			}
 
@@ -65,7 +66,7 @@ class MenuItem(
 				layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 				adapter = SubMenuAdapter(lSubmenu) {
 					val intent = Intent(context, SubCategoryPageActivity::class.java)
-					intent.putExtra("category", it)
+					intent.putExtra("category", it.merchandiseName)
 					context.startActivity(intent)
 					fragment.justOut()
 				}

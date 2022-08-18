@@ -5,13 +5,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.alexis.shop.R
+import com.alexis.shop.domain.model.product.category.subcategory.SubCategoryModel
 
 class SubMenuAdapter(
-    items : ArrayList<String>,
-    private val onClick: (String) -> Unit
+    items : ArrayList<SubCategoryModel>,
+    private val onClick: (SubCategoryModel) -> Unit
 ) : RecyclerView.Adapter<SubMenuAdapter.SubmenuViewHolder>() {
 
-    private var contactList: ArrayList<String> = items
+    private var contactList: ArrayList<SubCategoryModel> = items
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SubmenuViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -19,7 +20,7 @@ class SubMenuAdapter(
     }
 
     override fun onBindViewHolder(holder: SubmenuViewHolder, position: Int) {
-        val item : String = contactList[position]
+        val item : SubCategoryModel = contactList[position]
 
         holder.bind(item)
 
@@ -34,10 +35,11 @@ class SubMenuAdapter(
             RecyclerView.ViewHolder(inflater.inflate(R.layout.item_menu_submenu, parent, false)) {
         var title: TextView = itemView.findViewById(R.id.text_menu)
 
-        fun bind(item: String) {
-            title.apply {
-                text = item
-            }
+        fun bind(item: SubCategoryModel) {
+//            title.apply {
+//                text = item
+//            }
+            title.text = item.merchandiseName
         }
     }
 

@@ -107,6 +107,22 @@
                     android:layout_weight="1.0">
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycle_category"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:listitem="@layout/item_menu_product"
+                        android:isScrollContainer="false" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical"
+                    android:layout_weight="1.0">
+
+                    <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycle_listmenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
