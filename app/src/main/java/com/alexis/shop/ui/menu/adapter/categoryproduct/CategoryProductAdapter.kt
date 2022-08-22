@@ -1,16 +1,30 @@
 package com.alexis.shop.ui.menu.adapter.categoryproduct
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.alexis.shop.databinding.ItemMenuProductBinding
+import com.alexis.shop.domain.model.product.category.ProductCategoryModel
+import com.alexis.shop.utils.OnClickItem
 
-class CategoryProductAdapter() : RecyclerView.Adapter<CategoryProductAdapter.CategoryProductHolder>() {
+class CategoryProductAdapter(
+    private val context : Context,
+    private val listener : OnClickItem
+) : RecyclerView.Adapter<CategoryProductAdapter.CategoryProductHolder>() {
 
-    inner class CategoryProductHolder(val binding : ItemMenuProductBinding) : RecyclerView.ViewHolder(binding.root)
+    private var categoryList = ArrayList<ProductCategoryModel>()
+
+    fun setDataCategory(data : ArrayList<ProductCategoryModel>) {
+        categoryList.clear()
+        categoryList = data
+    }
+    class CategoryProductHolder(val binding : ItemMenuProductBinding) : RecyclerView.ViewHolder(binding.root) {
+
+    }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return categoryList.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryProductHolder {
@@ -19,6 +33,7 @@ class CategoryProductAdapter() : RecyclerView.Adapter<CategoryProductAdapter.Cat
     }
 
     override fun onBindViewHolder(holder: CategoryProductHolder, position: Int) {
-        TODO("Not yet implemented")
+        val item : ProductCategoryModel = categoryList[position]
+        holder
     }
 }
