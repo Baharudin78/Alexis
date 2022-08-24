@@ -173,27 +173,27 @@ class MainActivity : AppCompatActivity() {
         getUserData()
     }
 
-    val resultLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                when (result.data?.getIntExtra("id", 0)) {
-                    ExpanItemPagersActivity.BACK_TO_CART -> {
-//                        countCart += 1
-//                        log("cart")
-//                        savedCountToPrefs(countCart)
-                        getUserData()
-                    }
-                    ExpanItemPagersActivity.BACK_TO_WISHLIST -> {
-//                        countLoved += 1
-//                        savedWishToPrefs(countLoved)
-                        getUserData()
-                    }
-                }
-
-//                count_cart.text = getSavedPrefsCount().toString()
-//                count_loved.text = getSavedPrefsWish().toString()
-            }
-        }
+//    val resultLauncher =
+//        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+//            if (result.resultCode == Activity.RESULT_OK) {
+//                when (result.data?.getIntExtra("id", 0)) {
+//                    ExpanItemPagersActivity.BACK_TO_CART -> {
+////                        countCart += 1
+////                        log("cart")
+////                        savedCountToPrefs(countCart)
+//                        getUserData()
+//                    }
+//                    ExpanItemPagersActivity.BACK_TO_WISHLIST -> {
+////                        countLoved += 1
+////                        savedWishToPrefs(countLoved)
+//                        getUserData()
+//                    }
+//                }
+//
+////                count_cart.text = getSavedPrefsCount().toString()
+////                count_loved.text = getSavedPrefsWish().toString()
+//            }
+//        }
 
     private fun changeTopBarsColor(isBlack: Boolean) {
         //Make top bar (signal, baterai) and menu bar transparent
@@ -399,9 +399,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getProductCategory() {
-        viewModel.callProductCategoryData()
+       // viewModel.callProductCategoryData()
     }
     private fun getSubProductCategory() {
-        viewModel.callSubCategoryData(product?.category.orEmpty())
+       // viewModel.callSubCategoryData(product?.category.orEmpty())
     }
 }

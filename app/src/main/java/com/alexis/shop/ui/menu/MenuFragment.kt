@@ -11,7 +11,9 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.alexis.shop.BaseFragment
 import com.alexis.shop.R
+import com.alexis.shop.data.Resource
 import com.alexis.shop.domain.model.menu.MenuModel
 import com.alexis.shop.data.source.dummy.getMenuList
 import com.alexis.shop.databinding.FragmentMenuBinding
@@ -23,6 +25,7 @@ import com.alexis.shop.ui.main.MainActivity
 import com.alexis.shop.ui.main.MainViewModel
 import com.alexis.shop.ui.menu.scanqr.ScanQrFragment.Companion.MENU_FRAGMENT
 import com.alexis.shop.ui.menu.aboutus.AboutUsFragment
+import com.alexis.shop.ui.menu.adapter.categoryproduct.CategoryProductAdapter
 import com.alexis.shop.ui.menu.adapter.item.MenuItem
 import com.alexis.shop.ui.menu.adapter.item.SocialItem
 import com.alexis.shop.ui.menu.contactus.ContactUsFragment
@@ -39,17 +42,20 @@ import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MenuFragment : Fragment(R.layout.fragment_menu) {
+class MenuFragment : BaseFragment<FragmentMenuBinding>(), OnClickItem {
     private val viewModel: MenuViewModel by viewModels()
     private val mainViewModel: MainViewModel by activityViewModels()
+    private lateinit var categoryProductAdapter: CategoryProductAdapter
+    private var categoryProduct = ArrayList<ProductCategoryModel>()
     private var param1: String? = null
     private var param2: String? = null
     private var product: ProductCategoryModel? = null
-    private val binding: FragmentMenuBinding by viewBinding()
+    //private val binding: FragmentMenuBinding by viewBinding()
     private val menuAdapter = GroupAdapter<GroupieViewHolder>()
     private val sosmedAdapter = GroupAdapter<GroupieViewHolder>()
     private var listMenu: ArrayList<MenuModel> = ArrayList()
     private var fragManager: FragmentManager? = null
+    override fun getViewBinding(): FragmentMenuBinding = FragmentMenuBinding.inflate(layoutInflater)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         StatusBarUtil.forceStatusBar(requireActivity().window, true)
@@ -74,6 +80,28 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
         enterTransition = MaterialFadeThrough()
     }
 
+    override fun main() {
+        categoryProductAdapter = CategoryProductAdapter(binding.root.context, this)
+        with(binding.recycleCategory) {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            adapter = categoryProductAdapter
+        }
+    }
+
+    private fun getProductCategory() {
+        mainViewModel.getProductCategory().observe(viewLifecycleOwner) { response ->
+            if (response != null) {
+                when(response) {
+                    is Resource.Loading -> {}
+                    is Resource.Success -> {
+                        val categoryProductValue = response.data?.data as ArrayList<ProductCategoryModel>
+                        categoryProduct = categoryProductValue
+                        categoryProductAdapter.setDataCategory(categoryProductValue)
+                    }
+                }
+            }
+        }
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fragManager = activity?.supportFragmentManager
@@ -216,5 +244,10 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+
+    override fun onClick(item: Any) {
+        TODO("Not yet implemented")
     }
 }

@@ -5,6 +5,6 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class SubCategoryModel(
-    val merchandiseName : String,
-    val id : Int
+    val merchandiseName : String = "",
+    val id : Int = 0
 ) : Parcelable

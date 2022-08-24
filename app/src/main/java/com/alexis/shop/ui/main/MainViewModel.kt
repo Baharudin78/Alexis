@@ -27,25 +27,28 @@ class MainViewModel @Inject constructor(
 
     fun getAllProduct() = productUseCase.getAllProduct().asLiveData()
 
-    fun callProductCategoryData() {
-        viewModelScope.launch {
-            when (val response = productCategoryUseCase.getAllProductCategory()) {
-                is Resource.Loading -> {}
-                is Resource.Success -> productCategory.postValue(response.data)
-                is Resource.Error -> productCategory.postValue(listOf())
-            }
-        }
-    }
+    fun getProductCategory() = productCategoryUseCase.getAllProductCategory().asLiveData()
+    fun getSubCategoryProduct(name: String) = productCategoryUseCase.getSubProductCategory(name).asLiveData()
+//    fun callProductCategoryData() {
+//        viewModelScope.launch {
+//            when (val response = productCategoryUseCase.getAllProductCategory()) {
+//                is Resource.Loading -> {}
+//                is Resource.Success -> productCategory.postValue(response.data)
+//                is Resource.Error -> productCategory.postValue(listOf())
+//            }
+//        }
+//    }
 
-    fun callSubCategoryData(name : String) {
-        viewModelScope.launch {
-            when(val response = productCategoryUseCase.getSubProductCategory(name)) {
-                is Resource.Loading -> {}
-                is Resource.Success -> subProductCategory.postValue(response.data)
-                is Resource.Error -> subProductCategory.postValue(listOf())
-            }
-        }
-    }
+
+//    fun callSubCategoryData(name : String) {
+//        viewModelScope.launch {
+//            when(val response = productCategoryUseCase.getSubProductCategory(name)) {
+//                is Resource.Loading -> {}
+//                is Resource.Success -> subProductCategory.postValue(response.data)
+//                is Resource.Error -> subProductCategory.postValue(listOf())
+//            }
+//        }
+//    }
 
     fun getSubCategoryData(name : String) : MutableLiveData<List<SubCategoryModel>> {
         return subProductCategory
