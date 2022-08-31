@@ -3,6 +3,7 @@ package com.alexis.shop.ui.menu
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils.loadAnimation
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -42,7 +43,7 @@ import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MenuFragment : BaseFragment<FragmentMenuBinding>(), OnClickItem {
+class MenuFragment : Fragment(R.layout.fragment_menu) {
     private val viewModel: MenuViewModel by viewModels()
     private val mainViewModel: MainViewModel by activityViewModels()
     private lateinit var categoryProductAdapter: CategoryProductAdapter
@@ -50,12 +51,13 @@ class MenuFragment : BaseFragment<FragmentMenuBinding>(), OnClickItem {
     private var param1: String? = null
     private var param2: String? = null
     private var product: ProductCategoryModel? = null
-    //private val binding: FragmentMenuBinding by viewBinding()
+    private val binding: FragmentMenuBinding by viewBinding()
     private val menuAdapter = GroupAdapter<GroupieViewHolder>()
     private val sosmedAdapter = GroupAdapter<GroupieViewHolder>()
     private var listMenu: ArrayList<MenuModel> = ArrayList()
     private var fragManager: FragmentManager? = null
-    override fun getViewBinding(): FragmentMenuBinding = FragmentMenuBinding.inflate(layoutInflater)
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         StatusBarUtil.forceStatusBar(requireActivity().window, true)
@@ -80,28 +82,29 @@ class MenuFragment : BaseFragment<FragmentMenuBinding>(), OnClickItem {
         enterTransition = MaterialFadeThrough()
     }
 
-    override fun main() {
-        categoryProductAdapter = CategoryProductAdapter(binding.root.context, this)
-        with(binding.recycleCategory) {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            adapter = categoryProductAdapter
-        }
-    }
 
-    private fun getProductCategory() {
-        mainViewModel.getProductCategory().observe(viewLifecycleOwner) { response ->
-            if (response != null) {
-                when(response) {
-                    is Resource.Loading -> {}
-                    is Resource.Success -> {
-                        val categoryProductValue = response.data?.data as ArrayList<ProductCategoryModel>
-                        categoryProduct = categoryProductValue
-                        categoryProductAdapter.setDataCategory(categoryProductValue)
-                    }
-                }
-            }
-        }
-    }
+
+//    private fun getProductCategory() {
+//        mainViewModel.getProductCategory().observe(viewLifecycleOwner) { response ->
+//            if (response != null) {
+//                when(response) {
+//                    is Resource.Loading -> {}
+//                    is Resource.Success -> {
+//                        val categoryProductValue = response.data?.data as ArrayList<ProductCategoryModel>
+//                        categoryProduct = categoryProductValue
+//                        categoryProductAdapter.setDataCategory(categoryProductValue)
+//                    }
+//                    is Resource.Error -> {
+//                        Toast.makeText(
+//                            binding.root.context,
+//                            "GetFailed",
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//                    }
+//                }
+//            }
+//        }
+//    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fragManager = activity?.supportFragmentManager
@@ -142,15 +145,16 @@ class MenuFragment : BaseFragment<FragmentMenuBinding>(), OnClickItem {
             mainViewModel.getSubCategoryData(product?.category.orEmpty()).observe(viewLifecycleOwner) {
 
             }
+           // getProductCategory()
             addDataMenuAdapter()
             //addDataSosmedAdapter()
         }
     }
 
     private fun addDataMenuAdapter() {
-        listMenu.slice(0..10).map { menu ->
+        listMenu.slice(0..15).map { menu ->
             menu.isOpen = true
-            menuAdapter.add(MenuItem(this, menu) { // onClick
+            menuAdapter.add(MenuItem(this, menu) {
                 log("${it.id} ${it.isChoosed}")
                 when(it.title) {
                     "Size Filter" -> fragManager?.menuNavigator(SizeFilterFragment())
@@ -246,8 +250,4 @@ class MenuFragment : BaseFragment<FragmentMenuBinding>(), OnClickItem {
             }
     }
 
-
-    override fun onClick(item: Any) {
-        TODO("Not yet implemented")
-    }
 }

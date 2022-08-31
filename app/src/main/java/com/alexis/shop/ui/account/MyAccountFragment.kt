@@ -13,6 +13,7 @@ import com.alexis.shop.R
 import com.alexis.shop.domain.model.menu.MenuModel
 import com.alexis.shop.ui.account.adapter.MyAccountAdapter
 import com.alexis.shop.ui.account.profile.ProfileFragment
+import com.alexis.shop.ui.account.voucher.VoucherFragment
 import com.alexis.shop.ui.menu.address.ChangeAddressFragment
 import com.alexis.shop.ui.menu.language.LanguageFragment
 import com.alexis.shop.ui.menu.MenuFragment

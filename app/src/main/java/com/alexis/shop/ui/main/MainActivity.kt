@@ -173,8 +173,7 @@ class MainActivity : AppCompatActivity() {
         getUserData()
     }
 
-//    val resultLauncher =
-//        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+//    val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
 //            if (result.resultCode == Activity.RESULT_OK) {
 //                when (result.data?.getIntExtra("id", 0)) {
 //                    ExpanItemPagersActivity.BACK_TO_CART -> {
@@ -399,9 +398,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getProductCategory() {
-       // viewModel.callProductCategoryData()
+        viewModel.callProductCategoryData()
+       // viewModel.getProductCategory()
     }
     private fun getSubProductCategory() {
-       // viewModel.callSubCategoryData(product?.category.orEmpty())
+        viewModel.callSubCategoryData(product?.category.orEmpty())
     }
 }

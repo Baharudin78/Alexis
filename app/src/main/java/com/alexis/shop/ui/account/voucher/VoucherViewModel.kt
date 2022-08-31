@@ -1,4 +1,4 @@
-package com.alexis.shop.ui.menu.helpcenter.voucher
+package com.alexis.shop.ui.account.voucher
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData

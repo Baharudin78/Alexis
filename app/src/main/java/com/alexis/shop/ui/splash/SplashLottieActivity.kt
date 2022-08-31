@@ -27,22 +27,37 @@ class SplashLottieActivity : AppCompatActivity() {
         }
 
         animationView.addAnimatorListener(object : Animator.AnimatorListener {
-            override fun onAnimationStart(animation: Animator?) {
+            //            override fun onAnimationStart(animation: Animator?) {
+//            }
+//
+//            //Go to MainActivity when Splash Animation's end
+//            override fun onAnimationEnd(animation: Animator?) {
+//                val intent = Intent(this@SplashLottieActivity, MainActivity::class.java)
+//                startActivity(intent)
+//                finish()
+//
+//                overridePendingTransition(0, R.anim.activity_out_main)
+//            }
+//
+//            override fun onAnimationCancel(animation: Animator?) {
+//            }
+//
+//            override fun onAnimationRepeat(animation: Animator?) {
+//            }
+            override fun onAnimationStart(animation: Animator) {
+
             }
 
-            //Go to MainActivity when Splash Animation's end
-            override fun onAnimationEnd(animation: Animator?) {
+            override fun onAnimationEnd(animation: Animator) {
                 val intent = Intent(this@SplashLottieActivity, MainActivity::class.java)
                 startActivity(intent)
                 finish()
-
-                overridePendingTransition(0, R.anim.activity_out_main)
             }
 
-            override fun onAnimationCancel(animation: Animator?) {
+            override fun onAnimationCancel(animation: Animator) {
             }
 
-            override fun onAnimationRepeat(animation: Animator?) {
+            override fun onAnimationRepeat(animation: Animator) {
             }
         })
     }

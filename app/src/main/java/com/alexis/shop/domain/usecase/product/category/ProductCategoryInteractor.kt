@@ -10,10 +10,10 @@ import javax.inject.Inject
 
 class ProductCategoryInteractor @Inject constructor(private val repository: IProductCategoryRepository):
     ProductCategoryUseCase {
-    override  fun getAllProductCategory(): Flow<Resource<ProductCategoryModelList>> {
+    override suspend fun getAllProductCategory(): Resource<List<ProductCategoryModel>> {
         return repository.getAllProductCategory()
     }
-    override  fun getSubProductCategory(name : String): Flow<Resource<List<SubCategoryModel>>> {
+    override suspend fun getSubProductCategory(name : String): Resource<List<SubCategoryModel>> {
         return repository.getSubCategoryProduct(name)
     }
 }

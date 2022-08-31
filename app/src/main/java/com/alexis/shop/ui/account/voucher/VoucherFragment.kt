@@ -1,4 +1,4 @@
-package com.alexis.shop.ui.account
+package com.alexis.shop.ui.account.voucher
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,10 +15,12 @@ import com.alexis.shop.databinding.FragmentVoucherBinding
 import com.alexis.shop.ui.menu.adapter.VOUCHER_FRAGMENT
 import com.alexis.shop.ui.menu.adapter.VoucherAdapter
 import com.alexis.shop.utils.*
+import dagger.hilt.android.AndroidEntryPoint
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
+@AndroidEntryPoint
 class VoucherFragment : BaseFragment<FragmentVoucherBinding>() {
     private var param1: String? = null
     private var param2: String? = null
@@ -39,18 +41,18 @@ class VoucherFragment : BaseFragment<FragmentVoucherBinding>() {
         }
     }
 
-//    override fun onCreateView(
-//        inflater: LayoutInflater, container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//        val root = inflater.inflate(R.layout.fragment_voucher, container, false)
-//        title = root.findViewById(R.id.txt_wl)
-//        recycle = root.findViewById(R.id.recycle_voucher)
-//        cancel_button = root.findViewById(R.id.btn_cancel)
-//        back_button = root.findViewById(R.id.btn_back)
-//
-//        return root
-//    }
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        val root = inflater.inflate(R.layout.fragment_voucher, container, false)
+        title = root.findViewById(R.id.txt_wl)
+        recycle = root.findViewById(R.id.recycle_voucher)
+        cancel_button = root.findViewById(R.id.btn_cancel)
+        back_button = root.findViewById(R.id.btn_back)
+
+        return root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

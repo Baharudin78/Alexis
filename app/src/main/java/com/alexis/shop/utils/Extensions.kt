@@ -68,9 +68,12 @@ fun Context.toast(content : String?){
         .alpha(0f)
         .setDuration(500)
         .setListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator?) {
+            override fun onAnimationEnd(animation: Animator) {
                 visibility = View.GONE
             }
+//            override fun onAnimationEnd(animation: Animator?) {
+//                visibility = View.GONE
+//            }
         })
 }
 
@@ -79,9 +82,12 @@ fun View.animateVisible() {
         .alpha(1f)
         .setDuration(500)
         .setListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator?) {
+            override fun onAnimationEnd(animation: Animator) {
                 visibility = VISIBLE
             }
+//            override fun onAnimationEnd(animation: Animator?) {
+//                visibility = VISIBLE
+//            }
         })
 }
 

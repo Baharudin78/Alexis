@@ -39,7 +39,7 @@ class ProductCategoryRemoteDataSource @Inject constructor(private val apiService
                     emit(ApiResponse.Empty)
                 }
             }catch (e : Exception) {
-                emit(ApiResponse.Error(e.toString()))
+               // emit(ApiResponse.Error(e.toString()))
                 Log.e("RemoteDataSource", " Sub category + $e")
             }
         }

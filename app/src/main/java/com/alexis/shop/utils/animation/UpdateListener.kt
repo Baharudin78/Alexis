@@ -8,7 +8,14 @@ import com.airbnb.lottie.LottieAnimationView
  */
 class UpdateListener(private val lottieAnimationView: LottieAnimationView) :
 	ValueAnimator.AnimatorUpdateListener {
-	override fun onAnimationUpdate(animation: ValueAnimator?) {
+//	override fun onAnimationUpdate(animation: ValueAnimator?) {
+//		if (lottieAnimationView.frame > 0) {
+//			lottieAnimationView.removeUpdateListener(this)
+//			lottieAnimationView.setMinAndMaxFrame(0, 80)
+//		}
+//	}
+
+	override fun onAnimationUpdate(animation: ValueAnimator) {
 		if (lottieAnimationView.frame > 0) {
 			lottieAnimationView.removeUpdateListener(this)
 			lottieAnimationView.setMinAndMaxFrame(0, 80)

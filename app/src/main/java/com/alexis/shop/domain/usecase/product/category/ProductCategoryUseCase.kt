@@ -7,6 +7,6 @@ import com.alexis.shop.domain.model.product.category.subcategory.SubCategoryMode
 import kotlinx.coroutines.flow.Flow
 
 interface ProductCategoryUseCase {
-     fun getAllProductCategory(): Flow<Resource<ProductCategoryModelList>>
-     fun getSubProductCategory(name : String) : Flow<Resource<List<SubCategoryModel>>>
+    suspend fun getAllProductCategory(): Resource<List<ProductCategoryModel>>
+    suspend fun getSubProductCategory(name : String) : Resource<List<SubCategoryModel>>
 }
