@@ -9,7 +9,7 @@ import javax.inject.Inject
 class VoucherInteractor @Inject constructor(
     private val voucherRepository: VoucherRepository
 ) : VoucherUseCase{
-    override fun getAllVoucher(): Flow<Resource<AllVoucherModel>> {
-        return voucherRepository.getAllVoucher()
+    override fun getAllVoucher(token : String): Flow<Resource<AllVoucherModel>> {
+        return voucherRepository.getAllVoucher(token)
     }
 }

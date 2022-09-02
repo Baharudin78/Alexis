@@ -21,9 +21,9 @@ import javax.inject.Singleton
 class VoucherRepository @Inject constructor(
     private val remoteDataSource: VoucherRemoteDataSource
 ): IVoucherRepository{
-    override fun getAllVoucher(): Flow<Resource<AllVoucherModel>> {
+    override fun getAllVoucher(token : String): Flow<Resource<AllVoucherModel>> {
         return flow <Resource<AllVoucherModel>>{
-            when(val apiResponse = remoteDataSource.getAllVoucher().first()) {
+            when(val apiResponse = remoteDataSource.getAllVoucher(token).first()) {
                 is ApiResponse.Success -> emit(
                     Resource.Success(
                         convertAllVoucherResponseToModel(

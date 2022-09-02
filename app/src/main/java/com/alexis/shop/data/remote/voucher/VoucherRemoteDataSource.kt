@@ -15,10 +15,10 @@ import javax.inject.Singleton
 class VoucherRemoteDataSource @Inject constructor(
     private val apiService : ApiService
 ) {
-    suspend fun getAllVoucher() : Flow<ApiResponse<VoucherResponse>> {
+    suspend fun getAllVoucher(token : String) : Flow<ApiResponse<VoucherResponse>> {
         return flow {
             try {
-                val response = apiService.getVoucher()
+                val response = apiService.getVoucher(token)
                 if (!response.data?.voucherList.isNullOrEmpty()) {
                     emit(ApiResponse.Success(response))
                 }else {

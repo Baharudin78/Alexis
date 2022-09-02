@@ -94,7 +94,9 @@ interface ApiService {
     suspend fun getSizeFilter(): SizeFilterResponse
 
     @GET("mw/voucher")
-    suspend fun getVoucher(): VoucherResponse
+    suspend fun getVoucher(
+        @Header("Authorization") token : String
+    ): VoucherResponse
 
     @GET(UrlConstant.CHECKOUT_ADDRESS)
     suspend fun getCheckOutAddress(@Query("user_id") userId: Int): CheckoutAddressGetResponse

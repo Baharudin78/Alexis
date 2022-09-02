@@ -16,6 +16,8 @@ import com.alexis.shop.ui.menu.MenuFragment
 import com.alexis.shop.utils.*
 import com.alexis.shop.utils.animation.Animations
 import com.alexis.shop.data.Resource
+import com.alexis.shop.domain.model.auth.LoginModel
+import com.alexis.shop.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -105,6 +107,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                     is Resource.Success -> {
                         response.data?.let {
                             viewModel.saveLoginCredential(it)
+                            Log.d("DATASS", it.token)
                             requireActivity().supportFragmentManager.menuNavigator(
                                 MenuFragment.newInstance("", "222")
                             )

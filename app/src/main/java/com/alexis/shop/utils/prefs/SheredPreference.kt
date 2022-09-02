@@ -8,7 +8,7 @@ class SheredPreference (private val  context : Context) {
         private const val PREF_NAME = "ALEXIS"
         private const val PREF_TOKEN = "ALEXIS_TOKEN"
     }
-    private val sharedPref : SharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+     val sharedPref : SharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
     fun saveToken(token : String) {
         put(PREF_TOKEN, token)
     }
