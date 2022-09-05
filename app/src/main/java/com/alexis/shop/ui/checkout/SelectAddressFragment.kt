@@ -15,6 +15,7 @@ import com.alexis.shop.ui.menu.address.AddAddressFragment.Companion.SELECT_ADDRE
 import com.alexis.shop.ui.shopping_bag.SelectVoucherFragment
 import com.alexis.shop.ui.shopping_bag.adapter.SelectAddressAdapter
 import com.alexis.shop.utils.*
+import com.alexis.shop.utils.prefs.SheredPreference
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,11 +24,13 @@ class SelectAddressFragment : BaseFragment<FragmentSelectAddressBinding>() {
     private var selectedDelivery: String = ""
     private var checkoutAddress: ArrayList<CheckoutAddressModelView> = ArrayList()
     lateinit var adapterIt: SelectAddressAdapter
+    lateinit var sharedPref : SheredPreference
 
     override fun getViewBinding() = FragmentSelectAddressBinding.inflate(layoutInflater)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        sharedPref = SheredPreference(requireContext())
         handleBackPressed()
 //        enterTransition = MaterialFadeThrough()
 //        exitTransition = MaterialFadeThrough()
@@ -79,7 +82,7 @@ class SelectAddressFragment : BaseFragment<FragmentSelectAddressBinding>() {
     }
 
     private fun getCheckoutAddress() {
-        viewModel.getCheckoutAddress().observe(viewLifecycleOwner) { response ->
+        viewModel.getCheckoutAddress(token = "Bearer ${sharedPref.getToken()}").observe(viewLifecycleOwner) { response ->
             if (response != null) {
                 when (response) {
                     is Resource.Loading -> {}

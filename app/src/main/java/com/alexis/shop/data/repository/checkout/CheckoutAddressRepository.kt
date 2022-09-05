@@ -18,12 +18,14 @@ class CheckoutAddressRepository @Inject constructor(
 ) : ICheckoutAddressRepository {
 
     override fun postCheckoutAddress(
+        token : String,
         checkoutAddressModelView: CheckoutAddressModelView,
         userId: Int
     ): Flow<Resource<CheckoutAddressModelView>> {
         return flow<Resource<CheckoutAddressModelView>> {
             emit(Resource.Loading())
             when (val apiResponse = remoteDataSource.postCheckoutAddress(
+                token,
                 checkoutAddressModelView,
                 userId
             ).first()) {
@@ -50,10 +52,10 @@ class CheckoutAddressRepository @Inject constructor(
         }
     }
 
-    override fun getCheckoutAddress(userId: Int): Flow<Resource<List<CheckoutAddressModelView>>> {
+    override fun getCheckoutAddress(token : String): Flow<Resource<List<CheckoutAddressModelView>>> {
         return flow<Resource<List<CheckoutAddressModelView>>> {
             emit(Resource.Loading())
-            when (val apiResponse = remoteDataSource.getCheckoutAddress(userId).first()) {
+            when (val apiResponse = remoteDataSource.getCheckoutAddress(token).first()) {
                 is ApiResponse.Success -> emit(
                     Resource.Success(
                         generateCheckoutAddressModelView(

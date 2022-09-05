@@ -1,6 +1,7 @@
 package com.alexis.shop.di
 
 import com.alexis.shop.data.remote.network.ApiService
+import com.alexis.shop.data.remote.network.TokenAuthentication
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,8 +18,20 @@ class NetworkModule {
 
     @Provides
     fun provideOkHttpClient(): OkHttpClient {
-        return OkHttpClient.Builder()
-            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+//        return OkHttpClient.Builder()
+//            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+//            .connectTimeout(120, TimeUnit.SECONDS)
+//            .readTimeout(120, TimeUnit.SECONDS)
+//            .build()
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.level = HttpLoggingInterceptor.Level.BODY
+        return OkHttpClient.Builder().addInterceptor (
+            TokenAuthentication(
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjYyMTA0MjkwLCJleHAiOjE2NjIxOTA2OTB9.eZLzFrXl_j82fueMXKcNbXt2gaIDw-6Q9eG6S7Kw9c8",
+                "Bearer"
+            )
+        )
+            .addInterceptor(interceptor)
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
             .build()

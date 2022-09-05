@@ -98,12 +98,19 @@ interface ApiService {
         @Header("Authorization") token : String
     ): VoucherResponse
 
-    @GET(UrlConstant.CHECKOUT_ADDRESS)
-    suspend fun getCheckOutAddress(@Query("user_id") userId: Int): CheckoutAddressGetResponse
+    /*
+    ADDRESS
+     */
 
-    @POST(UrlConstant.CHECKOUT_ADDRESS)
+    @GET("mw/address")
+    suspend fun getCheckOutAddress(
+        @Header("Authorization") token: String
+    ): CheckoutAddressGetResponse
+
+    @POST("mw/address")
     @FormUrlEncoded
     suspend fun postCheckOutAddress(
+        @Header("Authorization") token : String,
         @Field("type_address") typeAddress: String,
         @Field("user_id") userId: Int,
         @Field("recipient_name") recipientName: String,

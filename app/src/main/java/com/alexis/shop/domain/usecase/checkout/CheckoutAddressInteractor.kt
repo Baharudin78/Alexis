@@ -8,13 +8,14 @@ import javax.inject.Inject
 
 class CheckoutAddressInteractor @Inject constructor(private val repository: ICheckoutAddressRepository): CheckoutAddressUseCase {
     override fun postCheckoutAddress(
+        token: String,
         checkoutAddressModelView: CheckoutAddressModelView,
         userId: Int
     ): Flow<Resource<CheckoutAddressModelView>> {
-        return repository.postCheckoutAddress(checkoutAddressModelView, userId)
+        return repository.postCheckoutAddress(token,checkoutAddressModelView, userId)
     }
 
-    override fun getCheckoutAddress(userId: Int): Flow<Resource<List<CheckoutAddressModelView>>> {
-        return repository.getCheckoutAddress(userId)
+    override fun getCheckoutAddress(token : String): Flow<Resource<List<CheckoutAddressModelView>>> {
+        return repository.getCheckoutAddress(token)
     }
 }

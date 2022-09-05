@@ -45,6 +45,7 @@ class VoucherFragment : BaseFragment<FragmentVoucherBinding>(), OnClickItem {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        sharedPref = SheredPreference(requireContext())
         handleBackPressed()
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
@@ -62,7 +63,7 @@ class VoucherFragment : BaseFragment<FragmentVoucherBinding>(), OnClickItem {
     }
 
     private fun getAllVoucher() {
-        viewModel.getAllVoucher(sharedPref.getToken()).observe(viewLifecycleOwner) {response ->
+        viewModel.getAllVoucher(token = "Bearer ${sharedPref.getToken()}").observe(viewLifecycleOwner) {response ->
             if (response != null) {
                 when(response) {
                     is Resource.Loading -> {}

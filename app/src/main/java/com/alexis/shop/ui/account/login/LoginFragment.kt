@@ -1,6 +1,7 @@
 package com.alexis.shop.ui.account.login
 
 import android.app.Activity
+import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
@@ -18,14 +19,19 @@ import com.alexis.shop.utils.animation.Animations
 import com.alexis.shop.data.Resource
 import com.alexis.shop.domain.model.auth.LoginModel
 import com.alexis.shop.ui.main.MainActivity
+import com.alexis.shop.utils.prefs.SheredPreference
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     private val viewModel: LoginViewModel by viewModels()
-
+    private lateinit var sharedPref : SheredPreference
     override fun getViewBinding() = FragmentLoginBinding.inflate(layoutInflater)
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedPref = SheredPreference(requireContext())
+    }
     override fun main() {
         handleBackPressed()
         with(binding) {
@@ -106,6 +112,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                     }
                     is Resource.Success -> {
                         response.data?.let {
+                            sharedPref.saveToken(it.token)
                             viewModel.saveLoginCredential(it)
                             Log.d("DATASS", it.token)
                             requireActivity().supportFragmentManager.menuNavigator(

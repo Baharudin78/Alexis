@@ -14,9 +14,9 @@ class SelectAddressFragmentViewModel @Inject constructor(
     private val authUseCase: AuthUseCase
 ) : ViewModel() {
 
-    fun getCheckoutAddress() =
-        checkoutAddressUseCase.getCheckoutAddress(authUseCase.getUserId()).asLiveData()
+    fun getCheckoutAddress(token : String) =
+        checkoutAddressUseCase.getCheckoutAddress(token).asLiveData()
 
-    fun postCheckoutAddress(data: CheckoutAddressModelView) =
-        checkoutAddressUseCase.postCheckoutAddress(data, authUseCase.getUserId()).asLiveData()
+    fun postCheckoutAddress(token : String,data: CheckoutAddressModelView) =
+        checkoutAddressUseCase.postCheckoutAddress(token,data, authUseCase.getUserId()).asLiveData()
 }

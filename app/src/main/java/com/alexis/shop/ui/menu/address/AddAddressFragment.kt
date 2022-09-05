@@ -11,11 +11,13 @@ import com.alexis.shop.R
 import com.alexis.shop.ui.checkout.SelectAddressFragment
 import com.alexis.shop.utils.*
 import com.google.android.material.textfield.TextInputEditText
+import dagger.hilt.android.AndroidEntryPoint
 
 
 private const val ARG_whereFrom = "whereFrom"
 private const val ARG_PARAM2 = "param2"
 
+@AndroidEntryPoint
 class AddAddressFragment : Fragment() {
     private var whereFrom: Int? = null
     private var param2: String? = null
@@ -134,6 +136,10 @@ class AddAddressFragment : Fragment() {
             dropdown_kecamatan.setText(item)
             lpw.dismiss()
         }
+    }
+
+    private fun addAddress() {
+
     }
 
     companion object {

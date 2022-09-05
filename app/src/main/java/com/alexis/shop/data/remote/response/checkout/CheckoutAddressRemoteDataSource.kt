@@ -15,12 +15,14 @@ import javax.inject.Singleton
 class CheckoutAddressRemoteDataSource @Inject constructor(private val apiService: ApiService) {
 
     suspend fun postCheckoutAddress(
+        token: String,
         checkoutAddressModelView: CheckoutAddressModelView,
         userId: Int
     ): Flow<ApiResponse<CheckoutAddressPostResponse>> {
         return flow {
             try {
                 val response = apiService.postCheckOutAddress(
+                    token,
                     checkoutAddressModelView.typeAddress,
                     userId,
                     checkoutAddressModelView.recipientName,
@@ -43,10 +45,10 @@ class CheckoutAddressRemoteDataSource @Inject constructor(private val apiService
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun getCheckoutAddress(userId: Int): Flow<ApiResponse<CheckoutAddressGetResponse>> {
+    suspend fun getCheckoutAddress(token: String): Flow<ApiResponse<CheckoutAddressGetResponse>> {
         return flow {
             try {
-                val response = apiService.getCheckOutAddress(userId)
+                val response = apiService.getCheckOutAddress(token)
                 if (!response.data?.address.isNullOrEmpty()) {
                     emit(ApiResponse.Success(response))
                 } else {
