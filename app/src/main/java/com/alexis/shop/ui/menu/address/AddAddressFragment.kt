@@ -138,7 +138,7 @@ class AddAddressFragment : Fragment() {
         }
     }
 
-    private fun addAddress() {
+    private fun addAddress(token : String, ) {
 
     }
 

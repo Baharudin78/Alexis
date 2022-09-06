@@ -49,6 +49,6 @@ data class CheckoutAddressItem(
 
 data class CheckoutAddressData(
 
-	@field:SerializedName("address")
+	@field:SerializedName("items")
 	val address: List<CheckoutAddressItem>? = null
 )
