@@ -32,7 +32,7 @@ class SimpleVoucherAdapter(private val context : Context, private val listener :
 
          fun bindItem(item : VoucherItemModel) {
              tanggal.text = item.expiredDate
-             name.text = item.voucherType?.nameType
+             name.text = item.name
              expired.text = item.expiredDate
              potongan.text = item.discount.toString()
          }

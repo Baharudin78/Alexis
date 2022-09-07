@@ -1,7 +1,9 @@
 package com.alexis.shop.di
 
+import android.content.Context
 import com.alexis.shop.data.remote.network.ApiService
 import com.alexis.shop.data.remote.network.TokenAuthentication
+import com.alexis.shop.domain.usecase.auth.AuthInteractor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,12 +27,8 @@ class NetworkModule {
 //            .build()
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
-        return OkHttpClient.Builder().addInterceptor (
-            TokenAuthentication(
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjYyMTA0MjkwLCJleHAiOjE2NjIxOTA2OTB9.eZLzFrXl_j82fueMXKcNbXt2gaIDw-6Q9eG6S7Kw9c8",
-                "Bearer"
-            )
-        )
+        return OkHttpClient.Builder()
+           // .addInterceptor(AuthInteractor(context))
             .addInterceptor(interceptor)
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)

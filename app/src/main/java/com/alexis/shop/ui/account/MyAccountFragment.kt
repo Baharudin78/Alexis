@@ -97,7 +97,7 @@ class MyAccountFragment : Fragment() {
                             childFragmentManager.accountNavigator(PointsFragment.newInstance("",""))
                         }
                         "Voucher" -> {
-                            childFragmentManager.accountNavigator(VoucherFragment.newInstance("",""))
+                            childFragmentManager.accountNavigator(VoucherFragment.newInstance())
                         }
                         "Profile" -> {
                             childFragmentManager.accountNavigator(ProfileFragment.newInstance("",""))
