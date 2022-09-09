@@ -226,54 +226,6 @@ class MainActivity : AppCompatActivity() {
         adapter.addItem(subCategoryTitle)
     }
 
-    private fun addProductsA(adapter: BaseListAdapter) {
-//        val subCategoryProduct = SubCategoryTypeAProduct(
-//            products,
-//            getOneXMeters(applicationContext),
-//            getWidthResolution(applicationContext)
-//        )
-//        adapter.addItem(subCategoryProduct)
-    }
-
-    private fun addProductsA2(adapter: BaseListAdapter) {
-//        val subCategoryProduct = SubCategoryTypeAProduct(
-//            products,
-//            getOneXMeters(applicationContext),
-//            getWidthResolution(applicationContext)
-//        )
-//        adapter.addItem(subCategoryProduct)
-    }
-
-    private fun addProductsB(adapter: BaseListAdapter) {
-//        val subCategoryProduct = SubCategoryProduct(
-//            "Sepatu PU",
-//            products[3].price,
-//            ImageModel(
-//                "http://api.myalexis.xyz:3001/uploads/product_image/234234BE-AYAUB-B1-S1.jpg",
-//                false
-//            ),
-//            "B",
-//            getOneXMeters(applicationContext),
-//            getWidthResolution(applicationContext)
-//        )
-//
-//        adapter.addItem(subCategoryProduct)
-    }
-
-    private fun addProductsC(adapter: BaseListAdapter) {
-//        val subCategoryProduct = SubCategoryProduct(
-//            "Shirt",
-//            products[3].price,
-//            ImageModel(
-//                "http://api.myalexis.xyz:3001/uploads/product_image/234234BF-AYAUB-B1-S1.jpg",
-//                false
-//            ),
-//            "B",
-//            getOneXMeters(applicationContext),
-//            getWidthResolution(applicationContext)
-//        )
-//        adapter.addItem(subCategoryProduct)
-    }
 
     override fun onResume() {
         super.onResume()
@@ -292,7 +244,7 @@ class MainActivity : AppCompatActivity() {
     private fun hideBlur() {
         blur_first.visible()
 
-        withDelayTime(1500) {
+        withDelayTime(1000) {
             blur_first.invisible()
         }
     }
@@ -399,7 +351,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getProductCategory() {
         viewModel.callProductCategoryData()
-       // viewModel.getProductCategory()
+       /// viewModel.getProductCategory()
     }
     private fun getSubProductCategory() {
         viewModel.callSubCategoryData(product?.category.orEmpty())

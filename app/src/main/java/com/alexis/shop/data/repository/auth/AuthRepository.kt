@@ -69,7 +69,10 @@ class AuthRepository @Inject constructor(
                             RegisterModel(
                                 fullName = this.data.user.fullName.orEmpty(),
                                 email = this.data.user.email.orEmpty(),
-                                phone = this.data.user.phone.orEmpty()
+                                phone = this.data.user.phone.orEmpty(),
+                                password = this.data.user.password.orEmpty(),
+                                confirmPassword = this.data.user.confirmPassword.orEmpty(),
+                                tanggal = this.data.user.tanggal.orEmpty()
                             )
                         ))
                     }

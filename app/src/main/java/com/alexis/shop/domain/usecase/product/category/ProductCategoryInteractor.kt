@@ -8,12 +8,20 @@ import com.alexis.shop.domain.repository.product.IProductCategoryRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class ProductCategoryInteractor @Inject constructor(private val repository: IProductCategoryRepository):
+class ProductCategoryInteractor @Inject constructor(
+    private val repository: IProductCategoryRepository):
     ProductCategoryUseCase {
-    override suspend fun getAllProductCategory(): Resource<List<ProductCategoryModel>> {
+        override suspend fun getAllProductCategory(): Resource<List<ProductCategoryModel>> {
         return repository.getAllProductCategory()
     }
     override suspend fun getSubProductCategory(name : String): Resource<List<SubCategoryModel>> {
         return repository.getSubCategoryProduct(name)
     }
+//    override fun getAllProductCategory(): Flow<Resource<ProductCategoryModelList>> {
+//        return repository.getAllProductCategory1()
+//    }
+//
+//    override fun getSubProductCategory(name: String): Flow<Resource<List<SubCategoryModel>>> {
+//        return repository.getSubCategoryProduct1(name)
+//    }
 }

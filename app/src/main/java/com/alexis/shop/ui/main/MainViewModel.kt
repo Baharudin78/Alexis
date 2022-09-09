@@ -28,7 +28,7 @@ class MainViewModel @Inject constructor(
     fun getAllProduct() = productUseCase.getAllProduct().asLiveData()
 
    // fun getProductCategory() = productCategoryUseCase.getAllProductCategory().asLiveData()
-    //fun getSubCategoryProduct(name: String) = productCategoryUseCase.getSubProductCategory(name).asLiveData()
+   // fun getSubCategoryProduct(name: String) = productCategoryUseCase.getSubProductCategory(name).asLiveData()
     fun callProductCategoryData() {
         viewModelScope.launch {
             when (val response = productCategoryUseCase.getAllProductCategory()) {

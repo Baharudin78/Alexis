@@ -20,6 +20,7 @@ import com.alexis.shop.ui.menu.MenuFragment
 import com.alexis.shop.utils.accountNavigator
 import com.alexis.shop.utils.handleBackPressed
 import com.alexis.shop.utils.OnClickItem
+import com.alexis.shop.utils.prefs.SheredPreference
 import com.alexis.shop.utils.toast
 import com.google.android.material.transition.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,9 +37,11 @@ class MyAccountFragment : Fragment() {
     lateinit var terms: TextView
     lateinit var privacy: TextView
     lateinit var listmenu: RecyclerView
+    lateinit var sharefPref : SheredPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        sharefPref = SheredPreference(requireContext())
         handleBackPressed()
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
@@ -109,6 +112,7 @@ class MyAccountFragment : Fragment() {
                             childFragmentManager.accountNavigator(LanguageFragment.newInstance("",""))
                         }
                         "Logout" -> {
+                            sharefPref.logOut()
                             childFragmentManager.accountNavigator(MenuFragment.newInstance("","111"))
                             requireContext().toast("Logout Successfully")
                         }

@@ -73,7 +73,7 @@ class SizeFilterFragment : Fragment() {
 
             Handler(Looper.getMainLooper()).postDelayed({
                 requireActivity().supportFragmentManager.popBackStack()
-            }, 1200L)
+            }, 1000L)
 
         }
     }

@@ -10,7 +10,7 @@ import com.alexis.shop.domain.model.product.category.ProductCategoryModel
 fun getMenuList(isLogged: Boolean, dataCategory: List<ProductCategoryModel>?): ArrayList<MenuModel> {
 	val dataMenu = ArrayList<MenuModel>()
 	var id = 1
-	var reverseId = 16
+	var reverseId = 17
 	dataCategory?.forEach {
 		when(it.category.lowercase()) {
 			"clothings", "pakaian" -> {

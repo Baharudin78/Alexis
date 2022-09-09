@@ -1,6 +1,7 @@
 package com.alexis.shop.ui.menu
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils.loadAnimation
 import android.widget.Toast
@@ -58,6 +59,7 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
     private var fragManager: FragmentManager? = null
 
 
+   // override fun getViewBinding() = FragmentMenuBinding.inflate(layoutInflater)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         StatusBarUtil.forceStatusBar(requireActivity().window, true)
@@ -66,6 +68,7 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
 
 //        isOpen = when(param2) {
 //            "222" -> true
@@ -82,8 +85,19 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
         enterTransition = MaterialFadeThrough()
     }
 
+//    override fun main() {
+//        categoryProductAdapter = CategoryProductAdapter(binding.root.context, this)
+//        with(binding.recycleCategory) {
+//            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
+//            adapter = categoryProductAdapter
+//        }
+//        getProductCategory()
+//        setListener()
+//        initMenu()
+//    }
 
-
+//
+//
 //    private fun getProductCategory() {
 //        mainViewModel.getProductCategory().observe(viewLifecycleOwner) { response ->
 //            if (response != null) {
@@ -103,6 +117,32 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
 //                    }
 //                }
 //            }
+//        }
+//    }
+//    private fun setListener() {
+//        with(binding) {
+//            btnScan.setPushClickListener {
+//                fragManager?.menuNavigator(ScanQrFragment.newInstance(MENU_FRAGMENT,""))
+//            }
+//            btnCancel.setPushClickListener {
+//                closeMenu()
+//            }
+//
+//            recycleListsosmed.apply {
+//                layoutManager = GridLayoutManager(context, 5)
+//                adapter = sosmedAdapter
+//            }
+//            recycleListmenu.apply {
+//                layoutManager = LinearLayoutManager(requireContext())
+//                adapter = menuAdapter
+//            }
+//
+//            val anim = loadAnimation(context, R.anim.animate_entrace_fragment).apply {
+//                duration = (7 * animateEntraceMenuTime).toLong()
+//            }
+//
+//            btnScan.startAnimation(anim)
+//
 //        }
 //    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -141,13 +181,9 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
 
     private fun initMenu() {
         mainViewModel.getProductCategoryData().observe(viewLifecycleOwner) { dataCategory ->
+            Log.d("DATACATEGORY", "$dataCategory")
             listMenu = getMenuList(viewModel.isUserLogin(), dataCategory)
-            mainViewModel.getSubCategoryData(product?.category.orEmpty()).observe(viewLifecycleOwner) {
-
-            }
-           // getProductCategory()
             addDataMenuAdapter()
-            //addDataSosmedAdapter()
         }
     }
 
@@ -181,7 +217,7 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
     private fun closeMenu() {
         removeList()
         listMenu.clear()
-        withDelay(3000) {
+        withDelay(1000) {
             binding.recycleListmenu.gone()
             justOut()
         }
@@ -242,12 +278,17 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
 
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            MenuFragment().apply {
+            MenuFragment()
+                .apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
                 }
             }
     }
+
+//    override fun onClick(item: Any) {
+//        Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_SHORT).show()
+//    }
 
 }

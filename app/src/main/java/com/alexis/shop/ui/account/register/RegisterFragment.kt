@@ -109,6 +109,8 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                     is Resource.Error -> {
                         changeButtonRegisterStatus(true)
                         Toast.makeText(binding.root.context, getString(R.string.auth_error, "Register"), Toast.LENGTH_SHORT).show()
+                        //requireActivity().supportFragmentManager.menuNavigator(LoginFragment())
+
                     }
                 }
             }

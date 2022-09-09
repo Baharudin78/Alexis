@@ -9,11 +9,18 @@ class SheredPreference (private val  context : Context) {
         private const val PREF_TOKEN = "ALEXIS_TOKEN"
     }
      val sharedPref : SharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+     val editor : SharedPreferences.Editor? = sharedPref?.edit()
+
     fun saveToken(token : String) {
         put(PREF_TOKEN, token)
     }
     fun getToken() : String {
         return get(PREF_TOKEN, String::class.java)
+    }
+
+    fun logOut() {
+        editor?.clear()
+        editor?.commit()
     }
 
     private fun <T> get(key: String, clazz: Class<T>): T =

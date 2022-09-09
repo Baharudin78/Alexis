@@ -57,7 +57,6 @@ class PageFragment : Fragment(R.layout.fragment_page) {
     private val viewModel: DetailViewModel by viewModels()
 
     private val binding: FragmentPageBinding by viewBinding()
-    //private var product: ProductsModel? = null
     private var product: ProductBaruModel? = null
     private var productDetailData: ProductsByIdModel? = null
     private lateinit var ivArrayDotsPager: Array<ImageView?>
@@ -82,7 +81,6 @@ class PageFragment : Fragment(R.layout.fragment_page) {
         arguments?.let {
             product = it.getParcelable(PRODUCT)
         }
-
         requireActivity().onBackPressedDispatcher.addCallback(this, closeBottomSheetOnBackPressed)
     }
 
