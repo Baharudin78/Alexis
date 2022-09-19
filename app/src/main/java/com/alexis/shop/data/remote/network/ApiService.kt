@@ -1,5 +1,6 @@
 package com.alexis.shop.data.remote.network
 
+import com.alexis.shop.data.remote.model.kota.CityResponse
 import com.alexis.shop.data.remote.response.auth.LoginResponse
 import com.alexis.shop.data.remote.response.auth.RegisterResponse
 import com.alexis.shop.data.remote.response.checkout.CheckoutAddressGetResponse
@@ -101,6 +102,12 @@ interface ApiService {
     /*
     ADDRESS
      */
+
+    @GET("mw/ref-address")
+    suspend fun getKelurahan(
+        @Header("Authorization")token : String,
+        @Query("name") name : String
+    ) : CityResponse
 
     @GET("mw/address")
     suspend fun getCheckOutAddress(
