@@ -30,8 +30,6 @@ class VoucherFragment : BaseFragment<FragmentVoucherBinding>(), OnClickItem {
     private lateinit var voucherAdapter: SimpleVoucherAdapter
     @Inject
     lateinit var sharedPref : SheredPreference
-    lateinit var title: TextView
-    lateinit var recycle: RecyclerView
     lateinit var cancel_button: ImageView
     lateinit var back_button: ImageView
 

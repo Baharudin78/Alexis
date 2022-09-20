@@ -4,6 +4,8 @@ import com.alexis.shop.domain.usecase.auth.AuthInteractor
 import com.alexis.shop.domain.usecase.auth.AuthUseCase
 import com.alexis.shop.domain.usecase.checkout.CheckoutAddressInteractor
 import com.alexis.shop.domain.usecase.checkout.CheckoutAddressUseCase
+import com.alexis.shop.domain.usecase.city.CityInteractor
+import com.alexis.shop.domain.usecase.city.CityUseCase
 import com.alexis.shop.domain.usecase.product.ProductInteractor
 import com.alexis.shop.domain.usecase.product.ProductUseCase
 import com.alexis.shop.domain.usecase.product.category.ProductCategoryInteractor
@@ -62,4 +64,8 @@ abstract class AppModule {
     @Binds
     @ViewModelScoped
     abstract fun provideVoucherUseCase(interactor : VoucherInteractor) : VoucherUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun provideCityUseCase(interactor : CityInteractor) : CityUseCase
 }

@@ -2,6 +2,7 @@ package com.alexis.shop.di
 
 import com.alexis.shop.data.repository.auth.AuthRepository
 import com.alexis.shop.data.repository.checkout.CheckoutAddressRepository
+import com.alexis.shop.data.repository.city.CityRepository
 import com.alexis.shop.data.repository.product.ProductCategoryRepository
 import com.alexis.shop.data.repository.product.ProductRepository
 import com.alexis.shop.data.repository.shoppingbag.ShoppingBagRepository
@@ -10,6 +11,7 @@ import com.alexis.shop.data.repository.storelocation.StoreLocationRepository
 import com.alexis.shop.data.repository.wishlist.WishlistRepository
 import com.alexis.shop.domain.repository.auth.IAuthRepository
 import com.alexis.shop.domain.repository.checkout.ICheckoutAddressRepository
+import com.alexis.shop.domain.repository.city.ICityRepository
 import com.alexis.shop.domain.repository.product.IProductCategoryRepository
 import com.alexis.shop.domain.repository.product.IProductRepository
 import com.alexis.shop.domain.repository.shoppingbag.IShoppingBagRepository
@@ -48,4 +50,7 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun provideCheckoutAddressRepository(repository: CheckoutAddressRepository): ICheckoutAddressRepository
+
+    @Binds
+    abstract fun provideCityRepository(repository : CityRepository) : ICityRepository
 }

@@ -21,7 +21,7 @@
         android:theme="@style/Theme.Alexis"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".CityActivity"
+            android:name=".ui.checkout.address.CityActivity"
             android:exported="false" />
 
         <meta-data

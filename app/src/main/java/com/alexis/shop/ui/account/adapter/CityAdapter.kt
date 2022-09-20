@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alexis.shop.R
 import com.alexis.shop.domain.model.city.CityItemModel
 import com.alexis.shop.utils.OnClickItem
+import com.alexis.shop.utils.animation.Animations
 
 class CityAdapter(
     private val context : Context,
@@ -26,6 +27,9 @@ class CityAdapter(
                 var nama : TextView = itemView.findViewById(R.id.tv_nama_kel)
         fun bindItem(item : CityItemModel) {
             nama.text = item.fullName
+            itemView.setOnClickListener {
+
+            }
         }
     }
 
@@ -37,10 +41,10 @@ class CityAdapter(
     override fun onBindViewHolder(holder: CityHolder, position: Int) {
         val item : CityItemModel = itemList[position]
         holder.bindItem(item)
-
+        Animations.runAnimation(context, Animations.ANIMATION_IN, position, holder.itemView)
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return itemList.size
     }
 }
