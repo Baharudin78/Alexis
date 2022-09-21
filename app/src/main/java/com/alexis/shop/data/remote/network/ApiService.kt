@@ -86,10 +86,14 @@ interface ApiService {
     ) : SubProductCategoryResponse
 
     @GET("mw/store-location")
+    suspend fun getStoreHome() : AllStoreLocationResponse
+
+    @GET("mw/store-location")
     suspend fun getAllStoreLocation(): AllStoreLocationResponse
 
     @GET("mw/store-location")
     suspend fun getStoreLocationByName(@Query("province") name: String): StoreLocationByNameResponse
+
 
     @GET("mw/product-size/")
     suspend fun getSizeFilter(): SizeFilterResponse

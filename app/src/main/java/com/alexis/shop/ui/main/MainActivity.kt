@@ -25,14 +25,17 @@ import com.alexis.shop.data.source.dummy.getListProduct
 import com.alexis.shop.domain.model.product.Product
 import com.alexis.shop.domain.model.product.category.ProductCategoryModel
 import com.alexis.shop.domain.model.product.modelbaru.ProductBaruModel
+import com.alexis.shop.domain.model.store_location.AllStoreItemModel
 import com.alexis.shop.domain.model.wishlist.WishlistModel
 import com.alexis.shop.ui.detail.ExpanItemPagersActivity
 import com.alexis.shop.ui.detail.adapter.entity.LandingPage
 import com.alexis.shop.ui.detail.adapter.entity.SubCategoryProduct
 import com.alexis.shop.ui.detail.adapter.entity.SubCategoryTitle
 import com.alexis.shop.ui.detail.adapter.entity.SubCategoryTypeAProduct
+import com.alexis.shop.ui.detail.adapter.entity.store.StoreLocationType
 import com.alexis.shop.ui.detail.adapter.factory.ItemTypeFactoryImpl
 import com.alexis.shop.ui.menu.MenuFragment
+import com.alexis.shop.ui.menu.storelocation.StoreLocationViewModel
 import com.alexis.shop.ui.shopping_bag.ShoppingBagFragment
 import com.alexis.shop.ui.wishlist.WishlistFragment
 import com.alexis.shop.utils.*
@@ -43,10 +46,12 @@ import com.dizcoding.mylibrv.BaseListAdapter
 import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
+import java.lang.reflect.Array
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val viewModel: MainViewModel by viewModels()
+    private val viewModelLoc : StoreLocationViewModel by viewModels()
     private var booleanColor = false
     private val double = "double"
     lateinit var option: CheckBox
@@ -120,6 +125,7 @@ class MainActivity : AppCompatActivity() {
         base_recycler.adapter = adapter
         
         //Add Content
+        getStore()
         getAllProduct()
         addLandingPage()
         addTitle()
@@ -226,7 +232,6 @@ class MainActivity : AppCompatActivity() {
         adapter.addItem(subCategoryTitle)
     }
 
-
     override fun onResume() {
         super.onResume()
         forceStatusBar(window, false)
@@ -270,6 +275,22 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun getStore() {
+        viewModelLoc.getStoreHome().observe(this) {response ->
+            if (response != null) {
+                when(response) {
+                    is Resource.Loading -> {}
+                    is Resource.Success -> {
+                        response.data?.let {
+                            addLocationInHome(it)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 
     private fun getUserData() {
         if(viewModel.isUserAuthenticated()) {
@@ -346,6 +367,22 @@ class MainActivity : AppCompatActivity() {
                 )
                 adapter.addItem(subCategoryProduct)
            // }
+        }
+    }
+
+    private fun addLocationInHome(location : List<AllStoreItemModel> ) {
+        val list = ArrayList<AllStoreItemModel>()
+        location.forEach {
+            if (list.isNotEmpty()) {
+                val location = StoreLocationType(
+                    list,
+                    getOneXMeters(applicationContext),
+                    getWidthResolution(applicationContext)
+                )
+                adapter.addItem(location)
+                list.clear()
+            }
+
         }
     }
 

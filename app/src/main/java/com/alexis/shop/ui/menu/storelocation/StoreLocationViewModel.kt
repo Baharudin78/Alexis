@@ -10,4 +10,5 @@ import javax.inject.Inject
 class StoreLocationViewModel @Inject constructor(private val useCase: StoreLocationUseCase) : ViewModel() {
     fun getAllStoreLocation() = useCase.getAllStoreLocation().asLiveData()
     fun getStoreLocationByName(name: String) = useCase.getStoreLocationByName(name).asLiveData()
+    fun getStoreHome() = useCase.getStoreHome().asLiveData()
 }
