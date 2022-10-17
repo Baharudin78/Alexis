@@ -11,6 +11,7 @@ import com.alexis.shop.databinding.FragmentWishlistBinding
 import com.alexis.shop.domain.model.wishlist.WishlistModel
 import com.alexis.shop.ui.wishlist.adapter.WishListAdapter
 import com.alexis.shop.utils.*
+import com.alexis.shop.utils.prefs.SheredPreference
 import com.google.android.material.transition.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,6 +23,7 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding>(), OnWishlistClic
     private val viewModel: WishlistViewModel by viewModels()
     private var param1: String? = null
     private var param2: String? = null
+    lateinit var sharedPref : SheredPreference
     lateinit var adapterBill: WishListAdapter
     private var wishlistData: ArrayList<WishlistModel> = ArrayList()
 
@@ -30,6 +32,7 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding>(), OnWishlistClic
     override fun onCreate(savedInstanceState: Bundle?) {
         StatusBarUtil.forceStatusBar(requireActivity().window, true)
         super.onCreate(savedInstanceState)
+        sharedPref = SheredPreference(requireContext())
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -68,7 +71,7 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding>(), OnWishlistClic
     }
 
     private fun getWishlist() {
-        viewModel.getWishlist().observe(this) { response ->
+        viewModel.getWishlist(token ="Bearer ${sharedPref.getToken()}").observe(this) { response ->
             if (response != null) {
                 when (response) {
                     is Resource.Loading -> {}

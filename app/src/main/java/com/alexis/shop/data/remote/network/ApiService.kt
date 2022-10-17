@@ -58,15 +58,23 @@ interface ApiService {
     @DELETE(UrlConstant.SHOPPING_BAG_URL)
     suspend fun deleteShoppingBag(@Query("cart_id") cartId: Int): ShoppingBagDeleteResponse
 
-    @POST(UrlConstant.WISHLIST_URL)
+    @POST("mw/wishlist")
     @FormUrlEncoded
     suspend fun postWishlist(
-        @Field("product_id") productId: String,
-        @Field("user_id") userId: Int
+        @Header("Authorization") token: String,
+        @Field("customer_id") customerid: String,
+        @Field("product_item_code") productItemCode: String
     ): WishlistPostResponse
 
-    @GET("mw/wishlist/customer/{user_id}")
-    suspend fun getWishlist(@Query("customer_id") userId: Int): WishlistGetResponse
+//    @GET("mw/wishlist")
+//    suspend fun getNewWishList(
+//        @Header("Authorization") token: String
+//    )
+
+    @GET("mw/wishlist")
+    suspend fun getWishlist(
+        @Header("Authorization") token: String
+    ): WishlistGetResponse
 
     @DELETE(UrlConstant.WISHLIST_URL)
     suspend fun deleteWishlist(@Query("wishlist_id") wishlistId: Int): WishlistGetResponse
@@ -74,8 +82,8 @@ interface ApiService {
     @GET("mw/products/")
     suspend fun getAllProduct(): ProductBaruResponse
 
-    @GET("mw/products/{productId}/detail")
-    suspend fun getProductById(@Query("product_id") productId: Int): ProductsGetByIdResponse
+    @GET("mw/product/{id}/detail")
+    suspend fun getProductById(@Path("id") productId: Int): ProductsGetByIdResponse
 
     @GET("mw/product-category")
     suspend fun getAllProductCategory(): ProductCategoryResponse

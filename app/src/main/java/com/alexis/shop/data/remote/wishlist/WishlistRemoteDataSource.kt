@@ -13,11 +13,11 @@ import javax.inject.Singleton
 @Singleton
 class WishlistRemoteDataSource @Inject constructor(private val apiService: ApiService) {
 
-    suspend fun postWishlist(productDetailCode: String, userId: Int): Flow<ApiResponse<WishlistPostResponse>> {
+    suspend fun postWishlist(token: String,customerId: String, productItemCode: String): Flow<ApiResponse<WishlistPostResponse>> {
         return flow {
             try {
-                val response = apiService.postWishlist(productDetailCode, userId)
-                if (!response.data?.productId.isNullOrEmpty()) {
+                val response = apiService.postWishlist(token, customerId, productItemCode)
+                if (!response.data?.postWishList?.customeId.isNullOrEmpty()) {
                     emit(ApiResponse.Success(response))
                 } else {
                     emit(ApiResponse.Empty)
@@ -29,10 +29,10 @@ class WishlistRemoteDataSource @Inject constructor(private val apiService: ApiSe
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun getWishlist(userId: Int): Flow<ApiResponse<WishlistGetResponse>> {
+    suspend fun getWishlist(token: String): Flow<ApiResponse<WishlistGetResponse>> {
         return flow {
             try {
-                val response = apiService.getWishlist(userId)
+                val response = apiService.getWishlist(token)
                 if (!response.data?.wishlist.isNullOrEmpty()) {
                     emit(ApiResponse.Success(response))
                 } else {

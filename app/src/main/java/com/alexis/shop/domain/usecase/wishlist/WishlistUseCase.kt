@@ -5,6 +5,6 @@ import com.alexis.shop.data.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface WishlistUseCase {
-    fun postWishlist(productDetailCode: String, userId: Int): Flow<Resource<String>>
-    fun getWishlist(userId: Int): Flow<Resource<List<WishlistModel>>>
+    fun postWishlist(token: String,customerId: String, productItemCode: String): Flow<Resource<String>>
+    fun getWishlist(token : String): Flow<Resource<List<WishlistModel>>>
 }

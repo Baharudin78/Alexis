@@ -7,11 +7,11 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class WishlistInteractor @Inject constructor(private val repository: IWishlistRepository): WishlistUseCase {
-    override fun postWishlist(productDetailCode: String, userId: Int): Flow<Resource<String>> {
-        return repository.postWishlist(productDetailCode, userId)
+    override fun postWishlist(token: String,customerId: String, productItemCode: String): Flow<Resource<String>> {
+        return repository.postWishlist(token, customerId, productItemCode)
     }
 
-    override fun getWishlist(userId: Int): Flow<Resource<List<WishlistModel>>> {
-        return repository.getWishlist(userId)
+    override fun getWishlist(token : String): Flow<Resource<List<WishlistModel>>> {
+        return repository.getWishlist(token)
     }
 }

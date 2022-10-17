@@ -19,6 +19,12 @@ data class WishlistPostResponse(
 
 data class DataPostWishlist(
 
-	@field:SerializedName("product_id")
-	val productId: String? = null
+	@field:SerializedName("item")
+	val postWishList: PostWishlist? = null
+)
+
+data class PostWishlist(
+	val id : Int? = null,
+	val customeId : String? = null,
+	val productItemCode : String? = null
 )

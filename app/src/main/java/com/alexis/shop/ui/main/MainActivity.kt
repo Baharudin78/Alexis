@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.Window
 import android.view.animation.AnimationUtils
 import android.widget.CheckBox
@@ -22,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexis.shop.R
 import com.alexis.shop.data.Resource
 import com.alexis.shop.data.source.dummy.getListProduct
+import com.alexis.shop.databinding.ActivityMainBinding
 import com.alexis.shop.domain.model.product.Product
 import com.alexis.shop.domain.model.product.category.ProductCategoryModel
 import com.alexis.shop.domain.model.product.modelbaru.ProductBaruModel
@@ -32,9 +34,11 @@ import com.alexis.shop.ui.detail.adapter.entity.LandingPage
 import com.alexis.shop.ui.detail.adapter.entity.SubCategoryProduct
 import com.alexis.shop.ui.detail.adapter.entity.SubCategoryTitle
 import com.alexis.shop.ui.detail.adapter.entity.SubCategoryTypeAProduct
+import com.alexis.shop.ui.detail.adapter.entity.store.LocationStore
 import com.alexis.shop.ui.detail.adapter.entity.store.StoreLocationType
 import com.alexis.shop.ui.detail.adapter.factory.ItemTypeFactoryImpl
 import com.alexis.shop.ui.menu.MenuFragment
+import com.alexis.shop.ui.menu.adapter.StoreHomeAdapter
 import com.alexis.shop.ui.menu.storelocation.StoreLocationViewModel
 import com.alexis.shop.ui.shopping_bag.ShoppingBagFragment
 import com.alexis.shop.ui.wishlist.WishlistFragment
@@ -42,6 +46,7 @@ import com.alexis.shop.utils.*
 import com.alexis.shop.utils.StatusBarUtil.forceStatusBar
 import com.alexis.shop.utils.common.withDelay
 import com.alexis.shop.utils.common.withDelayTime
+import com.alexis.shop.utils.prefs.SheredPreference
 import com.dizcoding.mylibrv.BaseListAdapter
 import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback
 import dagger.hilt.android.AndroidEntryPoint
@@ -55,6 +60,8 @@ class MainActivity : AppCompatActivity() {
     private var booleanColor = false
     private val double = "double"
     lateinit var option: CheckBox
+    lateinit var sharedPref : SheredPreference
+    private lateinit var binding : ActivityMainBinding
     private var product: ProductCategoryModel? = null
     private lateinit var cart: ImageView
     private lateinit var count_cart: TextView
@@ -64,21 +71,28 @@ class MainActivity : AppCompatActivity() {
    // private lateinit var products: ArrayList<Product>
     private var countCart = 0
     private var countLoved = 0
-    private val adapter = BaseListAdapter(ItemTypeFactoryImpl())
+    private val adapters = BaseListAdapter(ItemTypeFactoryImpl())
+ //   private lateinit var storeHomeAdapter : StoreHomeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        binding = ActivityMainBinding.inflate(layoutInflater)
         window.requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
         setExitSharedElementCallback(MaterialContainerTransformSharedElementCallback())
         window.sharedElementsUseOverlay = false
         forceStatusBar(window, false)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
         supportActionBar?.hide()
+        sharedPref = SheredPreference(this)
+        //    storeHomeAdapter = StoreHomeAdapter(binding.root.context)
         getProductCategory()
         getSubProductCategory()
 
       //  products = getListProduct()
-
+//        with(binding.locRecycler) {
+//            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+//            adapter = storeHomeAdapter
+//        }
         option = findViewById(R.id.option)
         cart = findViewById(R.id.cart)
         count_cart = findViewById(R.id.count_cart)
@@ -122,7 +136,7 @@ class MainActivity : AppCompatActivity() {
 
         val linearLayoutManager = LinearLayoutManager(this)
         base_recycler.layoutManager = linearLayoutManager
-        base_recycler.adapter = adapter
+        base_recycler.adapter = adapters
         
         //Add Content
         getStore()
@@ -224,12 +238,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun addLandingPage() {
         val lanpage = LandingPage("Top Choices", getTrullyHeightResolution(this))
-        adapter.addItem(lanpage)
+        adapters.addItem(lanpage)
     }
 
     private fun addTitle() {
         val subCategoryTitle = SubCategoryTitle("New In", getOneXMeters(applicationContext))
-        adapter.addItem(subCategoryTitle)
+        adapters.addItem(subCategoryTitle)
     }
 
     override fun onResume() {
@@ -283,8 +297,16 @@ class MainActivity : AppCompatActivity() {
                     is Resource.Loading -> {}
                     is Resource.Success -> {
                         response.data?.let {
+                            Log.d("locationnnn", it.toString())
                             addLocationInHome(it)
                         }
+                    }
+                    is Resource.Error -> {
+                        Toast.makeText(
+                            applicationContext,
+                            "Get Loc fail",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }
@@ -300,7 +322,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getWishlist() {
-        viewModel.getWishlist().observe(this) { response ->
+        viewModel.getWishlist(token ="Bearer ${sharedPref.getToken()}").observe(this) { response ->
             if (response != null) {
                 when (response) {
                     is Resource.Loading -> {}
@@ -347,17 +369,21 @@ class MainActivity : AppCompatActivity() {
 
     private fun addProductToAdapter(product: List<ProductBaruModel>) {
         val listDouble = ArrayList<ProductBaruModel>()
+        Log.d("locationnnn", "MASUKK")
         product.forEach {
 //            if(it.imageType.lowercase() == double) {
 //                listDouble.add(it)
 //            } else {
-                if(listDouble.isNotEmpty()) {
-                    val subCategoryTypeAProduct = SubCategoryTypeAProduct(
+            Log.d("locationnnn", "${it.name}")
+            if(listDouble.isNotEmpty()) {
+                Log.d("produck2", "${listDouble}")
+                val subCategoryTypeAProduct = SubCategoryTypeAProduct(
                         listDouble,
                         getOneXMeters(applicationContext),
                         getWidthResolution(applicationContext)
                     )
-                    adapter.addItem(subCategoryTypeAProduct)
+                Log.d("produck3", "${it.name}")
+                adapters.addItem(subCategoryTypeAProduct)
                     listDouble.clear()
                 }
                 val subCategoryProduct = SubCategoryProduct(
@@ -365,30 +391,36 @@ class MainActivity : AppCompatActivity() {
                     getOneXMeters(applicationContext),
                     getWidthResolution(applicationContext)
                 )
-                adapter.addItem(subCategoryProduct)
+            Log.d("produck4", "$subCategoryProduct")
+            adapters.addItem(subCategoryProduct)
            // }
         }
     }
 
     private fun addLocationInHome(location : List<AllStoreItemModel> ) {
         val list = ArrayList<AllStoreItemModel>()
-        location.forEach {
-            if (list.isNotEmpty()) {
-                val location = StoreLocationType(
-                    list,
-                    getOneXMeters(applicationContext),
-                    getWidthResolution(applicationContext)
-                )
-                adapter.addItem(location)
-                list.clear()
-            }
+        Log.d("locationnnn", "MASUKK")
+        try {
+            location.forEach {
+                Log.d("locationnnn1", it.name)
+                if (list.isNotEmpty()) {
+                    Log.d("locationnnn2", it.name)
+                    val locationHomes = StoreLocationType(
+                        list
+                    )
+                    adapters.addItem(locationHomes)
+                }
 
+            }
+        }catch (e : Exception) {
+            Log.d("locatio", e.localizedMessage.orEmpty())
         }
+
+
     }
 
     private fun getProductCategory() {
         viewModel.callProductCategoryData()
-       /// viewModel.getProductCategory()
     }
     private fun getSubProductCategory() {
         viewModel.callSubCategoryData(product?.category.orEmpty())

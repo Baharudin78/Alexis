@@ -106,7 +106,7 @@ class EditWishlistFragment : Fragment() {
 
     private fun postShoppingBag(size: String) {
         activity?.let {
-            viewModel.postShoppingBag(wishlistModel?.productId.toString(), 1, size).observe(viewLifecycleOwner) { response ->
+            viewModel.postShoppingBag(wishlistModel?.customerId.toString(), 1, size).observe(viewLifecycleOwner) { response ->
                 if (response != null) {
                     when (response) {
                         is Resource.Loading -> {}

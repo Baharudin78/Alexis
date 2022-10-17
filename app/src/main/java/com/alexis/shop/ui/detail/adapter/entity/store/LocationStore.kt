@@ -11,7 +11,7 @@ data class LocationStore(
     val layoutWidth : Int = 0
 ): BaseItemModel() {
     override fun type(typeFactoryBase: BaseItemTypeFactory): Int {
-        typeVH = LocationTypeVH.LAYOUT_LOC
+        typeVH = LocationTypeVH.LAYOUT
         return typeFactoryBase.type(this)
     }
 

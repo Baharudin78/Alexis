@@ -103,7 +103,7 @@ class ProductRepository @Inject constructor(
                 productId = product.productId.orZero(),
                 weight = product.weight.orZero(),
                 updatedAt = product.updatedAt.orEmpty(),
-                id = product.id.orZero(),
+              //  id = product.id.orZero(),
                 stock = product.stock.orZero(),
                 productName = product.productName.orEmpty(),
                 images = generateProductByIdImagesModel(product.images) as MutableList<ProductsGetByIdImagesModel>,

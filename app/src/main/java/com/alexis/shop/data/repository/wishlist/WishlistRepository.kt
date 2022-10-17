@@ -18,21 +18,21 @@ class WishlistRepository @Inject constructor(
     private val remoteDataSource: WishlistRemoteDataSource
 ) : IWishlistRepository {
 
-    override fun postWishlist(productDetailCode: String, userId: Int): Flow<Resource<String>> {
+    override fun postWishlist(token: String,customerId: String, productItemCode: String): Flow<Resource<String>> {
         return flow<Resource<String>> {
             emit(Resource.Loading())
-            when (val apiResponse = remoteDataSource.postWishlist(productDetailCode, userId).first()) {
-                is ApiResponse.Success -> emit(Resource.Success(apiResponse.data.data?.productId.orEmpty()))
+            when (val apiResponse = remoteDataSource.postWishlist(token, customerId, productItemCode).first()) {
+                is ApiResponse.Success -> emit(Resource.Success(apiResponse.data.data?.postWishList?.customeId.orEmpty()))
                 is ApiResponse.Empty -> {}
                 is ApiResponse.Error -> emit(Resource.Error(apiResponse.errorMessage))
             }
         }
     }
 
-    override fun getWishlist(userId: Int): Flow<Resource<List<WishlistModel>>> {
+    override fun getWishlist(token : String): Flow<Resource<List<WishlistModel>>> {
         return flow<Resource<List<WishlistModel>>> {
             emit(Resource.Loading())
-            when (val apiResponse = remoteDataSource.getWishlist(userId).first()) {
+            when (val apiResponse = remoteDataSource.getWishlist(token).first()) {
                 is ApiResponse.Success -> emit(Resource.Success(generateWishlistGetModel(apiResponse.data.data?.wishlist)))
                 is ApiResponse.Empty -> {}
                 is ApiResponse.Error -> emit(Resource.Error(apiResponse.errorMessage))
@@ -43,17 +43,9 @@ class WishlistRepository @Inject constructor(
     private fun generateWishlistGetModel(data: List<WishlistItem>?): List<WishlistModel> {
         return data?.map {
             WishlistModel(
-                updatedAt = it.updatedAt.orEmpty(),
-                productId = it.productId.orZero(),
-                createdAt = it.createdAt.orEmpty(),
-                id = it.id.orZero(),
-                customerId = it.customerId.orZero(),
-                indonesiaName = it.indonesiaName.orEmpty(),
-                englishName = it.englishName.orEmpty(),
-                price = it.price.orZero(),
-                weight = it.weight.orZero(),
-                qty = it.qty.orZero(),
-                imageUrl = it.imageUrl.orEmpty()
+                customerId = it.customer_id,
+                productItemCode = it.product_item_code,
+                product = it.product
             )
         } ?: listOf()
     }

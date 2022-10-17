@@ -30,6 +30,7 @@ class SubCategoryProductVH(
     }
 
     override fun bind(element: SubCategoryProduct) {
+
         title.text = element.productModels.name
         price.text = element.productModels.price.toString()
         //image.loadImage(element.productModels.product_image?.imageProduct?.map { it.image_url }.toString())
@@ -87,7 +88,7 @@ class SubCategoryProductVH(
         val intent = Intent(context, ExpanItemPagersActivity::class.java).apply {
             putExtra(ExpanItemPagersActivity.EXTRA_DATA, data)
         }
-
+        context.startActivity(intent)
 //        if (data.imageType == "C") {
 //            context.startActivity(intent)
 //        }

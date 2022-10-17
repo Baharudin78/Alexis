@@ -17,7 +17,7 @@ class ShoppingBagViewModel @Inject constructor(
 
     fun getShoppingCart() = shoppingBagUseCase.getShoppingBag(authUseCase.getUserId()).asLiveData()
 
-    fun postWishlist(productId: String) = wishlistUseCase.postWishlist(productId, authUseCase.getUserId()).asLiveData()
+    fun postWishlist(token: String,customerId: String, productItemCode: String) = wishlistUseCase.postWishlist(token, customerId, productItemCode).asLiveData()
 
     fun deleteShoppingBag(cartId: Int) = shoppingBagUseCase.deleteShoppingBag(cartId).asLiveData()
 

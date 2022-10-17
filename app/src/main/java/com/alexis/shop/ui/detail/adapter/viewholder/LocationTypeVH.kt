@@ -16,7 +16,7 @@ class LocationTypeVH(itemView : View) :
     AbstractViewHolder<StoreLocationType>(itemView){
     private val listLoc = itemView.list_loc
     companion object{
-        val LAYOUT_LOC = R.layout.item_recycle_only_loc
+        val LAYOUT = R.layout.item_recycle_only_loc
     }
 
     override fun bind(element: StoreLocationType) {

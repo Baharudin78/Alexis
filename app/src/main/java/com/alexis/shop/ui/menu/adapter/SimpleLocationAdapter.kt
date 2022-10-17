@@ -30,7 +30,9 @@ class SimpleLocationAdapter (private val context: Context, private val listener:
         val item : AllStoreItemModel =contactList[position]
         holder.bind(item)
         Animations.runAnimation(context, Animations.ANIMATION_IN, position, holder.itemView)
-        holder.itemView.setOnClickListener { listener.onClick(item.province) }
+        holder.itemView.setOnClickListener {
+            listener.onClick(item.province)
+        }
     }
 
     override fun getItemCount(): Int = contactList.size

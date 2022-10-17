@@ -20,14 +20,17 @@ class WishListViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
     private var m_weight: TextView = itemView.findViewById(R.id.item_weight)
 
     fun bind(item: WishlistModel) {
-        m_name.text = item.englishName
-        m_price.text = itemView.context.getString(R.string.price, item.price.toString())
-        m_count.text = m_count.context.getString(R.string.quantity, item.qty.toString())
-        m_code.text = item.productId.toString()
-        m_weight.text = itemView.context.getString(R.string.weight, item.weight.toString())
-        Glide.with(m_image.context)
-            .load(item.imageUrl)
-            .fitCenter()
-            .into(m_image)
+        m_name.text = item.product?.name
+        m_price.text = item.product?.price.toString()
+        m_count.text = item.product?.stock.toString()
+        m_code.text = item.product?.id.toString()
+        m_weight.text = item.product?.weight.toString()
+//        Glide.with(m_image.context)
+//            .load(item.product.)
+//            .fitCenter()
+//            .into(m_image)
     }
+    //itemView.context.getString(R.string.price, item.product.price)
+    //m_count.context.getString(R.string.quantity, item.product.stock)
+    //itemView.context.getString(R.string.weight, item.weight.toString())
 }

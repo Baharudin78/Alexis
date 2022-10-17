@@ -57,7 +57,7 @@ class MainViewModel @Inject constructor(
         return productCategory
     }
 
-    fun getWishlist() = wishlistUseCase.getWishlist(authUseCase.getUserId()).asLiveData()
+    fun getWishlist(token : String) = wishlistUseCase.getWishlist(token).asLiveData()
 
     fun getShoppingBag() = shoppingBagUseCase.getShoppingBag(authUseCase.getUserId()).asLiveData()
 

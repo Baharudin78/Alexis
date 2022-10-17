@@ -1,10 +1,7 @@
 package com.alexis.shop.ui.detail.adapter.factory
 
 import android.view.View
-import com.alexis.shop.ui.detail.adapter.viewholder.LandingPageVH
-import com.alexis.shop.ui.detail.adapter.viewholder.SubCategoryProductVH
-import com.alexis.shop.ui.detail.adapter.viewholder.SubCategoryTitleVH
-import com.alexis.shop.ui.detail.adapter.viewholder.SubCategoryTypeAProductVH
+import com.alexis.shop.ui.detail.adapter.viewholder.*
 import com.dizcoding.mylibrv.AbstractViewHolder
 import com.dizcoding.mylibrv.BaseItemTypeFactory
 
@@ -17,6 +14,8 @@ class ItemTypeFactoryImpl: BaseItemTypeFactory {
             SubCategoryTitleVH.LAYOUT -> SubCategoryTitleVH(parent)
             SubCategoryProductVH.LAYOUT -> SubCategoryProductVH(parent)
             SubCategoryTypeAProductVH.LAYOUT -> SubCategoryTypeAProductVH(parent)
+            LocationTypeVH.LAYOUT -> LocationTypeVH(parent)
+
 
             else -> createViewHolder(parent, type)
         }
