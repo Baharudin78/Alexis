@@ -2,7 +2,7 @@ package com.alexis.shop.di
 
 import android.content.Context
 import com.alexis.shop.data.remote.network.ApiService
-import com.alexis.shop.data.remote.network.TokenAuthentication
+import com.alexis.shop.data.remote.network.AuthInterceptor
 import com.alexis.shop.domain.usecase.auth.AuthInteractor
 import dagger.Module
 import dagger.Provides
@@ -19,20 +19,23 @@ import java.util.concurrent.TimeUnit
 class NetworkModule {
 
     @Provides
-    fun provideOkHttpClient(): OkHttpClient {
+    fun provideOkHttpClient(context : Context): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(AuthInterceptor(context))
+            .build()
 //        return OkHttpClient.Builder()
 //            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
 //            .connectTimeout(120, TimeUnit.SECONDS)
 //            .readTimeout(120, TimeUnit.SECONDS)
 //            .build()
-        val interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
-        return OkHttpClient.Builder()
-           // .addInterceptor(AuthInteractor(context))
-            .addInterceptor(interceptor)
-            .connectTimeout(120, TimeUnit.SECONDS)
-            .readTimeout(120, TimeUnit.SECONDS)
-            .build()
+//        val interceptor = HttpLoggingInterceptor()
+//        interceptor.level = HttpLoggingInterceptor.Level.BODY
+//        return OkHttpClient.Builder()
+//            .addInterceptor(AuthInteractor(context))
+//            .addInterceptor(interceptor)
+//            .connectTimeout(120, TimeUnit.SECONDS)
+//            .readTimeout(120, TimeUnit.SECONDS)
+//            .build()
     }
 
     @Provides

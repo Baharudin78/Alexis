@@ -1,6 +1,7 @@
 package com.alexis.shop.ui.detail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.animation.Animation
@@ -67,6 +68,8 @@ class ExpanItemPagersActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_expan_item_pagers)
         supportActionBar?.hide()
+
+        val productId = intent.getStringExtra(EXTRA_DATA)
         transparentNavBar()
         customTopBarsColor(true)
         getIntentData()
@@ -146,6 +149,7 @@ class ExpanItemPagersActivity : AppCompatActivity() {
     //Set Page
     private fun initPaging() {
         productsModel?.let {
+            Log.d("APASINI", it.toString())
             fragments = arrayListOf(
                 PageFragment.newInstance(it),
 //                PageFragment.newInstance(it),

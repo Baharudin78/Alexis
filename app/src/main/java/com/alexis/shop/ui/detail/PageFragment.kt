@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.animation.Animation
@@ -44,6 +45,7 @@ import com.alexis.shop.ui.detail.bottomsheets.bottomsheetSizeInfo
 import com.alexis.shop.utils.*
 import com.alexis.shop.utils.circle_layout_manager.CircularHorizontalMode
 import com.alexis.shop.utils.common.withDelay
+import com.alexis.shop.utils.prefs.SheredPreference
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.transition.MaterialArcMotion
 import com.google.android.material.transition.MaterialContainerTransform
@@ -58,6 +60,7 @@ class PageFragment : Fragment(R.layout.fragment_page) {
 
     private val binding: FragmentPageBinding by viewBinding()
     private var product: ProductBaruModel? = null
+    lateinit var sharedPref : SheredPreference
     private var productDetailData: ProductsByIdModel? = null
     private lateinit var ivArrayDotsPager: Array<ImageView?>
 
@@ -78,6 +81,7 @@ class PageFragment : Fragment(R.layout.fragment_page) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        sharedPref = SheredPreference(requireContext())
         arguments?.let {
             product = it.getParcelable(PRODUCT)
         }
@@ -178,28 +182,28 @@ class PageFragment : Fragment(R.layout.fragment_page) {
     private fun postWishlist() {
         activity?.let {
             if(product != null) {
-                viewModel.postWishlist(product?.product_id.toString()).observe(viewLifecycleOwner) { response ->
-                    if (response != null) {
-                        when (response) {
-                            is Resource.Loading -> {}
-                            is Resource.Success -> {
-                                it.setResult(Activity.RESULT_OK, Intent().apply {
-                                    putExtra("id", BACK_TO_WISHLIST)
-                                })
-                                it.finish()
-                                it.overridePendingTransition(0, R.anim.activity_out_wishlist)
-                                VibrateUtil(it).single()
-                            }
-                            is Resource.Error -> {
-                                Toast.makeText(
-                                    it.applicationContext,
-                                    getString(R.string.auth_error, "Post Wishlist"),
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                        }
-                    }
-                }
+//                viewModel.postWishlist(token ="Bearer ${sharedPref.getToken()}", product!!.product_id.toString()).observe(viewLifecycleOwner) { response ->
+//                    if (response != null) {
+//                        when (response) {
+//                            is Resource.Loading -> {}
+//                            is Resource.Success -> {
+//                                it.setResult(Activity.RESULT_OK, Intent().apply {
+//                                    putExtra("id", BACK_TO_WISHLIST)
+//                                })
+//                                it.finish()
+//                                it.overridePendingTransition(0, R.anim.activity_out_wishlist)
+//                                VibrateUtil(it).single()
+//                            }
+//                            is Resource.Error -> {
+//                                Toast.makeText(
+//                                    it.applicationContext,
+//                                    getString(R.string.auth_error, "Post Wishlist"),
+//                                    Toast.LENGTH_SHORT
+//                                ).show()
+//                            }
+//                        }
+//                    }
+//                }
             }
         }
     }
@@ -591,6 +595,7 @@ class PageFragment : Fragment(R.layout.fragment_page) {
         fun newInstance(product: ProductBaruModel) =
             PageFragment().apply {
                 arguments = Bundle().apply {
+                    Log.d("ANJAYY", product.toString())
                     putParcelable(PRODUCT, product)
                 }
             }

@@ -17,15 +17,6 @@ data class ProductsGetByIdResponse(
 	val status: String? = null
 )
 
-data class ProductsGetByIdImagesItem(
-
-	@field:SerializedName("image")
-	val image: String? = null,
-
-	@field:SerializedName("type")
-	val type: String? = null
-)
-
 data class ProductsGetByIdData(
 
 	@field:SerializedName("item")
@@ -61,14 +52,44 @@ data class ProductsGetByIdItem(
 	@field:SerializedName("created_at")
 	val createdAt: String? = null,
 
+	@field:SerializedName("product_size_id")
+	val productSizeId : String? = null,
+
 //	@field:SerializedName("id")
 //	val id: Int? = null,
 
 	@field:SerializedName("stock")
 	val stock: Int? = null,
 
+	@field:SerializedName("barcode")
+	val barcode : String? = null,
+
+	@field:SerializedName("stock_keeping_unit")
+	val stockKeepingUnit : String? = null,
+
 	@field:SerializedName("name")
 	val productName: String? = null,
+
+	@field:SerializedName("item_code")
+	val itemCode : String? = null,
+
+	@field:SerializedName("style_code")
+	val styleCode : String? = null,
+
+	@field:SerializedName("product_subcategory_id")
+	val productSubcategoryId : String? = null,
+
+	@field:SerializedName("color_code")
+	val colorCode : String? = null,
+
+	@field:SerializedName("packaging_id")
+	val packagingId : String? = null,
+
+	@field:SerializedName("status")
+	val status : String? = null,
+
+	@field:SerializedName("user_id")
+	val userId : Int? = null,
 
 	@field:SerializedName("exclusive_offer")
 	val exclusiveOffer : ExclusiveOfferItem? = null
@@ -90,6 +111,14 @@ data class ProductsGetByIdMaterialItem(
 
 	@field:SerializedName("id")
 	val id: String? = null
+)
+data class ProductsGetByIdImagesItem(
+
+	@field:SerializedName("image")
+	val image: String? = null,
+
+	@field:SerializedName("type")
+	val type: String? = null
 )
 
 data class ExclusiveOfferItem(

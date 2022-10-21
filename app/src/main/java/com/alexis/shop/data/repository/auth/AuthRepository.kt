@@ -11,6 +11,7 @@ import com.alexis.shop.domain.repository.auth.IAuthRepository
 import com.alexis.shop.utils.AppExecutors
 import com.alexis.shop.data.Resource
 import com.alexis.shop.data.remote.network.ResponseConstant.RESPONSE_EMPTY
+import com.alexis.shop.data.remote.response.auth.LogoutResponse
 import com.alexis.shop.utils.orZero
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -93,6 +94,16 @@ class AuthRepository @Inject constructor(
             }
         }
     }
+
+    override fun logOut(token: String): Flow<Resource<LogoutResponse>> {
+        return flow<Resource<LogoutResponse>> {
+            emit(Resource.Loading())
+            when(val apiResponse = remoteDataSource.logout(token)){
+
+            }
+        }
+    }
+
 
     override fun logout() {
         localDataSource.logout()

@@ -7,6 +7,7 @@ import com.alexis.shop.data.remote.response.checkout.CheckoutAddressGetResponse
 import com.alexis.shop.data.remote.response.checkout.CheckoutAddressPostResponse
 import com.alexis.shop.data.remote.model.productbaru.ProductBaruResponse
 import com.alexis.shop.data.remote.model.voucher.VoucherResponse
+import com.alexis.shop.data.remote.response.auth.LogoutResponse
 import com.alexis.shop.data.remote.response.product.ProductsGetByIdResponse
 import com.alexis.shop.data.remote.response.product.category.ProductCategoryResponse
 import com.alexis.shop.data.remote.response.product.category.subcategory.SubProductCategoryResponse
@@ -38,6 +39,11 @@ interface ApiService {
         @Field("username") username: String,
         @Field("password") password: String
     ): LoginResponse
+
+    @POST("mw/auth/logout")
+    suspend fun logOut(
+        @Header("Authorization") token: String,
+    ) : LogoutResponse
 
     @POST(UrlConstant.ACTIVATE_URL)
     @FormUrlEncoded
