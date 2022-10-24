@@ -18,6 +18,7 @@ import com.alexis.shop.R
 import com.alexis.shop.data.Resource
 import com.alexis.shop.domain.model.menu.MenuModel
 import com.alexis.shop.data.source.dummy.getMenuList
+import com.alexis.shop.data.source.network.getProductCategory
 import com.alexis.shop.databinding.FragmentMenuBinding
 import com.alexis.shop.domain.model.product.category.ProductCategoryModel
 import com.alexis.shop.domain.model.product.modelbaru.ProductBaruModel
@@ -55,6 +56,7 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
     private val binding: FragmentMenuBinding by viewBinding()
     private val menuAdapter = GroupAdapter<GroupieViewHolder>()
     private val sosmedAdapter = GroupAdapter<GroupieViewHolder>()
+    private var listCategory : ArrayList<ProductCategoryModel> = ArrayList()
     private var listMenu: ArrayList<MenuModel> = ArrayList()
     private var fragManager: FragmentManager? = null
 
@@ -182,12 +184,15 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
     private fun initMenu() {
         mainViewModel.getProductCategoryData().observe(viewLifecycleOwner) { dataCategory ->
             Log.d("DATACATEGORY", "$dataCategory")
+            listCategory = getProductCategory(dataCategory)
+            Log.d("CATEGORTUT", "$listCategory")
             listMenu = getMenuList(viewModel.isUserLogin(), dataCategory)
             addDataMenuAdapter()
         }
     }
 
     private fun addDataMenuAdapter() {
+        Log.d("CATEGORTUT", "$listCategory")
         listMenu.slice(0..15).map { menu ->
             menu.isOpen = true
             menuAdapter.add(MenuItem(this, menu) {

@@ -67,7 +67,7 @@ interface ApiService {
     @POST("mw/wishlist")
     @FormUrlEncoded
     suspend fun postWishlist(
-        @Header("Authorization") token: String,
+//        @Header("Authorization") token: String,
         @Field("customer_id") customerid: String,
         @Field("product_item_code") productItemCode: String
     ): WishlistPostResponse
@@ -79,7 +79,7 @@ interface ApiService {
 
     @GET("mw/wishlist")
     suspend fun getWishlist(
-        @Header("Authorization") token: String
+//        @Header("Authorization") token: String
     ): WishlistGetResponse
 
     @DELETE(UrlConstant.WISHLIST_URL)
@@ -114,7 +114,7 @@ interface ApiService {
 
     @GET("mw/voucher")
     suspend fun getVoucher(
-        @Header("Authorization") token : String
+       // @Header("Authorization") token : String
     ): VoucherResponse
 
     /*

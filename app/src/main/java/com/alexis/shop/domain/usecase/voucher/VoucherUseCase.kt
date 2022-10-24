@@ -6,5 +6,5 @@ import com.alexis.shop.domain.model.voucher.AllVoucherModel
 import kotlinx.coroutines.flow.Flow
 
 interface VoucherUseCase {
-    fun getAllVoucher(token : String): Flow<Resource<AllVoucherModel>>
+    fun getAllVoucher(): Flow<Resource<AllVoucherModel>>
 }

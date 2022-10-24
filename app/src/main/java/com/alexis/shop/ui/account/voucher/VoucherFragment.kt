@@ -52,7 +52,7 @@ class VoucherFragment : BaseFragment<FragmentVoucherBinding>(), OnClickItem {
     }
 
     private fun getAllVoucher() {
-        viewModel.getAllVoucher(token ="Bearer ${sharedPref.getToken()}").observe(viewLifecycleOwner) {response ->
+        viewModel.getAllVoucher().observe(viewLifecycleOwner) {response ->
             if (response != null) {
                 Log.d("ERRORRS", sharedPref.getToken())
                 when(response) {

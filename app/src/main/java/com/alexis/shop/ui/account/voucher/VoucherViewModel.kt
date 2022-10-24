@@ -10,5 +10,5 @@ import javax.inject.Inject
 class VoucherViewModel @Inject constructor(
     private val voucherUseCase: VoucherUseCase
 ) : ViewModel(){
-    fun getAllVoucher(token : String) = voucherUseCase.getAllVoucher(token).asLiveData()
+    fun getAllVoucher() = voucherUseCase.getAllVoucher().asLiveData()
 }

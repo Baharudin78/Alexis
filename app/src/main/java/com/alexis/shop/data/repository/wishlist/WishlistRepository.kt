@@ -18,10 +18,10 @@ class WishlistRepository @Inject constructor(
     private val remoteDataSource: WishlistRemoteDataSource
 ) : IWishlistRepository {
 
-    override fun postWishlist(token: String,customerId: String, productItemCode: String): Flow<Resource<String>> {
+    override fun postWishlist(customerId: String, productItemCode: String): Flow<Resource<String>> {
         return flow<Resource<String>> {
             emit(Resource.Loading())
-            when (val apiResponse = remoteDataSource.postWishlist(token, customerId, productItemCode).first()) {
+            when (val apiResponse = remoteDataSource.postWishlist( customerId, productItemCode).first()) {
                 is ApiResponse.Success -> emit(Resource.Success(apiResponse.data.data?.postWishList?.customeId.orEmpty()))
                 is ApiResponse.Empty -> {}
                 is ApiResponse.Error -> emit(Resource.Error(apiResponse.errorMessage))
@@ -29,10 +29,10 @@ class WishlistRepository @Inject constructor(
         }
     }
 
-    override fun getWishlist(token : String): Flow<Resource<List<WishlistModel>>> {
+    override fun getWishlist(): Flow<Resource<List<WishlistModel>>> {
         return flow<Resource<List<WishlistModel>>> {
             emit(Resource.Loading())
-            when (val apiResponse = remoteDataSource.getWishlist(token).first()) {
+            when (val apiResponse = remoteDataSource.getWishlist().first()) {
                 is ApiResponse.Success -> emit(Resource.Success(generateWishlistGetModel(apiResponse.data.data?.wishlist)))
                 is ApiResponse.Empty -> {}
                 is ApiResponse.Error -> emit(Resource.Error(apiResponse.errorMessage))

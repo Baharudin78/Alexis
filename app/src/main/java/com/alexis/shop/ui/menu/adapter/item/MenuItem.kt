@@ -37,6 +37,7 @@ class MenuItem(
 
 			when(item.title) {
 				"Clothings" -> {
+					lSubmenu.add(SubCategoryModel("Top"))
 //					lSubmenu.add("Tops 60k")
 //					lSubmenu.add("Dresses 60k")
 //					lSubmenu.add("Knitwear 60k")
@@ -49,12 +50,16 @@ class MenuItem(
 //					lSubmenu.add("Jacket 80k")
 				}
 				"Bags" -> {
+					lSubmenu.add(SubCategoryModel("Top"))
+
 //					lSubmenu.add("Bags")
 //					lSubmenu.add("Bags 60k")
 //					lSubmenu.add("Bags 80k")
 //					lSubmenu.add("Bags 100k")
 				}
 				"Shoes" -> {
+					lSubmenu.add(SubCategoryModel("Top"))
+
 //					lSubmenu.add("Shoes")
 //					lSubmenu.add("Shoes 60k")
 //					lSubmenu.add("Shoes 80k")

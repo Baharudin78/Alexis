@@ -14,11 +14,11 @@ class WishlistViewModel @Inject constructor(
     private val shoppingBagUseCase: ShoppingBagUseCase,
     private val authUseCase: AuthUseCase
 ) : ViewModel() {
-    fun postWishlist(token: String,customerId: String, productItemCode: String) =
-        useCase.postWishlist(token, customerId, productItemCode).asLiveData()
+    fun postWishlist(customerId: String, productItemCode: String) =
+        useCase.postWishlist( customerId, productItemCode).asLiveData()
 
     fun postShoppingBag(productDetailCode: String, quantity: Int, sizeId: String) =
         shoppingBagUseCase.postShoppingBag(productDetailCode, authUseCase.getUserId(), quantity, sizeId).asLiveData()
 
-    fun getWishlist(token : String) = useCase.getWishlist(token).asLiveData()
+    fun getWishlist() = useCase.getWishlist().asLiveData()
 }

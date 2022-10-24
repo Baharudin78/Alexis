@@ -11,6 +11,9 @@ fun getMenuList(isLogged: Boolean, dataCategory: List<ProductCategoryModel>?): A
 	val dataMenu = ArrayList<MenuModel>()
 	var id = 1
 	var reverseId = 17
+//	dataCategory?.map {
+//		it.category
+//	}
 	dataCategory?.forEach {
 		when(it.category.lowercase()) {
 			"clothings", "pakaian" -> {

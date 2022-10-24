@@ -71,7 +71,7 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding>(), OnWishlistClic
     }
 
     private fun getWishlist() {
-        viewModel.getWishlist(token ="Bearer ${sharedPref.getToken()}").observe(this) { response ->
+        viewModel.getWishlist().observe(this) { response ->
             if (response != null) {
                 when (response) {
                     is Resource.Loading -> {}
