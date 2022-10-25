@@ -34,11 +34,11 @@ data class ProductsGetByIdItem(
 	@field:SerializedName("updated_at")
 	val updatedAt: String? = null,
 
-	@field:SerializedName("product_size")
-	val size: List<ProductsGetByIdSizeItem>? = null,
+//	@field:SerializedName("product_size")
+//	val size: List<ProductsGetByIdSizeItem>? = null,
 
-	@field:SerializedName("material")
-	val material: List<ProductsGetByIdMaterialItem>? = null,
+//	@field:SerializedName("material")
+//	val material: List<ProductsGetByIdMaterialItem>? = null,
 
 	@field:SerializedName("price")
 	val price: Int? = null,

@@ -49,13 +49,12 @@ interface ApiService {
     @FormUrlEncoded
     suspend fun activateUser(@Field("email") email: String): Any
 
-    @POST(UrlConstant.SHOPPING_BAG_URL)
+    @POST("mw/customer-cart")
     @FormUrlEncoded
     suspend fun postShoppingBag(
-        @Field("product_id") productId: String,
-        @Field("user_id") userId: Int,
-        @Field("unit") unit: Int,
-        @Field("size_id") sizeId: String
+        @Field("product_item_code") productItemCode: String,
+        @Field("product_size_id") productSizeId: String,
+        @Field("unit") unit: String,
     ): ShoppingBagPostResponse
 
     @GET(UrlConstant.SHOPPING_BAG_URL)

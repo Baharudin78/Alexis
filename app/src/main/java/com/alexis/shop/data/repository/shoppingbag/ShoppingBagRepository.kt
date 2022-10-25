@@ -3,7 +3,9 @@ package com.alexis.shop.data.repository.shoppingbag
 import com.alexis.shop.data.Resource
 import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.data.remote.shoppingbag.CartsItem
+import com.alexis.shop.data.remote.shoppingbag.ShoppingBagPostData
 import com.alexis.shop.data.remote.shoppingbag.ShoppingBagRemoteDataSource
+import com.alexis.shop.domain.model.shoppingbag.ShopingBagPostModel
 import com.alexis.shop.domain.model.shoppingbag.ShoppingBagModel
 import com.alexis.shop.domain.repository.shoppingbag.IShoppingBagRepository
 import com.alexis.shop.utils.orZero
@@ -18,16 +20,20 @@ class ShoppingBagRepository @Inject constructor(
     private val remoteDataSource: ShoppingBagRemoteDataSource
 ) : IShoppingBagRepository {
 
-    override fun postShoppingBag(productId: String, userId: Int, quantity: Int, sizeId: String): Flow<Resource<ShoppingBagModel>> {
-        return flow<Resource<ShoppingBagModel>> {
+    override fun postShoppingBag(productItemCode: String, productSizeId: String,quantity: String): Flow<Resource<ShopingBagPostModel>> {
+        return flow<Resource<ShopingBagPostModel>> {
             emit(Resource.Loading())
-            when (val apiResponse = remoteDataSource.postShoppingBag(productId, userId, quantity, sizeId).first()) {
+            when (val apiResponse = remoteDataSource.postShoppingBag(productItemCode, productSizeId, quantity).first()) {
                 is ApiResponse.Success -> emit(
                     Resource.Success(
-                        ShoppingBagModel(
-                            productId = apiResponse.data.productId.orEmpty(),
-                            qty = apiResponse.data.qty.orZero(),
-                            size = apiResponse.data.sizeId.orEmpty()
+                        ShopingBagPostModel(
+                            id = apiResponse.data.shopingBagPostData?.id,
+                            customerId = apiResponse.data.shopingBagPostData?.customerId,
+                            productItemCode = apiResponse.data.shopingBagPostData?.productItemCode,
+                            productSizeId = apiResponse.data.shopingBagPostData?.productSizeId,
+                            unit = apiResponse.data.shopingBagPostData?.unit,
+                            price = apiResponse.data.shopingBagPostData?.price,
+                            finalPrice = apiResponse.data.shopingBagPostData?.finalPrice
                         )
                     )
                 )

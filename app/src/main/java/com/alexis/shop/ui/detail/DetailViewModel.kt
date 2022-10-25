@@ -22,7 +22,7 @@ class DetailViewModel @Inject constructor(
     fun postWishlist(customerId: String, productItemCode: String) =
         wishlistUseCase.postWishlist(customerId, productItemCode).asLiveData()
 
-    fun postShoppingBag(productId: String, quantity: Int, sizeId: String) =
-        shoppingBagUseCase.postShoppingBag(productId, authUseCase.getUserId(), quantity, sizeId)
+    fun postShoppingBag(productItemCode : String, productSizeId : String, quantity : String) =
+        shoppingBagUseCase.postShoppingBag(productItemCode, productSizeId, quantity)
             .asLiveData()
 }

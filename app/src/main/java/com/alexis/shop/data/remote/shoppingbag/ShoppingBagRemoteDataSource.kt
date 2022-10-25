@@ -13,10 +13,10 @@ import javax.inject.Singleton
 @Singleton
 class ShoppingBagRemoteDataSource @Inject constructor(private val apiService: ApiService) {
 
-    suspend fun postShoppingBag(productId: String, userId: Int, quantity: Int, sizeId: String): Flow<ApiResponse<ShoppingBagPostData>> {
+    suspend fun postShoppingBag(productItemCode: String, sizeId: String,quantity: String): Flow<ApiResponse<ShoppingBagPostData>> {
         return flow {
             try {
-                val response = apiService.postShoppingBag(productId, userId, quantity, sizeId)
+                val response = apiService.postShoppingBag(productItemCode,sizeId, quantity)
                 if (response.data != null) {
                     emit(ApiResponse.Success(response.data))
                 } else {

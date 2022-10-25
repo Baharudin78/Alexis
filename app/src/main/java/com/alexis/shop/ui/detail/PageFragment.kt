@@ -144,6 +144,7 @@ class PageFragment : Fragment(R.layout.fragment_page) {
     private fun setupView(data: ProductsByIdModel) {
         binding.itemName.text = data.productName
         binding.itemPrice.text = getString(R.string.price, data.price.toString())
+        binding.point.text = data.exclusiveOffer?.redemptionPoint.toString()
         data.images.forEach { imageData ->
             imagePagerAdapter.add(
                 ImageViewPagerItem(
@@ -211,7 +212,7 @@ class PageFragment : Fragment(R.layout.fragment_page) {
     private fun postShoppingBag(size: String) {
         activity?.let {
             if(product != null) {
-                viewModel.postShoppingBag(product?.product_id.toString(), 1, size).observe(viewLifecycleOwner) { response ->
+                viewModel.postShoppingBag(product?.product_id.toString(),product?.size_id.toString(),product?.stock_keeping_unit.toString()).observe(viewLifecycleOwner) { response ->
                     if (response != null) {
                         when (response) {
                             is Resource.Loading -> {}
@@ -265,13 +266,13 @@ class PageFragment : Fragment(R.layout.fragment_page) {
         val binding = BottomsheetAddcartItemBinding.inflate(layoutInflater)
         arraySize = SizeList.getListSize()
 
-        val sizeList = productDetailData?.size as ArrayList<ProductsGetByIdSizeModel>
-        adapterSize = SizeChooserAdapter(requireContext(), sizeList) {
-            sizeSelected = it.name
-            log("selected $sizeSelected")
-            binding.greyButtonAddkranjang.gone()
-            binding.tvSelectSize.gone()
-        }
+   //     val sizeList = productDetailData?.size as ArrayList<ProductsGetByIdSizeModel>
+//        adapterSize = SizeChooserAdapter(requireContext(), sizeList) {
+//            sizeSelected = it.name
+//            log("selected $sizeSelected")
+//            binding.greyButtonAddkranjang.gone()
+//            binding.tvSelectSize.gone()
+//        }
 
         val linearLayoutManager = LinearLayoutManager(requireContext(), HORIZONTAL, false)
 
@@ -359,12 +360,12 @@ class PageFragment : Fragment(R.layout.fragment_page) {
                     itemCode.text = it.productId.toString()
 
                     var material = "Material: "
-                    it.material.forEachIndexed { index, item ->
-                        material += item.name
-                        if(index < it.material.size - 1) {
-                            material += ", "
-                        }
-                    }
+//                    it.material.forEachIndexed { index, item ->
+//                        material += item.name
+//                        if(index < it.material.size - 1) {
+//                            material += ", "
+//                        }
+//                    }
                     itemMaterial.text = material
                     itemWeight.text = "Weight: " + getString(R.string.weight, it.weight.toString())
 

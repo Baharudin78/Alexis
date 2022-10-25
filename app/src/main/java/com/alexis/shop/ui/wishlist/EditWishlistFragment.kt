@@ -105,28 +105,28 @@ class EditWishlistFragment : Fragment() {
     }
 
     private fun postShoppingBag(size: String) {
-        activity?.let {
-            viewModel.postShoppingBag(wishlistModel?.customerId.toString(), 1, size).observe(viewLifecycleOwner) { response ->
-                if (response != null) {
-                    when (response) {
-                        is Resource.Loading -> {}
-                        is Resource.Success -> {
-                            withDelay(900) {
-                                val fragment = WishlistFragment.newInstance(wishlistModel!!,"")
-                                it.supportFragmentManager.wishlistNavigator(fragment)
-                            }
-                        }
-                        is Resource.Error -> {
-                            Toast.makeText(
-                                it.applicationContext,
-                                getString(R.string.auth_error, "Post Shopping Bag"),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
-                }
-            }
-        }
+//        activity?.let {
+//            viewModel.postShoppingBag(wishlistModel?.productItemCode.toString(), wishlistModel.product.product_size_id.toString(),).observe(viewLifecycleOwner) { response ->
+//                if (response != null) {
+//                    when (response) {
+//                        is Resource.Loading -> {}
+//                        is Resource.Success -> {
+//                            withDelay(900) {
+//                                val fragment = WishlistFragment.newInstance(wishlistModel!!,"")
+//                                it.supportFragmentManager.wishlistNavigator(fragment)
+//                            }
+//                        }
+//                        is Resource.Error -> {
+//                            Toast.makeText(
+//                                it.applicationContext,
+//                                getString(R.string.auth_error, "Post Shopping Bag"),
+//                                Toast.LENGTH_SHORT
+//                            ).show()
+//                        }
+//                    }
+//                }
+//            }
+//        }
     }
 
     private fun boldTextsizeChoosen(tv: TextView) {

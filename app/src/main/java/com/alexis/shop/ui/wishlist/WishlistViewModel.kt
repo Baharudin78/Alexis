@@ -17,8 +17,8 @@ class WishlistViewModel @Inject constructor(
     fun postWishlist(customerId: String, productItemCode: String) =
         useCase.postWishlist( customerId, productItemCode).asLiveData()
 
-    fun postShoppingBag(productDetailCode: String, quantity: Int, sizeId: String) =
-        shoppingBagUseCase.postShoppingBag(productDetailCode, authUseCase.getUserId(), quantity, sizeId).asLiveData()
+    fun postShoppingBag(productItemCode : String, productSizeId : String, quantity : String) =
+        shoppingBagUseCase.postShoppingBag(productItemCode, productSizeId, quantity).asLiveData()
 
     fun getWishlist() = useCase.getWishlist().asLiveData()
 }

@@ -26,12 +26,14 @@ class FAQAdapter (private val context: Context,
 
         holder.itemView.setOnClickListener {
             onClick(item)
+
             /**
              * trigger animation when visibility change,
              * but can't work when notifyDataSetChanged called
              * **/
             notifyItemChanged(position)
         }
+
     }
 
     override fun getItemCount(): Int = items.size

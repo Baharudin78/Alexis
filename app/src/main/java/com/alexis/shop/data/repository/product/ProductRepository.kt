@@ -107,8 +107,9 @@ class ProductRepository @Inject constructor(
                 stock = product.stock.orZero(),
                 productName = product.productName.orEmpty(),
                 images = generateProductByIdImagesModel(product.images) as MutableList<ProductsGetByIdImagesModel>,
-                size = generateProductByIdSizeModel(product.size) as MutableList<ProductsGetByIdSizeModel>,
-                material = generateProductByIdMaterialModel(product.material) as MutableList<ProductsGetByIdMaterialModel>
+                exclusiveOffer = generateExclusiveOfferToItemOffer(product.exclusiveOffer)
+               // size = generateProductByIdSizeModel(product.size) as MutableList<ProductsGetByIdSizeModel>,
+             //   material = generateProductByIdMaterialModel(product.material) as MutableList<ProductsGetByIdMaterialModel>
             )
         } else {
             ProductsByIdModel()
@@ -122,6 +123,16 @@ class ProductRepository @Inject constructor(
                 type = it.type.orEmpty()
             )
         } ?: mutableListOf()
+    }
+
+    private fun generateExclusiveOfferToItemOffer(data : ExclusiveOfferItem?) : ProductExclusiveOffer?{
+        return ProductExclusiveOffer(
+            id = data?.id.orZero(),
+            productItemCode = data?.productTtemCode.orEmpty(),
+            redemptionPoint = data?.redemptionPoint.orZero(),
+            aging = data?.aging.orZero(),
+            registrationDate = data?.registrationDate.orEmpty()
+        )
     }
 
     private fun generateProductByIdSizeModel(data: List<ProductsGetByIdSizeItem>?): List<ProductsGetByIdSizeModel> {

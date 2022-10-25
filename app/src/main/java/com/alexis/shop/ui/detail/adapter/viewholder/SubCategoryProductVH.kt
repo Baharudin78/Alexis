@@ -86,7 +86,7 @@ class SubCategoryProductVH(
     private fun openDetail(itemView: View, data: ProductBaruModel) {
         val context = itemView.context as MainActivity
         val intent = Intent(context, ExpanItemPagersActivity::class.java).apply {
-            putExtra(ExpanItemPagersActivity.EXTRA_DATA, data.product_id)
+            putExtra(ExpanItemPagersActivity.EXTRA_DATA, data)
         }
         context.startActivity(intent)
 //        if (data.imageType == "C") {

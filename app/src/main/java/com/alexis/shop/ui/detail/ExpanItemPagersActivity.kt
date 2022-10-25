@@ -8,6 +8,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.*
@@ -54,6 +55,8 @@ class ExpanItemPagersActivity : AppCompatActivity() {
         window.requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
         findViewById<View>(android.R.id.content).transitionName = "shared_transition"
 
+        val extrea = intent.getStringExtra(EXTRA_DATA)
+        toast(extrea.orEmpty(), Toast.LENGTH_LONG)
         setEnterSharedElementCallback(MaterialContainerTransformSharedElementCallback())
 
         window.sharedElementEnterTransition = MaterialContainerTransform().apply {
@@ -70,6 +73,7 @@ class ExpanItemPagersActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         val productId = intent.getStringExtra(EXTRA_DATA)
+        Log.d("EXTRADATA", productId.orEmpty())
         transparentNavBar()
         customTopBarsColor(true)
         getIntentData()
@@ -124,6 +128,7 @@ class ExpanItemPagersActivity : AppCompatActivity() {
     private fun getIntentData() {
         intent.getParcelableExtra<ProductBaruModel>(EXTRA_DATA)?.let {
             productsModel = it
+            Log.d("EXTRADATA", "$it")
         }
     }
 
@@ -149,7 +154,7 @@ class ExpanItemPagersActivity : AppCompatActivity() {
     //Set Page
     private fun initPaging() {
         productsModel?.let {
-            Log.d("APASINI", it.toString())
+            Log.d("APASIINI", it.toString())
             fragments = arrayListOf(
                 PageFragment.newInstance(it),
 //                PageFragment.newInstance(it),

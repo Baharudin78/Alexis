@@ -5,8 +5,9 @@ data class ProductsByIdModel(
     val categoryName: String = "",
     val updatedAt: String = "",
     val size: MutableList<ProductsGetByIdSizeModel> = mutableListOf(),
-    val material: MutableList<ProductsGetByIdMaterialModel> = mutableListOf(),
+ //   val material: MutableList<ProductsGetByIdMaterialModel> = mutableListOf(),
     val price: Int = 0,
+    val exclusiveOffer: ProductExclusiveOffer? = null,
     val productId: Int = 0,
     val weight: Int = 0,
     val createdAt: String = "",
@@ -29,4 +30,12 @@ data class ProductsGetByIdSizeModel(
 data class ProductsGetByIdMaterialModel(
     val name: String = "",
     val id: String = ""
+)
+
+data class ProductExclusiveOffer(
+    val id : Int = 0,
+    val productItemCode : String = "",
+    val redemptionPoint : Int = 0,
+    val aging : Int = 0,
+    val registrationDate :String = ""
 )
