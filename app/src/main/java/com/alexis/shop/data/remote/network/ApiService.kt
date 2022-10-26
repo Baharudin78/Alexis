@@ -8,6 +8,7 @@ import com.alexis.shop.data.remote.response.checkout.CheckoutAddressPostResponse
 import com.alexis.shop.data.remote.model.productbaru.ProductBaruResponse
 import com.alexis.shop.data.remote.model.voucher.VoucherResponse
 import com.alexis.shop.data.remote.response.auth.LogoutResponse
+import com.alexis.shop.data.remote.response.landing.LandingResponse
 import com.alexis.shop.data.remote.response.product.ProductsGetByIdResponse
 import com.alexis.shop.data.remote.response.product.category.ProductCategoryResponse
 import com.alexis.shop.data.remote.response.product.category.subcategory.SubProductCategoryResponse
@@ -22,6 +23,10 @@ import com.alexis.shop.data.remote.wishlist.WishlistPostResponse
 import retrofit2.http.*
 
 interface ApiService {
+
+    @GET("mw/landing-image")
+    suspend fun getLandingImage() : LandingResponse
+
     @POST("mw/auth/register")
     @FormUrlEncoded
     suspend fun registration(
@@ -41,9 +46,7 @@ interface ApiService {
     ): LoginResponse
 
     @POST("mw/auth/logout")
-    suspend fun logOut(
-        @Header("Authorization") token: String,
-    ) : LogoutResponse
+    suspend fun logOut() : LogoutResponse
 
     @POST(UrlConstant.ACTIVATE_URL)
     @FormUrlEncoded

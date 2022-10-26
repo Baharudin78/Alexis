@@ -5,6 +5,7 @@ import com.alexis.shop.domain.model.auth.LoginModel
 import com.alexis.shop.domain.model.auth.RegisterModel
 import com.alexis.shop.domain.repository.auth.IAuthRepository
 import com.alexis.shop.data.Resource
+import com.alexis.shop.data.remote.response.auth.LogoutResponse
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -21,6 +22,9 @@ class AuthInteractor @Inject constructor(private val repository: IAuthRepository
     ): Flow<Resource<RegisterModel>> = repository.register(name, phone, email, password,confirmPassword, tanggalLahir)
 
     override fun activeUser(email: String): Flow<Resource<ActivateUserModel>> = repository.activeUser(email)
+    override fun logOut(): Flow<Resource<LogoutResponse>> {
+        return repository.logOut()
+    }
 
     override fun logout() = repository.logout()
 

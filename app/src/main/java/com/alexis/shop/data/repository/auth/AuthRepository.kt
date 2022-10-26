@@ -13,7 +13,9 @@ import com.alexis.shop.data.Resource
 import com.alexis.shop.data.remote.network.ResponseConstant.RESPONSE_EMPTY
 import com.alexis.shop.data.remote.response.auth.LogoutResponse
 import com.alexis.shop.utils.orZero
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -95,11 +97,14 @@ class AuthRepository @Inject constructor(
         }
     }
 
-    override fun logOut(token: String): Flow<Resource<LogoutResponse>> {
-        return flow<Resource<LogoutResponse>> {
-            emit(Resource.Loading())
-            when(val apiResponse = remoteDataSource.logout(token)){
-
+    @OptIn(ExperimentalCoroutinesApi::class)
+    override fun logOut(): Flow<Resource<LogoutResponse>> {
+        return channelFlow<Resource<LogoutResponse>> {
+            send(Resource.Loading())
+            when(val apiResponse = remoteDataSource.logout().first()){
+                is ApiResponse.Success -> send(Resource.Success(apiResponse.data))
+                is ApiResponse.Error -> send(Resource.Error(apiResponse.errorMessage))
+                is ApiResponse.Empty -> send(Resource.Error(RESPONSE_EMPTY))
             }
         }
     }

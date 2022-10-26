@@ -131,6 +131,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         }
     }
 
+
     private fun changeButtonLoginStatus(state: Boolean) {
         with(binding.loginButton) {
             isEnabled = state

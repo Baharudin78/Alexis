@@ -6,7 +6,9 @@ import com.alexis.shop.data.remote.network.ApiService
 import com.alexis.shop.data.remote.network.ResponseConstant
 import com.alexis.shop.utils.orZero
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
@@ -59,13 +61,14 @@ class AuthRemoteDataSource @Inject constructor(private val apiService: ApiServic
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun logout(token : String): Flow<ApiResponse<LogoutResponse>>{
-        return flow {
+    @OptIn(ExperimentalCoroutinesApi::class)
+    suspend fun logout(): Flow<ApiResponse<LogoutResponse>>{
+        return channelFlow {
             try {
-                val response = apiService.logOut(token)
-                emit(ApiResponse.Success(response))
+                val response = apiService.logOut()
+                send(ApiResponse.Success(response))
             }catch (e : Exception) {
-                emit(ApiResponse.Error(e.message.toString()))
+                send(ApiResponse.Error(e.message.toString()))
                 Log.e("RemoteDataSource", e.message.toString())
             }
         }

@@ -12,4 +12,6 @@ class LoginViewModel @Inject constructor(private val useCase: AuthUseCase): View
     fun login(email: String, password: String) = useCase.login(email, password).asLiveData()
 
     fun saveLoginCredential(loginModel: LoginModel) = useCase.saveLoginCredential(loginModel)
+
+    fun logOut() = useCase.logOut().asLiveData()
 }

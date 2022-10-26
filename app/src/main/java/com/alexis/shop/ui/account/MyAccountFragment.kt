@@ -7,23 +7,30 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alexis.shop.R
+import com.alexis.shop.data.Resource
 import com.alexis.shop.domain.model.menu.MenuModel
 import com.alexis.shop.ui.account.adapter.MyAccountAdapter
+import com.alexis.shop.ui.account.login.LoginViewModel
 import com.alexis.shop.ui.account.profile.ProfileFragment
 import com.alexis.shop.ui.account.voucher.VoucherFragment
+import com.alexis.shop.ui.menu.MenuFragment
+import com.alexis.shop.ui.menu.MenuViewModel
 import com.alexis.shop.ui.menu.address.ChangeAddressFragment
 import com.alexis.shop.ui.menu.language.LanguageFragment
-import com.alexis.shop.ui.menu.MenuFragment
+import com.alexis.shop.utils.OnClickItem
 import com.alexis.shop.utils.accountNavigator
 import com.alexis.shop.utils.handleBackPressed
-import com.alexis.shop.utils.OnClickItem
 import com.alexis.shop.utils.prefs.SheredPreference
 import com.alexis.shop.utils.toast
 import com.google.android.material.transition.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.withContext
+import kotlin.concurrent.thread
+
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -38,6 +45,8 @@ class MyAccountFragment : Fragment() {
     lateinit var privacy: TextView
     lateinit var listmenu: RecyclerView
     lateinit var sharefPref : SheredPreference
+    private val menuViewModel: MenuViewModel by viewModels()
+    private val viewModel : LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -112,13 +121,53 @@ class MyAccountFragment : Fragment() {
                             childFragmentManager.accountNavigator(LanguageFragment.newInstance("",""))
                         }
                         "Logout" -> {
-                            sharefPref.logOut()
+                            doLogOut()
                             childFragmentManager.accountNavigator(MenuFragment.newInstance("","111"))
                             requireContext().toast("Logout Successfully")
                         }
                     }
                 }
             })
+        }
+    }
+
+    private fun doLogOut() {
+        viewModel.logOut().observe(viewLifecycleOwner) { response ->
+            if (response != null) {
+                when(response) {
+                    is Resource.Loading -> {
+                    }
+                    is Resource.Success -> {
+                        response.data?.let {
+                            thread {
+                                while (true){
+                                    Thread.sleep(500)
+                                    deleteAppData()
+                                }
+                            }
+                            userIsLogout(true)
+                            sharefPref.logOut()
+                        }
+                    }
+                    is Resource.Error -> {
+                        requireContext().toast("Logout Failed")}
+                }
+            }
+        }
+    }
+
+    private fun userIsLogout(isOut : Boolean) {
+        menuViewModel.isUserLogin()
+    }
+
+    private fun deleteAppData() {
+        try {
+            // clearing app data
+            val packageName = context?.packageName
+            val runtime = Runtime.getRuntime()
+            runtime.exec("pm clear $packageName")
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 
