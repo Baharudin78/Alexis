@@ -1,8 +1,10 @@
-package com.alexis.shop.data.remote.shoppingbag
+package com.alexis.shop.data.remote.datasource
 
 import android.util.Log
 import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.data.remote.network.ApiService
+import com.alexis.shop.data.remote.response.shoppingbag.ShoppingBagPostData
+import com.alexis.shop.data.remote.response.shoppingbag.ShoppingBagResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -29,10 +31,10 @@ class ShoppingBagRemoteDataSource @Inject constructor(private val apiService: Ap
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun getShoppingBag(userId: Int): Flow<ApiResponse<ShoppingBagResponse>> {
+    suspend fun getShoppingBag(): Flow<ApiResponse<ShoppingBagResponse>> {
         return flow {
             try {
-                val response = apiService.getShoppingBag(userId)
+                val response = apiService.getShoppingBag()
                 if (response.data?.carts != null) {
                     emit(ApiResponse.Success(response))
                 } else {

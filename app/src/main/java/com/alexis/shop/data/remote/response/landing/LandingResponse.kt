@@ -1,5 +1,8 @@
 package com.alexis.shop.data.remote.response.landing
 
+import com.alexis.shop.ui.detail.adapter.viewholder.LandingPageVH
+import com.dizcoding.mylibrv.BaseItemModel
+import com.dizcoding.mylibrv.BaseItemTypeFactory
 import com.google.gson.annotations.SerializedName
 
 data class LandingResponse(
@@ -33,5 +36,11 @@ data class LandingItem(
     @field:SerializedName("name")
     val name: String? = null,
     @field:SerializedName("start_date")
-    val startDate: String? = null
-)
+    val startDate: String? = null,
+    val layoutHeight: Int = 0
+): BaseItemModel() {
+    override fun type(typeFactoryBase: BaseItemTypeFactory): Int {
+        typeVH = LandingPageVH.LAYOUT
+        return typeFactoryBase.type(this)
+    }
+}

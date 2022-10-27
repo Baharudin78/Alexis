@@ -6,6 +6,7 @@ import com.alexis.shop.domain.model.product.category.ProductCategoryModel
 import com.alexis.shop.domain.model.product.category.subcategory.SubCategoryModel
 import com.alexis.shop.domain.model.wishlist.WishlistModel
 import com.alexis.shop.domain.usecase.auth.AuthUseCase
+import com.alexis.shop.domain.usecase.landing.LandingUseCase
 import com.alexis.shop.domain.usecase.product.ProductUseCase
 import com.alexis.shop.domain.usecase.product.category.ProductCategoryUseCase
 import com.alexis.shop.domain.usecase.shoppingbag.ShoppingBagUseCase
@@ -20,6 +21,7 @@ class MainViewModel @Inject constructor(
     private val wishlistUseCase: WishlistUseCase,
     private val shoppingBagUseCase: ShoppingBagUseCase,
     private val authUseCase: AuthUseCase,
+    private val landingImge : LandingUseCase,
     private val productCategoryUseCase: ProductCategoryUseCase
 ) : ViewModel() {
     private var productCategory: MutableLiveData<List<ProductCategoryModel>> = MutableLiveData()
@@ -38,6 +40,8 @@ class MainViewModel @Inject constructor(
             }
         }
     }
+
+    fun getLandingImage() = landingImge.getLandingImage().asLiveData()
 
 
     fun callSubCategoryData(name : String) {
@@ -59,7 +63,7 @@ class MainViewModel @Inject constructor(
 
     fun getWishlist() = wishlistUseCase.getWishlist().asLiveData()
 
-    fun getShoppingBag() = shoppingBagUseCase.getShoppingBag(authUseCase.getUserId()).asLiveData()
+    fun getShoppingBag() = shoppingBagUseCase.getShoppingBag().asLiveData()
 
     fun isUserAuthenticated() = authUseCase.isUserLogin()
 }

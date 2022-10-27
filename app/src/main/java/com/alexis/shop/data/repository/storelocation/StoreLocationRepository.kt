@@ -2,9 +2,9 @@ package com.alexis.shop.data.repository.storelocation
 
 import com.alexis.shop.data.Resource
 import com.alexis.shop.data.remote.network.ApiResponse
-import com.alexis.shop.data.remote.storelocation.AllStoreItemResponse
-import com.alexis.shop.data.remote.storelocation.StoreLocationItem
-import com.alexis.shop.data.remote.storelocation.StoreLocationRemoteDataSource
+import com.alexis.shop.data.remote.response.storelocation.AllStoreItemResponse
+import com.alexis.shop.data.remote.response.storelocation.StoreLocationItem
+import com.alexis.shop.data.remote.datasource.StoreLocationRemoteDataSource
 import com.alexis.shop.domain.model.store_location.AllStoreItemModel
 import com.alexis.shop.domain.model.store_location.AllStoreLocationModel
 import com.alexis.shop.domain.model.store_location.StoreLocationByNameModel
@@ -92,13 +92,13 @@ class StoreLocationRepository @Inject constructor(
                 province = it.province.orEmpty(),
                 updatedAt = it.updatedAt.orEmpty(),
                 city = it.city.orEmpty(),
-                latitude = it.latitude.orZero(),
+                latitude = it.latitude.orEmpty(),
                 name = it.name.orEmpty(),
                 openTime = it.openTime.orEmpty(),
                 createdAt = it.createdAt.orEmpty(),
                 phoneNumber = it.phoneNumber.orEmpty(),
                 closeTime = it.closeTime.orEmpty(),
-                longitude = it.longitude.orZero()
+                longitude = it.longitude.orEmpty()
             )
         } ?: listOf()
     }

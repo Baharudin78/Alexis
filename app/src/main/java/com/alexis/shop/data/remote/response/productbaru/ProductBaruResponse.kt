@@ -1,4 +1,4 @@
-package com.alexis.shop.data.remote.model.productbaru
+package com.alexis.shop.data.remote.response.productbaru
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

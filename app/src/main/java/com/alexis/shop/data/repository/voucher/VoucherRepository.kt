@@ -1,12 +1,9 @@
 package com.alexis.shop.data.repository.voucher
 
 import com.alexis.shop.data.Resource
-import com.alexis.shop.data.remote.model.voucher.VoucherItem
-import com.alexis.shop.data.remote.model.voucher.VoucherResponse
-import com.alexis.shop.data.remote.model.voucher.VoucherType
+import com.alexis.shop.data.remote.response.voucher.VoucherItem
 import com.alexis.shop.data.remote.network.ApiResponse
-import com.alexis.shop.data.remote.storelocation.StoreLocationRemoteDataSource
-import com.alexis.shop.data.remote.voucher.VoucherRemoteDataSource
+import com.alexis.shop.data.remote.datasource.VoucherRemoteDataSource
 import com.alexis.shop.domain.model.voucher.AllVoucherModel
 import com.alexis.shop.domain.model.voucher.VoucherItemModel
 import com.alexis.shop.domain.repository.voucher.IVoucherRepository

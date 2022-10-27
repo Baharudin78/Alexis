@@ -1,9 +1,9 @@
-package com.alexis.shop.data.remote.voucher
+package com.alexis.shop.data.remote.datasource
 
 import android.util.Log
-import com.alexis.shop.data.remote.model.voucher.VoucherResponse
 import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.data.remote.network.ApiService
+import com.alexis.shop.data.remote.response.sizefilter.SizesItemResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -12,19 +12,17 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class VoucherRemoteDataSource @Inject constructor(
-    private val apiService : ApiService
-) {
-    suspend fun getAllVoucher() : Flow<ApiResponse<VoucherResponse>> {
+class SizeFilterRemoteDataSource @Inject constructor(private val apiService: ApiService) {
+    suspend fun getSizeFilter(): Flow<ApiResponse<List<SizesItemResponse>?>> {
         return flow {
             try {
-                val response = apiService.getVoucher()
-                if (!response.data?.voucherList.isNullOrEmpty()) {
-                    emit(ApiResponse.Success(response))
-                }else {
+                val response = apiService.getSizeFilter()
+                if (response.data != null && response.data.sizes?.isNotEmpty() == true) {
+                    emit(ApiResponse.Success(response.data.sizes))
+                } else {
                     emit(ApiResponse.Empty)
                 }
-            }catch (e : Exception) {
+            } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
                 Log.e("RemoteDataSource", e.toString())
             }

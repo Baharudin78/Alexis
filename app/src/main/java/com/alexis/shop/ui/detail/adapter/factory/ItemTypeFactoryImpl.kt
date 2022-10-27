@@ -10,7 +10,6 @@ class ItemTypeFactoryImpl: BaseItemTypeFactory {
     override fun createViewHolder(parent: View, type: Int): AbstractViewHolder<*> {
         return when (type){
             LandingPageVH.LAYOUT -> LandingPageVH(parent)
-
             SubCategoryTitleVH.LAYOUT -> SubCategoryTitleVH(parent)
             SubCategoryProductVH.LAYOUT -> SubCategoryProductVH(parent)
             SubCategoryTypeAProductVH.LAYOUT -> SubCategoryTypeAProductVH(parent)

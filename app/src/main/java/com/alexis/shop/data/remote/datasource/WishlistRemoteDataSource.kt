@@ -1,8 +1,10 @@
-package com.alexis.shop.data.remote.wishlist
+package com.alexis.shop.data.remote.datasource
 
 import android.util.Log
 import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.data.remote.network.ApiService
+import com.alexis.shop.data.remote.response.wishlist.WishlistGetResponse
+import com.alexis.shop.data.remote.response.wishlist.WishlistPostResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -13,10 +15,10 @@ import javax.inject.Singleton
 @Singleton
 class WishlistRemoteDataSource @Inject constructor(private val apiService: ApiService) {
 
-    suspend fun postWishlist(customerId: String, productItemCode: String): Flow<ApiResponse<WishlistPostResponse>> {
+    suspend fun postWishlist(productItemCode: String): Flow<ApiResponse<WishlistPostResponse>> {
         return flow {
             try {
-                val response = apiService.postWishlist( customerId, productItemCode)
+                val response = apiService.postWishlist(productItemCode)
                 if (!response.data?.postWishList?.customeId.isNullOrEmpty()) {
                     emit(ApiResponse.Success(response))
                 } else {

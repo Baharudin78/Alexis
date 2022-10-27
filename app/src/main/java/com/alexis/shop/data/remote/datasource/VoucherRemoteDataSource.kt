@@ -1,7 +1,7 @@
-package com.alexis.shop.data.remote.city
+package com.alexis.shop.data.remote.datasource
 
 import android.util.Log
-import com.alexis.shop.data.remote.model.kota.CityResponse
+import com.alexis.shop.data.remote.response.voucher.VoucherResponse
 import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.data.remote.network.ApiService
 import kotlinx.coroutines.Dispatchers
@@ -12,14 +12,14 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class CityRemoteDataSource @Inject constructor(
+class VoucherRemoteDataSource @Inject constructor(
     private val apiService : ApiService
 ) {
-    suspend fun getCity(token : String, city : String) : Flow<ApiResponse<CityResponse>> {
+    suspend fun getAllVoucher() : Flow<ApiResponse<VoucherResponse>> {
         return flow {
             try {
-                val response = apiService.getKelurahan(token, city)
-                if (!response.data?.cityItem.isNullOrEmpty()) {
+                val response = apiService.getVoucher()
+                if (!response.data?.voucherList.isNullOrEmpty()) {
                     emit(ApiResponse.Success(response))
                 }else {
                     emit(ApiResponse.Empty)

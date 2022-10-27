@@ -1,25 +1,25 @@
 package com.alexis.shop.data.remote.network
 
-import com.alexis.shop.data.remote.model.kota.CityResponse
+import com.alexis.shop.data.remote.response.kota.CityResponse
 import com.alexis.shop.data.remote.response.auth.LoginResponse
 import com.alexis.shop.data.remote.response.auth.RegisterResponse
 import com.alexis.shop.data.remote.response.checkout.CheckoutAddressGetResponse
 import com.alexis.shop.data.remote.response.checkout.CheckoutAddressPostResponse
-import com.alexis.shop.data.remote.model.productbaru.ProductBaruResponse
-import com.alexis.shop.data.remote.model.voucher.VoucherResponse
+import com.alexis.shop.data.remote.response.productbaru.ProductBaruResponse
+import com.alexis.shop.data.remote.response.voucher.VoucherResponse
 import com.alexis.shop.data.remote.response.auth.LogoutResponse
 import com.alexis.shop.data.remote.response.landing.LandingResponse
 import com.alexis.shop.data.remote.response.product.ProductsGetByIdResponse
 import com.alexis.shop.data.remote.response.product.category.ProductCategoryResponse
 import com.alexis.shop.data.remote.response.product.category.subcategory.SubProductCategoryResponse
-import com.alexis.shop.data.remote.shoppingbag.ShoppingBagDeleteResponse
-import com.alexis.shop.data.remote.shoppingbag.ShoppingBagPostResponse
-import com.alexis.shop.data.remote.shoppingbag.ShoppingBagResponse
-import com.alexis.shop.data.remote.sizefilter.SizeFilterResponse
-import com.alexis.shop.data.remote.storelocation.AllStoreLocationResponse
-import com.alexis.shop.data.remote.storelocation.StoreLocationByNameResponse
-import com.alexis.shop.data.remote.wishlist.WishlistGetResponse
-import com.alexis.shop.data.remote.wishlist.WishlistPostResponse
+import com.alexis.shop.data.remote.response.shoppingbag.ShoppingBagDeleteResponse
+import com.alexis.shop.data.remote.response.shoppingbag.ShoppingBagPostResponse
+import com.alexis.shop.data.remote.response.shoppingbag.ShoppingBagResponse
+import com.alexis.shop.data.remote.response.sizefilter.SizeFilterResponse
+import com.alexis.shop.data.remote.response.storelocation.AllStoreLocationResponse
+import com.alexis.shop.data.remote.response.storelocation.StoreLocationByNameResponse
+import com.alexis.shop.data.remote.response.wishlist.WishlistGetResponse
+import com.alexis.shop.data.remote.response.wishlist.WishlistPostResponse
 import retrofit2.http.*
 
 interface ApiService {
@@ -60,8 +60,8 @@ interface ApiService {
         @Field("unit") unit: String,
     ): ShoppingBagPostResponse
 
-    @GET(UrlConstant.SHOPPING_BAG_URL)
-    suspend fun getShoppingBag(@Query("user_id") userId: Int): ShoppingBagResponse
+    @GET("mw/customer-cart")
+    suspend fun getShoppingBag(): ShoppingBagResponse
 
     @DELETE(UrlConstant.SHOPPING_BAG_URL)
     suspend fun deleteShoppingBag(@Query("cart_id") cartId: Int): ShoppingBagDeleteResponse
@@ -69,19 +69,11 @@ interface ApiService {
     @POST("mw/wishlist")
     @FormUrlEncoded
     suspend fun postWishlist(
-//        @Header("Authorization") token: String,
-        @Field("customer_id") customerid: String,
         @Field("product_item_code") productItemCode: String
     ): WishlistPostResponse
 
-//    @GET("mw/wishlist")
-//    suspend fun getNewWishList(
-//        @Header("Authorization") token: String
-//    )
-
     @GET("mw/wishlist")
     suspend fun getWishlist(
-//        @Header("Authorization") token: String
     ): WishlistGetResponse
 
     @DELETE(UrlConstant.WISHLIST_URL)
@@ -115,9 +107,7 @@ interface ApiService {
     suspend fun getSizeFilter(): SizeFilterResponse
 
     @GET("mw/voucher")
-    suspend fun getVoucher(
-       // @Header("Authorization") token : String
-    ): VoucherResponse
+    suspend fun getVoucher(): VoucherResponse
 
     /*
     ADDRESS

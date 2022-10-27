@@ -16,7 +16,7 @@ class ShoppingBagInteractor @Inject constructor(private val repository: IShoppin
         return repository.deleteShoppingBag(cardId)
     }
 
-    override fun getShoppingBag(userId: Int): Flow<Resource<List<ShoppingBagModel>>> {
-        return repository.getShoppingBag(userId)
+    override fun getShoppingBag(): Flow<Resource<List<ShoppingBagModel>>> {
+        return repository.getShoppingBag()
     }
 }

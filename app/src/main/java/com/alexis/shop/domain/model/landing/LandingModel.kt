@@ -1,10 +1,5 @@
 package com.alexis.shop.domain.model.landing
 
-import com.google.gson.annotations.SerializedName
-
-data class LandingModel(
-    val landingModel : LandingModelItem? = null
-)
 
 data class LandingModelItem(
     val desktopLandingImage: String? = null,
@@ -14,5 +9,8 @@ data class LandingModelItem(
     val logoColorMobile: String? = null,
     val mobileLandingImage: String? = null,
     val name: String? = null,
-    val startDate: String? = null
+    val startDate: String? = null,
+    val layoutHeight: Int = 0
 )
+
+

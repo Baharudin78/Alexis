@@ -1,6 +1,7 @@
-package com.alexis.shop.data.remote.sizefilter
+package com.alexis.shop.data.remote.datasource
 
 import android.util.Log
+import com.alexis.shop.data.remote.response.kota.CityResponse
 import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.data.remote.network.ApiService
 import kotlinx.coroutines.Dispatchers
@@ -11,17 +12,19 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class SizeFilterRemoteDataSource @Inject constructor(private val apiService: ApiService) {
-    suspend fun getSizeFilter(): Flow<ApiResponse<List<SizesItemResponse>?>> {
+class CityRemoteDataSource @Inject constructor(
+    private val apiService : ApiService
+) {
+    suspend fun getCity(token : String, city : String) : Flow<ApiResponse<CityResponse>> {
         return flow {
             try {
-                val response = apiService.getSizeFilter()
-                if (response.data != null && response.data.sizes?.isNotEmpty() == true) {
-                    emit(ApiResponse.Success(response.data.sizes))
-                } else {
+                val response = apiService.getKelurahan(token, city)
+                if (!response.data?.cityItem.isNullOrEmpty()) {
+                    emit(ApiResponse.Success(response))
+                }else {
                     emit(ApiResponse.Empty)
                 }
-            } catch (e: Exception) {
+            }catch (e : Exception) {
                 emit(ApiResponse.Error(e.toString()))
                 Log.e("RemoteDataSource", e.toString())
             }

@@ -1,4 +1,4 @@
-package com.alexis.shop.data.remote.storelocation
+package com.alexis.shop.data.remote.response.storelocation
 
 import com.google.gson.annotations.SerializedName
 
@@ -29,7 +29,7 @@ data class StoreLocationItem(
 	val city: String? = null,
 
 	@field:SerializedName("latitude")
-	val latitude: Int? = null,
+	val latitude: String? = null,
 
 	@field:SerializedName("name")
 	val name: String? = null,
@@ -50,7 +50,7 @@ data class StoreLocationItem(
 	val closeTime: String? = null,
 
 	@field:SerializedName("longitude")
-	val longitude: Int? = null
+	val longitude: String? = null
 )
 
 data class StoreLocationData(

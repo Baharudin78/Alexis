@@ -183,28 +183,28 @@ class PageFragment : Fragment(R.layout.fragment_page) {
     private fun postWishlist() {
         activity?.let {
             if(product != null) {
-//                viewModel.postWishlist(token ="Bearer ${sharedPref.getToken()}", product!!.product_id.toString()).observe(viewLifecycleOwner) { response ->
-//                    if (response != null) {
-//                        when (response) {
-//                            is Resource.Loading -> {}
-//                            is Resource.Success -> {
-//                                it.setResult(Activity.RESULT_OK, Intent().apply {
-//                                    putExtra("id", BACK_TO_WISHLIST)
-//                                })
-//                                it.finish()
-//                                it.overridePendingTransition(0, R.anim.activity_out_wishlist)
-//                                VibrateUtil(it).single()
-//                            }
-//                            is Resource.Error -> {
-//                                Toast.makeText(
-//                                    it.applicationContext,
-//                                    getString(R.string.auth_error, "Post Wishlist"),
-//                                    Toast.LENGTH_SHORT
-//                                ).show()
-//                            }
-//                        }
-//                    }
-//                }
+                viewModel.postWishlist(product!!.item_code.orEmpty()).observe(viewLifecycleOwner) { response ->
+                    if (response != null) {
+                        when (response) {
+                            is Resource.Loading -> {}
+                            is Resource.Success -> {
+                                it.setResult(Activity.RESULT_OK, Intent().apply {
+                                    putExtra("id", BACK_TO_WISHLIST)
+                                })
+                                it.finish()
+                                it.overridePendingTransition(0, R.anim.activity_out_wishlist)
+                                VibrateUtil(it).single()
+                            }
+                            is Resource.Error -> {
+                                Toast.makeText(
+                                    it.applicationContext,
+                                    getString(R.string.auth_error, "Post Wishlist"),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                    }
+                }
             }
         }
     }

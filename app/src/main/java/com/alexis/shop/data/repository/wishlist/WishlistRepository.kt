@@ -2,11 +2,10 @@ package com.alexis.shop.data.repository.wishlist
 
 import com.alexis.shop.data.Resource
 import com.alexis.shop.data.remote.network.ApiResponse
-import com.alexis.shop.data.remote.wishlist.WishlistItem
-import com.alexis.shop.data.remote.wishlist.WishlistRemoteDataSource
+import com.alexis.shop.data.remote.response.wishlist.WishlistItem
+import com.alexis.shop.data.remote.datasource.WishlistRemoteDataSource
 import com.alexis.shop.domain.model.wishlist.WishlistModel
 import com.alexis.shop.domain.repository.wishlist.IWishlistRepository
-import com.alexis.shop.utils.orZero
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
@@ -18,10 +17,10 @@ class WishlistRepository @Inject constructor(
     private val remoteDataSource: WishlistRemoteDataSource
 ) : IWishlistRepository {
 
-    override fun postWishlist(customerId: String, productItemCode: String): Flow<Resource<String>> {
+    override fun postWishlist( productItemCode: String): Flow<Resource<String>> {
         return flow<Resource<String>> {
             emit(Resource.Loading())
-            when (val apiResponse = remoteDataSource.postWishlist( customerId, productItemCode).first()) {
+            when (val apiResponse = remoteDataSource.postWishlist(productItemCode).first()) {
                 is ApiResponse.Success -> emit(Resource.Success(apiResponse.data.data?.postWishList?.customeId.orEmpty()))
                 is ApiResponse.Empty -> {}
                 is ApiResponse.Error -> emit(Resource.Error(apiResponse.errorMessage))

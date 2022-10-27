@@ -69,14 +69,14 @@ class ShoppingBagViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
         mode_reserve.gone()
         mode_itemlayout.visible()
 
-        m_name.text = item.englishName
+        m_name.text = item.product?.productName
         m_price.text = itemView.context.getString(R.string.price, item.price.toString())
-        m_count.text = itemView.context.getString(R.string.quantity, item.qty.toString())
-        m_weight.text = itemView.context.getString(R.string.weight, item.weight.toString())
-        m_size.text = itemView.context.getString(R.string.size, item.size)
-        m_code.text = item.productId
+        m_count.text = itemView.context.getString(R.string.quantity, item.product?.stock.toString())
+        m_weight.text = itemView.context.getString(R.string.weight, item.product?.weight.toString())
+       // m_size.text = itemView.context.getString(R.string.size, item.size)
+        m_code.text = item.productItemCode
         Glide.with(itemView.context)
-            .load(item.imageUrl)
+            .load(item.product?.images)
             .fitCenter()
             .into(m_image)
 

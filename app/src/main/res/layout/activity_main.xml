@@ -12,9 +12,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
-
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/base_recycler"
@@ -105,8 +104,9 @@
 
                 <CheckBox
                     android:id="@+id/option"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="24dp"
+                    android:layout_height="38dp"
+                    android:padding="3dp"
                     android:button="@drawable/menu_to_close"
                     android:buttonTint="@color/white"
                     app:layout_constraintLeft_toRightOf="@+id/vGuideHome0"

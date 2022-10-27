@@ -1,6 +1,6 @@
 package com.alexis.shop.domain.model.wishlist
 
-import com.alexis.shop.data.remote.wishlist.ProductItem
+import com.alexis.shop.data.remote.response.wishlist.ProductItem
 import java.io.Serializable
 
 data class WishlistModel(

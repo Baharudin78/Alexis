@@ -15,9 +15,9 @@ class ShoppingBagViewModel @Inject constructor(
     private val authUseCase: AuthUseCase
 ): ViewModel() {
 
-    fun getShoppingCart() = shoppingBagUseCase.getShoppingBag(authUseCase.getUserId()).asLiveData()
+    fun getShoppingCart() = shoppingBagUseCase.getShoppingBag().asLiveData()
 
-    fun postWishlist(customerId: String, productItemCode: String) = wishlistUseCase.postWishlist( customerId, productItemCode).asLiveData()
+    fun postWishlist(productItemCode: String) = wishlistUseCase.postWishlist(productItemCode).asLiveData()
 
     fun deleteShoppingBag(cartId: Int) = shoppingBagUseCase.deleteShoppingBag(cartId).asLiveData()
 

@@ -1,5 +1,8 @@
-package com.alexis.shop.data.remote.storelocation
+package com.alexis.shop.data.remote.response.storelocation
 
+import com.alexis.shop.ui.detail.adapter.viewholder.LocationTypeVH
+import com.dizcoding.mylibrv.BaseItemModel
+import com.dizcoding.mylibrv.BaseItemTypeFactory
 import com.google.gson.annotations.SerializedName
 
 data class AllStoreLocationResponse(
@@ -30,4 +33,10 @@ data class AllStoreItemResponse(
 	val openTime : String? = null,
 	@field:SerializedName("close_time")
 	val closeTime : String? = null
-)
+) : BaseItemModel() {
+	override fun type(typeFactoryBase: BaseItemTypeFactory): Int {
+		typeVH = LocationTypeVH.LAYOUT
+		return typeFactoryBase.type(this)
+	}
+
+}

@@ -1,4 +1,4 @@
-package com.alexis.shop.data.remote.sizefilter
+package com.alexis.shop.data.remote.response.sizefilter
 
 import com.google.gson.annotations.SerializedName
 

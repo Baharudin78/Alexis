@@ -8,5 +8,5 @@ import kotlinx.coroutines.flow.Flow
 interface IShoppingBagRepository {
     fun postShoppingBag(productItemCode : String, productSizeId : String, quantity : String): Flow<Resource<ShopingBagPostModel>>
     fun deleteShoppingBag(cardId: Int): Flow<Resource<String>>
-    fun getShoppingBag(userId: Int): Flow<Resource<List<ShoppingBagModel>>>
+    fun getShoppingBag(): Flow<Resource<List<ShoppingBagModel>>>
 }

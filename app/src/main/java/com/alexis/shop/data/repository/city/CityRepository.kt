@@ -1,8 +1,8 @@
 package com.alexis.shop.data.repository.city
 
 import com.alexis.shop.data.Resource
-import com.alexis.shop.data.remote.city.CityRemoteDataSource
-import com.alexis.shop.data.remote.model.kota.CityItem
+import com.alexis.shop.data.remote.datasource.CityRemoteDataSource
+import com.alexis.shop.data.remote.response.kota.CityItem
 import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.domain.model.city.AllCityModel
 import com.alexis.shop.domain.model.city.CityItemModel

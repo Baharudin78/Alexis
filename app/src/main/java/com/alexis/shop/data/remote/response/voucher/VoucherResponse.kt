@@ -1,4 +1,4 @@
-package com.alexis.shop.data.remote.model.voucher
+package com.alexis.shop.data.remote.response.voucher
 
 import com.google.gson.annotations.SerializedName
 

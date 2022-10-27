@@ -1,7 +1,5 @@
-package com.alexis.shop.data.remote.model.kota
+package com.alexis.shop.data.remote.response.kota
 
-import com.alexis.shop.data.remote.model.voucher.VoucherItem
-import com.alexis.shop.data.remote.model.voucher.VoucherList
 import com.google.gson.annotations.SerializedName
 
 data class CityResponse (

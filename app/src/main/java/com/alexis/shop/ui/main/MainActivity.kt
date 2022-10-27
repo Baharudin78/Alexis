@@ -1,6 +1,5 @@
 package com.alexis.shop.ui.main
 
-import android.app.Activity
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
@@ -11,7 +10,6 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -22,23 +20,17 @@ import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexis.shop.R
 import com.alexis.shop.data.Resource
-import com.alexis.shop.data.source.dummy.getListProduct
+import com.alexis.shop.data.remote.response.landing.LandingItem
 import com.alexis.shop.databinding.ActivityMainBinding
-import com.alexis.shop.domain.model.product.Product
+import com.alexis.shop.domain.model.landing.LandingModelItem
 import com.alexis.shop.domain.model.product.category.ProductCategoryModel
 import com.alexis.shop.domain.model.product.modelbaru.ProductBaruModel
-import com.alexis.shop.domain.model.store_location.AllStoreItemModel
 import com.alexis.shop.domain.model.wishlist.WishlistModel
-import com.alexis.shop.ui.detail.ExpanItemPagersActivity
-import com.alexis.shop.ui.detail.adapter.entity.LandingPage
 import com.alexis.shop.ui.detail.adapter.entity.SubCategoryProduct
 import com.alexis.shop.ui.detail.adapter.entity.SubCategoryTitle
 import com.alexis.shop.ui.detail.adapter.entity.SubCategoryTypeAProduct
-import com.alexis.shop.ui.detail.adapter.entity.store.LocationStore
-import com.alexis.shop.ui.detail.adapter.entity.store.StoreLocationType
 import com.alexis.shop.ui.detail.adapter.factory.ItemTypeFactoryImpl
 import com.alexis.shop.ui.menu.MenuFragment
-import com.alexis.shop.ui.menu.adapter.StoreHomeAdapter
 import com.alexis.shop.ui.menu.storelocation.StoreLocationViewModel
 import com.alexis.shop.ui.shopping_bag.ShoppingBagFragment
 import com.alexis.shop.ui.wishlist.WishlistFragment
@@ -51,7 +43,6 @@ import com.dizcoding.mylibrv.BaseListAdapter
 import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
-import java.lang.reflect.Array
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -63,6 +54,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var sharedPref : SheredPreference
     private lateinit var binding : ActivityMainBinding
     private var product: ProductCategoryModel? = null
+    private var imageLanding : LandingModelItem? = null
     private lateinit var cart: ImageView
     private lateinit var count_cart: TextView
     private lateinit var loved: ImageView
@@ -139,10 +131,11 @@ class MainActivity : AppCompatActivity() {
         base_recycler.adapter = adapters
         
         //Add Content
-        getStore()
-        getAllProduct()
-        addLandingPage()
+        getLandingImage()
         addTitle()
+        getAllProduct()
+        getStore()
+       // addLandingPage()
 //        addProductsA(adapter)
 //        addProductsC(adapter)
 //        addProductsA2(adapter)
@@ -236,16 +229,6 @@ class MainActivity : AppCompatActivity() {
         booleanColor = isBlack
     }
 
-    private fun addLandingPage() {
-        val lanpage = LandingPage("Top Choices", getTrullyHeightResolution(this))
-        adapters.addItem(lanpage)
-    }
-
-    private fun addTitle() {
-        val subCategoryTitle = SubCategoryTitle("New In", getOneXMeters(applicationContext))
-        adapters.addItem(subCategoryTitle)
-    }
-
     override fun onResume() {
         super.onResume()
         forceStatusBar(window, false)
@@ -290,6 +273,33 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun getLandingImage() {
+        viewModel.getLandingImage().observe(this) {response ->
+            if (response != null){
+                when(response) {
+                    is Resource.Loading -> {}
+                    is Resource.Success -> {
+                        response.data?.let {
+                            val lanpage = LandingItem(it.desktopLandingImage, layoutHeight =  getTrullyHeightResolution(this))
+                            adapters.addItem(lanpage)
+                        }
+                    }
+                    is Resource.Error -> {
+                       Toast.makeText(
+                           applicationContext,
+                           "Error get Imgae",
+                           Toast.LENGTH_SHORT)
+                           .show()
+                    }
+                }
+            }
+        }
+    }
+    private fun addTitle() {
+        val subCategoryTitle = SubCategoryTitle("New Indonesia", getOneXMeters(applicationContext))
+        adapters.addItem(subCategoryTitle)
+    }
+
     private fun getStore() {
         viewModelLoc.getStoreHome().observe(this) {response ->
             if (response != null) {
@@ -297,8 +307,8 @@ class MainActivity : AppCompatActivity() {
                     is Resource.Loading -> {}
                     is Resource.Success -> {
                         response.data?.let {
-                            Log.d("locationnnn", it.toString())
-                            addLocationInHome(it)
+//                            val store = StoreLocationType(it)
+//                            adapters.addItem(store)
                         }
                     }
                     is Resource.Error -> {
@@ -312,7 +322,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
 
     private fun getUserData() {
         if(viewModel.isUserAuthenticated()) {
@@ -367,6 +376,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     private fun addProductToAdapter(product: List<ProductBaruModel>) {
         val listDouble = ArrayList<ProductBaruModel>()
         Log.d("locationnnn", "MASUKK")
@@ -397,27 +407,24 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun addLocationInHome(location : List<AllStoreItemModel> ) {
-        val list = ArrayList<AllStoreItemModel>()
-        Log.d("locationnnn", "MASUKK")
-        try {
-            location.forEach {
-                Log.d("locationnnn1", it.name)
-                if (list.isNotEmpty()) {
-                    Log.d("locationnnn2", it.name)
-                    val locationHomes = StoreLocationType(
-                        list
-                    )
-                    adapters.addItem(locationHomes)
-                }
-
-            }
-        }catch (e : Exception) {
-            Log.d("locatio", e.localizedMessage.orEmpty())
-        }
-
-
-    }
+//    private fun addLocationInHome(location : List<AllStoreItemModel> ) {
+//        val list = ArrayList<AllStoreItemModel>()
+//        Log.d("locationnnn", "MASUKK")
+//        try {
+//            location.forEach {
+//                Log.d("locationnnn1", it.name)
+//                if (list.isNotEmpty()) {
+//                    Log.d("locationnnn2", it.name)
+//                    val locationHomes = StoreLocationType(
+//                        list
+//                    )
+//                    adapters.addItem(locationHomes)
+//                }
+//            }
+//        }catch (e : Exception) {
+//            Log.d("locatio", e.localizedMessage.orEmpty())
+//        }
+//    }
 
     private fun getProductCategory() {
         viewModel.callProductCategoryData()

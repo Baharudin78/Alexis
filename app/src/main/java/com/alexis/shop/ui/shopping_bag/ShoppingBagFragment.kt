@@ -127,7 +127,7 @@ class ShoppingBagFragment : Fragment() {
     }
 
     private fun deleteShoppingBag(item: ShoppingBagModel) {
-        viewModel.deleteShoppingBag(item.shoppingBagId).observe(viewLifecycleOwner) { response ->
+        viewModel.deleteShoppingBag(item.id.orZero()).observe(viewLifecycleOwner) { response ->
             if (response != null) {
                 when (response) {
                     is Resource.Loading -> {}
@@ -145,23 +145,23 @@ class ShoppingBagFragment : Fragment() {
     }
 
     private fun postWishlist(item: ShoppingBagModel) {
-//        viewModel.postWishlist(item.productId).observe(viewLifecycleOwner) { response ->
-//            if (response != null) {
-//                when (response) {
-//                    is Resource.Loading -> {}
-//                    is Resource.Success -> {
-//                        requireContext().toast("Added to Wishlist")
-//                    }
-//                    is Resource.Error -> {
-//                        Toast.makeText(
-//                            requireContext().applicationContext,
-//                            getString(R.string.auth_error, "Post Wishlist"),
-//                            Toast.LENGTH_SHORT
-//                        ).show()
-//                    }
-//                }
-//            }
-//        }
+        viewModel.postWishlist(item.productItemCode.orEmpty()).observe(viewLifecycleOwner) { response ->
+            if (response != null) {
+                when (response) {
+                    is Resource.Loading -> {}
+                    is Resource.Success -> {
+                        requireContext().toast("Added to Wishlist")
+                    }
+                    is Resource.Error -> {
+                        Toast.makeText(
+                            requireContext().applicationContext,
+                            getString(R.string.auth_error, "Post Wishlist"),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        }
     }
 
     override fun onDestroy() {

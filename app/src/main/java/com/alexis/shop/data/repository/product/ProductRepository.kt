@@ -3,8 +3,8 @@ package com.alexis.shop.data.repository.product
 import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.domain.repository.product.IProductRepository
 import com.alexis.shop.data.Resource
-import com.alexis.shop.data.remote.model.productbaru.ImageModel
-import com.alexis.shop.data.remote.model.productbaru.ProductItems
+import com.alexis.shop.data.remote.response.productbaru.ImageModel
+import com.alexis.shop.data.remote.response.productbaru.ProductItems
 import com.alexis.shop.data.remote.response.product.*
 import com.alexis.shop.domain.model.product.*
 import com.alexis.shop.domain.model.product.modelbaru.ImagesModel

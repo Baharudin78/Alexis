@@ -6,12 +6,12 @@ data class StoreLocationByNameModel(
     val province: String = "",
     val updatedAt: String = "",
     val city: String = "",
-    val latitude: Int = 0,
+    val latitude: String = "",
     val name: String = "",
     val openTime: String = "",
     val createdAt: String = "",
     val phoneNumber: String = "",
     val id: Int = 0,
     val closeTime: String = "",
-    val longitude: Int = 0
+    val longitude: String = ""
 ): Serializable

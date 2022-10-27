@@ -2,9 +2,14 @@ package com.alexis.shop.data.repository.shoppingbag
 
 import com.alexis.shop.data.Resource
 import com.alexis.shop.data.remote.network.ApiResponse
-import com.alexis.shop.data.remote.shoppingbag.CartsItem
-import com.alexis.shop.data.remote.shoppingbag.ShoppingBagPostData
-import com.alexis.shop.data.remote.shoppingbag.ShoppingBagRemoteDataSource
+import com.alexis.shop.data.remote.response.shoppingbag.CartsItem
+import com.alexis.shop.data.remote.datasource.ShoppingBagRemoteDataSource
+import com.alexis.shop.data.remote.response.product.ExclusiveOfferItem
+import com.alexis.shop.data.remote.response.product.ProductsGetByIdImagesItem
+import com.alexis.shop.data.remote.response.product.ProductsGetByIdItem
+import com.alexis.shop.domain.model.product.ProductExclusiveOffer
+import com.alexis.shop.domain.model.product.ProductsByIdModel
+import com.alexis.shop.domain.model.product.ProductsGetByIdImagesModel
 import com.alexis.shop.domain.model.shoppingbag.ShopingBagPostModel
 import com.alexis.shop.domain.model.shoppingbag.ShoppingBagModel
 import com.alexis.shop.domain.repository.shoppingbag.IShoppingBagRepository
@@ -54,10 +59,10 @@ class ShoppingBagRepository @Inject constructor(
         }
     }
 
-    override fun getShoppingBag(userId: Int): Flow<Resource<List<ShoppingBagModel>>> {
+    override fun getShoppingBag(): Flow<Resource<List<ShoppingBagModel>>> {
         return flow<Resource<List<ShoppingBagModel>>> {
             emit(Resource.Loading())
-            when (val apiResponse = remoteDataSource.getShoppingBag(userId).first()) {
+            when (val apiResponse = remoteDataSource.getShoppingBag().first()) {
                 is ApiResponse.Success -> emit(
                     Resource.Success(
                         generateShoppingBagModel(apiResponse.data.data?.carts)
@@ -72,16 +77,58 @@ class ShoppingBagRepository @Inject constructor(
     private fun generateShoppingBagModel(data: List<CartsItem>?): List<ShoppingBagModel> {
         return data?.map {
             ShoppingBagModel(
-                productId = it.productId.toString(),
-                shoppingBagId = it.id.orZero(),
-                qty = it.qty.orZero(),
-                indonesiaName = it.indonesianName.orEmpty(),
-                englishName = it.englishName.orEmpty(),
-                price = it.price.orZero(),
-                weight = it.weight.orZero(),
-                imageUrl = it.imageUrl.orEmpty(),
-                size = it.size.orEmpty()
+                id = it.id,
+                customerId = it.customerId,
+                productItemCode = it.productItemCode,
+                productSizeId = it.productSizeId,
+                unit = it.unit,
+                price = it.price,
+                finalPrice = it.finalPrice,
+                product = generateProductByIdModel(it.product)
+
             )
         } ?: listOf()
     }
+
+    private fun generateProductByIdModel(product: ProductsGetByIdItem?): ProductsByIdModel {
+        return if(product != null) {
+            ProductsByIdModel(
+                categoryName = product.categoryName.orEmpty(),
+                createdAt = product.createdAt.orEmpty(),
+                price = product.price.orZero(),
+                productId = product.productId.orZero(),
+                weight = product.weight.orZero(),
+                updatedAt = product.updatedAt.orEmpty(),
+                //  id = product.id.orZero(),
+                stock = product.stock.orZero(),
+                productName = product.productName.orEmpty(),
+                images = generateProductByIdImagesModel(product.images) as MutableList<ProductsGetByIdImagesModel>,
+                exclusiveOffer = generateExclusiveOfferToItemOffer(product.exclusiveOffer)
+                // size = generateProductByIdSizeModel(product.size) as MutableList<ProductsGetByIdSizeModel>,
+                //   material = generateProductByIdMaterialModel(product.material) as MutableList<ProductsGetByIdMaterialModel>
+            )
+        } else {
+            ProductsByIdModel()
+        }
+    }
+
+    private fun generateProductByIdImagesModel(data: List<ProductsGetByIdImagesItem>?): List<ProductsGetByIdImagesModel> {
+        return data?.map {
+            ProductsGetByIdImagesModel(
+                image = it.image.orEmpty(),
+                type = it.type.orEmpty()
+            )
+        } ?: mutableListOf()
+    }
+
+    private fun generateExclusiveOfferToItemOffer(data : ExclusiveOfferItem?) : ProductExclusiveOffer?{
+        return ProductExclusiveOffer(
+            id = data?.id.orZero(),
+            productItemCode = data?.productTtemCode.orEmpty(),
+            redemptionPoint = data?.redemptionPoint.orZero(),
+            aging = data?.aging.orZero(),
+            registrationDate = data?.registrationDate.orEmpty()
+        )
+    }
+
 }

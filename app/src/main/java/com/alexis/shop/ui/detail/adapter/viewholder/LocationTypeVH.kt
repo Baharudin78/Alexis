@@ -1,15 +1,12 @@
 package com.alexis.shop.ui.detail.adapter.viewholder
 
 import android.view.View
-import androidx.core.view.forEach
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexis.shop.R
-import com.alexis.shop.ui.detail.adapter.entity.store.LocationStore
 import com.alexis.shop.ui.detail.adapter.entity.store.StoreLocationType
 import com.alexis.shop.ui.detail.adapter.factory.ItemTypeFactoryImpl
 import com.dizcoding.mylibrv.AbstractViewHolder
 import com.dizcoding.mylibrv.BaseListAdapter
-import kotlinx.android.synthetic.main.item_recycle_only.view.*
 import kotlinx.android.synthetic.main.item_recycle_only_loc.view.*
 
 class LocationTypeVH(itemView : View) :
@@ -23,12 +20,11 @@ class LocationTypeVH(itemView : View) :
         val adapterLoc = BaseListAdapter(ItemTypeFactoryImpl())
         listLoc.layoutManager = LinearLayoutManager(itemView.context)
         listLoc.adapter = adapterLoc
-
-        element.locationHome.forEach { item ->
-            val loc = LocationStore(
-                item, element.layoutHeight, element.layoutWidth
+        element.locationHome.let {
+            val store = StoreLocationType(
+                it
             )
-            adapterLoc.addItem(loc)
+            adapterLoc.addItem(store)
         }
     }
 

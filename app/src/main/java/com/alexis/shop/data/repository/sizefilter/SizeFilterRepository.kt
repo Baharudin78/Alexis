@@ -2,8 +2,8 @@ package com.alexis.shop.data.repository.sizefilter
 
 import com.alexis.shop.data.Resource
 import com.alexis.shop.data.remote.network.ApiResponse
-import com.alexis.shop.data.remote.sizefilter.SizeFilterRemoteDataSource
-import com.alexis.shop.data.remote.sizefilter.SizesItemResponse
+import com.alexis.shop.data.remote.datasource.SizeFilterRemoteDataSource
+import com.alexis.shop.data.remote.response.sizefilter.SizesItemResponse
 import com.alexis.shop.domain.model.sizefilter.SizeFilterModel
 import com.alexis.shop.domain.repository.sizefilter.ISizeFilterRepository
 import kotlinx.coroutines.flow.Flow

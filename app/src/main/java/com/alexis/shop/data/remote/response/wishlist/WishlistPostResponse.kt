@@ -1,4 +1,4 @@
-package com.alexis.shop.data.remote.wishlist
+package com.alexis.shop.data.remote.response.wishlist
 
 import com.google.gson.annotations.SerializedName
 

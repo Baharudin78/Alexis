@@ -5,14 +5,14 @@ import com.alexis.shop.ui.detail.adapter.viewholder.LocationTypeVH
 import com.dizcoding.mylibrv.BaseItemModel
 import com.dizcoding.mylibrv.BaseItemTypeFactory
 
-data class LocationStore(
-    val locationModel : AllStoreItemModel,
-    val layoutHeight : Int = 0,
-    val layoutWidth : Int = 0
-): BaseItemModel() {
-    override fun type(typeFactoryBase: BaseItemTypeFactory): Int {
-        typeVH = LocationTypeVH.LAYOUT
-        return typeFactoryBase.type(this)
-    }
-
-}
+//data class LocationStore(
+//    val locationModel : AllStoreItemModel,
+//    val layoutHeight : Int = 0,
+//    val layoutWidth : Int = 0
+//): BaseItemModel() {
+//    override fun type(typeFactoryBase: BaseItemTypeFactory): Int {
+//        typeVH = LocationTypeVH.LAYOUT
+//        return typeFactoryBase.type(this)
+//    }
+//
+//}

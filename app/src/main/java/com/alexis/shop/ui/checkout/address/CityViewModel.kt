@@ -1,18 +1,9 @@
 package com.alexis.shop.ui.checkout.address
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
-import com.alexis.shop.data.Resource
-import com.alexis.shop.data.remote.model.kota.CityResponse
-import com.alexis.shop.data.remote.network.ApiResponse
-import com.alexis.shop.domain.model.city.AllCityModel
 import com.alexis.shop.domain.usecase.city.CityUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
-import retrofit2.Response
 import javax.inject.Inject
 
 

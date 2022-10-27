@@ -1,7 +1,7 @@
 package com.alexis.shop.data.remote.response.product
 
 import android.util.Log
-import com.alexis.shop.data.remote.model.productbaru.ProductBaruResponse
+import com.alexis.shop.data.remote.response.productbaru.ProductBaruResponse
 import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.data.remote.network.ApiService
 import kotlinx.coroutines.Dispatchers
