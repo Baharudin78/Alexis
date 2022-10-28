@@ -54,22 +54,22 @@ class SelectAddressAdapter(
         var btn_edit: ImageView = itemView.findViewById(R.id.btn_edit)
 
         fun bind(item: CheckoutAddressModelView) {
-            if (item.checkoutAddressId == -1) {
+            if (item.isDefault.equals(-1)) {
                 mode_normal.gone()
             } else {
                 mode_normal.visible()
-                title.text = item.typeAddress
+                title.text = item.address
                 name.text = item.recipientName
-                val fullAddress = item.address + item.otherDetail
+                val fullAddress = item.address + item.addressTwo
                 address.text = fullAddress
                 telp.text = item.recipientPhoneNumber
 
                 when (item.isDefault) {
-                    true -> mode_normal.background =
-                        ContextCompat.getDrawable(
-                            itemView.context,
-                            R.drawable.rounder_white_transparent_withborder
-                        )
+//                    true -> mode_normal.background =
+//                        ContextCompat.getDrawable(
+//                            itemView.context,
+//                            R.drawable.rounder_white_transparent_withborder
+//                        )
                     else -> mode_normal.background =
                         ContextCompat.getDrawable(
                             itemView.context,
@@ -78,7 +78,7 @@ class SelectAddressAdapter(
                 }
 
                 setButtonDelete()
-                setButtonDropship(item.asDropship)
+           //     setButtonDropship(item.asDropship)
             }
         }
 

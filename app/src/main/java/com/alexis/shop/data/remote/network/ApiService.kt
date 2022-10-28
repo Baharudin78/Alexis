@@ -20,6 +20,8 @@ import com.alexis.shop.data.remote.response.storelocation.AllStoreLocationRespon
 import com.alexis.shop.data.remote.response.storelocation.StoreLocationByNameResponse
 import com.alexis.shop.data.remote.response.wishlist.WishlistGetResponse
 import com.alexis.shop.data.remote.response.wishlist.WishlistPostResponse
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.*
 
 interface ApiService {
@@ -115,27 +117,25 @@ interface ApiService {
 
     @GET("mw/ref-address")
     suspend fun getKelurahan(
-        @Header("Authorization")token : String,
         @Query("name") name : String
     ) : CityResponse
 
     @GET("mw/address")
-    suspend fun getCheckOutAddress(
-        @Header("Authorization") token: String
-    ): CheckoutAddressGetResponse
+    suspend fun getCheckOutAddress(): CheckoutAddressGetResponse
 
     @POST("mw/address")
     @FormUrlEncoded
     suspend fun postCheckOutAddress(
-        @Header("Authorization") token : String,
-        @Field("type_address") typeAddress: String,
-        @Field("user_id") userId: Int,
         @Field("recipient_name") recipientName: String,
         @Field("address") address: String,
-        @Field("other_detail") otherDetail: String,
-        @Field("postal_code") postalCode: Int,
+        @Field("address_2") addressTwo: String,
+        @Field("village_id")villageId : String,
+        @Field("postal_code") postalCode: String,
         @Field("recipient_phone_number") recipientPhoneNumber: String,
-        @Field("is_default") isDefault: Boolean,
-        @Field("as_dropship") asDropship: Boolean
+        @Field("is_default") isDefault: String,
+        @Field("as_dropship") asDropship: String,
+        @Field("latitude") latitide: String,
+        @Field("longitude") longitude: String,
     ): CheckoutAddressPostResponse
+
 }

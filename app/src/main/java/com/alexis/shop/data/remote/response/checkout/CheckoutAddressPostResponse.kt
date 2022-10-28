@@ -18,33 +18,22 @@ data class CheckoutAddressPostResponse(
 )
 
 data class CheckoutAddressPostData(
-	@field:SerializedName("address")
+	@field:SerializedName("item")
 	val address: CheckoutAddress? = null
 )
 
 data class CheckoutAddress(
 
-	@field:SerializedName("type_address")
-	val typeAddress: String? = null,
-
-	@field:SerializedName("recipient_phone_number")
-	val recipientPhoneNumber: String? = null,
-
-	@field:SerializedName("address")
-	val address: String? = null,
-
-	@field:SerializedName("as_dropship")
-	val asDropship: Boolean? = null,
-
-	@field:SerializedName("recipient_name")
-	val recipientName: String? = null,
-
-	@field:SerializedName("postal_code")
-	val postalCode: Int? = null,
-
-	@field:SerializedName("is_default")
-	val isDefault: Boolean? = null,
-
-	@field:SerializedName("other_detail")
-	val otherDetail: String? = null
+	val id : Int? = null,
+	val customerId : Int? = null,
+	val recipientName : String? = null,
+	val address : String? = null,
+	val addressTwo : String? = null,
+	val villageId : String? = null,
+	val latitude : String? = null,
+	val longitude : String? = null,
+	val postalCode : String? = null,
+	val recipientPhoneNumber : String? = null,
+	val isDefault : String? = null,
+	val asDropship : String? = null
 )

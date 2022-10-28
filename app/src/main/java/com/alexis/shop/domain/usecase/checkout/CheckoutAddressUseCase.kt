@@ -6,10 +6,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface CheckoutAddressUseCase {
     fun postCheckoutAddress(
-        token: String,
         checkoutAddressModelView: CheckoutAddressModelView,
-        userId: Int
     ): Flow<Resource<CheckoutAddressModelView>>
 
-    fun getCheckoutAddress(token: String): Flow<Resource<List<CheckoutAddressModelView>>>
+    fun getCheckoutAddress(): Flow<Resource<List<CheckoutAddressModelView>>>
 }

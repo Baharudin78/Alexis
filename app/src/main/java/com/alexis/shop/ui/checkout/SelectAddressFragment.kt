@@ -82,13 +82,13 @@ class SelectAddressFragment : BaseFragment<FragmentSelectAddressBinding>() {
     }
 
     private fun getCheckoutAddress() {
-        viewModel.getCheckoutAddress(token = "Bearer ${sharedPref.getToken()}").observe(viewLifecycleOwner) { response ->
+        viewModel.getCheckoutAddress().observe(viewLifecycleOwner) { response ->
             if (response != null) {
                 when (response) {
                     is Resource.Loading -> {}
                     is Resource.Success -> {
                         response.data?.let {
-                            checkoutAddress.add(CheckoutAddressModelView(checkoutAddressId = -1))
+                            checkoutAddress.add(CheckoutAddressModelView())
                             checkoutAddress.addAll(it as ArrayList<CheckoutAddressModelView>)
                             adapterIt.setData(checkoutAddress)
                         }

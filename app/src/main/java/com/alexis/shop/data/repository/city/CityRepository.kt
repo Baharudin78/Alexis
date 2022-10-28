@@ -17,9 +17,9 @@ import javax.inject.Singleton
 class CityRepository @Inject constructor(
     private val remoteDataSource : CityRemoteDataSource
 ): ICityRepository{
-    override fun getAllCity(token: String, city: String): Flow<Resource<AllCityModel>> {
+    override fun getAllCity(city: String): Flow<Resource<AllCityModel>> {
         return flow<Resource<AllCityModel>>{
-            when(val apiResponse = remoteDataSource.getCity(token, city).first()) {
+            when(val apiResponse = remoteDataSource.getCity(city).first()) {
                 is ApiResponse.Success -> emit(
                     Resource.Success(
                         convertCityResponseToModel(

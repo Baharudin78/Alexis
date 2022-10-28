@@ -15,10 +15,10 @@ import javax.inject.Singleton
 class CityRemoteDataSource @Inject constructor(
     private val apiService : ApiService
 ) {
-    suspend fun getCity(token : String, city : String) : Flow<ApiResponse<CityResponse>> {
+    suspend fun getCity(city : String) : Flow<ApiResponse<CityResponse>> {
         return flow {
             try {
-                val response = apiService.getKelurahan(token, city)
+                val response = apiService.getKelurahan(city)
                 if (!response.data?.cityItem.isNullOrEmpty()) {
                     emit(ApiResponse.Success(response))
                 }else {

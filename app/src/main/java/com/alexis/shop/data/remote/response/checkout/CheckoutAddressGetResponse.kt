@@ -17,38 +17,26 @@ data class CheckoutAddressGetResponse(
 	val status: String? = null
 )
 
-data class CheckoutAddressItem(
-
-	@field:SerializedName("address")
-	val address: String? = null,
-
-	@field:SerializedName("as_dropship")
-	val asDropship: Int? = null,
-
-	@field:SerializedName("is_default")
-	val isDefault: Int? = null,
-
-	@field:SerializedName("type_address")
-	val typeAddress: String? = null,
-
-	@field:SerializedName("recipient_phone_number")
-	val recipientPhoneNumber: String? = null,
-
-	@field:SerializedName("id")
-	val id: Int? = null,
-
-	@field:SerializedName("recipient_name")
-	val recipientName: String? = null,
-
-	@field:SerializedName("postal_code")
-	val postalCode: Int? = null,
-
-	@field:SerializedName("other_detail")
-	val otherDetail: String? = null,
-)
-
 data class CheckoutAddressData(
 
 	@field:SerializedName("items")
 	val address: List<CheckoutAddressItem>? = null
 )
+
+data class CheckoutAddressItem(
+
+	val id : Int? = null,
+	val customerId : Int? = null,
+	val recipientName : String? = null,
+	val address : String? = null,
+	val addressTwo : String? = null,
+	val villageId : String? = null,
+	val latitude : String? = null,
+	val longitude : String? = null,
+	val postalCode : String? = null,
+	val recipientPhoneNumber : String? = null,
+	val isDefault : String? = null,
+	val asDropship : String? = null
+)
+
+

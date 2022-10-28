@@ -8,6 +8,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.withContext
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -15,23 +18,21 @@ import javax.inject.Singleton
 class CheckoutAddressRemoteDataSource @Inject constructor(private val apiService: ApiService) {
 
     suspend fun postCheckoutAddress(
-        token: String,
         checkoutAddressModelView: CheckoutAddressModelView,
-        userId: Int
     ): Flow<ApiResponse<CheckoutAddressPostResponse>> {
         return flow {
             try {
                 val response = apiService.postCheckOutAddress(
-                    token,
-                    checkoutAddressModelView.typeAddress,
-                    userId,
                     checkoutAddressModelView.recipientName,
                     checkoutAddressModelView.address,
-                    checkoutAddressModelView.otherDetail,
+                    checkoutAddressModelView.addressTwo,
+                    checkoutAddressModelView.villageId,
                     checkoutAddressModelView.postalCode,
                     checkoutAddressModelView.recipientPhoneNumber,
                     checkoutAddressModelView.isDefault,
-                    checkoutAddressModelView.asDropship
+                    checkoutAddressModelView.asDropship,
+                    checkoutAddressModelView.latitude,
+                    checkoutAddressModelView.longitude
                 )
                 if (!response.data?.address?.recipientName.isNullOrBlank()) {
                     emit(ApiResponse.Success(response))
@@ -45,10 +46,11 @@ class CheckoutAddressRemoteDataSource @Inject constructor(private val apiService
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun getCheckoutAddress(token: String): Flow<ApiResponse<CheckoutAddressGetResponse>> {
+
+    suspend fun getCheckoutAddress(): Flow<ApiResponse<CheckoutAddressGetResponse>> {
         return flow {
             try {
-                val response = apiService.getCheckOutAddress(token)
+                val response = apiService.getCheckOutAddress()
                 if (!response.data?.address.isNullOrEmpty()) {
                     emit(ApiResponse.Success(response))
                 } else {

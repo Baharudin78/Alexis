@@ -56,7 +56,7 @@ class CityActivity : BaseActivity<ActivityCityBinding>(), OnClickItem {
                 delay(500)
                 editable?.let {
                     if (editable.toString().isNotEmpty()) {
-                        viewModel.getCitySearch(token = "Bearer ${sharedPref.getToken()}", editable.toString())
+                        viewModel.getCitySearch( editable.toString())
                     }
                 }
             }
@@ -65,7 +65,7 @@ class CityActivity : BaseActivity<ActivityCityBinding>(), OnClickItem {
     }
 
     private fun getDataCity(nama : String) {
-        viewModel.getCitySearch(token = "Bearer ${sharedPref.getToken()}", nama).observe(this) { response ->
+        viewModel.getCitySearch(nama).observe(this) { response ->
             if (response != null) {
                 when(response) {
                     is Resource.Loading -> {}
