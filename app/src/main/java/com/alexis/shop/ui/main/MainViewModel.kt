@@ -1,10 +1,9 @@
 package com.alexis.shop.ui.main
 
-import androidx.lifecycle.*
-import com.alexis.shop.data.Resource
-import com.alexis.shop.domain.model.product.category.ProductCategoryModel
-import com.alexis.shop.domain.model.product.category.subcategory.SubCategoryModel
-import com.alexis.shop.domain.model.wishlist.WishlistModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import com.alexis.shop.domain.model.product.category.ProductCategoryNewModel
 import com.alexis.shop.domain.usecase.auth.AuthUseCase
 import com.alexis.shop.domain.usecase.landing.LandingUseCase
 import com.alexis.shop.domain.usecase.product.ProductUseCase
@@ -12,7 +11,6 @@ import com.alexis.shop.domain.usecase.product.category.ProductCategoryUseCase
 import com.alexis.shop.domain.usecase.shoppingbag.ShoppingBagUseCase
 import com.alexis.shop.domain.usecase.wishlist.WishlistUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,40 +22,16 @@ class MainViewModel @Inject constructor(
     private val landingImge : LandingUseCase,
     private val productCategoryUseCase: ProductCategoryUseCase
 ) : ViewModel() {
-    private var productCategory: MutableLiveData<List<ProductCategoryModel>> = MutableLiveData()
-    private var subProductCategory : MutableLiveData<List<SubCategoryModel>> = MutableLiveData()
+    private var productCategory: MutableLiveData<List<ProductCategoryNewModel>> = MutableLiveData()
 
     fun getAllProduct() = productUseCase.getAllProduct().asLiveData()
 
-   // fun getProductCategory() = productCategoryUseCase.getAllProductCategory().asLiveData()
-   // fun getSubCategoryProduct(name: String) = productCategoryUseCase.getSubProductCategory(name).asLiveData()
-    fun callProductCategoryData() {
-        viewModelScope.launch {
-            when (val response = productCategoryUseCase.getAllProductCategory()) {
-                is Resource.Loading -> {}
-                is Resource.Success -> productCategory.postValue(response.data)
-                is Resource.Error -> productCategory.postValue(listOf())
-            }
-        }
-    }
+    fun getProductCategory() = productCategoryUseCase.getAllProductCategory().asLiveData()
+
 
     fun getLandingImage() = landingImge.getLandingImage().asLiveData()
 
-
-    fun callSubCategoryData(name : String) {
-        viewModelScope.launch {
-            when(val response = productCategoryUseCase.getSubProductCategory(name)) {
-                is Resource.Loading -> {}
-                is Resource.Success -> subProductCategory.postValue(response.data)
-                is Resource.Error -> subProductCategory.postValue(listOf())
-            }
-        }
-    }
-
-    fun getSubCategoryData(name : String) : MutableLiveData<List<SubCategoryModel>> {
-        return subProductCategory
-    }
-    fun getProductCategoryData(): MutableLiveData<List<ProductCategoryModel>> {
+    fun getProductCategoryData(): MutableLiveData<List<ProductCategoryNewModel>> {
         return productCategory
     }
 

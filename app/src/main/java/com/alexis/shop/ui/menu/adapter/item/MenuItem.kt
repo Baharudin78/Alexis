@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexis.shop.R
 import com.alexis.shop.domain.model.menu.MenuModel
 import com.alexis.shop.databinding.ItemMenuMainBinding
-import com.alexis.shop.domain.model.product.category.subcategory.SubCategoryModel
 import com.alexis.shop.ui.detail.SubCategoryPageActivity
 import com.alexis.shop.ui.menu.adapter.SubMenuAdapter
 import com.alexis.shop.utils.*

@@ -99,22 +99,27 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-<!--                <LinearLayout-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+
+                    android:gravity="center_vertical"
+                    android:layout_weight="1.0">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvcategory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:listitem="@layout/item_menu_product"
+                        android:isScrollContainer="false" />
+
+                </LinearLayout>
+
+<!--                <ImageView-->
 <!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="0dp"-->
-<!--                    android:orientation="vertical"-->
-<!--                    -->
-<!--                    android:gravity="center_vertical"-->
-<!--                    android:layout_weight="1.0">-->
-
-<!--                    <androidx.recyclerview.widget.RecyclerView-->
-<!--                        android:id="@+id/recycle_category"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        tools:listitem="@layout/item_menu_product"-->
-<!--                        android:isScrollContainer="false" />-->
-
-<!--                </LinearLayout>-->
+<!--                    android:layout_height="300dp"-->
+<!--                    app:srcCompat="@drawable/cs"/>-->
 
                 <LinearLayout
                     android:layout_width="match_parent"

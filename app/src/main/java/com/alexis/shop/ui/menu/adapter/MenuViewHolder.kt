@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alexis.shop.R
 import com.alexis.shop.domain.model.menu.MenuModel
-import com.alexis.shop.domain.model.product.category.subcategory.SubCategoryModel
 import com.alexis.shop.utils.gone
 import com.alexis.shop.utils.visible
 

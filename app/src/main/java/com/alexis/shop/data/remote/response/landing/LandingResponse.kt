@@ -21,6 +21,8 @@ data class LandingDataItem(
 )
 
 data class LandingItem(
+    @field:SerializedName("mobile_landing_image")
+    val mobileLandingImage: String? = null,
     @field:SerializedName("desktop_landing_image")
     val desktopLandingImage: String? = null,
     @field:SerializedName("end_date")
@@ -31,8 +33,6 @@ data class LandingItem(
     val id: Int? = null,
     @field:SerializedName("logo_color_mobile")
     val logoColorMobile: String? = null,
-    @field:SerializedName("mobile_landing_image")
-    val mobileLandingImage: String? = null,
     @field:SerializedName("name")
     val name: String? = null,
     @field:SerializedName("start_date")

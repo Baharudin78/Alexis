@@ -25,9 +25,9 @@ class LandingPageVH(itemView: View): AbstractViewHolder<LandingItem>(itemView){
                 element.layoutHeight)
         imv.scaleType = ImageView.ScaleType.CENTER_CROP
         Glide.with(itemView.context)
-            .load(element.desktopLandingImage)
+            .load(element.mobileLandingImage)
             .into(imv)
-        Log.d("imagesssssss", element.desktopLandingImage.orEmpty())
+        Log.d("imagesssssss", element.mobileLandingImage.orEmpty())
        // imv.setImageResource(R.drawable.cs)
         layoutItem.layoutParams = linParams
     }

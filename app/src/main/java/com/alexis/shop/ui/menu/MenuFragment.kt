@@ -20,7 +20,7 @@ import com.alexis.shop.domain.model.menu.MenuModel
 import com.alexis.shop.data.source.dummy.getMenuList
 import com.alexis.shop.data.source.network.getProductCategory
 import com.alexis.shop.databinding.FragmentMenuBinding
-import com.alexis.shop.domain.model.product.category.ProductCategoryModel
+import com.alexis.shop.domain.model.product.category.ProductCategoryNewModel
 import com.alexis.shop.domain.model.product.modelbaru.ProductBaruModel
 import com.alexis.shop.ui.account.MyAccountFragment
 import com.alexis.shop.ui.account.login.LoginFragment
@@ -49,14 +49,14 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
     private val viewModel: MenuViewModel by viewModels()
     private val mainViewModel: MainViewModel by activityViewModels()
     private lateinit var categoryProductAdapter: CategoryProductAdapter
-    private var categoryProduct = ArrayList<ProductCategoryModel>()
+    private var categoryProduct = ArrayList<ProductCategoryNewModel>()
     private var param1: String? = null
     private var param2: String? = null
-    private var product: ProductCategoryModel? = null
+    private var product: ProductCategoryNewModel? = null
     private val binding: FragmentMenuBinding by viewBinding()
     private val menuAdapter = GroupAdapter<GroupieViewHolder>()
     private val sosmedAdapter = GroupAdapter<GroupieViewHolder>()
-    private var listCategory : ArrayList<ProductCategoryModel> = ArrayList()
+    private var listCategory : ArrayList<ProductCategoryNewModel> = ArrayList()
     private var listMenu: ArrayList<MenuModel> = ArrayList()
     private var fragManager: FragmentManager? = null
 
@@ -188,12 +188,13 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
             Log.d("CATEGORTUT", "$listCategory")
             listMenu = getMenuList(viewModel.isUserLogin(), dataCategory)
             addDataMenuAdapter()
+            addDataSosmedAdapter()
         }
     }
 
     private fun addDataMenuAdapter() {
         Log.d("CATEGORTUT", "$listCategory")
-        listMenu.slice(0..15).map { menu ->
+        listMenu.slice(0..7).map { menu ->
             menu.isOpen = true
             menuAdapter.add(MenuItem(this, menu) {
                 log("${it.id} ${it.isChoosed}")
@@ -212,12 +213,12 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
         }
     }
 
-//    private fun addDataSosmedAdapter() {
-//        listMenu.slice(11..15).map { sosmed ->
-//            sosmed.isOpen = true
-//            sosmedAdapter.add(SocialItem(requireContext(), sosmed))
-//        }
-//    }
+    private fun addDataSosmedAdapter() {
+        listMenu.slice(8..12).map { sosmed ->
+            sosmed.isOpen = true
+            sosmedAdapter.add(SocialItem(requireContext(), sosmed))
+        }
+    }
 
     private fun closeMenu() {
         removeList()

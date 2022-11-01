@@ -3,6 +3,7 @@ package com.alexis.shop.data.remote.response.product.category
 import android.util.Log
 import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.data.remote.network.ApiService
+import com.alexis.shop.data.remote.response.product.categoritwo.ProductCategoryNewResponse
 import com.alexis.shop.data.remote.response.product.category.subcategory.SubProductCategoryResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -13,11 +14,11 @@ import javax.inject.Singleton
 
 @Singleton
 class ProductCategoryRemoteDataSource @Inject constructor(private val apiService: ApiService) {
-    suspend fun getAllProductCategory(): Flow<ApiResponse<ProductCategoryResponse>> {
+    suspend fun getAllProductCategory(): Flow<ApiResponse<ProductCategoryNewResponse>> {
         return flow {
             try {
                 val response = apiService.getAllProductCategory()
-                if (response.data != null && response.data.productCategory?.isNotEmpty() == true) {
+                if (response.data != null && response.data.items.isNotEmpty()) {
                     emit(ApiResponse.Success(response))
                 } else {
                     emit(ApiResponse.Empty)
@@ -27,21 +28,5 @@ class ProductCategoryRemoteDataSource @Inject constructor(private val apiService
                 Log.e("RemoteDataSource", e.toString())
             }
         }.flowOn(Dispatchers.IO)
-    }
-
-    suspend fun getSubProductCategory(name : String) : Flow<ApiResponse<SubProductCategoryResponse>> {
-        return flow {
-            try {
-                val response = apiService.getSubProductCategory(name)
-                if (response.data != null && response.data.subProductCategory?.isNotEmpty() == true) {
-                    emit(ApiResponse.Success(response))
-                }else {
-                    emit(ApiResponse.Empty)
-                }
-            }catch (e : Exception) {
-               // emit(ApiResponse.Error(e.toString()))
-                Log.e("RemoteDataSource", " Sub category + $e")
-            }
-        }
     }
 }

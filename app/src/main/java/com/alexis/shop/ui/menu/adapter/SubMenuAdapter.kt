@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.alexis.shop.R
-import com.alexis.shop.domain.model.product.category.subcategory.SubCategoryModel
 
 class SubMenuAdapter(
     items : ArrayList<SubCategoryModel>,

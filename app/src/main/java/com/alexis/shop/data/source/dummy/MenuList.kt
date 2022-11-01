@@ -10,29 +10,29 @@ import com.alexis.shop.domain.model.product.category.ProductCategoryModel
 fun getMenuList(isLogged: Boolean, dataCategory: List<ProductCategoryModel>?): ArrayList<MenuModel> {
 	val dataMenu = ArrayList<MenuModel>()
 	var id = 1
-	var reverseId = 17
+	var reverseId = 14
 //	dataCategory?.map {
 //		it.category
 //	}
-	dataCategory?.forEach {
-		when(it.category.lowercase()) {
-			"clothings", "pakaian" -> {
-				dataMenu.add(MenuModel(id, reverseId, R.drawable.ic_cloting, "Clothings"))
-				id++
-				reverseId--
-			}
-			"bags", "tas" -> {
-				dataMenu.add(MenuModel(id, reverseId, R.drawable.ic_bags, "Bags"))
-				id++
-				reverseId--
-			}
-			"shoes", "sepatu" -> {
-				dataMenu.add(MenuModel(id, reverseId, R.drawable.ic_shoes, "Shoes"))
-				id++
-				reverseId--
-			}
-		}
-	}
+//	dataCategory?.forEach {
+//		when(it.category.lowercase()) {
+//			"clothings", "pakaian" -> {
+//				dataMenu.add(MenuModel(id, reverseId, R.drawable.ic_cloting, "Clothings"))
+//				id++
+//				reverseId--
+//			}
+//			"bags", "tas" -> {
+//				dataMenu.add(MenuModel(id, reverseId, R.drawable.ic_bags, "Bags"))
+//				id++
+//				reverseId--
+//			}
+//			"shoes", "sepatu" -> {
+//				dataMenu.add(MenuModel(id, reverseId, R.drawable.ic_shoes, "Shoes"))
+//				id++
+//				reverseId--
+//			}
+//		}
+//	}
 	dataMenu.add(MenuModel(id, reverseId, R.drawable.ic_filter,"Size Filter"))
 	id++
 	reverseId--

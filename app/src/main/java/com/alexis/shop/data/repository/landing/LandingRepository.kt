@@ -20,7 +20,6 @@ import javax.inject.Singleton
 class LandingRepository @Inject constructor(
     private val remoteDataSource : LandingDataSource
 ) : ILandingRepository{
-    @OptIn(ExperimentalCoroutinesApi::class)
     override fun getLandingImage(): Flow<Resource<LandingModelItem>> {
         return channelFlow<Resource<LandingModelItem>> {
             send(Resource.Loading())

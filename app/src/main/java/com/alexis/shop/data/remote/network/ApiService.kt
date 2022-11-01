@@ -10,6 +10,7 @@ import com.alexis.shop.data.remote.response.voucher.VoucherResponse
 import com.alexis.shop.data.remote.response.auth.LogoutResponse
 import com.alexis.shop.data.remote.response.landing.LandingResponse
 import com.alexis.shop.data.remote.response.product.ProductsGetByIdResponse
+import com.alexis.shop.data.remote.response.product.categoritwo.ProductCategoryNewResponse
 import com.alexis.shop.data.remote.response.product.category.ProductCategoryResponse
 import com.alexis.shop.data.remote.response.product.category.subcategory.SubProductCategoryResponse
 import com.alexis.shop.data.remote.response.shoppingbag.ShoppingBagDeleteResponse
@@ -88,12 +89,8 @@ interface ApiService {
     suspend fun getProductById(@Path("id") productId: Int): ProductsGetByIdResponse
 
     @GET("mw/product-category")
-    suspend fun getAllProductCategory(): ProductCategoryResponse
+    suspend fun getAllProductCategory(): ProductCategoryNewResponse
 
-    @GET("mw/product-subcategory")
-    suspend fun getSubProductCategory(
-        @Query("name") name : String
-    ) : SubProductCategoryResponse
 
     @GET("mw/store-location")
     suspend fun getStoreHome() : AllStoreLocationResponse

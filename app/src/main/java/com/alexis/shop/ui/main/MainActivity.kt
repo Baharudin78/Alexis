@@ -23,7 +23,7 @@ import com.alexis.shop.data.Resource
 import com.alexis.shop.data.remote.response.landing.LandingItem
 import com.alexis.shop.databinding.ActivityMainBinding
 import com.alexis.shop.domain.model.landing.LandingModelItem
-import com.alexis.shop.domain.model.product.category.ProductCategoryModel
+import com.alexis.shop.domain.model.product.category.ProductCategoryNewModel
 import com.alexis.shop.domain.model.product.modelbaru.ProductBaruModel
 import com.alexis.shop.domain.model.wishlist.WishlistModel
 import com.alexis.shop.ui.detail.adapter.entity.SubCategoryProduct
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var option: CheckBox
     lateinit var sharedPref : SheredPreference
     private lateinit var binding : ActivityMainBinding
-    private var product: ProductCategoryModel? = null
+    private var product: ProductCategoryNewModel? = null
     private var imageLanding : LandingModelItem? = null
     private lateinit var cart: ImageView
     private lateinit var count_cart: TextView
@@ -77,8 +77,6 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
         sharedPref = SheredPreference(this)
         //    storeHomeAdapter = StoreHomeAdapter(binding.root.context)
-        getProductCategory()
-        getSubProductCategory()
 
       //  products = getListProduct()
 //        with(binding.locRecycler) {
@@ -280,7 +278,8 @@ class MainActivity : AppCompatActivity() {
                     is Resource.Loading -> {}
                     is Resource.Success -> {
                         response.data?.let {
-                            val lanpage = LandingItem(it.desktopLandingImage, layoutHeight =  getTrullyHeightResolution(this))
+                            Log.d("LANDNUG", "$it")
+                            val lanpage = LandingItem(it.mobileLandingImage, layoutHeight =  getTrullyHeightResolution(this))
                             adapters.addItem(lanpage)
                         }
                     }
@@ -426,10 +425,4 @@ class MainActivity : AppCompatActivity() {
 //        }
 //    }
 
-    private fun getProductCategory() {
-        viewModel.callProductCategoryData()
-    }
-    private fun getSubProductCategory() {
-        viewModel.callSubCategoryData(product?.category.orEmpty())
-    }
 }
