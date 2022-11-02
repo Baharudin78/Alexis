@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.alexis.shop.R
+import com.alexis.shop.domain.model.product.category.SubCategoryModel
 
 class SubMenuAdapter(
     items : ArrayList<SubCategoryModel>,
@@ -38,7 +39,7 @@ class SubMenuAdapter(
 //            title.apply {
 //                text = item
 //            }
-            title.text = item.merchandiseName
+            title.text = item.merchandise_name
         }
     }
 

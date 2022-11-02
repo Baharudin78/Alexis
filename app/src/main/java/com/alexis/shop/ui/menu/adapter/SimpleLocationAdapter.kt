@@ -27,7 +27,7 @@ class SimpleLocationAdapter (private val context: Context, private val listener:
     }
 
     override fun onBindViewHolder(holder: SimpleLocationViewHolder, position: Int) {
-        val item : AllStoreItemModel =contactList[position]
+        val item : AllStoreItemModel = contactList[position]
         holder.bind(item)
         Animations.runAnimation(context, Animations.ANIMATION_IN, position, holder.itemView)
         holder.itemView.setOnClickListener {

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexis.shop.R
 import com.alexis.shop.domain.model.menu.MenuModel
 import com.alexis.shop.databinding.ItemMenuMainBinding
+import com.alexis.shop.domain.model.product.category.SubCategoryModel
 import com.alexis.shop.ui.detail.SubCategoryPageActivity
 import com.alexis.shop.ui.menu.adapter.SubMenuAdapter
 import com.alexis.shop.utils.*
@@ -34,49 +35,49 @@ class MenuItem(
 				textMenu.text = item.title
 			}
 
-			when(item.title) {
-				"Clothings" -> {
-					lSubmenu.add(SubCategoryModel("Top"))
-//					lSubmenu.add("Tops 60k")
-//					lSubmenu.add("Dresses 60k")
-//					lSubmenu.add("Knitwear 60k")
-//					lSubmenu.add("Skirt 60k")
-//					lSubmenu.add("Pants 80k")
-//					lSubmenu.add("Jeans 80k")
-//					lSubmenu.add("Blazer 80k")
-//					lSubmenu.add("Knitted Sweater 80k")
-//					lSubmenu.add("Sweatshirt 80k")
-//					lSubmenu.add("Jacket 80k")
-				}
-				"Bags" -> {
-					lSubmenu.add(SubCategoryModel("Top"))
-
-//					lSubmenu.add("Bags")
-//					lSubmenu.add("Bags 60k")
-//					lSubmenu.add("Bags 80k")
-//					lSubmenu.add("Bags 100k")
-				}
-				"Shoes" -> {
-					lSubmenu.add(SubCategoryModel("Top"))
-
-//					lSubmenu.add("Shoes")
-//					lSubmenu.add("Shoes 60k")
-//					lSubmenu.add("Shoes 80k")
-//					lSubmenu.add("Shoes 100k")
-				}
-			}
-
-			recycle.apply {
-				layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-				adapter = SubMenuAdapter(lSubmenu) {
-					val intent = Intent(context, SubCategoryPageActivity::class.java)
-					intent.putExtra("category", it.merchandiseName)
-					context.startActivity(intent)
-					fragment.justOut()
-				}
-			}
-
-			recycle.isVisible = item.isChoosed
+//			when(item.title) {
+//				"Clothings" -> {
+//				//	lSubmenu.add(SubCategoryModel("Top"))
+////					lSubmenu.add("Tops 60k")
+////					lSubmenu.add("Dresses 60k")
+////					lSubmenu.add("Knitwear 60k")
+////					lSubmenu.add("Skirt 60k")
+////					lSubmenu.add("Pants 80k")
+////					lSubmenu.add("Jeans 80k")
+////					lSubmenu.add("Blazer 80k")
+////					lSubmenu.add("Knitted Sweater 80k")
+////					lSubmenu.add("Sweatshirt 80k")
+////					lSubmenu.add("Jacket 80k")
+//				}
+//				"Bags" -> {
+//					//lSubmenu.add(SubCategoryModel(merchandise_name = ""))
+//
+////					lSubmenu.add("Bags")
+////					lSubmenu.add("Bags 60k")
+////					lSubmenu.add("Bags 80k")
+////					lSubmenu.add("Bags 100k")
+//				}
+//				"Shoes" -> {
+//			//		lSubmenu.add(SubCategoryModel("Top"))
+//
+////					lSubmenu.add("Shoes")
+////					lSubmenu.add("Shoes 60k")
+////					lSubmenu.add("Shoes 80k")
+////					lSubmenu.add("Shoes 100k")
+//				}
+//			}
+//
+//			recycle.apply {
+//				layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+//				adapter = SubMenuAdapter(lSubmenu) {
+//					val intent = Intent(context, SubCategoryPageActivity::class.java)
+//				//	intent.putExtra("category", it.merchandiseName)
+//					context.startActivity(intent)
+//					fragment.justOut()
+//				}
+//			}
+//
+//			recycle.isVisible = item.isChoosed
 
 			root.setOnClickListener {
 				onClick(item)

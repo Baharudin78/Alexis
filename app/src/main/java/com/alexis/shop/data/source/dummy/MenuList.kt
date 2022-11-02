@@ -2,12 +2,12 @@ package com.alexis.shop.data.source.dummy
 
 import com.alexis.shop.R
 import com.alexis.shop.domain.model.menu.MenuModel
-import com.alexis.shop.domain.model.product.category.ProductCategoryModel
+import com.alexis.shop.domain.model.product.category.ProductCategoryNewModel
 
 /**
  * Created by Uwais Alqadri on July 14, 2021
  */
-fun getMenuList(isLogged: Boolean, dataCategory: List<ProductCategoryModel>?): ArrayList<MenuModel> {
+fun getMenuList(isLogged: Boolean): ArrayList<MenuModel> {
 	val dataMenu = ArrayList<MenuModel>()
 	var id = 1
 	var reverseId = 14

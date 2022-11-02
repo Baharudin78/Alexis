@@ -14,7 +14,8 @@ data class Data(
 data class ProductCategoryItem(
     val category: String,
     val icon: String,
-    val sub_category: List<SubCategoryItem>
+    val sub_category: List<SubCategoryItem>,
+    var isExpandable : Boolean = false
 )
 
 data class SubCategoryItem(

@@ -12,10 +12,14 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.alexis.shop.BaseFragment
 import com.alexis.shop.R
 import com.alexis.shop.data.Resource
+import com.alexis.shop.data.remote.response.product.categoritwo.ProductCategoryItem
+import com.alexis.shop.data.source.dummy.DataModel
+import com.alexis.shop.data.source.dummy.ItemAdapter
 import com.alexis.shop.domain.model.menu.MenuModel
 import com.alexis.shop.data.source.dummy.getMenuList
 import com.alexis.shop.data.source.network.getProductCategory
@@ -28,6 +32,7 @@ import com.alexis.shop.ui.main.MainActivity
 import com.alexis.shop.ui.main.MainViewModel
 import com.alexis.shop.ui.menu.scanqr.ScanQrFragment.Companion.MENU_FRAGMENT
 import com.alexis.shop.ui.menu.aboutus.AboutUsFragment
+import com.alexis.shop.ui.menu.adapter.category.ProductCategoryNewAdapter
 import com.alexis.shop.ui.menu.adapter.categoryproduct.CategoryProductAdapter
 import com.alexis.shop.ui.menu.adapter.item.MenuItem
 import com.alexis.shop.ui.menu.adapter.item.SocialItem
@@ -45,23 +50,20 @@ import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MenuFragment : Fragment(R.layout.fragment_menu) {
+class MenuFragment : BaseFragment<FragmentMenuBinding>(), OnClickItem{
     private val viewModel: MenuViewModel by viewModels()
     private val mainViewModel: MainViewModel by activityViewModels()
-    private lateinit var categoryProductAdapter: CategoryProductAdapter
     private var categoryProduct = ArrayList<ProductCategoryNewModel>()
     private var param1: String? = null
     private var param2: String? = null
-    private var product: ProductCategoryNewModel? = null
-    private val binding: FragmentMenuBinding by viewBinding()
+    private lateinit var adapterCategory: ProductCategoryNewAdapter
     private val menuAdapter = GroupAdapter<GroupieViewHolder>()
     private val sosmedAdapter = GroupAdapter<GroupieViewHolder>()
-    private var listCategory : ArrayList<ProductCategoryNewModel> = ArrayList()
     private var listMenu: ArrayList<MenuModel> = ArrayList()
     private var fragManager: FragmentManager? = null
 
 
-   // override fun getViewBinding() = FragmentMenuBinding.inflate(layoutInflater)
+    override fun getViewBinding() = FragmentMenuBinding.inflate(layoutInflater)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         StatusBarUtil.forceStatusBar(requireActivity().window, true)
@@ -87,73 +89,51 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
         enterTransition = MaterialFadeThrough()
     }
 
-//    override fun main() {
-//        categoryProductAdapter = CategoryProductAdapter(binding.root.context, this)
-//        with(binding.recycleCategory) {
-//            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
-//            adapter = categoryProductAdapter
-//        }
-//        getProductCategory()
-//        setListener()
-//        initMenu()
-//    }
-
-//
-//
-//    private fun getProductCategory() {
-//        mainViewModel.getProductCategory().observe(viewLifecycleOwner) { response ->
-//            if (response != null) {
-//                when(response) {
-//                    is Resource.Loading -> {}
-//                    is Resource.Success -> {
-//                        val categoryProductValue = response.data?.data as ArrayList<ProductCategoryModel>
-//                        categoryProduct = categoryProductValue
-//                        categoryProductAdapter.setDataCategory(categoryProductValue)
-//                    }
-//                    is Resource.Error -> {
-//                        Toast.makeText(
-//                            binding.root.context,
-//                            "GetFailed",
-//                            Toast.LENGTH_SHORT
-//                        ).show()
-//                    }
-//                }
-//            }
-//        }
-//    }
-//    private fun setListener() {
-//        with(binding) {
-//            btnScan.setPushClickListener {
-//                fragManager?.menuNavigator(ScanQrFragment.newInstance(MENU_FRAGMENT,""))
-//            }
-//            btnCancel.setPushClickListener {
-//                closeMenu()
-//            }
-//
-//            recycleListsosmed.apply {
-//                layoutManager = GridLayoutManager(context, 5)
-//                adapter = sosmedAdapter
-//            }
-//            recycleListmenu.apply {
-//                layoutManager = LinearLayoutManager(requireContext())
-//                adapter = menuAdapter
-//            }
-//
-//            val anim = loadAnimation(context, R.anim.animate_entrace_fragment).apply {
-//                duration = (7 * animateEntraceMenuTime).toLong()
-//            }
-//
-//            btnScan.startAnimation(anim)
-//
-//        }
-//    }
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun main() {
         fragManager = activity?.supportFragmentManager
+        adapterCategory = ProductCategoryNewAdapter(binding.root.context, this)
+        with(binding.rvcategory) {
+            layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL, false)
+            adapter = adapterCategory
+        }
+        getProductCategory()
         menuAdapter.clear()
         sosmedAdapter.clear()
         initMenu()
+        setListener()
 
+    }
+
+    private fun initMenu() {
+        listMenu = getMenuList(viewModel.isUserLogin())
+        addDataMenuAdapter()
+        addDataSosmedAdapter()
+    }
+    private fun getProductCategory() {
+        mainViewModel.getProductCategory().observe(viewLifecycleOwner) { response ->
+            if (response != null) {
+                when(response) {
+                    is Resource.Loading -> {}
+                    is Resource.Success -> {
+                        Log.e("RemoteDataS", "1")
+                        Log.e("RemoteDataS", "${response.data}")
+                        val categoryProductValue = response.data as ArrayList<ProductCategoryNewModel>
+                        categoryProduct = categoryProductValue
+                        adapterCategory.setDataProduct(categoryProductValue)
+                    }
+                    is Resource.Error -> {
+                        Toast.makeText(
+                            binding.root.context,
+                            "GetFailed",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setListener(){
         binding.apply {
             btnScan.setPushClickListener {
                 fragManager?.menuNavigator(ScanQrFragment.newInstance(MENU_FRAGMENT,""))
@@ -181,19 +161,7 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
         }
     }
 
-    private fun initMenu() {
-        mainViewModel.getProductCategoryData().observe(viewLifecycleOwner) { dataCategory ->
-            Log.d("DATACATEGORY", "$dataCategory")
-            listCategory = getProductCategory(dataCategory)
-            Log.d("CATEGORTUT", "$listCategory")
-            listMenu = getMenuList(viewModel.isUserLogin(), dataCategory)
-            addDataMenuAdapter()
-            addDataSosmedAdapter()
-        }
-    }
-
     private fun addDataMenuAdapter() {
-        Log.d("CATEGORTUT", "$listCategory")
         listMenu.slice(0..7).map { menu ->
             menu.isOpen = true
             menuAdapter.add(MenuItem(this, menu) {
@@ -293,8 +261,7 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
             }
     }
 
-//    override fun onClick(item: Any) {
-//        Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_SHORT).show()
-//    }
+    override fun onClick(item: Any) {
 
+    }
 }

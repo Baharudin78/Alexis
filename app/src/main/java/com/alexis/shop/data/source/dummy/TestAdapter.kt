@@ -18,7 +18,7 @@ class NestedAdapter(private val mList: List<String>) :
     }
 
     override fun onBindViewHolder(@NonNull holder: NestedViewHolder, position: Int) {
-      //  holder.mTv.setText(mList[position])
+        holder.mTv.setText(mList[position])
 
     }
 
@@ -27,7 +27,7 @@ class NestedAdapter(private val mList: List<String>) :
     }
 
     inner class NestedViewHolder(@NonNull itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val mTv: TextView
+         val mTv: TextView
 
         init {
             mTv = itemView.findViewById(R.id.nestedItemTv)

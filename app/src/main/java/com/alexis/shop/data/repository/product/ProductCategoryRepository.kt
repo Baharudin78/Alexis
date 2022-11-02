@@ -1,5 +1,6 @@
 package com.alexis.shop.data.repository.product
 
+import android.util.Log
 import com.alexis.shop.data.Resource
 import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.data.remote.response.product.categoritwo.ProductCategoryItem
@@ -19,7 +20,7 @@ class ProductCategoryRepository @Inject constructor(
     private val remoteDataSource: ProductCategoryRemoteDataSource
 ) : IProductCategoryRepository {
 
-    override suspend fun getAllProductCategory(): Flow<Resource<List<ProductCategoryNewModel>>> {
+    override fun getAllProductCategory(): Flow<Resource<List<ProductCategoryNewModel>>> {
         return flow<Resource<List<ProductCategoryNewModel>>> {
             emit(Resource.Loading())
             when(val apiResponses = remoteDataSource.getAllProductCategory().first()) {
@@ -33,6 +34,7 @@ class ProductCategoryRepository @Inject constructor(
     private fun generateCategoryList(data: List<ProductCategoryItem>?): List<ProductCategoryNewModel> {
         val generateValue = ArrayList<ProductCategoryNewModel>()
         data?.forEach {
+            Log.e("RemoteDataS", "Good")
             generateValue.add(
                 ProductCategoryNewModel(
                     category = it.category,

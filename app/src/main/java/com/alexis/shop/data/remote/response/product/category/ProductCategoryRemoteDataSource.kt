@@ -18,14 +18,16 @@ class ProductCategoryRemoteDataSource @Inject constructor(private val apiService
         return flow {
             try {
                 val response = apiService.getAllProductCategory()
-                if (response.data != null && response.data.items.isNotEmpty()) {
+                if (response.data.items.isNotEmpty()) {
+                    Log.e("RemoteDataS", "1")
                     emit(ApiResponse.Success(response))
                 } else {
+                    Log.e("RemoteDataS", "2")
                     emit(ApiResponse.Empty)
                 }
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
-                Log.e("RemoteDataSource", e.toString())
+                Log.e("RemoteDataS", e.toString())
             }
         }.flowOn(Dispatchers.IO)
     }
