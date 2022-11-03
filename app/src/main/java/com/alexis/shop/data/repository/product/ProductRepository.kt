@@ -47,23 +47,23 @@ class ProductRepository @Inject constructor(
     private fun generateListProducts(products: List<ProductItems>?): List<ProductBaruModel> {
         return products?.map {
             ProductBaruModel(
-                barcode = it.barcode,
-                name = it.name,
+                barcode = it.barcode.orEmpty(),
+                name = it.name.orEmpty(),
                 product_image = generateProductImage(it.product_image),
-                price = it.price,
-                product_id = it.product_id,
-                stock = it.stock,
-                status = it.status,
-                subcategory_id = it.subcategory_id,
-                weight = it.weight,
-                stock_keeping_unit = it.stock_keeping_unit,
-                size_id = it.size_id,
-                material_id = it.material_id,
-                item_code = it.item_code,
-                color_id = it.color_id,
-                change_to_stored = it.change_to_stored,
-                change_to_listed = it.change_to_listed,
-                style_id = it.style_id
+                price = it.price.orZero(),
+                product_id = it.product_id.orZero(),
+                stock = it.stock.orZero(),
+                status = it.status.orEmpty(),
+                subcategory_id = it.subcategory_id.orZero(),
+                weight = it.weight.orZero(),
+                stock_keeping_unit = it.stock_keeping_unit.orEmpty(),
+                size_id = it.size_id.orEmpty(),
+                material_id = it.material_id.orEmpty(),
+                item_code = it.item_code.orEmpty(),
+                color_id = it.color_id.orEmpty(),
+                change_to_stored = it.change_to_stored.orEmpty(),
+                change_to_listed = it.change_to_listed.orEmpty(),
+                style_id = it.style_id.orEmpty()
             )
         } ?: listOf()
     }

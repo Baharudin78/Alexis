@@ -84,6 +84,7 @@ class PageFragment : Fragment(R.layout.fragment_page) {
         sharedPref = SheredPreference(requireContext())
         arguments?.let {
             product = it.getParcelable(PRODUCT)
+            Log.d("FDNFSJDNFSODFN", "$product")
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, closeBottomSheetOnBackPressed)
     }

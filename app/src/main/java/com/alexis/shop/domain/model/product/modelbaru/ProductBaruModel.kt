@@ -6,28 +6,25 @@ import kotlinx.android.parcel.RawValue
 
 @Parcelize
 data class ProductBaruModel(
-    val barcode: String? = "",
-    val change_to_listed: String? = "",
-    val change_to_stored: String? ="",
-    val color_id: String? ="",
-    val item_code: String? ="",
-    val material_id: String? ="",
-    val name: String? ="",
-    val price: Int? =0,
-    val product_id: Int? =0,
+    val barcode: String,
+    val change_to_listed: String,
+    val change_to_stored: String,
+    val color_id: String,
+    val item_code: String,
+    val material_id: String,
+    val name: String,
+    val price: Int,
+    val product_id: Int,
     val product_image: @RawValue List<ImagesModel>? = null,
-    val size_id: String? ="",
-    val status: String? ="",
-    val stock: Int? =0,
-    val stock_keeping_unit: String? ="",
-    val style_id: String? ="",
-    val subcategory_id: Int? = 0,
-    val weight: Int? =0
+    val size_id: String,
+    val status: String,
+    val stock: Int,
+    val stock_keeping_unit: String,
+    val style_id: String,
+    val subcategory_id: Int,
+    val weight: Int
 ): Parcelable
 
-//data class ImageProductModel(
-//    val imageProduct : List<ImagesModel>? = null
-//)
 @Parcelize
 data class ImagesModel(
     val bag_wishlist_order_display: Int,

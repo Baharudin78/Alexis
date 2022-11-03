@@ -200,7 +200,7 @@ class MenuFragment : BaseFragment<FragmentMenuBinding>(), OnClickItem{
     private fun removeList() {
         menuAdapter.clear()
         sosmedAdapter.clear()
-        listMenu.slice(0..10).map { menu ->
+        listMenu.slice(0..7).map { menu ->
             menu.isOpen = false
             menu.isClose = true
             menuAdapter.add(MenuItem(this, menu) {
@@ -208,7 +208,7 @@ class MenuFragment : BaseFragment<FragmentMenuBinding>(), OnClickItem{
             })
         }
 
-        listMenu.slice(11..15).map { sosmed ->
+        listMenu.slice(8..12).map { sosmed ->
             sosmed.isOpen = false
             sosmed.isClose = true
             sosmedAdapter.add(SocialItem(requireContext(), sosmed))

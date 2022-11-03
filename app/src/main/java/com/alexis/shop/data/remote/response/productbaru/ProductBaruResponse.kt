@@ -16,23 +16,23 @@ data class Data(
     val product : List<ProductItems>? = null
 )
 data class ProductItems(
-    val barcode: String,
-    val change_to_listed: String,
-    val change_to_stored: String,
-    val color_id: String,
-    val item_code: String,
-    val material_id: String,
-    val name: String,
-    val price: Int,
-    val product_id: Int,
+    val barcode: String?,
+    val change_to_listed: String?,
+    val change_to_stored: String?,
+    val color_id: String?,
+    val item_code: String?,
+    val material_id: String?,
+    val name: String?,
+    val price: Int?,
+    val product_id: Int?,
     val product_image: List<ImageModel>? = null,
-    val size_id: String,
-    val status: String,
-    val stock: Int,
-    val stock_keeping_unit: String,
-    val style_id: String,
-    val subcategory_id: Int,
-    val weight: Int
+    val size_id: String?,
+    val status: String?,
+    val stock: Int?,
+    val stock_keeping_unit: String?,
+    val style_id: String?,
+    val subcategory_id: Int?,
+    val weight: Int?
 )
 //data class ImageProduct(
 //    @field:SerializedName("product_image")
