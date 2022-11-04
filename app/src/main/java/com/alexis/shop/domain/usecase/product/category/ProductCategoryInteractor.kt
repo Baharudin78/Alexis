@@ -9,7 +9,7 @@ import javax.inject.Inject
 class ProductCategoryInteractor @Inject constructor(
     private val repository: IProductCategoryRepository):
     ProductCategoryUseCase {
-    override fun getAllProductCategory(): Flow<Resource<List<ProductCategoryNewModel>>> {
+    override fun getAllProductCategory(): Flow<Resource<ProductCategoryNewModel>> {
         return repository.getAllProductCategory()
     }
 }

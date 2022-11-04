@@ -25,7 +25,7 @@ class CategoryProductAdapter(
         RecyclerView.ViewHolder(inflater.inflate(R.layout.item_product_category, parent, false)) {
             var title : TextView = itemView.findViewById(R.id.tv_product_category)
             fun bind(item : ProductCategoryNewModel ) {
-                title.text = item.category
+             //   title.text = item.category
             }
     }
 
@@ -42,6 +42,8 @@ class CategoryProductAdapter(
         val item : ProductCategoryNewModel = categoryList[position]
         holder.bind(item)
         Animations.runAnimation(context, Animations.ANIMATION_IN, position, holder.itemView)
-        holder.itemView.setOnClickListener { listener.onClick(item.category) }
+        holder.itemView.setOnClickListener {
+         //   listener.onClick(item.category)
+        }
     }
 }

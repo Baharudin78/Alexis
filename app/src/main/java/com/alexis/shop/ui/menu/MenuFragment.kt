@@ -24,6 +24,7 @@ import com.alexis.shop.domain.model.menu.MenuModel
 import com.alexis.shop.data.source.dummy.getMenuList
 import com.alexis.shop.data.source.network.getProductCategory
 import com.alexis.shop.databinding.FragmentMenuBinding
+import com.alexis.shop.domain.model.product.category.ProductCategoryNewItem
 import com.alexis.shop.domain.model.product.category.ProductCategoryNewModel
 import com.alexis.shop.domain.model.product.modelbaru.ProductBaruModel
 import com.alexis.shop.ui.account.MyAccountFragment
@@ -53,7 +54,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MenuFragment : BaseFragment<FragmentMenuBinding>(), OnClickItem{
     private val viewModel: MenuViewModel by viewModels()
     private val mainViewModel: MainViewModel by activityViewModels()
-    private var categoryProduct = ArrayList<ProductCategoryNewModel>()
+    private var categoryProduct = ArrayList<ProductCategoryNewItem>()
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var adapterCategory: ProductCategoryNewAdapter
@@ -115,9 +116,7 @@ class MenuFragment : BaseFragment<FragmentMenuBinding>(), OnClickItem{
                 when(response) {
                     is Resource.Loading -> {}
                     is Resource.Success -> {
-                        Log.e("RemoteDataS", "1")
-                        Log.e("RemoteDataS", "${response.data}")
-                        val categoryProductValue = response.data as ArrayList<ProductCategoryNewModel>
+                        val categoryProductValue = response.data?.data as ArrayList<ProductCategoryNewItem>
                         categoryProduct = categoryProductValue
                         adapterCategory.setDataProduct(categoryProductValue)
                     }
@@ -228,6 +227,7 @@ class MenuFragment : BaseFragment<FragmentMenuBinding>(), OnClickItem{
         }
         listMenu.clear()
         listMenu.addAll(menus)
+        adapterCategory.notifyDataSetChanged()
         menuAdapter.notifyDataSetChanged()
         sosmedAdapter.notifyDataSetChanged()
     }
@@ -236,6 +236,7 @@ class MenuFragment : BaseFragment<FragmentMenuBinding>(), OnClickItem{
         super.onDestroy()
         binding.recycleListsosmed.adapter = null
         binding.recycleListmenu.adapter = null
+        binding.rvcategory.adapter = null
         StatusBarUtil.forceStatusBar(requireActivity().window, false)
         (requireActivity() as MainActivity).option.isChecked = false
     }

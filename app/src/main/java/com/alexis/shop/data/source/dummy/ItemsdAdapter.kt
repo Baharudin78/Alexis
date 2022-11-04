@@ -33,11 +33,11 @@ class ItemAdapter(private val mList: List<DataModel>) :
         holder.nestedRecyclerView.layoutManager = LinearLayoutManager(holder.itemView.context)
         holder.nestedRecyclerView.setHasFixedSize(true)
         holder.nestedRecyclerView.adapter = adapter
-        holder.linearLayout.setOnClickListener {
-            model.isExpandable = !model.isExpandable
-            list = model.nestedList
-            notifyItemChanged(holder.adapterPosition)
-        }
+//        holder.linearLayout.setOnClickListener {
+//            model.isExpandable = !model.isExpandable
+//            list = model.nestedList
+//            notifyItemChanged(holder.adapterPosition)
+//        }
     }
 
     override fun getItemCount(): Int {
@@ -45,13 +45,13 @@ class ItemAdapter(private val mList: List<DataModel>) :
     }
 
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-         val linearLayout: LinearLayout
+       //  val linearLayout: LinearLayout
          val expandableLayout: RelativeLayout
          val mTextView: TextView
          val nestedRecyclerView: RecyclerView
 
         init {
-            linearLayout = itemView.findViewById(R.id.linear_layout)
+         //   linearLayout = itemView.findViewById(R.id.linear_layout)
             expandableLayout = itemView.findViewById(R.id.expandable_layout)
             mTextView = itemView.findViewById(R.id.itemTv)
             nestedRecyclerView = itemView.findViewById(R.id.child_rv)

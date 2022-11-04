@@ -1,6 +1,7 @@
 package com.alexis.shop.ui.menu.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -10,8 +11,10 @@ import com.alexis.shop.domain.model.store_location.AllStoreItemModel
 import com.alexis.shop.utils.animation.Animations
 import com.alexis.shop.utils.OnClickItem
 
-class SimpleLocationAdapter (private val context: Context, private val listener: OnClickItem)
-    : RecyclerView.Adapter<SimpleLocationAdapter.SimpleLocationViewHolder>() {
+class SimpleLocationAdapter (
+    private val context: Context,
+    private val listener: OnClickItem
+) : RecyclerView.Adapter<SimpleLocationAdapter.SimpleLocationViewHolder>() {
 
     private var contactList = ArrayList<AllStoreItemModel>()
 
@@ -42,6 +45,7 @@ class SimpleLocationAdapter (private val context: Context, private val listener:
         var title: TextView = itemView.findViewById(R.id.text_title)
 
         fun bind(item: AllStoreItemModel) {
+            Log.d("HAHAHAH", item.province)
             title.text = item.province
         }
     }

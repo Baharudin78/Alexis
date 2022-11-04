@@ -1,14 +1,16 @@
 package com.alexis.shop.domain.model.product.category
 
 data class ProductCategoryNewModel(
-    val category: String,
-    val icon: String,
-    val sub_category: List<SubCategoryModel>,
-    var isExpandable : Boolean = false
+    var data : List<ProductCategoryNewItem> = mutableListOf()
+)
+data class ProductCategoryNewItem(
+    var category: String,
+    var icon: String,
+    var sub_category: List<SubCategoryModel>,
+    var isExpandable : Boolean
 
 )
-
 data class SubCategoryModel(
-    val id: Int,
-    val merchandise_name: String
+    var id: Int,
+    var merchandise_name: String
 )

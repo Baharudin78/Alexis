@@ -5,5 +5,5 @@ import com.alexis.shop.domain.model.product.category.ProductCategoryNewModel
 import kotlinx.coroutines.flow.Flow
 
 interface IProductCategoryRepository {
-     fun getAllProductCategory(): Flow<Resource<List<ProductCategoryNewModel>>>
+     fun getAllProductCategory(): Flow<Resource<ProductCategoryNewModel>>
 }

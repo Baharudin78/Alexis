@@ -6,7 +6,7 @@ import java.lang.reflect.Array
 fun getProductCategory(category : List<ProductCategoryNewModel>) : ArrayList<ProductCategoryNewModel> {
     val productCategory = ArrayList<ProductCategoryNewModel>()
     category.map {
-        it.category
+//        it.data.mao
     }
     return productCategory
 }

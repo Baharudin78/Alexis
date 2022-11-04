@@ -15,7 +15,7 @@ data class ProductCategoryItem(
     val category: String,
     val icon: String,
     val sub_category: List<SubCategoryItem>,
-    var isExpandable : Boolean = false
+    var isExpandable : Boolean
 )
 
 data class SubCategoryItem(

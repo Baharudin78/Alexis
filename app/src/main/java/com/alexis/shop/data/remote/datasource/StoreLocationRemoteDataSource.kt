@@ -30,27 +30,6 @@ class StoreLocationRemoteDataSource @Inject constructor(private val apiService: 
         }.flowOn(Dispatchers.IO)
     }
 
-//    suspend fun getAllProduct(): Flow<ApiResponse<ProductBaruResponse>> {
-//        return flow {
-//            try {
-//                Log.d("RemoteDataSource", "1")
-//                val response = apiService.getAllProduct()
-//
-//                if (response.data?.product?.isNotEmpty()== true) {
-//                    Log.d("RemoteDataSource", "2")
-//                    emit(ApiResponse.Success(response))
-//                }
-//                else {
-//                    Log.d("RemoteDataSource", "3")
-//                    emit(ApiResponse.Empty)
-//                }
-//            } catch (e: Exception) {
-//                emit(ApiResponse.Error(e.toString()))
-//                Log.d("RemoteDataSource", "4")
-//                Log.e("RemoteDataSource", e.toString())
-//            }
-//        }.flowOn(Dispatchers.IO)
-//    }
 
     suspend fun getLocationHome() : Flow<ApiResponse<AllStoreLocationResponse>> {
         return flow {
