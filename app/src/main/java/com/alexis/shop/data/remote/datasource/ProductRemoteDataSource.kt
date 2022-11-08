@@ -1,9 +1,10 @@
-package com.alexis.shop.data.remote.response.product
+package com.alexis.shop.data.remote.datasource
 
 import android.util.Log
 import com.alexis.shop.data.remote.response.productbaru.ProductBaruResponse
 import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.data.remote.network.ApiService
+import com.alexis.shop.data.remote.response.product.ProductsGetByIdResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

@@ -3,6 +3,7 @@ package com.alexis.shop.data.repository.product
 import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.domain.repository.product.IProductRepository
 import com.alexis.shop.data.Resource
+import com.alexis.shop.data.remote.datasource.ProductRemoteDataSource
 import com.alexis.shop.data.remote.response.productbaru.ImageModel
 import com.alexis.shop.data.remote.response.productbaru.ProductItems
 import com.alexis.shop.data.remote.response.product.*
@@ -47,11 +48,11 @@ class ProductRepository @Inject constructor(
     private fun generateListProducts(products: List<ProductItems>?): List<ProductBaruModel> {
         return products?.map {
             ProductBaruModel(
+                id = it.id.orZero(),
                 barcode = it.barcode.orEmpty(),
                 name = it.name.orEmpty(),
                 product_image = generateProductImage(it.product_image),
                 price = it.price.orZero(),
-                product_id = it.product_id.orZero(),
                 stock = it.stock.orZero(),
                 status = it.status.orEmpty(),
                 subcategory_id = it.subcategory_id.orZero(),
@@ -81,33 +82,31 @@ class ProductRepository @Inject constructor(
             )
         } ?: mutableListOf()
     }
-    //            ProductsModel(
-//                thumbnail = it.thumbnail.orEmpty(),
-//                updatedAt = it.updatedAt.orEmpty(),
-//                price = it.price.orZero(),
-//                createdAt = it.createdAt.orEmpty(),
-//                id = it.id.orZero(),
-//                indonesiaName = it.indonesiaName.orEmpty(),
-//                stock = it.stock.orZero(),
-//                barcode = it.barcode.orEmpty(),
-//                englishName = it.englishName.orEmpty(),
-//                imageType = it.imageType.orEmpty()
-//            )
 
     private fun generateProductByIdModel(product: ProductsGetByIdItem?): ProductsByIdModel {
         return if(product != null) {
             ProductsByIdModel(
-                categoryName = product.categoryName.orEmpty(),
-                createdAt = product.createdAt.orEmpty(),
-                price = product.price.orZero(),
-                productId = product.productId.orZero(),
-                weight = product.weight.orZero(),
-                updatedAt = product.updatedAt.orEmpty(),
-              //  id = product.id.orZero(),
-                stock = product.stock.orZero(),
+                id = product.productId,
+                barcode = product.barcode.orEmpty(),
+                stockKeepingUnit = product.stockKeepingUnit.orEmpty(),
+                itemCode = product.itemCode.orEmpty(),
                 productName = product.productName.orEmpty(),
+                productSubcategoryId = product.productSubcategoryId.orEmpty(),
+                stock = product.stock.orZero(),
+                price = product.price.orZero(),
+                weight = product.weight.orZero(),
+                styleCode = product.styleCode.orEmpty(),
+                productMaterialId = product.productMaterialId.orEmpty(),
+                colorCode = product.colorCode.orEmpty(),
+                productSizeId = product.productSizeId.orEmpty(),
+                packagingId = product.packagingId.orEmpty(),
+                status = product.status.orEmpty(),
+                storeLocationId = product.storeLocationId.orZero(),
+                userId = product.userId.orZero(),
                 images = generateProductByIdImagesModel(product.images) as MutableList<ProductsGetByIdImagesModel>,
-                exclusiveOffer = generateExclusiveOfferToItemOffer(product.exclusiveOffer)
+                exclusiveOffer = generateExclusiveOfferToItemOffer(product.exclusiveOffer),
+                productSize = generateProductSize(product.productSizeItem),
+                productMaterial = generateProductMaterial(product.productMaterialItem)
                // size = generateProductByIdSizeModel(product.size) as MutableList<ProductsGetByIdSizeModel>,
              //   material = generateProductByIdMaterialModel(product.material) as MutableList<ProductsGetByIdMaterialModel>
             )
@@ -119,7 +118,7 @@ class ProductRepository @Inject constructor(
     private fun generateProductByIdImagesModel(data: List<ProductsGetByIdImagesItem>?): List<ProductsGetByIdImagesModel> {
         return data?.map {
             ProductsGetByIdImagesModel(
-                image = it.image.orEmpty(),
+                image = it.imageUrl.orEmpty(),
                 type = it.type.orEmpty()
             )
         } ?: mutableListOf()
@@ -132,6 +131,20 @@ class ProductRepository @Inject constructor(
             redemptionPoint = data?.redemptionPoint.orZero(),
             aging = data?.aging.orZero(),
             registrationDate = data?.registrationDate.orEmpty()
+        )
+    }
+
+    private fun generateProductMaterial(data : ProductsGetByIdMaterialItem?) : ProductsGetByIdMaterialModel? {
+        return ProductsGetByIdMaterialModel(
+            name = data?.name.orEmpty(),
+            id = data?.id.orEmpty()
+        )
+    }
+
+    private fun generateProductSize(data : ProductsGetByIdSizeItem?) : ProductsGetByIdSizeModel? {
+        return ProductsGetByIdSizeModel(
+            name = data?.name.orEmpty(),
+            id = data?.id.orEmpty()
         )
     }
 

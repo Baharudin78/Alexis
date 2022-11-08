@@ -63,9 +63,11 @@ class ProductCategoryNewAdapter(
             expandableLayout.visibility = if (isExpandable) View.VISIBLE else View.VISIBLE
             nestedRecyclerView.layoutManager = LinearLayoutManager(itemView.context)
             nestedRecyclerView.adapter = subAdapter
+            subAdapter.setDataSub(listSubProduct as ArrayList<SubCategoryModel>)
             mTextView.setOnClickListener {
                 item.isExpandable = !item.isExpandable
                 listSubProduct = item.sub_category
+                subAdapter.setDataSub(listSubProduct as ArrayList<SubCategoryModel>)
             }
         }
 

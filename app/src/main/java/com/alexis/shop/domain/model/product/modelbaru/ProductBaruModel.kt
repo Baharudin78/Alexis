@@ -6,6 +6,7 @@ import kotlinx.android.parcel.RawValue
 
 @Parcelize
 data class ProductBaruModel(
+    val id: Int,
     val barcode: String,
     val change_to_listed: String,
     val change_to_stored: String,
@@ -14,7 +15,6 @@ data class ProductBaruModel(
     val material_id: String,
     val name: String,
     val price: Int,
-    val product_id: Int,
     val product_image: @RawValue List<ImagesModel>? = null,
     val size_id: String,
     val status: String,

@@ -56,6 +56,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PageFragment : Fragment(R.layout.fragment_page) {
+    private var productId : Int = 0
     private val viewModel: DetailViewModel by viewModels()
 
     private val binding: FragmentPageBinding by viewBinding()
@@ -82,17 +83,25 @@ class PageFragment : Fragment(R.layout.fragment_page) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedPref = SheredPreference(requireContext())
+        if (arguments != null) {
+            productId = requireArguments().getString(PRODUCT).orEmpty().toInt()
+            Log.d("DAFASJHDADiddd", "$productId")
+           // getProductById(productId)
+
+        }
         arguments?.let {
             product = it.getParcelable(PRODUCT)
             Log.d("FDNFSJDNFSODFN", "$product")
+
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, closeBottomSheetOnBackPressed)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getProductById()
         setupMoreInfo()
+        getProductById(productId)
+        Log.d("Pjsdalsjdlfjijfiod","$productId")
         (requireActivity() as ExpanItemPagersActivity).onAnimateHandler = {
             startAnimation()
         }
@@ -119,8 +128,8 @@ class PageFragment : Fragment(R.layout.fragment_page) {
         }
     }
 
-    private fun getProductById() {
-        viewModel.getProductById(product?.product_id.orZero()).observe(viewLifecycleOwner) { response ->
+    private fun getProductById(id : Int) {
+        viewModel.getProductById(id).observe(viewLifecycleOwner) { response ->
             if (response != null) {
                 when (response) {
                     is Resource.Loading -> {}
@@ -146,7 +155,9 @@ class PageFragment : Fragment(R.layout.fragment_page) {
         binding.itemName.text = data.productName
         binding.itemPrice.text = getString(R.string.price, data.price.toString())
         binding.point.text = data.exclusiveOffer?.redemptionPoint.toString()
+
         data.images.forEach { imageData ->
+            Log.d("IMAGESSS", imageData.image)
             imagePagerAdapter.add(
                 ImageViewPagerItem(
                     binding.root.context,
@@ -213,7 +224,7 @@ class PageFragment : Fragment(R.layout.fragment_page) {
     private fun postShoppingBag(size: String) {
         activity?.let {
             if(product != null) {
-                viewModel.postShoppingBag(product?.product_id.toString(),product?.size_id.toString(),product?.stock_keeping_unit.toString()).observe(viewLifecycleOwner) { response ->
+                viewModel.postShoppingBag(product?.id.toString(),product?.size_id.toString(),product?.stock_keeping_unit.toString()).observe(viewLifecycleOwner) { response ->
                     if (response != null) {
                         when (response) {
                             is Resource.Loading -> {}
@@ -358,9 +369,9 @@ class PageFragment : Fragment(R.layout.fragment_page) {
                 with(includeBottomSheet) {
                     price.text = it.price.toString()
                     itemTitle.text = it.productName
-                    itemCode.text = it.productId.toString()
+                    itemCode.text =it.itemCode
 
-                    var material = "Material: "
+                    val material = "Material: "
 //                    it.material.forEachIndexed { index, item ->
 //                        material += item.name
 //                        if(index < it.material.size - 1) {
@@ -388,15 +399,16 @@ class PageFragment : Fragment(R.layout.fragment_page) {
 
     private fun setupSizeInfoBottomSheet() {
         val allDataSize = arrayOf("xs","s","m","l","xl")
-        binding.includeBottomSheet.linearLayoutSizeContainer.weightSum = productDetailData?.size?.size?.toFloat()!!
+        //binding.includeBottomSheet.linearLayoutSizeContainer.weightSum = productDetailData?.size?.size?.toFloat()!!
+       // binding.includeBottomSheet.linearLayoutSizeContainer.weightSum = productDetailData?.productSize?.name?.toFloat()!!
         for(i in allDataSize) {
             //data that is not on the list
             var missingData = ""
             var count = 0
-            for(j in productDetailData?.size!!) {
-                if(i == j.name.lowercase()) {
+            for(j in productDetailData?.productSize!!.name) {
+                if(i == j.lowercase()) {
                     break
-                } else if (i != j.name.lowercase() && count == productDetailData?.size?.size!! - 1) {
+                } else if (i != j.lowercase() && count.equals(productDetailData?.productSize!!.name)  ) {
                     missingData = i
                 }
                 count++
@@ -592,14 +604,20 @@ class PageFragment : Fragment(R.layout.fragment_page) {
 
     companion object {
         const val PRODUCT = "product"
-
         @JvmStatic
-        fun newInstance(product: ProductBaruModel) =
-            PageFragment().apply {
+        fun newInstance(productId: Int) : PageFragment{
+            return PageFragment().apply {
                 arguments = Bundle().apply {
-                    Log.d("ANJAYY", product.toString())
-                    putParcelable(PRODUCT, product)
+                    putString(PRODUCT, productId.toString())
                 }
             }
+        }
+
+//        .apply {
+//                arguments = Bundle().apply {
+//                    Log.d("ANJAYY", product.toString())
+//                    putParcelable(PRODUCT, product)
+//                }
+//            }
     }
 }

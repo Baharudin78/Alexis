@@ -10,9 +10,7 @@ import com.alexis.shop.data.remote.response.voucher.VoucherResponse
 import com.alexis.shop.data.remote.response.auth.LogoutResponse
 import com.alexis.shop.data.remote.response.landing.LandingResponse
 import com.alexis.shop.data.remote.response.product.ProductsGetByIdResponse
-import com.alexis.shop.data.remote.response.product.categoritwo.ProductCategoryNewResponse
-import com.alexis.shop.data.remote.response.product.category.ProductCategoryResponse
-import com.alexis.shop.data.remote.response.product.category.subcategory.SubProductCategoryResponse
+import com.alexis.shop.data.remote.response.product.category.ProductCategoryNewResponse
 import com.alexis.shop.data.remote.response.shoppingbag.ShoppingBagDeleteResponse
 import com.alexis.shop.data.remote.response.shoppingbag.ShoppingBagPostResponse
 import com.alexis.shop.data.remote.response.shoppingbag.ShoppingBagResponse
@@ -21,8 +19,6 @@ import com.alexis.shop.data.remote.response.storelocation.AllStoreLocationRespon
 import com.alexis.shop.data.remote.response.storelocation.StoreLocationByNameResponse
 import com.alexis.shop.data.remote.response.wishlist.WishlistGetResponse
 import com.alexis.shop.data.remote.response.wishlist.WishlistPostResponse
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.http.*
 
 interface ApiService {

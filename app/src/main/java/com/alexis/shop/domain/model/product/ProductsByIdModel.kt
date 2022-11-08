@@ -1,19 +1,28 @@
 package com.alexis.shop.domain.model.product
 
 data class ProductsByIdModel(
+    val id: Int? = null ,
+    val barcode : String? = null,
+    val stockKeepingUnit : String? = null,
+    val itemCode : String? = null,
+    val productName: String? = null,
+    val productSubcategoryId : String? = null,
+    val stock : Int? = null,
+    val price : Int? = null,
+    val weight : Int? = null,
+    val styleCode : String? = null,
+    val productMaterialId : String? = null,
+    val colorCode : String? = null,
+    val productSizeId : String? = null,
+    val packagingId : String? = null,
+    val status : String? = null,
+    val storeLocationId : Int? = null,
+    val userId : Int? = null,
     val images: MutableList<ProductsGetByIdImagesModel> = mutableListOf(),
-    val categoryName: String = "",
-    val updatedAt: String = "",
-    val size: MutableList<ProductsGetByIdSizeModel> = mutableListOf(),
- //   val material: MutableList<ProductsGetByIdMaterialModel> = mutableListOf(),
-    val price: Int = 0,
+    val productMaterial : ProductsGetByIdMaterialModel? = null,
+    val productSize : ProductsGetByIdSizeModel? = null,
+    val productSizeList: MutableList<ProductsGetByIdSizeModel> = mutableListOf(),
     val exclusiveOffer: ProductExclusiveOffer? = null,
-    val productId: Int = 0,
-    val weight: Int = 0,
-    val createdAt: String = "",
-    val id: Int = 0,
-    val stock: Int = 0,
-    val productName: String = ""
 )
 
 data class ProductsGetByIdImagesModel(

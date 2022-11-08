@@ -1,10 +1,9 @@
-package com.alexis.shop.data.remote.response.product.category
+package com.alexis.shop.data.remote.datasource
 
 import android.util.Log
 import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.data.remote.network.ApiService
-import com.alexis.shop.data.remote.response.product.categoritwo.ProductCategoryNewResponse
-import com.alexis.shop.data.remote.response.product.category.subcategory.SubProductCategoryResponse
+import com.alexis.shop.data.remote.response.product.category.ProductCategoryNewResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

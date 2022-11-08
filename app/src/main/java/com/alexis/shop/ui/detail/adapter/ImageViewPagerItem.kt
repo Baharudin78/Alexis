@@ -1,6 +1,7 @@
 package com.alexis.shop.ui.detail.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import com.alexis.shop.R
@@ -23,6 +24,7 @@ class ImageViewPagerItem(
 	override fun bind(viewBinding: ListItemPagerBinding, position: Int) {
 		viewBinding.apply {
 			imgProduct.apply {
+				Log.d("IMAGESSS", image.image)
 				loadTouchImage(image.image) {
 					minZoom = TouchImageView.AUTOMATIC_MIN_ZOOM
 				}

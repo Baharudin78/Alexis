@@ -1,12 +1,10 @@
 package com.alexis.shop.data.repository.product
 
-import android.util.Log
 import com.alexis.shop.data.Resource
 import com.alexis.shop.data.remote.network.ApiResponse
-import com.alexis.shop.data.remote.response.product.categoritwo.ProductCategoryItem
-import com.alexis.shop.data.remote.response.product.categoritwo.ProductCategoryNewResponse
-import com.alexis.shop.data.remote.response.product.categoritwo.SubCategoryItem
-import com.alexis.shop.data.remote.response.product.category.ProductCategoryRemoteDataSource
+import com.alexis.shop.data.remote.response.product.category.ProductCategoryItem
+import com.alexis.shop.data.remote.response.product.category.SubCategoryItem
+import com.alexis.shop.data.remote.datasource.ProductCategoryRemoteDataSource
 import com.alexis.shop.domain.model.product.category.ProductCategoryNewItem
 import com.alexis.shop.domain.model.product.category.ProductCategoryNewModel
 import com.alexis.shop.domain.model.product.category.SubCategoryModel

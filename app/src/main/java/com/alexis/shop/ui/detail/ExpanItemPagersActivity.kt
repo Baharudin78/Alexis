@@ -56,6 +56,7 @@ class ExpanItemPagersActivity : AppCompatActivity() {
         findViewById<View>(android.R.id.content).transitionName = "shared_transition"
 
         val extrea = intent.getStringExtra(EXTRA_DATA)
+        Log.d("DAFASJHDADar", "$extrea")
         toast(extrea.orEmpty(), Toast.LENGTH_LONG)
         setEnterSharedElementCallback(MaterialContainerTransformSharedElementCallback())
 
@@ -128,7 +129,8 @@ class ExpanItemPagersActivity : AppCompatActivity() {
     private fun getIntentData() {
         intent.getParcelableExtra<ProductBaruModel>(EXTRA_DATA)?.let {
             productsModel = it
-            Log.d("EXTRADATA", "$it")
+            Log.d("DAFASJHDAData", "${it.name}")
+            Log.d("DAFASJHDAData", "$productsModel")
         }
     }
 
@@ -156,7 +158,7 @@ class ExpanItemPagersActivity : AppCompatActivity() {
         productsModel?.let {
             Log.d("APASIINI", it.toString())
             fragments = arrayListOf(
-                PageFragment.newInstance(it),
+                PageFragment.newInstance(it.id),
 //                PageFragment.newInstance(it),
 //                PageFragment.newInstance(it),
 //                PageFragment.newInstance(it),

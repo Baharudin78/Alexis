@@ -1,4 +1,4 @@
-package com.alexis.shop.data.remote.response.product.categoritwo
+package com.alexis.shop.data.remote.response.product.category
 
 data class ProductCategoryNewResponse(
     val code: Int,

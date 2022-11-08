@@ -24,7 +24,7 @@ data class ProductItems(
     val material_id: String?,
     val name: String?,
     val price: Int?,
-    val product_id: Int?,
+    val id: Int?,
     val product_image: List<ImageModel>? = null,
     val size_id: String?,
     val status: String?,

@@ -3,21 +3,24 @@ package com.alexis.shop.ui.menu.adapter.category
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.alexis.shop.R
-import com.alexis.shop.data.remote.response.product.categoritwo.SubCategoryItem
 import com.alexis.shop.domain.model.product.category.SubCategoryModel
-import com.alexis.shop.utils.OnClickItem
 import com.alexis.shop.utils.animation.Animations
 
 class SubCategoryNewAdapter(
     private val context: Context,
 ) : RecyclerView.Adapter<SubCategoryNewAdapter.SubCategoryHolder>(){
-    private val listSubCategory = ArrayList<SubCategoryModel>()
+    private var listSubCategory = ArrayList<SubCategoryModel>()
 
+    fun setDataSub(data : ArrayList<SubCategoryModel>) {
+        listSubCategory.clear()
+        listSubCategory = data
+        notifyDataSetChanged()
+        Log.d("ADAPTEREss", "$data")
+    }
     class SubCategoryHolder(inflater : LayoutInflater, parent: ViewGroup) : RecyclerView.ViewHolder(inflater.inflate(R.layout.item_nested, parent, false)){
         val subProduct : TextView = itemView.findViewById(R.id.nestedItemTv)
         fun bind(item : SubCategoryModel) {

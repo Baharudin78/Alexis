@@ -1,5 +1,6 @@
 package com.alexis.shop.ui.menu.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -27,6 +28,7 @@ class DetailLocationAdapter (private val listener: OnClickItem) : RecyclerView.A
 
     override fun onBindViewHolder(holder: DetailLocationViewHolder, position: Int) {
         val item : StoreLocationByNameModel = locationList[position]
+        Log.d("ALAMATT", "$item")
         holder.bind(item)
         holder.itemView.setOnClickListener { listener.onClick(item) }
     }

@@ -1,6 +1,7 @@
 package com.alexis.shop.ui.detail.adapter.viewholder
 
 import android.content.Intent
+import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import androidx.core.app.ActivityOptionsCompat
@@ -12,6 +13,7 @@ import com.alexis.shop.ui.detail.adapter.entity.SubCategoryProduct
 import com.alexis.shop.ui.main.MainActivity
 import com.alexis.shop.utils.loadImage
 import com.alexis.shop.utils.log
+import com.bumptech.glide.Glide
 import com.dizcoding.mylibrv.AbstractViewHolder
 import kotlinx.android.synthetic.main.item_dashboard_objectitems.view.*
 
@@ -33,9 +35,20 @@ class SubCategoryProductVH(
 
         title.text = element.productModels.name
         price.text = element.productModels.price.toString()
+        val imageUri = element.productModels.product_image?.map { it.image_url  }.orEmpty()
         //image.loadImage(element.productModels.product_image?.imageProduct?.map { it.image_url }.toString())
-        image.loadImage(element.productModels.product_image?.map { it.image_url }.toString())
+     //  image.loadImage(element.productModels.product_image?.map { it.image_url }.toString())
+        try {
+            Glide.with(itemView.context)
+                .load(imageUri.first())
+                .into(image)
+        }catch (e : Exception) {
+            Log.d("TAFFF", e.localizedMessage.orEmpty())
+        }
 
+        Log.d("TAFFFF",element.productModels.name)
+        Log.d("TAFFFF",element.productModels.price.toString())
+        Log.d("TAFFFF","$imageUri" )
 //        when (element.productModels.imageType) {
 //            "double" -> typeASetting(element)
 //            "single" -> typeBSetting(element)
@@ -86,6 +99,7 @@ class SubCategoryProductVH(
     private fun openDetail(itemView: View, data: ProductBaruModel) {
         val context = itemView.context as MainActivity
         val intent = Intent(context, ExpanItemPagersActivity::class.java).apply {
+            Log.d("DAFASJHDAD", "${data}")
             putExtra(ExpanItemPagersActivity.EXTRA_DATA, data)
         }
         context.startActivity(intent)
