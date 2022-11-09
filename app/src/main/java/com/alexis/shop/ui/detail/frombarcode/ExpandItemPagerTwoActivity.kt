@@ -1,23 +1,22 @@
-package com.alexis.shop.ui.detail
+package com.alexis.shop.ui.detail.frombarcode
 
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.fragment.app.*
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.add
+import androidx.fragment.app.commit
 import androidx.viewpager2.widget.ViewPager2
 import com.alexis.shop.R
 import com.alexis.shop.domain.model.product.ProductsByIdModel
-import com.alexis.shop.domain.model.product.ProductsModel
-import com.alexis.shop.domain.model.product.modelbaru.ProductBaruModel
 import com.alexis.shop.domain.model.wishlist.WishlistModel
+import com.alexis.shop.ui.detail.ExpanItemPagersActivity
 import com.alexis.shop.ui.detail.adapter.ExpanFragmentPagerAdapter
 import com.alexis.shop.ui.menu.MenuFragment
 import com.alexis.shop.ui.shopping_bag.ShoppingBagFragment
@@ -29,10 +28,10 @@ import com.google.android.material.transition.platform.MaterialContainerTransfor
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ExpanItemPagersActivity : AppCompatActivity() {
+class ExpandItemPagerTwoActivity : AppCompatActivity() {
     private lateinit var pagerAdapter: ExpanFragmentPagerAdapter
     private lateinit var fragments: ArrayList<Fragment>
-    var productsModel: ProductBaruModel? = null
+    var productByBarcode : ProductsByIdModel? = null
     lateinit var btn_menu: ImageView
     lateinit var btn_cart: ImageView
     lateinit var btn_love: ImageView
@@ -41,7 +40,6 @@ class ExpanItemPagersActivity : AppCompatActivity() {
     lateinit var txt_love: TextView
     lateinit var txt_cart: TextView
     lateinit var a_tx: ImageView
-
     var onAnimateHandler: (() -> Unit)? = null
 
     companion object {
@@ -55,10 +53,6 @@ class ExpanItemPagersActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         window.requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
         findViewById<View>(android.R.id.content).transitionName = "shared_transition"
-
-//        val extrea = intent.getStringExtra(EXTRA_DATA)
-//        Log.d("DAFASJHDADar", "$extrea")
-//        toast(extrea.orEmpty(), Toast.LENGTH_LONG)
         setEnterSharedElementCallback(MaterialContainerTransformSharedElementCallback())
 
         window.sharedElementEnterTransition = MaterialContainerTransform().apply {
@@ -69,18 +63,12 @@ class ExpanItemPagersActivity : AppCompatActivity() {
             addTarget(android.R.id.content)
             duration = 500L
         }
-
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_expan_item_pagers)
+        setContentView(R.layout.activity_expand_item_pager_two)
         supportActionBar?.hide()
-
-        val productId = intent.getStringExtra(EXTRA_DATA)
-        Log.d("EXTRADATA", productId.orEmpty())
         transparentNavBar()
         customTopBarsColor(true)
-        getIntentData()
-       // getIntentDataBarcode()
-
+        getIntentDataBarcode()
         btn_menu = findViewById(R.id.option)
         btn_cart = findViewById(R.id.cart)
         btn_love = findViewById(R.id.loved)
@@ -89,12 +77,11 @@ class ExpanItemPagersActivity : AppCompatActivity() {
         txt_cart = findViewById(R.id.count_cart)
         txt_love = findViewById(R.id.count_loved)
         a_tx = findViewById(R.id.a_tx)
-        initPaging()
-       // initPageBarcode()
 
         txt_love.text = getSavedPrefsWish().toString()
         txt_cart.text = getSavedPrefsCount().toString()
 
+        initPageBarcode()
         btn_menu.setOnClickListener {
             supportFragmentManager.commit {
                 add<MenuFragment>(R.id.transparent_menu)
@@ -128,10 +115,9 @@ class ExpanItemPagersActivity : AppCompatActivity() {
             startAnimation()
         }
     }
-
-    private fun getIntentData() {
-        intent.getParcelableExtra<ProductBaruModel>(EXTRA_DATA)?.let {
-            productsModel = it
+    private fun getIntentDataBarcode() {
+        intent.getParcelableExtra<ProductsByIdModel>(ExpanItemPagersActivity.EXTRA_BARCODE)?.let {
+            productByBarcode = it
         }
     }
 
@@ -148,18 +134,14 @@ class ExpanItemPagersActivity : AppCompatActivity() {
             })
         }
     }
-
     override fun onResume() {
         super.onResume()
         customTopBarsColor(true)
     }
-
-    //Set Page
-    private fun initPaging() {
-        productsModel?.let {
-            Log.d("APASIINI", it.toString())
+    private fun initPageBarcode() {
+        productByBarcode?.let {
             fragments = arrayListOf(
-                PageFragment.newInstance(it.id)
+                PageTwoFragment.newInstance(it.barcode.orEmpty())
             )
             pagerAdapter = ExpanFragmentPagerAdapter(this, fragments)
             findViewById<ViewPager2>(R.id.pager).apply {
@@ -168,5 +150,4 @@ class ExpanItemPagersActivity : AppCompatActivity() {
             }
         }
     }
-
 }

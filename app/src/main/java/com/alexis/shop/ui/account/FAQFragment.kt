@@ -38,8 +38,7 @@ class FAQFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.fragment_frequenly_questions, container, false)
         title = root.findViewById(R.id.txt_wl)
         btnCancel = root.findViewById(R.id.btn_cancel)

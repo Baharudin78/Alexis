@@ -8,6 +8,7 @@ import com.alexis.shop.data.remote.response.productbaru.ImageModel
 import com.alexis.shop.data.remote.response.productbaru.ProductItems
 import com.alexis.shop.data.remote.response.product.*
 import com.alexis.shop.domain.model.product.*
+import com.alexis.shop.domain.model.product.barcode.ProductsByBarcodeModel
 import com.alexis.shop.domain.model.product.modelbaru.ImagesModel
 import com.alexis.shop.domain.model.product.modelbaru.ProductBaruModel
 import com.alexis.shop.utils.orZero
@@ -38,6 +39,17 @@ class ProductRepository @Inject constructor(
         return flow<Resource<ProductsByIdModel>> {
             emit(Resource.Loading())
             when (val apiResponse = remoteDataSource.getProductById(productId).first()) {
+                is ApiResponse.Success -> emit(Resource.Success(generateProductByIdModel(apiResponse.data.data?.product)))
+                is ApiResponse.Empty -> ProductsByIdModel()
+                is ApiResponse.Error -> emit(Resource.Error(apiResponse.errorMessage))
+            }
+        }
+    }
+
+    override fun getProductByBarcode(barcode: String): Flow<Resource<ProductsByIdModel>> {
+        return flow <Resource<ProductsByIdModel>>{
+            emit(Resource.Loading())
+            when (val apiResponse = remoteDataSource.getProductByBarcode(barcode).first()) {
                 is ApiResponse.Success -> emit(Resource.Success(generateProductByIdModel(apiResponse.data.data?.product)))
                 is ApiResponse.Empty -> ProductsByIdModel()
                 is ApiResponse.Error -> emit(Resource.Error(apiResponse.errorMessage))
@@ -106,6 +118,7 @@ class ProductRepository @Inject constructor(
                 images = generateProductByIdImagesModel(product.images) as MutableList<ProductsGetByIdImagesModel>,
                 exclusiveOffer = generateExclusiveOfferToItemOffer(product.exclusiveOffer),
                 productSize = generateProductSize(product.productSizeItem),
+                subProduct = generateSubProductModel(product.productSubCategory),
                 productMaterial = generateProductMaterial(product.productMaterialItem)
                // size = generateProductByIdSizeModel(product.size) as MutableList<ProductsGetByIdSizeModel>,
              //   material = generateProductByIdMaterialModel(product.material) as MutableList<ProductsGetByIdMaterialModel>
@@ -122,6 +135,28 @@ class ProductRepository @Inject constructor(
                 type = it.type.orEmpty()
             )
         } ?: mutableListOf()
+    }
+
+    private fun generateSubProductModel(data : ProductsSubCategoryItem?) : SubProductItemModel? {
+        return SubProductItemModel(
+            id = data?.id.orZero(),
+            sequence = data?.sequence.orZero(),
+            nameInEng = data?.nameInEng.orEmpty(),
+            nameInId = data?.nameInId.orEmpty(),
+            sellingPrice = data?.sellingPrice.orZero(),
+            marketPrice = data?.marketPrice.orZero(),
+            productCategoryId = data?.productCategoryId.orZero(),
+            maxListingPeriod = data?.maxListingPeriod.orZero(),
+            targetDailyListingQty = data?.targetDailyListingQty.orZero(),
+            minListing = data?.minListing.orZero(),
+            styleInHomepage = data?.styleInHomepage.orZero(),
+            sizeInTray = data?.sizeInTray.orZero(),
+            productSizeId = data?.productSizeId.orZero(),
+            productMaterialId = data?.productMaterialId.orZero(),
+            packageId = data?.packageId.orZero(),
+            packageRealWeight = data?.packageRealWeight.orZero(),
+            packageVolumeWeight = data?.packageVolumeWeight.orZero()
+        )
     }
 
     private fun generateExclusiveOfferToItemOffer(data : ExclusiveOfferItem?) : ProductExclusiveOffer?{

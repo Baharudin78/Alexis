@@ -1,5 +1,6 @@
 package com.alexis.shop.data.remote.response.product
 
+import com.alexis.shop.data.remote.response.barcode.ProductSubCategoryItem
 import com.google.gson.annotations.SerializedName
 
 data class ProductsGetByIdResponse(
@@ -85,8 +86,48 @@ data class ProductsGetByIdItem(
 	@field:SerializedName("product_size")
 	val productSizeItem : ProductsGetByIdSizeItem? = null,
 
+	@field:SerializedName("product_subcategory")
+	val productSubCategory : ProductsSubCategoryItem? = null,
+
 	@field:SerializedName("exclusive_offer")
 	val exclusiveOffer : ExclusiveOfferItem? = null
+)
+
+data class ProductsSubCategoryItem(
+	@field:SerializedName("id")
+	val id : Int? = null,
+	@field:SerializedName("sequence")
+	val sequence : Int? = null,
+	@field:SerializedName("name_in_id")
+	val nameInId : String? = null,
+	@field:SerializedName("name_in_eng")
+	val nameInEng : String? = null,
+	@field:SerializedName("selling_price")
+	val sellingPrice : Int? = null,
+	@field:SerializedName("market_price")
+	val marketPrice : Int? = null,
+	@field:SerializedName("product_category_id")
+	val productCategoryId : Int? = null,
+	@field:SerializedName("max_listing_period")
+	val maxListingPeriod : Int? = null,
+	@field:SerializedName("target_daily_listing_qty")
+	val targetDailyListingQty : Int? = null,
+	@field:SerializedName("min_listing")
+	val minListing : Int? = null,
+	@field:SerializedName("style_in_homepage")
+	val styleInHomepage : Int? = null,
+	@field:SerializedName("size_in_tray")
+	val sizeInTray : Int? = null,
+	@field:SerializedName("product_size_id")
+	val productSizeId : Int? = null,
+	@field:SerializedName("product_material_id")
+	val productMaterialId : Int? = null,
+	@field:SerializedName("package_id")
+	val packageId : Int? = null,
+	@field:SerializedName("package_real_weight")
+	val packageRealWeight : Int? = null,
+	@field:SerializedName("package_volume_weight")
+	val packageVolumeWeight : Int? = null
 )
 
 data class ProductsGetByIdSizeItem(

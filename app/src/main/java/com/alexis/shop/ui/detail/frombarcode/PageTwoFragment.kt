@@ -1,4 +1,4 @@
-package com.alexis.shop.ui.detail
+package com.alexis.shop.ui.detail.frombarcode
 
 import android.app.Activity
 import android.content.Intent
@@ -20,23 +20,22 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
 import androidx.viewpager2.widget.ViewPager2
-import androidx.viewpager2.widget.ViewPager2.ORIENTATION_VERTICAL
-import androidx.viewpager2.widget.ViewPager2.OVER_SCROLL_NEVER
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.alexis.shop.R
 import com.alexis.shop.data.Resource
 import com.alexis.shop.data.source.dummy.SizeList
 import com.alexis.shop.databinding.BottomsheetAddcartItemBinding
 import com.alexis.shop.databinding.FragmentPageBinding
-import com.alexis.shop.domain.model.product.*
+import com.alexis.shop.domain.model.product.ImageModel
+import com.alexis.shop.domain.model.product.ProductsByIdModel
+import com.alexis.shop.domain.model.product.ProductsGetByIdImagesModel
+import com.alexis.shop.domain.model.product.SizeModel
 import com.alexis.shop.domain.model.product.modelbaru.ProductBaruModel
-import com.alexis.shop.ui.detail.ExpanItemPagersActivity.Companion.BACK_TO_CART
-import com.alexis.shop.ui.detail.ExpanItemPagersActivity.Companion.BACK_TO_WISHLIST
+import com.alexis.shop.ui.detail.DetailViewModel
 import com.alexis.shop.ui.detail.adapter.ImageOrderAdapter
 import com.alexis.shop.ui.detail.adapter.ImageViewPagerItem
 import com.alexis.shop.ui.detail.adapter.SizeChooserAdapter
@@ -56,17 +55,15 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class PageFragment : Fragment(R.layout.fragment_page) {
-    private var productId : Int = 0
-   // private var barcode : String = ""
-    private val viewModel: DetailViewModel by viewModels()
-  //  private val barcodeViewModel : ScanBarcodeViewModel by viewModels()
+class PageTwoFragment : Fragment(R.layout.fragment_page_two) {
 
+    private var barcode : String = ""
+    private val barcodeViewModel : ScanBarcodeViewModel by viewModels()
+    private val viewModel: DetailViewModel by viewModels()
     private val binding: FragmentPageBinding by viewBinding()
-    private var product: ProductBaruModel? = null
     lateinit var sharedPref : SheredPreference
-    private var productDetailData: ProductsByIdModel? = null
- //   private var productBarcode : ProductsByIdModel? = null
+    private var product: ProductBaruModel? = null
+    private var productBarcode : ProductsByIdModel? = null
     private lateinit var ivArrayDotsPager: Array<ImageView?>
 
     private val imagePagerAdapter = GroupAdapter<GroupieViewHolder>()
@@ -83,19 +80,12 @@ class PageFragment : Fragment(R.layout.fragment_page) {
         }
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedPref = SheredPreference(requireContext())
         if (arguments != null) {
-            productId = requireArguments().getString(PRODUCT).orEmpty().toInt()
-            Log.d("DAFASJHDADiddd", "$productId")
-        }
-
-        arguments?.let {
-            product = it.getParcelable(PRODUCT)
-            Log.d("FDNFSJDNFSODFN", "$product")
-
+            barcode = requireArguments().getString(BARCODE).orEmpty()
+            Log.d("BARCODESSS", barcode)
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, closeBottomSheetOnBackPressed)
     }
@@ -103,9 +93,8 @@ class PageFragment : Fragment(R.layout.fragment_page) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupMoreInfo()
-        getProductById(productId)
-        Log.d("Pjsdalsjdlfjijfiod","$productId")
-        (requireActivity() as ExpanItemPagersActivity).onAnimateHandler = {
+          getProductByBarcode(barcode)
+        (requireActivity() as ExpandItemPagerTwoActivity).onAnimateHandler = {
             startAnimation()
         }
 
@@ -131,21 +120,21 @@ class PageFragment : Fragment(R.layout.fragment_page) {
         }
     }
 
-    private fun getProductById(id : Int) {
-        viewModel.getProductById(id).observe(viewLifecycleOwner) { response ->
+    private fun getProductByBarcode(barcode : String) {
+        barcodeViewModel.getProductByBarcode(barcode).observe(viewLifecycleOwner){ response ->
             if (response != null) {
-                when (response) {
+                when(response) {
                     is Resource.Loading -> {}
                     is Resource.Success -> {
                         response.data?.let {
-                            productDetailData = it
+                            productBarcode = it
                             setupView(it)
                         }
                     }
                     is Resource.Error -> {
                         Toast.makeText(
-                            binding.root.context.applicationContext,
-                            getString(R.string.auth_error, "get product by id"),
+                            binding.root.context,
+                            "Failed get barcode",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -173,7 +162,7 @@ class PageFragment : Fragment(R.layout.fragment_page) {
 
         binding.includePager.pager.apply {
             adapter = imagePagerAdapter
-            orientation = ORIENTATION_VERTICAL
+            orientation = ViewPager2.ORIENTATION_VERTICAL
             reduceDragSensitivity()
             // indicator.setViewPager(pagerBinding.pager)
         }
@@ -195,6 +184,7 @@ class PageFragment : Fragment(R.layout.fragment_page) {
         })
     }
 
+
     private fun postWishlist() {
         activity?.let {
             if(product != null) {
@@ -204,7 +194,7 @@ class PageFragment : Fragment(R.layout.fragment_page) {
                             is Resource.Loading -> {}
                             is Resource.Success -> {
                                 it.setResult(Activity.RESULT_OK, Intent().apply {
-                                    putExtra("id", BACK_TO_WISHLIST)
+                                    putExtra("id", ExpandItemPagerTwoActivity.BACK_TO_WISHLIST)
                                 })
                                 it.finish()
                                 it.overridePendingTransition(0, R.anim.activity_out_wishlist)
@@ -233,7 +223,7 @@ class PageFragment : Fragment(R.layout.fragment_page) {
                             is Resource.Loading -> {}
                             is Resource.Success -> {
                                 val intent: Intent = requireActivity().intent
-                                intent.putExtra("id", BACK_TO_CART)
+                                intent.putExtra("id", ExpandItemPagerTwoActivity.BACK_TO_CART)
                                 requireActivity().apply {
                                     setResult(Activity.RESULT_OK, intent)
                                     finish()
@@ -257,7 +247,7 @@ class PageFragment : Fragment(R.layout.fragment_page) {
 
     private fun setupPagerIndicatorDots() {
         val heightWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 15f, resources.displayMetrics).toInt()
-        ivArrayDotsPager = arrayOfNulls(productDetailData?.images?.size.orZero())
+        ivArrayDotsPager = arrayOfNulls(productBarcode?.images?.size.orZero())
         ivArrayDotsPager.indices.forEach { position ->
             ivArrayDotsPager[position] = ImageView(requireContext())
             val params = LinearLayout.LayoutParams(heightWidth, heightWidth)
@@ -270,7 +260,6 @@ class PageFragment : Fragment(R.layout.fragment_page) {
         }
     }
 
-    //PopUp For AddtoCart's button
     private fun showAddToCartBottomSheet() {
         requireActivity().whiteNavBar()
         val bottomSheet = BottomSheetDialog(
@@ -281,7 +270,7 @@ class PageFragment : Fragment(R.layout.fragment_page) {
         val binding = BottomsheetAddcartItemBinding.inflate(layoutInflater)
         arraySize = SizeList.getListSize()
 
-//        val sizeList = productDetailData?.size as ArrayList<ProductsGetByIdSizeModel>
+        //     val sizeList = productDetailData?.size as ArrayList<ProductsGetByIdSizeModel>
 //        adapterSize = SizeChooserAdapter(requireContext(), sizeList) {
 //            sizeSelected = it.name
 //            log("selected $sizeSelected")
@@ -289,7 +278,8 @@ class PageFragment : Fragment(R.layout.fragment_page) {
 //            binding.tvSelectSize.gone()
 //        }
 
-        val linearLayoutManager = LinearLayoutManager(requireContext(), HORIZONTAL, false)
+        val linearLayoutManager = LinearLayoutManager(requireContext(),
+            LinearLayoutManager.HORIZONTAL, false)
 
         with(binding.recySizeChooser) {
             adapter = adapterSize
@@ -297,7 +287,7 @@ class PageFragment : Fragment(R.layout.fragment_page) {
             PagerSnapHelper().attachToRecyclerView(this)
             setViewMode(CircularHorizontalMode())
             scrollToPosition(2)
-            overScrollMode = OVER_SCROLL_NEVER
+            overScrollMode = ViewPager2.OVER_SCROLL_NEVER
         }
 
         binding.recySizeChooser.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -343,7 +333,7 @@ class PageFragment : Fragment(R.layout.fragment_page) {
         }
     }
 
-    //PopUp For Detail Information's button
+
     private fun showMoreInfoBottomSheet() {
         binding.apply {
             closeBottomSheetOnBackPressed.buttonInfo = invisibleDot
@@ -368,7 +358,7 @@ class PageFragment : Fragment(R.layout.fragment_page) {
                 btnMoreInfo.motionVisibility(View.INVISIBLE)
             }
 
-            productDetailData?.let {
+            productBarcode?.let {
                 with(includeBottomSheet) {
                     price.text = it.price.toString()
                     itemTitle.text = it.productName
@@ -390,7 +380,7 @@ class PageFragment : Fragment(R.layout.fragment_page) {
                     }
 
                     imageSpan.apply {
-                        layoutManager = LinearLayoutManager(binding.root.context, HORIZONTAL, false)
+                        layoutManager = LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
                         adapter = adapterPic
                     }
 
@@ -403,15 +393,15 @@ class PageFragment : Fragment(R.layout.fragment_page) {
     private fun setupSizeInfoBottomSheet() {
         val allDataSize = arrayOf("xs","s","m","l","xl")
         //binding.includeBottomSheet.linearLayoutSizeContainer.weightSum = productDetailData?.size?.size?.toFloat()!!
-       // binding.includeBottomSheet.linearLayoutSizeContainer.weightSum = productDetailData?.productSize?.name?.toFloat()!!
+        // binding.includeBottomSheet.linearLayoutSizeContainer.weightSum = productDetailData?.productSize?.name?.toFloat()!!
         for(i in allDataSize) {
             //data that is not on the list
             var missingData = ""
             var count = 0
-            for(j in productDetailData?.productSize!!.name) {
+            for(j in productBarcode?.productSize!!.name) {
                 if(i == j.lowercase()) {
                     break
-                } else if (i != j.lowercase() && count.equals(productDetailData?.productSize!!.name)  ) {
+                } else if (i != j.lowercase() && count.equals(productBarcode?.productSize!!.name)  ) {
                     missingData = i
                 }
                 count++
@@ -453,7 +443,6 @@ class PageFragment : Fragment(R.layout.fragment_page) {
         }
     }
 
-    //Setup for popup detail information
     private fun setupMoreInfo() {
         binding.includeBottomSheet.apply {
             val selectedSize = arrayOf("")
@@ -561,7 +550,6 @@ class PageFragment : Fragment(R.layout.fragment_page) {
         adapterSize.notifyDataSetChanged()
     }
 
-
     private fun changeThisPic(bool: ProductsGetByIdImagesModel) {
         val images = ArrayList<ProductsGetByIdImagesModel>()
 //        arrayPic.forEach { image ->
@@ -605,13 +593,13 @@ class PageFragment : Fragment(R.layout.fragment_page) {
         }
     }
 
-    companion object {
-        const val PRODUCT = "product"
+    companion object{
+        const val BARCODE = "BARCODE"
         @JvmStatic
-        fun newInstance(productId: Int) : PageFragment{
-            return PageFragment().apply {
+        fun newInstance(barcode : String) : PageTwoFragment{
+            return PageTwoFragment().apply {
                 arguments = Bundle().apply {
-                    putString(PRODUCT, productId.toString())
+                    putString(BARCODE, barcode)
                 }
             }
         }

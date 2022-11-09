@@ -1,13 +1,7 @@
-package com.alexis.shop.domain.model.product
+package com.alexis.shop.domain.model.product.barcode
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
-import kotlinx.android.parcel.RawValue
-
-
-@Parcelize
-data class ProductsByIdModel(
-    val id: Int? = null,
+data class ProductsByBarcodeModel(
+    val id: Int? = null ,
     val barcode : String? = null,
     val stockKeepingUnit : String? = null,
     val itemCode : String? = null,
@@ -24,21 +18,19 @@ data class ProductsByIdModel(
     val status : String? = null,
     val storeLocationId : Int? = null,
     val userId : Int? = null,
-    val images: @RawValue MutableList<ProductsGetByIdImagesModel> = mutableListOf(),
-    val productMaterial : ProductsGetByIdMaterialModel? = null,
-    val productSize : ProductsGetByIdSizeModel? = null,
+    val images: MutableList<ProductsGetByBarcodeImagesModel> = mutableListOf(),
+    val productMaterial : ProductsGetByBarcodeMaterialModel? = null,
+    val productSize : ProductsGetByBarcodeSizeModel? = null,
     val subProduct : SubProductItemModel? = null,
-    val productSizeList: @RawValue MutableList<ProductsGetByIdSizeModel> = mutableListOf(),
+    val productSizeList: MutableList<ProductsGetByBarcodeSizeModel> = mutableListOf(),
     val exclusiveOffer: ProductExclusiveOffer? = null,
-) : Parcelable
+)
 
-@Parcelize
-data class ProductsGetByIdImagesModel(
+data class ProductsGetByBarcodeImagesModel(
     val image: String = "",
     val type: String = ""
-) : Parcelable
+)
 
-@Parcelize
 data class SubProductItemModel(
     val id : Int? = null,
     val sequence : Int? = null,
@@ -57,26 +49,23 @@ data class SubProductItemModel(
     val packageId : Int? = null,
     val packageRealWeight : Int? = null,
     val packageVolumeWeight : Int? = null
-) : Parcelable
+)
 
-@Parcelize
-data class ProductsGetByIdSizeModel(
+data class ProductsGetByBarcodeSizeModel(
     val name: String = "",
     val id: String = "",
     var isSelected: Boolean = false
-) : Parcelable
+)
 
-@Parcelize
-data class ProductsGetByIdMaterialModel(
+data class ProductsGetByBarcodeMaterialModel(
     val name: String = "",
     val id: String = ""
-) : Parcelable
+)
 
-@Parcelize
 data class ProductExclusiveOffer(
     val id : Int = 0,
     val productItemCode : String = "",
     val redemptionPoint : Int = 0,
     val aging : Int = 0,
     val registrationDate :String = ""
-) : Parcelable
+)

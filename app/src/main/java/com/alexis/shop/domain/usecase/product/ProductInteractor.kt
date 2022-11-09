@@ -15,4 +15,8 @@ class ProductInteractor @Inject constructor(private val repository: IProductRepo
     override fun getProductById(productId: Int): Flow<Resource<ProductsByIdModel>> {
         return repository.getProductById(productId)
     }
+
+    override fun getProductByBarcode(barcode: String): Flow<Resource<ProductsByIdModel>> {
+        return repository.getProductByBarcode(barcode)
+    }
 }

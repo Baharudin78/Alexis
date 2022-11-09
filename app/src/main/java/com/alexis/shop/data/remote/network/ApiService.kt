@@ -8,6 +8,7 @@ import com.alexis.shop.data.remote.response.checkout.CheckoutAddressPostResponse
 import com.alexis.shop.data.remote.response.productbaru.ProductBaruResponse
 import com.alexis.shop.data.remote.response.voucher.VoucherResponse
 import com.alexis.shop.data.remote.response.auth.LogoutResponse
+import com.alexis.shop.data.remote.response.barcode.ProductsGetByBarcodeResponse
 import com.alexis.shop.data.remote.response.landing.LandingResponse
 import com.alexis.shop.data.remote.response.product.ProductsGetByIdResponse
 import com.alexis.shop.data.remote.response.product.category.ProductCategoryNewResponse
@@ -87,6 +88,10 @@ interface ApiService {
     @GET("mw/product-category")
     suspend fun getAllProductCategory(): ProductCategoryNewResponse
 
+    @GET("mw/products")
+    suspend fun getProductByBarcode(
+        @Query("bpcs") barcode : String
+    ) : ProductsGetByIdResponse
 
     @GET("mw/store-location")
     suspend fun getStoreHome() : AllStoreLocationResponse
@@ -95,7 +100,9 @@ interface ApiService {
     suspend fun getAllStoreLocation(): AllStoreLocationResponse
 
     @GET("mw/store-location")
-    suspend fun getStoreLocationByName(@Query("province") name: String): StoreLocationByNameResponse
+    suspend fun getStoreLocationByName(
+        @Query("province") name: String
+    ): StoreLocationByNameResponse
 
 
     @GET("mw/product-size/")

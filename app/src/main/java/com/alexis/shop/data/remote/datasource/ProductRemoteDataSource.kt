@@ -1,9 +1,11 @@
 package com.alexis.shop.data.remote.datasource
 
 import android.util.Log
+import android.widget.Toast
 import com.alexis.shop.data.remote.response.productbaru.ProductBaruResponse
 import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.data.remote.network.ApiService
+import com.alexis.shop.data.remote.response.barcode.ProductsGetByBarcodeResponse
 import com.alexis.shop.data.remote.response.product.ProductsGetByIdResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -14,21 +16,6 @@ import javax.inject.Singleton
 
 @Singleton
 class ProductRemoteDataSource @Inject constructor(private val apiService: ApiService) {
-//    suspend fun getAllProduct(): Flow<ApiResponse<ProductsResponse>> {
-//        return flow {
-//            try {
-//                val response = apiService.getAllProduct()
-//                if (response.data?.products?.isNotEmpty() == true) {
-//                    emit(ApiResponse.Success(response))
-//                } else {
-//                    emit(ApiResponse.Empty)
-//                }
-//            } catch (e: Exception) {
-//                emit(ApiResponse.Error(e.toString()))
-//                Log.e("RemoteDataSource", e.toString())
-//            }
-//        }.flowOn(Dispatchers.IO)
-//    }
 
     suspend fun getAllProduct(): Flow<ApiResponse<ProductBaruResponse>> {
         return flow {
@@ -67,4 +54,22 @@ class ProductRemoteDataSource @Inject constructor(private val apiService: ApiSer
             }
         }.flowOn(Dispatchers.IO)
     }
+
+    suspend fun getProductByBarcode(barcode : String) : Flow<ApiResponse<ProductsGetByIdResponse>> {
+        return flow {
+            try {
+                val response = apiService.getProductByBarcode(barcode)
+                if (response.data?.product != null) {
+                    emit(ApiResponse.Success(response))
+                }else{
+                    emit(ApiResponse.Empty)
+                }
+            }catch (e : Exception) {
+                emit(ApiResponse.Error(e.toString()))
+                Log.d("response", e.localizedMessage.orEmpty())
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+
 }

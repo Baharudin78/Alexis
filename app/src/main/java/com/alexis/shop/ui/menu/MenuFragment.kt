@@ -1,5 +1,6 @@
 package com.alexis.shop.ui.menu
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.animation.AnimationUtils.loadAnimation
 import android.widget.Toast
@@ -28,6 +29,7 @@ import com.alexis.shop.ui.menu.adapter.item.SocialItem
 import com.alexis.shop.ui.menu.contactus.ContactUsFragment
 import com.alexis.shop.ui.menu.helpcenter.HelpCenterFragment
 import com.alexis.shop.ui.menu.referandearn.ReferAndEarnFragment
+import com.alexis.shop.ui.menu.scanqr.ScanActivity
 import com.alexis.shop.ui.menu.scanqr.ScanQrFragment
 import com.alexis.shop.ui.menu.sizefilter.SizeFilterFragment
 import com.alexis.shop.ui.menu.storelocation.StoreLocationHomeFragment
@@ -123,7 +125,9 @@ class MenuFragment : BaseFragment<FragmentMenuBinding>(), OnClickItem{
     private fun setListener(){
         binding.apply {
             btnScan.setPushClickListener {
-                fragManager?.menuNavigator(ScanQrFragment.newInstance(MENU_FRAGMENT,""))
+                val intent = Intent(requireContext(), ScanActivity::class.java)
+                startActivity(intent)
+               // fragManager?.menuNavigator(ScanQrFragment.newInstance(MENU_FRAGMENT,""))
             }
 
             btnCancel.setPushClickListener {

@@ -8,4 +8,5 @@ import kotlinx.coroutines.flow.Flow
 interface ProductUseCase {
     fun getAllProduct(): Flow<Resource<List<ProductBaruModel>>>
     fun getProductById(productId: Int): Flow<Resource<ProductsByIdModel>>
+    fun getProductByBarcode(barcode : String) : Flow<Resource<ProductsByIdModel>>
 }
