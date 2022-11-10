@@ -159,7 +159,7 @@ class MenuFragment : BaseFragment<FragmentMenuBinding>(), OnClickItem{
                 log("${it.id} ${it.isChoosed}")
                 when(it.title) {
                     "Size Filter" -> fragManager?.menuNavigator(SizeFilterFragment())
-                    "Help Center" -> fragManager?.menuNavigator(HelpCenterFragment.newInstance("",""))
+                    "Help Center" -> fragManager?.menuNavigator(HelpCenterFragment.newInstance())
                     "About Us" -> fragManager?.menuNavigator(AboutUsFragment())
                     "Refer & Earn" -> fragManager?.menuNavigator(ReferAndEarnFragment.newInstance("",""))
                     "Contact Us" -> fragManager?.menuNavigator(ContactUsFragment.newInstance("",""))

@@ -9,23 +9,34 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.alexis.shop.R
 import com.alexis.shop.domain.model.faq.FAQModel
+import com.alexis.shop.domain.model.helpcenter.HelpCenterDetailModel
+import com.alexis.shop.utils.OnClickItem
 
 class FAQAdapter (private val context: Context,
-                  private val items : ArrayList<FAQModel>,
-                  private val onClick: (FAQModel) -> Unit
+                  private val listener : OnClickItem
 ): RecyclerView.Adapter<FAQAdapter.FAQViewHolder>() {
+
+    private var faqList = ArrayList<HelpCenterDetailModel>()
+
+    fun setDataFAQ(data : ArrayList<HelpCenterDetailModel>) {
+        faqList.clear()
+        faqList = data
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FAQViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return FAQViewHolder(inflater, parent)
     }
 
+    //                  private val items : ArrayList<FAQModel>,
+    //                  private val onClick: (FAQModel) -> Unit
     override fun onBindViewHolder(holder: FAQViewHolder, position: Int) {
-        val item : FAQModel = items[position]
+        val item : HelpCenterDetailModel = faqList[position]
         holder.bind(context, item)
 
         holder.itemView.setOnClickListener {
-            onClick(item)
+            listener.onClick(item)
 
             /**
              * trigger animation when visibility change,
@@ -36,7 +47,7 @@ class FAQAdapter (private val context: Context,
 
     }
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount(): Int = faqList.size
 
     class FAQViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
         RecyclerView.ViewHolder(inflater.inflate(R.layout.item_frequent_question, parent, false)) {
@@ -44,18 +55,15 @@ class FAQAdapter (private val context: Context,
         var layout_bawah: ConstraintLayout = itemView.findViewById(R.id.text_bottom)
         var text_bawah: TextView = itemView.findViewById(R.id.text2)
 
-        fun bind(context: Context, item: FAQModel) {
-            text_atas.text = item.getData()
+        fun bind(context: Context, item: HelpCenterDetailModel) {
+            text_atas.text = item.question
             text_atas.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_icondown, 0)
-            text_bawah.text = "Once your order has been completed, you will " +
-                    "receive an email confirmation for it. If you do not " +
-                    "receive one, contact our customer service " +
-                    "department."
+            text_bawah.text = item.answer
 
-            layout_bawah.isVisible = item.getChoosed()
+            layout_bawah.isVisible = item.choosed
 //            val slideUp = AnimationUtils.loadAnimation(context, R.anim.slide_up)
 //            val slideDown = AnimationUtils.loadAnimation(context, R.anim.slide_down)
-            when (item.getChoosed()) {
+            when (item.choosed) {
                 false -> {
                     text_atas.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_icondown, 0)
                 }

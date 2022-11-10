@@ -1,9 +1,12 @@
-package com.alexis.shop.data.remote.response.auth
+package com.alexis.shop.data.remote.datasource
 
 import android.util.Log
 import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.data.remote.network.ApiService
 import com.alexis.shop.data.remote.network.ResponseConstant
+import com.alexis.shop.data.remote.response.auth.LoginResponse
+import com.alexis.shop.data.remote.response.auth.LogoutResponse
+import com.alexis.shop.data.remote.response.auth.RegisterResponse
 import com.alexis.shop.utils.orZero
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -61,17 +64,16 @@ class AuthRemoteDataSource @Inject constructor(private val apiService: ApiServic
         }.flowOn(Dispatchers.IO)
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     suspend fun logout(): Flow<ApiResponse<LogoutResponse>>{
-        return channelFlow {
+        return flow {
             try {
                 val response = apiService.logOut()
-                send(ApiResponse.Success(response))
+                emit(ApiResponse.Success(response))
             }catch (e : Exception) {
-                send(ApiResponse.Error(e.message.toString()))
+                emit(ApiResponse.Error(e.message.toString()))
                 Log.e("RemoteDataSource", e.message.toString())
             }
-        }
+        }.flowOn(Dispatchers.IO)
     }
 
     suspend fun activate(email: String): Flow<ApiResponse<String>> {

@@ -3,6 +3,7 @@ package com.alexis.shop.di
 import com.alexis.shop.data.repository.auth.AuthRepository
 import com.alexis.shop.data.repository.checkout.CheckoutAddressRepository
 import com.alexis.shop.data.repository.city.CityRepository
+import com.alexis.shop.data.repository.helpcenter.HelpCenterRepository
 import com.alexis.shop.data.repository.landing.LandingRepository
 import com.alexis.shop.data.repository.product.ProductCategoryRepository
 import com.alexis.shop.data.repository.product.ProductRepository
@@ -13,6 +14,7 @@ import com.alexis.shop.data.repository.wishlist.WishlistRepository
 import com.alexis.shop.domain.repository.auth.IAuthRepository
 import com.alexis.shop.domain.repository.checkout.ICheckoutAddressRepository
 import com.alexis.shop.domain.repository.city.ICityRepository
+import com.alexis.shop.domain.repository.helpcenter.IHelpCenterRepository
 import com.alexis.shop.domain.repository.landing.ILandingRepository
 import com.alexis.shop.domain.repository.product.IProductCategoryRepository
 import com.alexis.shop.domain.repository.product.IProductRepository
@@ -58,4 +60,7 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun provideLandingRepository(repository : LandingRepository) : ILandingRepository
+
+    @Binds
+    abstract fun provideHelpCenterRepository(repository : HelpCenterRepository) : IHelpCenterRepository
 }

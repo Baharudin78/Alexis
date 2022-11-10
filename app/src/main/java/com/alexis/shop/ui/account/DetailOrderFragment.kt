@@ -72,7 +72,7 @@ class DetailOrderFragment : Fragment(R.layout.fragment_detail_order) {
             }
 
             infoDetailOrder.setOnClickListener {
-                requireActivity().supportFragmentManager.accountNavigator(FAQFragment.newInstance("Return","DetailOrder"))
+                requireActivity().supportFragmentManager.accountNavigator(FAQFragment.newInstance("Return"))
             }
 
             btnReturnGuide.setOnClickListener {

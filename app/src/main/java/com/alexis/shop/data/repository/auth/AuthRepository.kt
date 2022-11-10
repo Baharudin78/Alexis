@@ -2,7 +2,7 @@ package com.alexis.shop.data.repository.auth
 
 import android.util.Log
 import com.alexis.shop.data.local.AuthLocalDataSource
-import com.alexis.shop.data.remote.response.auth.AuthRemoteDataSource
+import com.alexis.shop.data.remote.datasource.AuthRemoteDataSource
 import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.domain.model.auth.ActivateUserModel
 import com.alexis.shop.domain.model.auth.LoginModel
@@ -99,12 +99,12 @@ class AuthRepository @Inject constructor(
 
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun logOut(): Flow<Resource<LogoutResponse>> {
-        return channelFlow<Resource<LogoutResponse>> {
-            send(Resource.Loading())
+        return flow<Resource<LogoutResponse>> {
+            emit(Resource.Loading())
             when(val apiResponse = remoteDataSource.logout().first()){
-                is ApiResponse.Success -> send(Resource.Success(apiResponse.data))
-                is ApiResponse.Error -> send(Resource.Error(apiResponse.errorMessage))
-                is ApiResponse.Empty -> send(Resource.Error(RESPONSE_EMPTY))
+                is ApiResponse.Success -> emit(Resource.Success(apiResponse.data))
+                is ApiResponse.Error -> emit(Resource.Error(apiResponse.errorMessage))
+                is ApiResponse.Empty -> emit(Resource.Error(RESPONSE_EMPTY))
             }
         }
     }
