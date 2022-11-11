@@ -1,5 +1,6 @@
 package com.alexis.shop.ui.main
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
@@ -26,6 +27,7 @@ import com.alexis.shop.domain.model.landing.LandingModelItem
 import com.alexis.shop.domain.model.product.category.ProductCategoryNewModel
 import com.alexis.shop.domain.model.product.modelbaru.ProductBaruModel
 import com.alexis.shop.domain.model.wishlist.WishlistModel
+import com.alexis.shop.ui.account.login.LoginFragment
 import com.alexis.shop.ui.detail.adapter.entity.SubCategoryProduct
 import com.alexis.shop.ui.detail.adapter.entity.SubCategoryTitle
 import com.alexis.shop.ui.detail.adapter.entity.SubCategoryTypeAProduct
@@ -348,6 +350,9 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                     is Resource.Error -> {
+//                        val intent = Intent(this, LoginFragment::class.java)
+//                        startActivity(intent)
+//                        finish()
                         Toast.makeText(
                             applicationContext,
                             getString(R.string.auth_error, "Get Wishlist"),

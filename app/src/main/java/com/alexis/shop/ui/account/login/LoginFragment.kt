@@ -18,6 +18,7 @@ import com.alexis.shop.utils.*
 import com.alexis.shop.utils.animation.Animations
 import com.alexis.shop.data.Resource
 import com.alexis.shop.domain.model.auth.LoginModel
+import com.alexis.shop.ui.account.voucher.VoucherFragment
 import com.alexis.shop.ui.main.MainActivity
 import com.alexis.shop.utils.prefs.SheredPreference
 import dagger.hilt.android.AndroidEntryPoint
@@ -128,6 +129,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                     }
                 }
             }
+        }
+    }
+    companion object {
+        @JvmStatic
+        fun newInstance() : LoginFragment {
+            return LoginFragment()
         }
     }
 

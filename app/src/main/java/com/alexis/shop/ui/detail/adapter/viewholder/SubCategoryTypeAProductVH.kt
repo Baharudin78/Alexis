@@ -8,7 +8,6 @@ import com.alexis.shop.ui.detail.adapter.entity.SubCategoryTypeAProduct
 import com.alexis.shop.ui.detail.adapter.factory.ItemTypeFactoryImpl
 import com.dizcoding.mylibrv.AbstractViewHolder
 import com.dizcoding.mylibrv.BaseListAdapter
-import com.thekhaeng.recyclerviewmargin.LayoutMarginDecoration
 import kotlinx.android.synthetic.main.item_recycle_only.view.*
 
 class SubCategoryTypeAProductVH(itemView: View) :
@@ -22,7 +21,7 @@ class SubCategoryTypeAProductVH(itemView: View) :
     override fun bind(element: SubCategoryTypeAProduct) {
         val adapter = BaseListAdapter(ItemTypeFactoryImpl())
         list.layoutManager = GridLayoutManager(itemView.context, 2)
-        list.addItemDecoration(LayoutMarginDecoration(2, 15))
+     //   list.addItemDecoration(LayoutMarginDecoration(2, 15))
         list.adapter = adapter
 
         element.product.forEach { item ->

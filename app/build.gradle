@@ -21,6 +21,10 @@ android {
 
         vectorDrawables.useSupportLibrary = true
     }
+    lintOptions {
+        //checkReleaseBuilds false
+        abortOnError false
+    }
 
     buildTypes {
         release {
@@ -129,7 +133,7 @@ dependencies {
     implementation project(':discretescroll')
 
     // QR CODE SCANNER
-    implementation 'com.budiyev.android:code-scanner:2.1.0'
+    implementation 'com.github.yuriy-budiyev:code-scanner:2.1.2'
 
     //DEPENDENCY INJECTION
     implementation "com.google.dagger:hilt-android:2.36"

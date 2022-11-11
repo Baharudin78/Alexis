@@ -39,11 +39,16 @@ class HelpCenterRepository @Inject constructor(
         return flow<Resource<List<HelpCenterDetailModel>>> {
             emit(Resource.Loading())
             when(val apiResponse = helpCenterDataSource.getHelpCenter().first()){
-                is ApiResponse.Success -> emit(
-                    Resource.Success(generateHelpCenterDetail(
-                       apiResponse.data.data.items.map { it.helpCenterDetail }[0] )
-                    )
-                )
+                is ApiResponse.Success -> {
+                    val testResponse = apiResponse.data.data.items.map {
+                        it.helpCenterDetail
+                    }.map {
+                        emit(
+                            Resource.Success(generateHelpCenterDetail(
+                                it
+                            )))
+                    }
+                }
                 is ApiResponse.Empty -> listOf<HelpCenterDetailModel>()
                 is ApiResponse.Error -> emit(Resource.Error(apiResponse.errorMessage))
             }

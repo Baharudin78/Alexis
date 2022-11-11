@@ -14,6 +14,7 @@ import com.alexis.shop.R
 import com.alexis.shop.data.Resource
 import com.alexis.shop.domain.model.menu.MenuModel
 import com.alexis.shop.ui.account.adapter.MyAccountAdapter
+import com.alexis.shop.ui.account.login.LoginFragment
 import com.alexis.shop.ui.account.login.LoginViewModel
 import com.alexis.shop.ui.account.profile.ProfileFragment
 import com.alexis.shop.ui.account.voucher.VoucherFragment
@@ -122,7 +123,7 @@ class MyAccountFragment : Fragment() {
                         }
                         "Logout" -> {
                             doLogOut()
-                            childFragmentManager.accountNavigator(MenuFragment.newInstance("","111"))
+                            childFragmentManager.accountNavigator(LoginFragment.newInstance())
                             requireContext().toast("Logout Successfully")
                         }
                     }
