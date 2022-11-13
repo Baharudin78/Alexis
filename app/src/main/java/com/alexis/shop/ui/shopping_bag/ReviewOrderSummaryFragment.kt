@@ -12,6 +12,8 @@ import com.alexis.shop.domain.model.product.ImageModel
 import com.alexis.shop.databinding.FragmentReviewOrderSummaryForSmallerBinding
 import com.alexis.shop.ui.shopping_bag.adapter.ImageOrderButBiggerAdapter
 import com.alexis.shop.utils.*
+import eightbitlab.com.blurview.RenderScriptBlur
+import kotlinx.android.synthetic.main.fragment_review_order_summary.*
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -44,7 +46,8 @@ class ReviewOrderSummaryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val display = requireActivity().windowManager.defaultDisplay
-
+        blurView()
+        blurView2()
         //Sample Array image on adapter list
         val images = ArrayList<ImageModel>()
         images.add(ImageModel("http://api.myalexis.xyz:3001/uploads/product_image/234234PF-AYAUB-B1-S1.png", false))
@@ -95,6 +98,30 @@ class ReviewOrderSummaryFragment : Fragment() {
             }
         }
     }
+    private fun blurView() {
+        val radius = 15f
+        val decorView : View = activity?.window!!.decorView
+        val rootView = decorView.findViewById<View>(android.R.id.content) as ViewGroup
+        val windowBackground = decorView.background
+        blurView.setupWith(rootView, RenderScriptBlur(requireContext()))
+            .setFrameClearDrawable(windowBackground)
+            .setBlurRadius(radius)
+            .setBlurAutoUpdate(true)
+    }
+
+    private fun blurView2() {
+        val radius = 15f
+        val decorView : View = activity?.window!!.decorView
+        val rootView = decorView.findViewById<View>(android.R.id.content) as ViewGroup
+        val windowBackground = decorView.background
+        blurView2.setupWith(rootView, RenderScriptBlur(requireContext()))
+            .setFrameClearDrawable(windowBackground)
+            .setBlurRadius(radius)
+            .setBlurAutoUpdate(true)
+    }
+
+
+
 
     companion object {
         @JvmStatic

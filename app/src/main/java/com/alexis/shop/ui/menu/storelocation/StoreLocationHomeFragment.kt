@@ -3,6 +3,8 @@ package com.alexis.shop.ui.menu.storelocation
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +20,7 @@ import com.alexis.shop.utils.menuNavigator
 import com.alexis.shop.utils.OnClickItem
 import com.alexis.shop.data.Resource
 import dagger.hilt.android.AndroidEntryPoint
+import eightbitlab.com.blurview.RenderScriptBlur
 
 @AndroidEntryPoint
 class StoreLocationHomeFragment : BaseFragment<FragmentStoreLocationBinding>(), OnClickItem {
@@ -33,6 +36,7 @@ class StoreLocationHomeFragment : BaseFragment<FragmentStoreLocationBinding>(), 
     }
 
     override fun main() {
+        blurView()
         storeLocationAdapter = SimpleLocationAdapter(binding.root.context, this)
         with(binding.recycleStore) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -90,6 +94,17 @@ class StoreLocationHomeFragment : BaseFragment<FragmentStoreLocationBinding>(), 
                 }, 1000L)
             }
         }
+    }
+
+    private fun blurView() {
+        val radius = 15f
+        val decorView : View = activity?.window!!.decorView
+        val rootView = decorView.findViewById<View>(android.R.id.content) as ViewGroup
+        val windowBackground = decorView.background
+        binding.blurView.setupWith(rootView, RenderScriptBlur(requireContext()))
+            .setFrameClearDrawable(windowBackground)
+            .setBlurRadius(radius)
+            .setBlurAutoUpdate(true)
     }
 
     override fun onClick(item: Any) {

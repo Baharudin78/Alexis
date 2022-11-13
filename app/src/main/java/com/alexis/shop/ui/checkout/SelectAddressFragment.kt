@@ -1,6 +1,8 @@
 package com.alexis.shop.ui.checkout
 
 import android.os.Bundle
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
@@ -17,6 +19,7 @@ import com.alexis.shop.ui.shopping_bag.adapter.SelectAddressAdapter
 import com.alexis.shop.utils.*
 import com.alexis.shop.utils.prefs.SheredPreference
 import dagger.hilt.android.AndroidEntryPoint
+import eightbitlab.com.blurview.RenderScriptBlur
 
 @AndroidEntryPoint
 class SelectAddressFragment : BaseFragment<FragmentSelectAddressBinding>() {
@@ -37,6 +40,7 @@ class SelectAddressFragment : BaseFragment<FragmentSelectAddressBinding>() {
     }
 
     override fun main() {
+        blurView()
         with(binding) {
             deliveryType1.background =
                 ContextCompat.getDrawable(requireContext(), R.drawable.rounder_white_transparent)
@@ -103,6 +107,17 @@ class SelectAddressFragment : BaseFragment<FragmentSelectAddressBinding>() {
                 }
             }
         }
+    }
+
+    private fun blurView() {
+        val radius = 15f
+        val decorView : View = activity?.window!!.decorView
+        val rootView = decorView.findViewById<View>(android.R.id.content) as ViewGroup
+        val windowBackground = decorView.background
+        binding.blurView.setupWith(rootView, RenderScriptBlur(requireContext()))
+            .setFrameClearDrawable(windowBackground)
+            .setBlurRadius(radius)
+            .setBlurAutoUpdate(true)
     }
 
     override fun onDestroyView() {

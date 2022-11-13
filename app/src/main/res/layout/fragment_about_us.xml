@@ -5,12 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.github.mmin18.widget.RealtimeBlurView
+<!--    <com.github.mmin18.widget.RealtimeBlurView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        app:realtimeBlurRadius="20dp"-->
+<!--        app:realtimeOverlayColor="@color/transparent_expanmenu" />-->
+
+
+    <eightbitlab.com.blurview.BlurView
+        android:id="@+id/blurView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:realtimeBlurRadius="20dp"
-        app:realtimeOverlayColor="@color/transparent_expanmenu" />
-
+        app:blurOverlayColor="@color/transparent_expanmenu">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -141,4 +147,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </eightbitlab.com.blurview.BlurView>
 </FrameLayout>

@@ -32,6 +32,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ExpanItemPagersActivity : AppCompatActivity() {
     private lateinit var pagerAdapter: ExpanFragmentPagerAdapter
     private lateinit var fragments: ArrayList<Fragment>
+   // private lateinit var fragment: ArrayList<Fragment>
     var productsModel: ProductBaruModel? = null
     lateinit var btn_menu: ImageView
     lateinit var btn_cart: ImageView
@@ -159,8 +160,9 @@ class ExpanItemPagersActivity : AppCompatActivity() {
         productsModel?.let {
             Log.d("APASIINI", it.toString())
             fragments = arrayListOf(
-                PageFragment.newInstance(it.id)
+                PageFragment.newInstance(it),
             )
+
             pagerAdapter = ExpanFragmentPagerAdapter(this, fragments)
             findViewById<ViewPager2>(R.id.pager).apply {
                 adapter = pagerAdapter

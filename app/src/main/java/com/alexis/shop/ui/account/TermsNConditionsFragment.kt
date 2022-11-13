@@ -16,6 +16,7 @@ import com.alexis.shop.ui.account.adapter.TermItemList
 import com.alexis.shop.utils.*
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
+import eightbitlab.com.blurview.RenderScriptBlur
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -39,6 +40,7 @@ class TermsNConditionsFragment : Fragment(R.layout.fragment_terms_n_conditions) 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        blurView()
         getTermList().map {
             termAdapter.add(TermItemList(it))
         }
@@ -64,6 +66,17 @@ class TermsNConditionsFragment : Fragment(R.layout.fragment_terms_n_conditions) 
                 else -> "PRIVACY POLICY"
             }
         }
+    }
+
+    private fun blurView() {
+        val radius = 15f
+        val decorView : View = activity?.window!!.decorView
+        val rootView = decorView.findViewById<View>(android.R.id.content) as ViewGroup
+        val windowBackground = decorView.background
+        binding.blurView.setupWith(rootView, RenderScriptBlur(requireContext()))
+            .setFrameClearDrawable(windowBackground)
+            .setBlurRadius(radius)
+            .setBlurAutoUpdate(true)
     }
 
     companion object {

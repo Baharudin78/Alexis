@@ -32,19 +32,28 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <com.github.mmin18.widget.RealtimeBlurView
-        android:id="@+id/blur_first"
+
+    <eightbitlab.com.blurview.BlurView
+        android:id="@+id/blurView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clickable="true"
         android:focusable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:realtimeBlurRadius="20dp"
-        app:realtimeOverlayColor="@color/transparent_80percent"
-        tools:ignore="SpeakableTextPresentCheck" />
+        android:clickable="true"
+        app:blurOverlayColor="@color/transparent_expanmenu"/>
+
+<!--    <com.github.mmin18.widget.RealtimeBlurView-->
+<!--        android:id="@+id/blur_first"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:clickable="true"-->
+<!--        android:focusable="true"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:realtimeBlurRadius="20dp"-->
+<!--        app:realtimeOverlayColor="@color/transparent_80percent"-->
+<!--        tools:ignore="SpeakableTextPresentCheck" />-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -302,4 +311,6 @@
         android:id="@+id/transparent_menu"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+<!--    </eightbitlab.com.blurview.BlurView>-->
 </androidx.constraintlayout.widget.ConstraintLayout>

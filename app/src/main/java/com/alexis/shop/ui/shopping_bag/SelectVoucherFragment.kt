@@ -15,6 +15,8 @@ import com.alexis.shop.R
 import com.alexis.shop.ui.menu.adapter.VoucherAdapter
 import com.alexis.shop.ui.menu.adapter.VOUCHER_SELECTOR_FRAGMENT
 import com.alexis.shop.utils.*
+import eightbitlab.com.blurview.RenderScriptBlur
+import kotlinx.android.synthetic.main.fragment_select_voucher.*
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -60,6 +62,7 @@ class SelectVoucherFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        blurView()
         image_button.resetLottieAnimation()
 
         back_button.setOnClickListener {
@@ -91,6 +94,18 @@ class SelectVoucherFragment : Fragment() {
             requireActivity().supportFragmentManager.shopNavigator(fragment)
         }
     }
+
+    private fun blurView() {
+        val radius = 15f
+        val decorView : View = activity?.window!!.decorView
+        val rootView = decorView.findViewById<View>(android.R.id.content) as ViewGroup
+        val windowBackground = decorView.background
+        blurView.setupWith(rootView, RenderScriptBlur(requireContext()))
+            .setFrameClearDrawable(windowBackground)
+            .setBlurRadius(radius)
+            .setBlurAutoUpdate(true)
+    }
+
 
     companion object {
         @JvmStatic

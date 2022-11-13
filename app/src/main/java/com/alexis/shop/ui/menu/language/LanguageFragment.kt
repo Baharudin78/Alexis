@@ -12,6 +12,8 @@ import com.alexis.shop.ui.account.MyAccountFragment
 import com.alexis.shop.utils.handleBackPressed
 import com.alexis.shop.utils.justOut
 import com.alexis.shop.utils.menuNavigator
+import eightbitlab.com.blurview.RenderScriptBlur
+import kotlinx.android.synthetic.main.fragment_language.*
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -45,6 +47,7 @@ class LanguageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        blurView()
         back_button.setOnClickListener {
             val fragment = MyAccountFragment.newInstance("","")
             requireActivity().supportFragmentManager.menuNavigator(fragment)
@@ -54,6 +57,16 @@ class LanguageFragment : Fragment() {
         }
     }
 
+    private fun blurView() {
+        val radius = 15f
+        val decorView : View = activity?.window!!.decorView
+        val rootView = decorView.findViewById<View>(android.R.id.content) as ViewGroup
+        val windowBackground = decorView.background
+        blurView.setupWith(rootView, RenderScriptBlur(requireContext()))
+            .setFrameClearDrawable(windowBackground)
+            .setBlurRadius(radius)
+            .setBlurAutoUpdate(true)
+    }
     companion object {
         @JvmStatic
         fun newInstance(param1: String, param2: String) =

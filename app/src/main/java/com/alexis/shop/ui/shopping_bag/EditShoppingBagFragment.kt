@@ -19,6 +19,8 @@ import com.alexis.shop.R
 import com.alexis.shop.utils.handleBackPressed
 import com.alexis.shop.utils.invisible
 import com.alexis.shop.utils.visible
+import eightbitlab.com.blurview.RenderScriptBlur
+import kotlinx.android.synthetic.main.fragment_edit_shopping_bag.*
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -86,6 +88,7 @@ class EditShoppingBagFragment : Fragment() {
     private var modeEdit: Boolean = false
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        blurView()
         add_btn.setOnClickListener {
             modeEdit = true
             editlay.visible()
@@ -154,6 +157,17 @@ class EditShoppingBagFragment : Fragment() {
             }
         }
     }
+    private fun blurView() {
+        val radius = 15f
+        val decorView : View = activity?.window!!.decorView
+        val rootView = decorView.findViewById<View>(android.R.id.content) as ViewGroup
+        val windowBackground = decorView.background
+        blurView.setupWith(rootView, RenderScriptBlur(requireContext()))
+            .setFrameClearDrawable(windowBackground)
+            .setBlurRadius(radius)
+            .setBlurAutoUpdate(true)
+    }
+
 
     companion object {
         @JvmStatic

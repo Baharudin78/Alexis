@@ -29,6 +29,8 @@ import com.alexis.shop.utils.prefs.SheredPreference
 import com.alexis.shop.utils.toast
 import com.google.android.material.transition.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
+import eightbitlab.com.blurview.RenderScriptBlur
+import kotlinx.android.synthetic.main.fragment_my_account.*
 import kotlinx.coroutines.withContext
 import kotlin.concurrent.thread
 
@@ -74,6 +76,7 @@ class MyAccountFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        blurView()
         cancel_button.setOnClickListener {
             requireActivity().supportFragmentManager.accountNavigator(MenuFragment.newInstance("","222"))
         }
@@ -170,6 +173,17 @@ class MyAccountFragment : Fragment() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    private fun blurView() {
+        val radius = 15f
+        val decorView : View = activity?.window!!.decorView
+        val rootView = decorView.findViewById<View>(android.R.id.content) as ViewGroup
+        val windowBackground = decorView.background
+        blurView.setupWith(rootView, RenderScriptBlur(requireContext()))
+            .setFrameClearDrawable(windowBackground)
+            .setBlurRadius(radius)
+            .setBlurAutoUpdate(true)
     }
 
     companion object {

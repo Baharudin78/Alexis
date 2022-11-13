@@ -3,6 +3,8 @@ package com.alexis.shop.ui.account.register
 import android.app.Activity
 import android.os.Build
 import android.text.Html
+import android.view.View
+import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -14,6 +16,7 @@ import com.alexis.shop.ui.account.login.LoginFragment
 import com.alexis.shop.utils.*
 import com.alexis.shop.data.Resource
 import dagger.hilt.android.AndroidEntryPoint
+import eightbitlab.com.blurview.RenderScriptBlur
 
 @AndroidEntryPoint
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
@@ -22,6 +25,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
     override fun getViewBinding() = FragmentRegisterBinding.inflate(layoutInflater)
 
     override fun main() {
+        blurView()
         val textTerms = "<a>I agree to connect my account in accordance with the" +
                 "<font color=\"#FFFFFF\"> <strong>Terms and Conditions</strong> </font>" +
                 "and <font color=\"#FFFFFF\"><strong>Privacy Policy</strong> </font> </a>"
@@ -115,6 +119,17 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                 }
             }
         }
+    }
+
+    private fun blurView() {
+        val radius = 15f
+        val decorView : View = activity?.window!!.decorView
+        val rootView = decorView.findViewById<View>(android.R.id.content) as ViewGroup
+        val windowBackground = decorView.background
+        binding.blurView.setupWith(rootView, RenderScriptBlur(requireContext()))
+            .setFrameClearDrawable(windowBackground)
+            .setBlurRadius(radius)
+            .setBlurAutoUpdate(true)
     }
 
     private fun changeButtonRegisterStatus(state: Boolean) {

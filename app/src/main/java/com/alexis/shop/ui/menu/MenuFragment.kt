@@ -2,6 +2,8 @@ package com.alexis.shop.ui.menu
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.view.ViewGroup
 import android.view.animation.AnimationUtils.loadAnimation
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
@@ -13,15 +15,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexis.shop.BaseFragment
 import com.alexis.shop.R
 import com.alexis.shop.data.Resource
-import com.alexis.shop.domain.model.menu.MenuModel
 import com.alexis.shop.data.source.dummy.getMenuList
 import com.alexis.shop.databinding.FragmentMenuBinding
+import com.alexis.shop.domain.model.menu.MenuModel
 import com.alexis.shop.domain.model.product.category.ProductCategoryNewItem
 import com.alexis.shop.ui.account.MyAccountFragment
 import com.alexis.shop.ui.account.login.LoginFragment
 import com.alexis.shop.ui.main.MainActivity
 import com.alexis.shop.ui.main.MainViewModel
-import com.alexis.shop.ui.menu.scanqr.ScanQrFragment.Companion.MENU_FRAGMENT
 import com.alexis.shop.ui.menu.aboutus.AboutUsFragment
 import com.alexis.shop.ui.menu.adapter.category.ProductCategoryNewAdapter
 import com.alexis.shop.ui.menu.adapter.item.MenuItem
@@ -30,7 +31,6 @@ import com.alexis.shop.ui.menu.contactus.ContactUsFragment
 import com.alexis.shop.ui.menu.helpcenter.HelpCenterFragment
 import com.alexis.shop.ui.menu.referandearn.ReferAndEarnFragment
 import com.alexis.shop.ui.menu.scanqr.ScanActivity
-import com.alexis.shop.ui.menu.scanqr.ScanQrFragment
 import com.alexis.shop.ui.menu.sizefilter.SizeFilterFragment
 import com.alexis.shop.ui.menu.storelocation.StoreLocationHomeFragment
 import com.alexis.shop.utils.*
@@ -39,6 +39,9 @@ import com.google.android.material.transition.MaterialFadeThrough
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
+import eightbitlab.com.blurview.RenderEffectBlur
+import eightbitlab.com.blurview.RenderScriptBlur
+
 
 @AndroidEntryPoint
 class MenuFragment : BaseFragment<FragmentMenuBinding>(), OnClickItem{
@@ -87,6 +90,7 @@ class MenuFragment : BaseFragment<FragmentMenuBinding>(), OnClickItem{
             layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL, false)
             adapter = adapterCategory
         }
+        blurView()
         getProductCategory()
         menuAdapter.clear()
         sosmedAdapter.clear()
@@ -122,6 +126,7 @@ class MenuFragment : BaseFragment<FragmentMenuBinding>(), OnClickItem{
         }
     }
 
+
     private fun setListener(){
         binding.apply {
             btnScan.setPushClickListener {
@@ -150,6 +155,17 @@ class MenuFragment : BaseFragment<FragmentMenuBinding>(), OnClickItem{
 
             btnScan.startAnimation(anim)
         }
+    }
+
+    private fun blurView() {
+       val radius = 15f
+        val decorView : View = activity?.window!!.decorView
+        val rootView = decorView.findViewById<View>(android.R.id.content) as ViewGroup
+        val windowBackground = decorView.background
+        binding.blurView.setupWith(rootView, RenderScriptBlur(requireContext()))
+            .setFrameClearDrawable(windowBackground)
+            .setBlurRadius(radius)
+            .setBlurAutoUpdate(true)
     }
 
     private fun addDataMenuAdapter() {
@@ -205,6 +221,9 @@ class MenuFragment : BaseFragment<FragmentMenuBinding>(), OnClickItem{
             sosmedAdapter.add(SocialItem(requireContext(), sosmed))
         }
     }
+
+
+
 
     private fun changeChosen(item: MenuModel) {
         val menus = ArrayList<MenuModel>()

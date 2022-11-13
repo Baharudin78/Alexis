@@ -5,6 +5,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +24,7 @@ import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ErrorCallback
 import com.budiyev.android.codescanner.ScanMode
 import dagger.hilt.android.AndroidEntryPoint
+import eightbitlab.com.blurview.RenderScriptBlur
 
 @AndroidEntryPoint
 class ScanActivity : AppCompatActivity() {
@@ -34,7 +37,7 @@ class ScanActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityScanBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        blurView()
         listener()
         getPermission()
         startScanner()
@@ -89,6 +92,17 @@ class ScanActivity : AppCompatActivity() {
     private fun reScan() {
         codeScanner.startPreview()
         binding.tvCode.text = "Z6F5L323107-10700726"
+    }
+
+    private fun blurView() {
+        val radius = 15f
+        val decorView : View = window!!.decorView
+        val rootView = decorView.findViewById<View>(android.R.id.content) as ViewGroup
+        val windowBackground = decorView.background
+        binding.blurView.setupWith(rootView, RenderScriptBlur(this))
+            .setFrameClearDrawable(windowBackground)
+            .setBlurRadius(radius)
+            .setBlurAutoUpdate(true)
     }
     private fun getProductByBarcode(barcode : String) {
         viewModel.getProductByBarcode(barcode).observe(this){ response ->

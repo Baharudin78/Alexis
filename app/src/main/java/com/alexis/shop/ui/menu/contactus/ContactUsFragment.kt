@@ -26,6 +26,7 @@ import com.alexis.shop.utils.animation.Animations
 import com.alexis.shop.utils.handleBackPressed
 import com.alexis.shop.utils.justOut
 import dagger.hilt.android.AndroidEntryPoint
+import eightbitlab.com.blurview.RenderScriptBlur
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -58,6 +59,7 @@ class ContactUsFragment : BaseFragment<FragmentContactUsBinding>(), OnClickItem 
 
     override fun main() {
         super.main()
+        blurView()
         contactAdapter = ContactAdapter(binding.root.context, this)
         with(binding.recycleListmenu) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -164,6 +166,17 @@ class ContactUsFragment : BaseFragment<FragmentContactUsBinding>(), OnClickItem 
 //            }
 //        }
 //    }
+
+    private fun blurView() {
+        val radius = 15f
+        val decorView : View = activity?.window!!.decorView
+        val rootView = decorView.findViewById<View>(android.R.id.content) as ViewGroup
+        val windowBackground = decorView.background
+        binding.blurView.setupWith(rootView, RenderScriptBlur(requireContext()))
+            .setFrameClearDrawable(windowBackground)
+            .setBlurRadius(radius)
+            .setBlurAutoUpdate(true)
+    }
 
     companion object {
         @JvmStatic

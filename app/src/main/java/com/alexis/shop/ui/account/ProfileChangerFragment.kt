@@ -21,6 +21,8 @@ import com.alexis.shop.utils.common.withDelayTime
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.android.material.textfield.TextInputLayout.END_ICON_PASSWORD_TOGGLE
+import eightbitlab.com.blurview.RenderScriptBlur
+import kotlinx.android.synthetic.main.fragment_profile_changer.*
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -86,6 +88,7 @@ class ProfileChangerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        blurView()
         back_button.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
@@ -232,6 +235,18 @@ class ProfileChangerFragment : Fragment() {
         endIconDrawable = null
         setHintTextAppearance(R.style.regularText)
     }
+
+    private fun blurView() {
+        val radius = 15f
+        val decorView : View = activity?.window!!.decorView
+        val rootView = decorView.findViewById<View>(android.R.id.content) as ViewGroup
+        val windowBackground = decorView.background
+        blurView.setupWith(rootView, RenderScriptBlur(requireContext()))
+            .setFrameClearDrawable(windowBackground)
+            .setBlurRadius(radius)
+            .setBlurAutoUpdate(true)
+    }
+
 
     companion object {
         @JvmStatic

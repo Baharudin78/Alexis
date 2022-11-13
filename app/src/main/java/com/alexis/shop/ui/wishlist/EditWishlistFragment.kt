@@ -20,6 +20,8 @@ import com.alexis.shop.utils.common.withDelay
 import com.alexis.shop.utils.handleBackPressed
 import com.alexis.shop.utils.wishlistNavigator
 import dagger.hilt.android.AndroidEntryPoint
+import eightbitlab.com.blurview.RenderScriptBlur
+import kotlinx.android.synthetic.main.fragment_menu.*
 
 private const val ARG_PARAM1 = "param1"
 
@@ -58,7 +60,7 @@ class EditWishlistFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        blurView()
         back_btn.setOnClickListener {
             val rtc = AnimationUtils.loadAnimation(requireContext(), R.anim.to_top_left)
             whole_item.startAnimation(rtc)
@@ -102,6 +104,17 @@ class EditWishlistFragment : Fragment() {
             normalTextUnchoosen(unchoose)
             postShoppingBag("XL")
         }
+    }
+
+    private fun blurView() {
+        val radius = 15f
+        val decorView : View = activity?.window!!.decorView
+        val rootView = decorView.findViewById<View>(android.R.id.content) as ViewGroup
+        val windowBackground = decorView.background
+        blurView.setupWith(rootView, RenderScriptBlur(requireContext()))
+            .setFrameClearDrawable(windowBackground)
+            .setBlurRadius(radius)
+            .setBlurAutoUpdate(true)
     }
 
     private fun postShoppingBag(size: String) {

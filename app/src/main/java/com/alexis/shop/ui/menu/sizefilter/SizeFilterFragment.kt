@@ -20,6 +20,8 @@ import com.alexis.shop.domain.model.sizefilter.SizeFilterModel
 import com.alexis.shop.utils.animation.Animations
 import com.alexis.shop.utils.handleBackPressed
 import dagger.hilt.android.AndroidEntryPoint
+import eightbitlab.com.blurview.RenderScriptBlur
+import kotlinx.android.synthetic.main.fragment_size_filter.*
 
 @AndroidEntryPoint
 class SizeFilterFragment : Fragment() {
@@ -47,7 +49,7 @@ class SizeFilterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         this.init(view)
-
+        blurView()
         getSizeFilterData()
 
         Animations.runAnimation(
@@ -116,6 +118,16 @@ class SizeFilterFragment : Fragment() {
         initRecyclerView(mainData)
     }
 
+    private fun blurView() {
+        val radius = 15f
+        val decorView : View = activity?.window!!.decorView
+        val rootView = decorView.findViewById<View>(android.R.id.content) as ViewGroup
+        val windowBackground = decorView.background
+        blurView.setupWith(rootView, RenderScriptBlur(requireContext()))
+            .setFrameClearDrawable(windowBackground)
+            .setBlurRadius(radius)
+            .setBlurAutoUpdate(true)
+    }
     private fun initRecyclerView(mainData: ArrayList<List<SizeFilterModel>>) {
         sizeAdapter.setData(mainData)
         recyclerViewSize.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL ,false)

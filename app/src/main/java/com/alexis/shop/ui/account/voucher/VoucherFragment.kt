@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -20,6 +22,7 @@ import com.alexis.shop.utils.handleBackPressed
 import com.alexis.shop.utils.justOut
 import com.alexis.shop.utils.prefs.SheredPreference
 import dagger.hilt.android.AndroidEntryPoint
+import eightbitlab.com.blurview.RenderScriptBlur
 import javax.inject.Inject
 
 
@@ -42,6 +45,7 @@ class VoucherFragment : BaseFragment<FragmentVoucherBinding>(), OnClickItem {
     }
 
     override fun main() {
+        blurView()
         voucherAdapter = SimpleVoucherAdapter(binding.root.context, this)
         with(binding.recycleVoucher) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -101,6 +105,16 @@ class VoucherFragment : BaseFragment<FragmentVoucherBinding>(), OnClickItem {
         }
     }
 
+    private fun blurView() {
+        val radius = 15f
+        val decorView : View = activity?.window!!.decorView
+        val rootView = decorView.findViewById<View>(android.R.id.content) as ViewGroup
+        val windowBackground = decorView.background
+        binding.blurView.setupWith(rootView, RenderScriptBlur(requireContext()))
+            .setFrameClearDrawable(windowBackground)
+            .setBlurRadius(radius)
+            .setBlurAutoUpdate(true)
+    }
     companion object {
         @JvmStatic
         fun newInstance() : VoucherFragment {

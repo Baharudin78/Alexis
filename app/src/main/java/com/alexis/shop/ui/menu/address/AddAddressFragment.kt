@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.widget.*
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
@@ -21,6 +22,7 @@ import com.alexis.shop.ui.checkout.address.CityViewModel
 import com.alexis.shop.utils.*
 import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
+import eightbitlab.com.blurview.RenderScriptBlur
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
@@ -62,6 +64,7 @@ class AddAddressFragment : BaseFragment<FragmentAddAddressBinding>() {
 
     override fun main() {
         super.main()
+        blurView()
         var job : Job? = null
         val editText: AutoCompleteTextView = binding.kecSpin
         adapterkecamatan = ArrayAdapter<String>(
@@ -182,6 +185,16 @@ class AddAddressFragment : BaseFragment<FragmentAddAddressBinding>() {
         }
     }
 
+    private fun blurView() {
+        val radius = 15f
+        val decorView : View = activity?.window!!.decorView
+        val rootView = decorView.findViewById<View>(android.R.id.content) as ViewGroup
+        val windowBackground = decorView.background
+        binding.blurView.setupWith(rootView, RenderScriptBlur(requireContext()))
+            .setFrameClearDrawable(windowBackground)
+            .setBlurRadius(radius)
+            .setBlurAutoUpdate(true)
+    }
     companion object {
         val SELECT_ADDRESS = 1
         val CHANGE_ADDRESS = 2

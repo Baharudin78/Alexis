@@ -21,6 +21,7 @@ import com.alexis.shop.ui.menu.adapter.FAQAdapter
 import com.alexis.shop.ui.menu.helpcenter.HelpCenterViewModel
 import com.alexis.shop.utils.*
 import dagger.hilt.android.AndroidEntryPoint
+import eightbitlab.com.blurview.RenderScriptBlur
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -51,6 +52,7 @@ class FAQFragment : BaseFragment<FragmentFrequenlyQuestionsBinding>(), OnClickIt
 
     override fun main() {
         super.main()
+        blurView()
         adapterFaq = FAQAdapter(binding.root.context, this)
         with(binding.recycleOrder) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -147,6 +149,17 @@ class FAQFragment : BaseFragment<FragmentFrequenlyQuestionsBinding>(), OnClickIt
         listFaq.clear()
         listFaq.addAll(faqs)
         adapterFaq.notifyDataSetChanged()
+    }
+
+    private fun blurView() {
+        val radius = 15f
+        val decorView : View = activity?.window!!.decorView
+        val rootView = decorView.findViewById<View>(android.R.id.content) as ViewGroup
+        val windowBackground = decorView.background
+        binding.blurView.setupWith(rootView, RenderScriptBlur(requireContext()))
+            .setFrameClearDrawable(windowBackground)
+            .setBlurRadius(radius)
+            .setBlurAutoUpdate(true)
     }
     
     companion object {

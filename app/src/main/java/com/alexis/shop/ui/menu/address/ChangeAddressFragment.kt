@@ -15,6 +15,8 @@ import com.alexis.shop.ui.account.MyAccountFragment
 import com.alexis.shop.ui.menu.address.AddAddressFragment.Companion.CHANGE_ADDRESS
 import com.alexis.shop.ui.menu.adapter.ChangeAddressAdapter
 import com.alexis.shop.utils.*
+import eightbitlab.com.blurview.RenderScriptBlur
+import kotlinx.android.synthetic.main.fragment_change_address.*
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -58,6 +60,7 @@ class ChangeAddressFragment : Fragment(), OnClickItem {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        blurView()
         cancel_button.setOnClickListener {
             justOut()
         }
@@ -92,6 +95,17 @@ class ChangeAddressFragment : Fragment(), OnClickItem {
 
     override fun onClick(item: Any) {
         log(item.toString())
+    }
+
+    private fun blurView() {
+        val radius = 15f
+        val decorView : View = activity?.window!!.decorView
+        val rootView = decorView.findViewById<View>(android.R.id.content) as ViewGroup
+        val windowBackground = decorView.background
+        blurView.setupWith(rootView, RenderScriptBlur(requireContext()))
+            .setFrameClearDrawable(windowBackground)
+            .setBlurRadius(radius)
+            .setBlurAutoUpdate(true)
     }
 
     companion object {

@@ -233,7 +233,7 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         forceStatusBar(window, false)
         changeTopBarsColor(booleanColor)
-        if (blur_first.isVisible) {
+        if (blurView.isVisible) {
             hideBlur()
         }
     }
@@ -244,10 +244,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun hideBlur() {
-        blur_first.visible()
+        blurView.visible()
 
         withDelayTime(1000) {
-            blur_first.invisible()
+            blurView.invisible()
         }
     }
 

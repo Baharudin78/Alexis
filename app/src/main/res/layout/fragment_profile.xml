@@ -4,11 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.github.mmin18.widget.RealtimeBlurView
+
+
+    <eightbitlab.com.blurview.BlurView
+        android:id="@+id/blurView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:realtimeBlurRadius="20dp"
-        app:realtimeOverlayColor="@color/transparent_expanmenu" />
+        app:blurOverlayColor="@color/transparent_expanmenu">
+<!--    <com.github.mmin18.widget.RealtimeBlurView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        app:realtimeBlurRadius="20dp"-->
+<!--        app:realtimeOverlayColor="@color/transparent_expanmenu" />-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:clickable="true"
         android:focusable="true"
@@ -569,4 +576,5 @@
             </LinearLayout>
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </eightbitlab.com.blurview.BlurView>
 </FrameLayout>

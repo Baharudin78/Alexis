@@ -21,6 +21,7 @@ import com.alexis.shop.ui.menu.adapter.OrderDetailAdapter
 import com.alexis.shop.utils.*
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
+import eightbitlab.com.blurview.RenderScriptBlur
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -51,6 +52,7 @@ class DetailOrderFragment : Fragment(R.layout.fragment_detail_order) {
         } else {
             binding.infoDetailOrder.text = Html.fromHtml(infoReturnGuide)
         }
+        blurView()
 
         TrackingList.getTrackingList().map {
             trackingAdapter.add(TrackingItemList(it))
@@ -106,6 +108,16 @@ class DetailOrderFragment : Fragment(R.layout.fragment_detail_order) {
                 }
             }
         }
+    }
+    private fun blurView() {
+        val radius = 15f
+        val decorView : View = activity?.window!!.decorView
+        val rootView = decorView.findViewById<View>(android.R.id.content) as ViewGroup
+        val windowBackground = decorView.background
+        binding.blurView.setupWith(rootView, RenderScriptBlur(requireContext()))
+            .setFrameClearDrawable(windowBackground)
+            .setBlurRadius(radius)
+            .setBlurAutoUpdate(true)
     }
 
     companion object {

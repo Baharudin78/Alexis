@@ -16,6 +16,8 @@ import com.alexis.shop.R
 import com.alexis.shop.utils.animation.Animations
 import com.alexis.shop.utils.handleBackPressed
 import com.alexis.shop.utils.justOut
+import eightbitlab.com.blurview.RenderScriptBlur
+import kotlinx.android.synthetic.main.fragment_about_us.*
 
 class AboutUsFragment : Fragment() {
     lateinit var cancel_button: ImageView
@@ -55,6 +57,7 @@ class AboutUsFragment : Fragment() {
             this.contact_wa,
             this.textTitle
         )
+        blurView()
 
         cancel_button.setOnClickListener {
 
@@ -108,5 +111,15 @@ class AboutUsFragment : Fragment() {
                 Toast.makeText(activity, "Error/n$e", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+    private fun blurView() {
+        val radius = 15f
+        val decorView : View = activity?.window!!.decorView
+        val rootView = decorView.findViewById<View>(android.R.id.content) as ViewGroup
+        val windowBackground = decorView.background
+        blurView.setupWith(rootView, RenderScriptBlur(requireContext()))
+            .setFrameClearDrawable(windowBackground)
+            .setBlurRadius(radius)
+            .setBlurAutoUpdate(true)
     }
 }

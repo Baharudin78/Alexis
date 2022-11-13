@@ -14,6 +14,8 @@ import com.alexis.shop.ui.menu.MenuFragment
 import com.alexis.shop.ui.menu.adapter.ReferAndEarnAdapter
 import com.alexis.shop.utils.handleBackPressed
 import com.alexis.shop.utils.justOut
+import eightbitlab.com.blurview.RenderScriptBlur
+import kotlinx.android.synthetic.main.fragment_refer_and_earn.*
 
 class ReferAndEarnFragment : Fragment() {
     private var mParam1: String? = null
@@ -49,7 +51,7 @@ class ReferAndEarnFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         title.text = "Refer & Earn"
-
+        blurView()
         cancel_button.setOnClickListener {
             justOut()
         }
@@ -74,6 +76,17 @@ class ReferAndEarnFragment : Fragment() {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = ReferAndEarnAdapter(viewLifecycleOwner, arrayReferal)
         }
+    }
+
+    private fun blurView() {
+        val radius = 15f
+        val decorView : View = activity?.window!!.decorView
+        val rootView = decorView.findViewById<View>(android.R.id.content) as ViewGroup
+        val windowBackground = decorView.background
+        blurView.setupWith(rootView, RenderScriptBlur(requireContext()))
+            .setFrameClearDrawable(windowBackground)
+            .setBlurRadius(radius)
+            .setBlurAutoUpdate(true)
     }
 
     companion object {

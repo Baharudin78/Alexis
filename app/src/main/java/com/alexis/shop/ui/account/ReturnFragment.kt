@@ -3,6 +3,7 @@ package com.alexis.shop.ui.account
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -16,6 +17,7 @@ import com.alexis.shop.utils.handleBackPressed
 import com.alexis.shop.utils.justOut
 import com.alexis.shop.utils.OnReturnClickItem
 import com.alexis.shop.utils.resetLottieAnimation
+import eightbitlab.com.blurview.RenderScriptBlur
 
 class ReturnFragment : Fragment(R.layout.fragment_return) {
     private var param1: String? = null
@@ -36,7 +38,7 @@ class ReturnFragment : Fragment(R.layout.fragment_return) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        blurView()
         binding.submitglide.resetLottieAnimation()
 
         binding.btnBack.setOnClickListener {
@@ -169,6 +171,17 @@ class ReturnFragment : Fragment(R.layout.fragment_return) {
         arrayItem.clear()
         arrayItem.addAll(ccc)
         adapterItem.notifyDataSetChanged()
+    }
+
+    private fun blurView() {
+        val radius = 15f
+        val decorView : View = activity?.window!!.decorView
+        val rootView = decorView.findViewById<View>(android.R.id.content) as ViewGroup
+        val windowBackground = decorView.background
+        binding.blurView.setupWith(rootView, RenderScriptBlur(requireContext()))
+            .setFrameClearDrawable(windowBackground)
+            .setBlurRadius(radius)
+            .setBlurAutoUpdate(true)
     }
 
     companion object {

@@ -1,6 +1,8 @@
 package com.alexis.shop.ui.wishlist
 
 import android.os.Bundle
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
@@ -14,6 +16,7 @@ import com.alexis.shop.utils.*
 import com.alexis.shop.utils.prefs.SheredPreference
 import com.google.android.material.transition.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
+import eightbitlab.com.blurview.RenderScriptBlur
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -49,6 +52,7 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding>(), OnWishlistClic
 
     override fun main() {
         setAdapter()
+        blurView()
         binding.btnCancel.setOnClickListener {
             justOut()
         }
@@ -127,6 +131,17 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding>(), OnWishlistClic
                 item as WishlistModel
             )
         )
+    }
+
+    private fun blurView() {
+        val radius = 15f
+        val decorView : View = activity?.window!!.decorView
+        val rootView = decorView.findViewById<View>(android.R.id.content) as ViewGroup
+        val windowBackground = decorView.background
+        binding.blurView.setupWith(rootView, RenderScriptBlur(requireContext()))
+            .setFrameClearDrawable(windowBackground)
+            .setBlurRadius(radius)
+            .setBlurAutoUpdate(true)
     }
 
     companion object {

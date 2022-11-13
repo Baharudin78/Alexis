@@ -20,6 +20,8 @@ import com.alexis.shop.ui.shopping_bag.adapter.ShoppingBagAdapter
 import com.alexis.shop.utils.*
 import com.google.android.material.transition.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
+import eightbitlab.com.blurview.RenderScriptBlur
+import kotlinx.android.synthetic.main.fragment_shopping_bag.*
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -57,6 +59,7 @@ class ShoppingBagFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        blurView()
         getShoppingBag()
         image_button.resetLottieAnimation()
 
@@ -177,6 +180,17 @@ class ShoppingBagFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         StatusBarUtil.forceStatusBar(requireActivity().window, true)
+    }
+
+    private fun blurView() {
+        val radius = 15f
+        val decorView : View = activity?.window!!.decorView
+        val rootView = decorView.findViewById<View>(android.R.id.content) as ViewGroup
+        val windowBackground = decorView.background
+        blurView.setupWith(rootView, RenderScriptBlur(requireContext()))
+            .setFrameClearDrawable(windowBackground)
+            .setBlurRadius(radius)
+            .setBlurAutoUpdate(true)
     }
 
     companion object {

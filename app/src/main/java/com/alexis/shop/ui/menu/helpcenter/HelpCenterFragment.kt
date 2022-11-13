@@ -25,6 +25,7 @@ import com.alexis.shop.utils.menuNavigator
 import com.alexis.shop.utils.OnClickItem
 import com.alexis.shop.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
+import eightbitlab.com.blurview.RenderScriptBlur
 import kotlinx.android.synthetic.main.item_product_category_new.*
 
 @AndroidEntryPoint
@@ -43,6 +44,7 @@ class HelpCenterFragment : BaseFragment<FragmentHelpCenterBinding>(), OnClickIte
 
     override fun main() {
         super.main()
+        blurView()
         helpCenterAdapter = HelpCenterAdapter(binding.root.context, this)
         with(binding.recycleListmenu) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -138,6 +140,17 @@ class HelpCenterFragment : BaseFragment<FragmentHelpCenterBinding>(), OnClickIte
         requireActivity().supportFragmentManager.menuNavigator(
             FAQFragment.newInstance(item.name)
         )
+    }
+
+    private fun blurView() {
+        val radius = 15f
+        val decorView : View = activity?.window!!.decorView
+        val rootView = decorView.findViewById<View>(android.R.id.content) as ViewGroup
+        val windowBackground = decorView.background
+        binding.blurView.setupWith(rootView, RenderScriptBlur(requireContext()))
+            .setFrameClearDrawable(windowBackground)
+            .setBlurRadius(radius)
+            .setBlurAutoUpdate(true)
     }
 
     companion object {

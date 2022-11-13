@@ -58,6 +58,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class PageFragment : Fragment(R.layout.fragment_page) {
     private var productId : Int = 0
+    private var itemCode : String = ""
    // private var barcode : String = ""
     private val viewModel: DetailViewModel by viewModels()
   //  private val barcodeViewModel : ScanBarcodeViewModel by viewModels()
@@ -87,24 +88,31 @@ class PageFragment : Fragment(R.layout.fragment_page) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedPref = SheredPreference(requireContext())
+//        if (arguments != null) {
+//            productId = requireArguments().getString(PRODUCT).orEmpty().toInt()
+//            Log.d("DAFASJHDADiddd", "$productId")
+//            Log.d("DAFASJHDADiddd", "${product?.item_code}")
+//        }
         if (arguments != null) {
-            productId = requireArguments().getString(PRODUCT).orEmpty().toInt()
-            Log.d("DAFASJHDADiddd", "$productId")
+            product = requireArguments().getParcelable(PRODUCT)
+            Log.d("DAFASJHDADiddd", "$product")
         }
 
-        arguments?.let {
-            product = it.getParcelable(PRODUCT)
-            Log.d("FDNFSJDNFSODFN", "$product")
-
-        }
+//        arguments?.let {
+//            product = it.getParcelable(PRODUCT)
+//            Log.d("FDNFSJDNFSODFN", "$product")
+//
+//        }
         requireActivity().onBackPressedDispatcher.addCallback(this, closeBottomSheetOnBackPressed)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupMoreInfo()
-        getProductById(productId)
+        getProductById(product?.id.orZero())
+        var produkIdCode = product?.product_image?.map { it.product_item_code }
         Log.d("Pjsdalsjdlfjijfiod","$productId")
+        Log.d("Pjsdalsjdlfjijfiod","$produkIdCode")
         (requireActivity() as ExpanItemPagersActivity).onAnimateHandler = {
             startAnimation()
         }
@@ -607,11 +615,20 @@ class PageFragment : Fragment(R.layout.fragment_page) {
 
     companion object {
         const val PRODUCT = "product"
+        const val PRODUCT2 = "product"
         @JvmStatic
-        fun newInstance(productId: Int) : PageFragment{
+        fun newInstance(productId: ProductBaruModel) : PageFragment{
             return PageFragment().apply {
                 arguments = Bundle().apply {
-                    putString(PRODUCT, productId.toString())
+                    putParcelable(PRODUCT, productId)
+                }
+            }
+        }
+        fun productInstance(product : String) : PageFragment{
+            return PageFragment().apply {
+                arguments = Bundle().apply {
+                    putString(PRODUCT2, product)
+                  //  putString(PRODUCT, product)
                 }
             }
         }

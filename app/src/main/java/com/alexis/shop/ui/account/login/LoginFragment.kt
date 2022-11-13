@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.View
+import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -22,6 +24,7 @@ import com.alexis.shop.ui.account.voucher.VoucherFragment
 import com.alexis.shop.ui.main.MainActivity
 import com.alexis.shop.utils.prefs.SheredPreference
 import dagger.hilt.android.AndroidEntryPoint
+import eightbitlab.com.blurview.RenderScriptBlur
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>() {
@@ -35,6 +38,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     }
     override fun main() {
         handleBackPressed()
+        blurView()
         with(binding) {
             edEmail.requestFocus()
             val imm: InputMethodManager =
@@ -84,6 +88,17 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 edPassword.passwordIsVisible(true)
             }
         }
+    }
+
+    private fun blurView() {
+        val radius = 15f
+        val decorView : View = activity?.window!!.decorView
+        val rootView = decorView.findViewById<View>(android.R.id.content) as ViewGroup
+        val windowBackground = decorView.background
+        binding.blurView.setupWith(rootView, RenderScriptBlur(requireContext()))
+            .setFrameClearDrawable(windowBackground)
+            .setBlurRadius(radius)
+            .setBlurAutoUpdate(true)
     }
 
     private fun validateLogin() {
