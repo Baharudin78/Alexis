@@ -16,7 +16,10 @@ import com.alexis.shop.utils.*
 import com.alexis.shop.utils.animation.Animations
 import com.alexis.shop.utils.common.withDelay
 
-class ShoppingBagAdapter (private val listener: OnShoppingBagClickItem) : RecyclerView.Adapter<ShoppingBagViewHolder>() {
+class ShoppingBagAdapter (
+    private val context: Context,
+    private val listener: OnShoppingBagClickItem
+    ) : RecyclerView.Adapter<ShoppingBagViewHolder>() {
 
     private var contactList: ArrayList<ShoppingBagModel> = ArrayList()
 

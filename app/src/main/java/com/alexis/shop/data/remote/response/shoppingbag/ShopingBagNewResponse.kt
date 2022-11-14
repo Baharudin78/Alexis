@@ -1,22 +1,32 @@
-package com.alexis.shop.domain.model.shoppingbag
+package com.alexis.shop.data.remote.response.shoppingbag
 
-data class ShopingBagListModel(
-    var bag : List<ShoppingBagModel> = mutableListOf()
+data class ShopingBagNewResponse(
+    val code: Int,
+    val `data`: ShopingBagList,
+    val error: Any,
+    val status: String
 )
 
-data class ShoppingBagModel(
+data class ShopingBagList(
+    val items: List<ShopingBagItem>
+)
+
+data class ShopingBagItem(
     val customer_id: Int,
     val final_price: Int,
     val id: Int,
     val price: Int,
-    val product: ShopingProductModel?,
+    val product: ShopingProduct,
     val product_item_code: String,
     val product_size_id: Int,
     val unit: Int
 )
 
-data class ShopingProductModel(
+data class ShopingProduct(
     val barcode: String,
+//    val change_to_delisted: Any,
+//    val change_to_listed: Any,
+//    val change_to_stored: Any,
     val color_code: String,
     val id: Int,
     val item_code: String,

@@ -118,6 +118,7 @@ class AddAddressFragment : BaseFragment<FragmentAddAddressBinding>() {
                 if(position != 0){
                     idkelurahanstring = listIdKecamatan[position]
                     Log.d("IDEKJERE", idkelurahanstring)
+                    Log.d("IDEKJERE", listIdKecamatan.toString())
                 }
             }
         }
@@ -181,6 +182,7 @@ class AddAddressFragment : BaseFragment<FragmentAddAddressBinding>() {
     private fun handleKota(kota : List<CityItemModel>){
         kota.map {
             listIdKecamatan.add(it.villageId)
+            Log.d("villageee", it.villageId)
             listNameKecamatan.add(it.fullName)
         }
     }

@@ -69,16 +69,17 @@ class ShoppingBagViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
         mode_reserve.gone()
         mode_itemlayout.visible()
 
-        m_name.text = item.product?.productName
+        m_name.text = item.product?.name
         m_price.text = itemView.context.getString(R.string.price, item.price.toString())
-        m_count.text = itemView.context.getString(R.string.quantity, item.product?.stock.toString())
+        m_count.text = item.unit.toString()
+       // m_count.text = itemView.context.getString(R.string.quantity, item.product?.stock.toString())
         m_weight.text = itemView.context.getString(R.string.weight, item.product?.weight.toString())
        // m_size.text = itemView.context.getString(R.string.size, item.size)
-        m_code.text = item.productItemCode
-        Glide.with(itemView.context)
-            .load(item.product?.images)
-            .fitCenter()
-            .into(m_image)
+        m_code.text = item.product_item_code
+//        Glide.with(itemView.context)
+//            .load(item.product?.)
+//            .fitCenter()
+//            .into(m_image)
 
         val satuanX = getOneXMeters(itemView.context)
         val layoutParamsImage = LinearLayout.LayoutParams(satuanX*3, satuanX*4)

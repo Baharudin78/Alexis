@@ -274,6 +274,12 @@
                             android:fontFamily="@font/alexis_gtwalsheim_regular"
                             android:text="Weight: 450gr"
                             android:textSize="13sp"/>
+                        
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/et_qty"
+                            android:inputType="number"/>
 
                     </LinearLayout>
 

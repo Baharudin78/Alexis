@@ -371,8 +371,8 @@ class MainActivity : AppCompatActivity() {
                     is Resource.Loading -> {}
                     is Resource.Success -> {
                         response.data?.let {
-                            savedCountToPrefs(it.size)
-                            count_cart.text = it.size.toString()
+                          //  savedCountToPrefs()
+                          //  count_cart.text = it.size.toString()
                         }
                     }
                     is Resource.Error -> {

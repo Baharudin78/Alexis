@@ -2,11 +2,14 @@ package com.alexis.shop.data.repository.shoppingbag
 
 import com.alexis.shop.data.Resource
 import com.alexis.shop.data.remote.network.ApiResponse
-import com.alexis.shop.data.remote.response.shoppingbag.CartsItem
 import com.alexis.shop.data.remote.datasource.ShoppingBagRemoteDataSource
 import com.alexis.shop.data.remote.response.product.*
+import com.alexis.shop.data.remote.response.shoppingbag.ShopingBagItem
+import com.alexis.shop.data.remote.response.shoppingbag.ShopingProduct
 import com.alexis.shop.domain.model.product.*
+import com.alexis.shop.domain.model.shoppingbag.ShopingBagListModel
 import com.alexis.shop.domain.model.shoppingbag.ShopingBagPostModel
+import com.alexis.shop.domain.model.shoppingbag.ShopingProductModel
 import com.alexis.shop.domain.model.shoppingbag.ShoppingBagModel
 import com.alexis.shop.domain.repository.shoppingbag.IShoppingBagRepository
 import com.alexis.shop.utils.orZero
@@ -55,13 +58,13 @@ class ShoppingBagRepository @Inject constructor(
         }
     }
 
-    override fun getShoppingBag(): Flow<Resource<List<ShoppingBagModel>>> {
-        return flow<Resource<List<ShoppingBagModel>>> {
+    override fun getShoppingBag(): Flow<Resource<ShopingBagListModel>> {
+        return flow<Resource<ShopingBagListModel>> {
             emit(Resource.Loading())
             when (val apiResponse = remoteDataSource.getShoppingBag().first()) {
                 is ApiResponse.Success -> emit(
                     Resource.Success(
-                        generateShoppingBagModel(apiResponse.data.data?.carts)
+                        generateShoppingBagModel(apiResponse.data.data.items)
                     )
                 )
                 is ApiResponse.Empty -> {}
@@ -70,20 +73,47 @@ class ShoppingBagRepository @Inject constructor(
         }
     }
 
-    private fun generateShoppingBagModel(data: List<CartsItem>?): List<ShoppingBagModel> {
-        return data?.map {
-            ShoppingBagModel(
-                id = it.id,
-                customerId = it.customerId,
-                productItemCode = it.productItemCode,
-                productSizeId = it.productSizeId,
-                unit = it.unit,
-                price = it.price,
-                finalPrice = it.finalPrice,
-                product = generateProductByIdModel(it.product)
-
+    private fun generateShoppingBagModel(data: List<ShopingBagItem?>?): ShopingBagListModel {
+        return if (!data.isNullOrEmpty()) {
+            ShopingBagListModel(
+                bag = data.map {
+                    ShoppingBagModel(
+                        customer_id = it?.customer_id.orZero(),
+                        final_price = it?.final_price.orZero(),
+                        id = it?.id.orZero(),
+                        price = it?.price.orZero(),
+                        product = generateShopingProduct(it?.product),
+                        product_item_code = it?.product_item_code.orEmpty(),
+                        product_size_id = it?.product_size_id.orZero(),
+                        unit = it?.unit.orZero()
+                    )
+                }
             )
-        } ?: listOf()
+        }else{
+            ShopingBagListModel()
+        }
+    }
+
+    private fun generateShopingProduct(data : ShopingProduct? ) : ShopingProductModel? {
+        return ShopingProductModel(
+            barcode = data?.barcode.orEmpty(),
+            color_code = data?.color_code.orEmpty(),
+            id = data?.id.orZero(),
+            item_code = data?.item_code.orEmpty(),
+            name = data?.name.orEmpty(),
+            packaging_id = data?.packaging_id.orZero(),
+            price = data?.price.orZero(),
+            product_material_id = data?.product_material_id.orEmpty(),
+            product_size_id = data?.product_size_id.orEmpty(),
+            product_subcategory_id = data?.product_subcategory_id.orZero(),
+            status = data?.status.orEmpty(),
+            stock = data?.stock.orZero(),
+            stock_keeping_unit = data?.stock_keeping_unit.toString().orEmpty(),
+            store_location_id = data?.store_location_id.orZero(),
+            style_code = data?.style_code.orEmpty(),
+            user_id = data?.user_id.orZero(),
+            weight = data?.weight.orZero()
+        )
     }
 
     private fun generateProductByIdModel(product: ProductsGetByIdItem?): ProductsByIdModel {

@@ -3,6 +3,7 @@ package com.alexis.shop.domain.usecase.shoppingbag
 import com.alexis.shop.domain.model.shoppingbag.ShoppingBagModel
 import com.alexis.shop.domain.repository.shoppingbag.IShoppingBagRepository
 import com.alexis.shop.data.Resource
+import com.alexis.shop.domain.model.shoppingbag.ShopingBagListModel
 import com.alexis.shop.domain.model.shoppingbag.ShopingBagPostModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -16,7 +17,7 @@ class ShoppingBagInteractor @Inject constructor(private val repository: IShoppin
         return repository.deleteShoppingBag(cardId)
     }
 
-    override fun getShoppingBag(): Flow<Resource<List<ShoppingBagModel>>> {
+    override fun getShoppingBag(): Flow<Resource<ShopingBagListModel>> {
         return repository.getShoppingBag()
     }
 }

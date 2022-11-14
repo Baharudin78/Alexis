@@ -1,5 +1,6 @@
 package com.alexis.shop.ui.menu.sizefilter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -44,6 +45,7 @@ class SizeFilterItemAdapter : RecyclerView.Adapter<SizeFilterItemAdapter.SizeIte
             with(binding) {
                 textViewChild.text = item.name
                 if (item.isSelected) {
+                    Log.d("SADHSAIDAS", "${item.id}")
                     textViewChild.setTextColor(ContextCompat.getColor(root.context, R.color.transparent_expanmenu))
                     textViewChild.background = ContextCompat.getDrawable(root.context,R.drawable.rounder_white_background_10dp)
                 }

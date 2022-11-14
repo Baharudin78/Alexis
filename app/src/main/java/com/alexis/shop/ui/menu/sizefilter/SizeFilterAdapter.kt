@@ -6,11 +6,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alexis.shop.databinding.SizeFilterItemLayoutBinding
 import com.alexis.shop.domain.model.sizefilter.SizeFilterModel
+import com.alexis.shop.utils.common.withDelay
 
 class SizeFilterAdapter: RecyclerView.Adapter<SizeFilterAdapter.SizeViewHolder>() {
 
     private var sizeFilterData = ArrayList<List<SizeFilterModel>>()
     private val viewPool = RecyclerView.RecycledViewPool()
+    private var selectedPosition = -1
 
     fun setData(data: ArrayList<List<SizeFilterModel>>) {
         sizeFilterData = data

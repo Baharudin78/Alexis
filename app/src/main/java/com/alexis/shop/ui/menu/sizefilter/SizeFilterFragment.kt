@@ -24,7 +24,7 @@ import eightbitlab.com.blurview.RenderScriptBlur
 import kotlinx.android.synthetic.main.fragment_size_filter.*
 
 @AndroidEntryPoint
-class SizeFilterFragment : Fragment() {
+class SizeFilterFragment : Fragment(){
     private val viewModel: SizeFilterViewModel by viewModels()
     private val sizeAdapter = SizeFilterAdapter()
     private lateinit var cancel_btn: ImageView

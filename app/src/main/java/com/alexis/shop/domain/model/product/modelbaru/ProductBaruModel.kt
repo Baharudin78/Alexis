@@ -16,7 +16,7 @@ data class ProductBaruModel(
     val name: String,
     val price: Int,
     val product_image: @RawValue List<ImagesModel>? = null,
-    val size_id: String,
+    val product_size_id: String,
     val status: String,
     val stock: Int,
     val stock_keeping_unit: String,

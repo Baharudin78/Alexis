@@ -10,10 +10,7 @@ import android.util.TypedValue
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -73,6 +70,7 @@ class PageFragment : Fragment(R.layout.fragment_page) {
     private val imagePagerAdapter = GroupAdapter<GroupieViewHolder>()
     private lateinit var adapterSize: SizeChooserAdapter
     private lateinit var adapterPic: ImageOrderAdapter
+    private var quantity : String = ""
 
     private var arraySize: ArrayList<SizeModel> = ArrayList()
     private var sizeSelected = ""
@@ -109,6 +107,7 @@ class PageFragment : Fragment(R.layout.fragment_page) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupMoreInfo()
+        quantity = binding.includeBottomSheet.etQty.text.trim().toString()
         getProductById(product?.id.orZero())
         var produkIdCode = product?.product_image?.map { it.product_item_code }
         Log.d("Pjsdalsjdlfjijfiod","$productId")
@@ -232,10 +231,10 @@ class PageFragment : Fragment(R.layout.fragment_page) {
         }
     }
 
-    private fun postShoppingBag(size: String) {
+    private fun postShoppingBag(itemCode : String, sizeId : String, quantity : String) {
         activity?.let {
             if(product != null) {
-                viewModel.postShoppingBag(product?.id.toString(),product?.size_id.toString(),product?.stock_keeping_unit.toString()).observe(viewLifecycleOwner) { response ->
+                viewModel.postShoppingBag(itemCode, sizeId, quantity).observe(viewLifecycleOwner) { response ->
                     if (response != null) {
                         when (response) {
                             is Resource.Loading -> {}
@@ -340,7 +339,7 @@ class PageFragment : Fragment(R.layout.fragment_page) {
                 binding.greyButtonAddkranjang.visible()
                 binding.tvSelectSize.visible()
             } else {
-                postShoppingBag(sizeSelected)
+                postShoppingBag(product!!.item_code, product!!.product_size_id, quantity)
             }
         }
 
@@ -508,12 +507,14 @@ class PageFragment : Fragment(R.layout.fragment_page) {
 
 
             binding.btnAddToCart.setPushClickListener {
+                var quantity = binding.includeBottomSheet.etQty.text.trim().toString()
                 if (binding.content.isVisible) {
                     if (selectedSize[0] == "") {
                         binding.greyButtonAddkranjang.visible()
                         binding.tvSelectSize.visible()
                     } else {
-                        postShoppingBag(selectedSize[0])
+                        postShoppingBag(product!!.item_code, product!!.product_size_id, quantity.orEmpty() )
+                       // postShoppingBag(selectedSize[0])
                     }
                 } else {
                     showAddToCartBottomSheet()

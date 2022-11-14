@@ -63,6 +63,7 @@ class PageTwoFragment : Fragment(R.layout.fragment_page_two) {
     private val binding: FragmentPageBinding by viewBinding()
     lateinit var sharedPref : SheredPreference
     private var product: ProductBaruModel? = null
+    private var quantity : String = ""
     private var productBarcode : ProductsByIdModel? = null
     private lateinit var ivArrayDotsPager: Array<ImageView?>
 
@@ -92,6 +93,7 @@ class PageTwoFragment : Fragment(R.layout.fragment_page_two) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        quantity = binding.includeBottomSheet.etQty.text.trim().toString()
         setupMoreInfo()
           getProductByBarcode(barcode)
         (requireActivity() as ExpandItemPagerTwoActivity).onAnimateHandler = {
@@ -214,10 +216,10 @@ class PageTwoFragment : Fragment(R.layout.fragment_page_two) {
         }
     }
 
-    private fun postShoppingBag(size: String) {
+    private fun postShoppingBag(itemCode : String, sizeId : String, quantity : String) {
         activity?.let {
             if(product != null) {
-                viewModel.postShoppingBag(product?.id.toString(),product?.size_id.toString(),product?.stock_keeping_unit.toString()).observe(viewLifecycleOwner) { response ->
+                viewModel.postShoppingBag(itemCode, sizeId, quantity).observe(viewLifecycleOwner) { response ->
                     if (response != null) {
                         when (response) {
                             is Resource.Loading -> {}
@@ -322,7 +324,7 @@ class PageTwoFragment : Fragment(R.layout.fragment_page_two) {
                 binding.greyButtonAddkranjang.visible()
                 binding.tvSelectSize.visible()
             } else {
-                postShoppingBag(sizeSelected)
+                postShoppingBag(product!!.item_code,product!!.product_size_id, quantity)
             }
         }
 
@@ -494,7 +496,8 @@ class PageTwoFragment : Fragment(R.layout.fragment_page_two) {
                         binding.greyButtonAddkranjang.visible()
                         binding.tvSelectSize.visible()
                     } else {
-                        postShoppingBag(selectedSize[0])
+                       // postShoppingBag(selectedSize[0])
+                        postShoppingBag(product!!.item_code, product!!.product_size_id, quantity)
                     }
                 } else {
                     showAddToCartBottomSheet()

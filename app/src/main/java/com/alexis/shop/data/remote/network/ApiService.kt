@@ -8,7 +8,6 @@ import com.alexis.shop.data.remote.response.checkout.CheckoutAddressPostResponse
 import com.alexis.shop.data.remote.response.productbaru.ProductBaruResponse
 import com.alexis.shop.data.remote.response.voucher.VoucherResponse
 import com.alexis.shop.data.remote.response.auth.LogoutResponse
-import com.alexis.shop.data.remote.response.barcode.ProductsGetByBarcodeResponse
 import com.alexis.shop.data.remote.response.contact.ContactResponse
 import com.alexis.shop.data.remote.response.helpcenter.HelpCenterResponse
 import com.alexis.shop.data.remote.response.landing.LandingResponse
@@ -16,7 +15,7 @@ import com.alexis.shop.data.remote.response.product.ProductsGetByIdResponse
 import com.alexis.shop.data.remote.response.product.category.ProductCategoryNewResponse
 import com.alexis.shop.data.remote.response.shoppingbag.ShoppingBagDeleteResponse
 import com.alexis.shop.data.remote.response.shoppingbag.ShoppingBagPostResponse
-import com.alexis.shop.data.remote.response.shoppingbag.ShoppingBagResponse
+import com.alexis.shop.data.remote.response.shoppingbag.ShopingBagNewResponse
 import com.alexis.shop.data.remote.response.sizefilter.SizeFilterResponse
 import com.alexis.shop.data.remote.response.storelocation.AllStoreLocationResponse
 import com.alexis.shop.data.remote.response.storelocation.StoreLocationByNameResponse
@@ -63,7 +62,7 @@ interface ApiService {
     ): ShoppingBagPostResponse
 
     @GET("mw/customer-cart")
-    suspend fun getShoppingBag(): ShoppingBagResponse
+    suspend fun getShoppingBag(): ShopingBagNewResponse
 
     @DELETE(UrlConstant.SHOPPING_BAG_URL)
     suspend fun deleteShoppingBag(@Query("cart_id") cartId: Int): ShoppingBagDeleteResponse
