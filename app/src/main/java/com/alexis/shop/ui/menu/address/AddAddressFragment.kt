@@ -1,16 +1,14 @@
 package com.alexis.shop.ui.menu.address
 
-import android.graphics.Color
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.widget.addTextChangedListener
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
-import androidx.lifecycle.lifecycleScope
 import com.alexis.shop.BaseFragment
 import com.alexis.shop.R
 import com.alexis.shop.data.Resource
@@ -18,17 +16,13 @@ import com.alexis.shop.databinding.FragmentAddAddressBinding
 import com.alexis.shop.domain.model.city.CityItemModel
 import com.alexis.shop.ui.checkout.SelectAddressFragment
 import com.alexis.shop.ui.checkout.SelectAddressFragmentViewModel
+import com.alexis.shop.ui.checkout.address.CityActivity
 import com.alexis.shop.ui.checkout.address.CityViewModel
 import com.alexis.shop.utils.*
-import com.google.android.material.textfield.TextInputEditText
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import dagger.hilt.android.AndroidEntryPoint
 import eightbitlab.com.blurview.RenderScriptBlur
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 
 
 private const val ARG_whereFrom = "whereFrom"
@@ -40,13 +34,11 @@ class AddAddressFragment : BaseFragment<FragmentAddAddressBinding>() {
     override fun getViewBinding(): FragmentAddAddressBinding = FragmentAddAddressBinding.inflate(layoutInflater)
     private val cityViewModel : CityViewModel by viewModels()
     private val addressViewModel : SelectAddressFragmentViewModel by viewModels()
+    private lateinit var fusedLocationClient : FusedLocationProviderClient
     private var whereFrom: Int? = null
     private var param2: String? = null
 
-    private var listIdKecamatan = ArrayList<String>()
-    private var listNameKecamatan = ArrayList<String>()
-    lateinit var adapterkecamatan: ArrayAdapter<String>
-    private var idkelurahanstring : String = ""
+    var idKecamatan : String =""
 
 
     lateinit var btn_cancel: ImageView
@@ -65,27 +57,9 @@ class AddAddressFragment : BaseFragment<FragmentAddAddressBinding>() {
     override fun main() {
         super.main()
         blurView()
-        var job : Job? = null
-        val editText: AutoCompleteTextView = binding.kecSpin
-        adapterkecamatan = ArrayAdapter<String>(
-            requireContext(),
-            R.layout.item_city, R.id.tv_nama_kel, listNameKecamatan
-        )
-        editText.setAdapter(adapterkecamatan)
-        editText.addTextChangedListener{ editable ->
-            job?.cancel()
-            job = MainScope().launch {
-                delay(500)
-                editable?.let {
-                    if (editable.toString().isNotEmpty()) {
-                        getCity(editable.toString())
-                    }
-                }
-            }
-        }
 
-        showKelurahan()
-        Log.d("IDEKJERE", idkelurahanstring)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+
         binding.btnCancel.setOnClickListener {
             justOut()
         }
@@ -106,52 +80,207 @@ class AddAddressFragment : BaseFragment<FragmentAddAddressBinding>() {
         binding.cbDrShiping.setOnCheckedChangeListener { _, _ ->
             requireActivity().hideSoftKeyboard()
         }
-
-        binding.kecSpin?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
-                (parent as TextView).setTextColor(Color.WHITE)
-            }
-
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                (view as TextView).setTextColor(Color.WHITE)
-                if(position != 0){
-                    idkelurahanstring = listIdKecamatan[position]
-                    Log.d("IDEKJERE", idkelurahanstring)
-                    Log.d("IDEKJERE", listIdKecamatan.toString())
-                }
-            }
+        binding.etKec.setOnClickListener{
+            val intent = Intent(requireContext(), CityActivity::class.java)
+            startActivityForResult(intent, 100)
         }
-        binding.btnSubmit.setOnClickListener {
-            if (
-                binding.edAlias.text.toString() != "" &&
-                binding.edRecname.text.toString() != "" &&
-                binding.edAdress1.text.toString() != "" &&
-                binding.edAdress2.text.toString() != "" &&
-                binding.kecSpin.text.toString() != "" &&
-                binding.edPocode.text.toString() != "" &&
-                binding.edPhone.text.toString() != ""
-             ) {
-
-            }
+        binding.etLtlon.setOnClickListener{
+            getLocation()
         }
-        val input = editText.text.toString()
-        getCity(input)
+       initListener()
+
     }
 
-    private fun getCity(nama: String) {
-        cityViewModel.getCitySearch(nama).observe(this) { response ->
+    private fun initListener() {
+        postAddress()
+    }
+
+    private fun postAddress() {
+        if (binding.cbDrShiping.isChecked) {
+
+        }
+        binding.btnSubmit.setOnClickListener {
+            val isDropShiped  = 1
+            val isDefaults = 1
+            val nama = binding.edRecname.text.toString().trim()
+            val address = binding.edAdress1.text.toString().trim()
+            val addressTwo = binding.edAdress2.text.toString().trim()
+            val idKecamatan = binding.kecamatan.text.toString().trim()
+            val kodePos = binding.edPocode.text.toString().trim()
+            val latitude = binding.etLtlon.text.toString().trim()
+            val longitude = binding.etLtlon.text.toString().trim()
+            val noHp = binding.edPhone.text.toString().trim()
+            val isDefault = isDefaults
+            val isDrop = isDropShiped
+//            if (binding.cbDrShiping.isChecked) {
+//                isDrop = 1.toString()
+//            }
+//            if (binding.cbDefAdress.isChecked) {
+//                isDefault = 1.toString()
+//            }
+            if (validateField(nama, address, addressTwo, idKecamatan, kodePos, latitude, longitude, noHp, isDefault, isDrop)) {
+               postAddressss(
+                   nama,
+                   address,
+                   addressTwo,
+                   idKecamatan,
+                   kodePos,
+                   noHp,
+                   isDefault,
+                   isDrop,
+                   latitude,
+                   longitude,
+               )
+            }
+        }
+    }
+
+    private fun validateField(
+        name : String,
+        address : String,
+        addressTwo : String,
+        idKecamatan : String,
+        kodePos : String,
+        latitude : String,
+        longitude : String,
+        phone : String,
+        isDefault : Int,
+        isDropship : Int
+    ) : Boolean{
+        resetAllError()
+        if (name.isEmpty()) {
+            namaError("Masukkan nama ")
+            return false
+        }
+        if (address.isEmpty()) {
+            addressError("Masukkan  Alamat")
+            return false
+        }
+
+        if (addressTwo.isEmpty()) {
+            addressTwoError("Masukkan Alamat")
+            return false
+        }
+
+        if (idKecamatan.isEmpty()) {
+            idKecamatanError("Masukkan Kecamatan")
+            return false
+        }
+
+        if (kodePos.isEmpty()) {
+            kodePosError("Masukkan kode pos")
+            return false
+        }
+
+        if (latitude.isEmpty()) {
+            latitudeError("Masukkan latitude")
+            return false
+        }
+
+        if (longitude.isEmpty()) {
+            longitudeError("Masukkan longitude")
+            return false
+        }
+
+        if (phone.isEmpty()) {
+            phoneError("Masukkan hp")
+            return false
+        }
+
+//        if (isDropship.equals(0))) {
+//            isDropError("Masukkan drop")
+//            return false
+//        }
+//
+//        if (isDefault.isEmpty()) {
+//            isDropError("Masukkan default")
+//            return false
+//        }
+        return true
+    }
+
+    private fun resetAllError() {
+        namaError(null)
+        addressError(null)
+        addressTwoError(null)
+        idKecamatanError(null)
+        kodePosError(null)
+        latitudeError(null)
+        longitudeError(null)
+        phoneError(null)
+        isDefaultError(null)
+        isDropError(null)
+    }
+
+
+
+    private fun namaError(e : String?) {
+        binding.edRecname.error = e
+    }
+    private fun addressError(e : String?) {
+        binding.edRecname.error = e
+    }
+    private fun addressTwoError(e : String?) {
+        binding.edRecname.error = e
+    }
+    private fun idKecamatanError(e : String?) {
+        binding.kecamatan.error = e
+    }
+    private fun kodePosError(e : String?) {
+        binding.edPocode.error = e
+    }
+    private fun latitudeError(e : String?) {
+        binding.etLtlon.error = e
+    }
+    private fun longitudeError(e : String?) {
+        binding.etLtlon.error = e
+    }
+    private fun phoneError(e : String?) {
+        binding.edPhone.error = e
+    }
+    private fun isDefaultError(e : String?) {
+        binding.cbDefAdress.error = e
+    }
+    private fun isDropError(e : String?) {
+        binding.cbDrShiping.error = e
+    }
+
+    private fun postAddressss(
+        name : String,
+        address : String,
+        addressTwo : String,
+        idKecamatan : String,
+        kodePos : String,
+        phone : String,
+        isDefault : Int,
+        isDropship : Int,
+        latitude : String,
+        longitude : String,
+
+    ) {
+        addressViewModel.postCheckoutAddress(
+            name,
+            address,
+            addressTwo,
+            idKecamatan,
+            kodePos,
+            phone,
+            isDefault,
+            isDropship,
+            latitude,
+            longitude,
+        ).observe(viewLifecycleOwner) { response ->
             if (response != null) {
                 when(response) {
                     is Resource.Loading -> {}
                     is Resource.Success -> {
-                        val getCityValue = response.data?.data as List<CityItemModel>
-                        handleKota(getCityValue)
+                       handleBackPressed()
+                        Toast.makeText(requireContext(), "Berhasill", Toast.LENGTH_SHORT).show()
                     }
                     is Resource.Error -> {
                         Toast.makeText(
-                            binding.root.context,
-                            "Get City Failed",
+                            requireContext(),
+                            "Failed",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -159,34 +288,6 @@ class AddAddressFragment : BaseFragment<FragmentAddAddressBinding>() {
             }
         }
     }
-
-    private fun postAddress(
-        name : String,
-        address : String,
-        addressTwo : String
-    ) {
-
-    }
-
-   private fun showKelurahan() {
-       listIdKecamatan.add("");
-       listNameKecamatan.add("Kecamatan");
-       adapterkecamatan.notifyDataSetChanged()
-       cityViewModel.mKotaState
-           .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
-           .onEach { kota ->
-               handleKota(kota)
-           }
-           .launchIn(lifecycleScope)
-   }
-    private fun handleKota(kota : List<CityItemModel>){
-        kota.map {
-            listIdKecamatan.add(it.villageId)
-            Log.d("villageee", it.villageId)
-            listNameKecamatan.add(it.fullName)
-        }
-    }
-
     private fun blurView() {
         val radius = 15f
         val decorView : View = activity?.window!!.decorView
@@ -197,9 +298,41 @@ class AddAddressFragment : BaseFragment<FragmentAddAddressBinding>() {
             .setBlurRadius(radius)
             .setBlurAutoUpdate(true)
     }
+
+    private fun getLocation() {
+        if (ActivityCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(requireActivity(), arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), 100)
+            return
+        }
+        val location = fusedLocationClient.lastLocation
+        location.addOnSuccessListener { locations ->
+            if (locations != null) {
+                val latitude = locations.latitude.toString()
+                val longitude = locations.longitude.toString()
+                binding.etLtlon.setText("$latitude $longitude")
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 100 && data != null) {
+            (data.extras?.get(ADDRESS) as CityItemModel?)?.let { it ->
+                idKecamatan = it.villageId
+                Log.d("NAMASASAS", idKecamatan)
+                binding.etKec.setText(it.fullName)
+                binding.kecamatan.text = it.villageId
+                Log.d("NAMASASAS", it.fullName)
+            }
+        }
+    }
     companion object {
         val SELECT_ADDRESS = 1
         val CHANGE_ADDRESS = 2
+        val ADDRESS ="ADDRESS"
 
         @JvmStatic
         fun newInstance(whereFrom: Int, param2: String) =
@@ -210,21 +343,4 @@ class AddAddressFragment : BaseFragment<FragmentAddAddressBinding>() {
                 }
             }
     }
-
-//    lateinit var title_view: TextView
-//
-//    lateinit var text_alias: TextView
-//    lateinit var text_recipient: TextView
-//    lateinit var text_address1: TextView
-//    lateinit var text_address2: TextView
-//    lateinit var text_poscode: TextView
-//    lateinit var text_phone: TextView
-//    lateinit var txt_dropshipinfo: TextView
-//    lateinit var dropdown_kecamatan: TextInputEditText
-//    lateinit var lpw: ListPopupWindow
-//    lateinit var cb_def_address: CheckBox
-//    lateinit var cb_drop_shiping: CheckBox
-//    lateinit var click_dropship: RelativeLayout
-//
-//    private var arrayKecamatan: ArrayList<String> = ArrayList()
 }

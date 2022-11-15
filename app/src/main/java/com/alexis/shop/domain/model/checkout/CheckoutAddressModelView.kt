@@ -7,8 +7,8 @@ data class CheckoutAddressModelView(
     val villageId: String = "",
     val postalCode: String = "",
     val recipientPhoneNumber: String = "",
-    val asDropship: String = "",
-    val isDefault: String = "",
+    val asDropship: Int = 0,
+    val isDefault: Int = 0,
     val latitude: String = "",
     val longitude: String = "",
 )

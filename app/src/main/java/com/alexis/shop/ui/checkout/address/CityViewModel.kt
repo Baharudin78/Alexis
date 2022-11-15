@@ -18,24 +18,10 @@ import javax.inject.Inject
 class CityViewModel @Inject constructor(
     private val cityUseCase: CityUseCase
 ) : ViewModel(){
-  //  val searchCity : MutableLiveData<Resource<CityResponse>> = MutableLiveData()
 
     private val koteState = MutableStateFlow<List<CityItemModel>>(mutableListOf())
     val mKotaState : StateFlow<List<CityItemModel>> get() = koteState
 
-    fun getCitySearch(name : String) = cityUseCase.getAllVoucher(name).asLiveData()
+    fun getCitySearch(name : String) = cityUseCase.getCity(name).asLiveData()
 
-//    fun searchCity(token : String, name : String) = viewModelScope.launch {
-//        searchCity.postValue(Resource.Loading())
-//        val response = cityUseCase.getAllVoucher(token, name)
-//        searchCity.postValue(handleSearchCity(response))
-//    }
-//    private fun handleSearchCity(response : Flow<Resource<AllCityModel>>) : Resource<CityResponse> {
-//        if (response.isSuccessful) {
-//            response.body()?.let { result ->
-//                return Resource.Success(result)
-//            }
-//        }
-//        return Resource.Error(response.message())
-//    }
 }

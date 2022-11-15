@@ -24,19 +24,30 @@ data class CheckoutAddressData(
 )
 
 data class CheckoutAddressItem(
-
+	@field:SerializedName("id")
 	val id : Int? = null,
+	@field:SerializedName("customer_id")
 	val customerId : Int? = null,
+	@field:SerializedName("recipient_name")
 	val recipientName : String? = null,
+	@field:SerializedName("address")
 	val address : String? = null,
+	@field:SerializedName("address_2")
 	val addressTwo : String? = null,
+	@field:SerializedName("village_id")
 	val villageId : String? = null,
+	@field:SerializedName("latitude")
 	val latitude : String? = null,
+	@field:SerializedName("longitude")
 	val longitude : String? = null,
+	@field:SerializedName("postal_code")
 	val postalCode : String? = null,
+	@field:SerializedName("recipient_phone_number")
 	val recipientPhoneNumber : String? = null,
-	val isDefault : String? = null,
-	val asDropship : String? = null
+	@field:SerializedName("is_default")
+	val isDefault : Int? = null,
+	@field:SerializedName("as_dropship")
+	val asDropship : Int? = null
 )
 
 

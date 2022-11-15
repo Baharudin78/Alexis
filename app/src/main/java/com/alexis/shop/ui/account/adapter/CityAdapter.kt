@@ -22,13 +22,13 @@ class CityAdapter(
         notifyDataSetChanged()
     }
 
-    class CityHolder(inflater : LayoutInflater, parent : ViewGroup) :
+    inner class CityHolder(inflater : LayoutInflater, parent : ViewGroup) :
             RecyclerView.ViewHolder(inflater.inflate(R.layout.item_city, parent, false)) {
                 var nama : TextView = itemView.findViewById(R.id.tv_nama_kel)
         fun bindItem(item : CityItemModel) {
             nama.text = item.fullName
             itemView.setOnClickListener {
-
+               listener.onClick(item)
             }
         }
     }

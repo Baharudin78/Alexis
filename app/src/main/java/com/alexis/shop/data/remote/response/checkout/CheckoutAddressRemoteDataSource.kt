@@ -18,21 +18,31 @@ import javax.inject.Singleton
 class CheckoutAddressRemoteDataSource @Inject constructor(private val apiService: ApiService) {
 
     suspend fun postCheckoutAddress(
-        checkoutAddressModelView: CheckoutAddressModelView,
+        recipientName: String,
+        address: String,
+        addressTwo: String,
+        villageId: String ,
+        postalCode: String ,
+        recipientPhoneNumber: String ,
+        asDropship: Int ,
+        isDefault: Int ,
+        latitude: String ,
+        longitude: String ,
+       // checkoutAddressModelView: CheckoutAddressModelView,
     ): Flow<ApiResponse<CheckoutAddressPostResponse>> {
         return flow {
             try {
                 val response = apiService.postCheckOutAddress(
-                    checkoutAddressModelView.recipientName,
-                    checkoutAddressModelView.address,
-                    checkoutAddressModelView.addressTwo,
-                    checkoutAddressModelView.villageId,
-                    checkoutAddressModelView.postalCode,
-                    checkoutAddressModelView.recipientPhoneNumber,
-                    checkoutAddressModelView.isDefault,
-                    checkoutAddressModelView.asDropship,
-                    checkoutAddressModelView.latitude,
-                    checkoutAddressModelView.longitude
+                   recipientName,
+                    address,
+                    addressTwo,
+                    villageId,
+                    postalCode,
+                    recipientPhoneNumber,
+                    asDropship,
+                    isDefault,
+                    latitude,
+                    longitude
                 )
                 if (!response.data?.address?.recipientName.isNullOrBlank()) {
                     emit(ApiResponse.Success(response))

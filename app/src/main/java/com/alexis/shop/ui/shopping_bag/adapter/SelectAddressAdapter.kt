@@ -9,17 +9,15 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.alexis.shop.R
+import com.alexis.shop.domain.model.address.AddressItemModel
 import com.alexis.shop.domain.model.checkout.CheckoutAddressModelView
-import com.alexis.shop.utils.OnClickItem
-import com.alexis.shop.utils.gone
-import com.alexis.shop.utils.invisible
-import com.alexis.shop.utils.visible
+import com.alexis.shop.utils.*
 
 class SelectAddressAdapter(
     private val listener: OnClickItem
 ) : RecyclerView.Adapter<SelectAddressAdapter.SelectAddressViewHolder>() {
 
-    private val items: ArrayList<CheckoutAddressModelView> = ArrayList()
+    private val items = ArrayList<AddressItemModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectAddressViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -34,7 +32,7 @@ class SelectAddressAdapter(
 
     override fun getItemCount(): Int = items.size
 
-    fun setData(data: ArrayList<CheckoutAddressModelView>) {
+    fun setData(data: ArrayList<AddressItemModel>) {
         items.clear()
         items.addAll(data)
         notifyDataSetChanged()
@@ -53,8 +51,8 @@ class SelectAddressAdapter(
         var btn_dropship: ImageView = itemView.findViewById(R.id.btn_dropship)
         var btn_edit: ImageView = itemView.findViewById(R.id.btn_edit)
 
-        fun bind(item: CheckoutAddressModelView) {
-            if (item.isDefault.equals(-1)) {
+        fun bind(item: AddressItemModel) {
+            if (item.isDefault!! == -1) {
                 mode_normal.gone()
             } else {
                 mode_normal.visible()
@@ -65,11 +63,11 @@ class SelectAddressAdapter(
                 telp.text = item.recipientPhoneNumber
 
                 when (item.isDefault) {
-//                    true -> mode_normal.background =
-//                        ContextCompat.getDrawable(
-//                            itemView.context,
-//                            R.drawable.rounder_white_transparent_withborder
-//                        )
+                    1 -> mode_normal.background =
+                        ContextCompat.getDrawable(
+                            itemView.context,
+                            R.drawable.rounder_white_transparent_withborder
+                        )
                     else -> mode_normal.background =
                         ContextCompat.getDrawable(
                             itemView.context,
@@ -78,7 +76,7 @@ class SelectAddressAdapter(
                 }
 
                 setButtonDelete()
-           //     setButtonDropship(item.asDropship)
+                setButtonDropship(item.asDropship)
             }
         }
 
@@ -89,13 +87,13 @@ class SelectAddressAdapter(
             }
         }
 
-        private fun setButtonDropship(isShow: Boolean) {
-            if (isShow) {
+        private fun setButtonDropship(isShow: Int?) {
+            if (isShow == 1) {
                 btn_dropship.visible()
             } else {
                 btn_dropship.invisible()
             }
-            btn_dropship.isClickable = isShow
+            btn_dropship.isClickable
         }
     }
 }

@@ -27,6 +27,8 @@ class CityRepository @Inject constructor(
                         )
                     )
                 )
+                is ApiResponse.Empty -> {}
+                is ApiResponse.Error -> emit(Resource.Error(apiResponse.errorMessage))
             }
         }
     }

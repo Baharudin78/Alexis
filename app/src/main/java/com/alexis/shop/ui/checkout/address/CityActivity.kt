@@ -1,7 +1,9 @@
 package com.alexis.shop.ui.checkout.address
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -14,6 +16,7 @@ import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.databinding.ActivityCityBinding
 import com.alexis.shop.domain.model.city.CityItemModel
 import com.alexis.shop.ui.account.adapter.CityAdapter
+import com.alexis.shop.ui.menu.address.AddAddressFragment
 import com.alexis.shop.utils.OnClickItem
 import com.alexis.shop.utils.prefs.SheredPreference
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,7 +34,7 @@ class CityActivity : BaseActivity<ActivityCityBinding>(), OnClickItem {
     private lateinit var cityAdapter : CityAdapter
     @Inject
     lateinit var sharedPref : SheredPreference
-
+    lateinit var inputText : String
     override fun getViewBinding(): ActivityCityBinding = ActivityCityBinding.inflate(layoutInflater)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,31 +44,22 @@ class CityActivity : BaseActivity<ActivityCityBinding>(), OnClickItem {
 
     override fun main() {
         sharedPref = SheredPreference(this)
-        var nama = "Semarang"
-
-        var job : Job? = null
-
+        inputText = binding.etKec.text.toString()
+        Log.d("INPUTAN", inputText)
         cityAdapter = CityAdapter(binding.root.context, this)
-        with(binding.rvSearching) {
+        with(binding.rvSearcing) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = cityAdapter
         }
-        binding.searchBar.addTextChangedListener { editable ->
-            job?.cancel()
-            job = MainScope().launch {
-                delay(500)
-                editable?.let {
-                    if (editable.toString().isNotEmpty()) {
-                        viewModel.getCitySearch( editable.toString())
-                    }
-                }
-            }
+        binding.btCarikota.setOnClickListener {
+            Log.d("INPUTAN", inputText)
+            getDataCity()
         }
-        getDataCity(nama)
     }
 
-    private fun getDataCity(nama : String) {
-        viewModel.getCitySearch(nama).observe(this) { response ->
+    private fun getDataCity() {
+        viewModel.getCitySearch("surabaya").observe(this) { response ->
+            Log.d("INPUTAN", inputText)
             if (response != null) {
                 when(response) {
                     is Resource.Loading -> {}
@@ -89,6 +83,12 @@ class CityActivity : BaseActivity<ActivityCityBinding>(), OnClickItem {
     }
 
     override fun onClick(item: Any) {
-        Toast.makeText(binding.root.context, "clicked", Toast.LENGTH_SHORT).show()
+        item as CityItemModel
+        val intent = Intent(this, AddAddressFragment::class.java).apply {
+            putExtra(AddAddressFragment.ADDRESS, item as CityItemModel)
+        }
+        setResult(100, intent)
+        finish()
+        Toast.makeText(binding.root.context, item.fullName, Toast.LENGTH_SHORT).show()
     }
 }

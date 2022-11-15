@@ -11,6 +11,8 @@ import com.alexis.shop.BaseFragment
 import com.alexis.shop.R
 import com.alexis.shop.data.Resource
 import com.alexis.shop.databinding.FragmentSelectAddressBinding
+import com.alexis.shop.domain.model.address.AddressItemModel
+import com.alexis.shop.domain.model.address.AddressListModel
 import com.alexis.shop.domain.model.checkout.CheckoutAddressModelView
 import com.alexis.shop.ui.menu.address.AddAddressFragment
 import com.alexis.shop.ui.menu.address.AddAddressFragment.Companion.SELECT_ADDRESS
@@ -25,7 +27,7 @@ import eightbitlab.com.blurview.RenderScriptBlur
 class SelectAddressFragment : BaseFragment<FragmentSelectAddressBinding>() {
     private val viewModel: SelectAddressFragmentViewModel by viewModels()
     private var selectedDelivery: String = ""
-    private var checkoutAddress: ArrayList<CheckoutAddressModelView> = ArrayList()
+    private var checkoutAddress = ArrayList<AddressItemModel>()
     lateinit var adapterIt: SelectAddressAdapter
     lateinit var sharedPref : SheredPreference
 
@@ -92,8 +94,8 @@ class SelectAddressFragment : BaseFragment<FragmentSelectAddressBinding>() {
                     is Resource.Loading -> {}
                     is Resource.Success -> {
                         response.data?.let {
-                            checkoutAddress.add(CheckoutAddressModelView())
-                            checkoutAddress.addAll(it as ArrayList<CheckoutAddressModelView>)
+                            checkoutAddress.add(AddressItemModel())
+                            checkoutAddress.addAll(it as ArrayList<AddressItemModel>)
                             adapterIt.setData(checkoutAddress)
                         }
                     }

@@ -139,8 +139,8 @@ interface ApiService {
         @Field("village_id")villageId : String,
         @Field("postal_code") postalCode: String,
         @Field("recipient_phone_number") recipientPhoneNumber: String,
-        @Field("is_default") isDefault: String,
-        @Field("as_dropship") asDropship: String,
+        @Field("is_default") isDefault: Int,
+        @Field("as_dropship") asDropship: Int,
         @Field("latitude") latitide: String,
         @Field("longitude") longitude: String,
     ): CheckoutAddressPostResponse

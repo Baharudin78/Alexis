@@ -27,8 +27,29 @@ class SelectAddressFragmentViewModel @Inject constructor(
     fun getCheckoutAddress() =
         checkoutAddressUseCase.getCheckoutAddress().asLiveData()
 
-    fun postCheckoutAddress(data: CheckoutAddressModelView) =
-        checkoutAddressUseCase.postCheckoutAddress(data).asLiveData()
+    fun postCheckoutAddress(
+        recipientName: String,
+        address: String,
+        addressTwo: String,
+        villageId: String ,
+        postalCode: String ,
+        recipientPhoneNumber: String ,
+        asDropship: Int ,
+        isDefault: Int ,
+        latitude: String ,
+        longitude: String ,
+    ) = checkoutAddressUseCase.postCheckoutAddress(
+        recipientName,
+        address,
+        addressTwo,
+        villageId,
+        postalCode,
+        recipientPhoneNumber,
+        asDropship,
+        isDefault,
+        latitude,
+        longitude
+    ).asLiveData()
 
 
 }

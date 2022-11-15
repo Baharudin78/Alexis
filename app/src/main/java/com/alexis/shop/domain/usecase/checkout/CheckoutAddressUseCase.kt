@@ -1,13 +1,23 @@
 package com.alexis.shop.domain.usecase.checkout
 
 import com.alexis.shop.data.Resource
+import com.alexis.shop.domain.model.address.AddressListModel
 import com.alexis.shop.domain.model.checkout.CheckoutAddressModelView
 import kotlinx.coroutines.flow.Flow
 
 interface CheckoutAddressUseCase {
     fun postCheckoutAddress(
-        checkoutAddressModelView: CheckoutAddressModelView,
+        recipientName: String,
+        address: String,
+        addressTwo: String,
+        villageId: String ,
+        postalCode: String ,
+        recipientPhoneNumber: String ,
+        asDropship: Int ,
+        isDefault: Int ,
+        latitude: String ,
+        longitude: String ,
     ): Flow<Resource<CheckoutAddressModelView>>
 
-    fun getCheckoutAddress(): Flow<Resource<List<CheckoutAddressModelView>>>
+    fun getCheckoutAddress(): Flow<Resource<AddressListModel>>
 }
