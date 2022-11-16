@@ -3,6 +3,7 @@ package com.alexis.shop.data.remote.datasource
 import android.util.Log
 import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.data.remote.network.ApiService
+import com.alexis.shop.data.remote.response.productbaru.ProductBaruResponse
 import com.alexis.shop.data.remote.response.sizefilter.SizesItemResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -25,6 +26,21 @@ class SizeFilterRemoteDataSource @Inject constructor(private val apiService: Api
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
                 Log.e("RemoteDataSource", e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun postSizeFilter(sizeId : List<Int>) : Flow<ApiResponse<ProductBaruResponse>> {
+        return flow<ApiResponse<ProductBaruResponse>> {
+            try {
+                val response = apiService.postSize(sizeId)
+                if (response.data?.product?.isNotEmpty()== true) {
+                    emit(ApiResponse.Success(response))
+                }else {
+                    emit(ApiResponse.Empty)
+                }
+            }catch (e : Exception) {
+                emit(ApiResponse.Error(e.toString()))
             }
         }.flowOn(Dispatchers.IO)
     }

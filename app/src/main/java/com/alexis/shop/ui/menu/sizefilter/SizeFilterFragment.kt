@@ -1,5 +1,6 @@
 package com.alexis.shop.ui.menu.sizefilter
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -14,19 +15,24 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.alexis.shop.BaseFragment
 import com.alexis.shop.R
 import com.alexis.shop.data.Resource
+import com.alexis.shop.databinding.FragmentSizeFilterBinding
 import com.alexis.shop.domain.model.sizefilter.SizeFilterModel
+import com.alexis.shop.ui.detail.SubCategoryPageActivity
+import com.alexis.shop.utils.OnClickItem
 import com.alexis.shop.utils.animation.Animations
 import com.alexis.shop.utils.handleBackPressed
+import com.alexis.shop.utils.log
 import dagger.hilt.android.AndroidEntryPoint
 import eightbitlab.com.blurview.RenderScriptBlur
 import kotlinx.android.synthetic.main.fragment_size_filter.*
 
 @AndroidEntryPoint
-class SizeFilterFragment : Fragment(){
+class SizeFilterFragment : Fragment(), OnClickItem{
     private val viewModel: SizeFilterViewModel by viewModels()
-    private val sizeAdapter = SizeFilterAdapter()
+    private val sizeAdapter = SizeFilterAdapter(this)
     private lateinit var cancel_btn: ImageView
     private lateinit var textTitle: TextView
     private lateinit var textSizeGuide: TextView
@@ -105,6 +111,28 @@ class SizeFilterFragment : Fragment(){
         }
     }
 
+    private fun postSizeFilter(sizeId : List<Int>) {
+        viewModel.postSizeFilter(sizeId).observe(viewLifecycleOwner) { response ->
+            if (response != null) {
+                when(response) {
+                    is Resource.Loading -> {}
+                    is Resource.Success -> {
+                        response.data?.let { it ->
+                            it.map { product ->
+                                val intent = Intent(requireContext(), SubCategoryPageActivity::class.java)
+                                    .putExtra("DATA", product)
+                                startActivity(intent)
+                            }
+                        }
+                    }
+                    is Resource.Error -> {
+                        Toast.makeText(requireContext(), "Failed", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+    }
+
     // Separate data based on category
     private fun separateData(data: List<SizeFilterModel>) {
         val dataBottoms = data.filter { it.selection.lowercase() == "bottoms"}
@@ -133,5 +161,16 @@ class SizeFilterFragment : Fragment(){
         recyclerViewSize.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL ,false)
         recyclerViewSize.setHasFixedSize(true)
         recyclerViewSize.adapter = sizeAdapter
+    }
+
+    override fun onClick(item: Any) {
+        item as SizeFilterModel
+        val listSizeId : List<Int> = listOf(item.id.toInt())
+        btnSubmit.setOnClickListener {
+            postSizeFilter(listSizeId)
+        }
+        log("$listSizeId")
+        Log.d("LSIFAFDA", "${listSizeId.toList()}")
+
     }
 }

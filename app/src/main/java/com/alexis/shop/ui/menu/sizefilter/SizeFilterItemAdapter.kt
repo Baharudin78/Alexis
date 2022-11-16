@@ -8,9 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alexis.shop.R
 import com.alexis.shop.databinding.SizeFilterChildItemLayoutBinding
 import com.alexis.shop.domain.model.sizefilter.SizeFilterModel
+import com.alexis.shop.utils.OnClickItem
 import com.alexis.shop.utils.common.withDelay
 
-class SizeFilterItemAdapter : RecyclerView.Adapter<SizeFilterItemAdapter.SizeItemViewHolder>() {
+class SizeFilterItemAdapter(
+    private var listener : OnClickItem
+) : RecyclerView.Adapter<SizeFilterItemAdapter.SizeItemViewHolder>() {
     private var sizeFilterItemData = ArrayList<SizeFilterModel>()
     private var selectedPosition = -1
 
@@ -49,9 +52,14 @@ class SizeFilterItemAdapter : RecyclerView.Adapter<SizeFilterItemAdapter.SizeIte
                     textViewChild.setTextColor(ContextCompat.getColor(root.context, R.color.transparent_expanmenu))
                     textViewChild.background = ContextCompat.getDrawable(root.context,R.drawable.rounder_white_background_10dp)
                 }
-                root.setOnClickListener {
+                itemView.setOnClickListener {
+                    listener.onClick(item)
                     selectItem(position)
                 }
+//                root.setOnClickListener {
+//                    listener.onClick(item)
+//                    selectItem(position)
+//                }
             }
         }
     }

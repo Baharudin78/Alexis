@@ -8,10 +8,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.alexis.shop.R
 import com.alexis.shop.domain.model.product.category.SubCategoryModel
+import com.alexis.shop.utils.OnClickItem
 import com.alexis.shop.utils.animation.Animations
 
 class SubCategoryNewAdapter(
     private val context: Context,
+    private val listener : OnClickItem
 ) : RecyclerView.Adapter<SubCategoryNewAdapter.SubCategoryHolder>(){
     private var listSubCategory = ArrayList<SubCategoryModel>()
 
@@ -21,12 +23,13 @@ class SubCategoryNewAdapter(
         notifyDataSetChanged()
         Log.d("ADAPTEREss", "$data")
     }
-    class SubCategoryHolder(inflater : LayoutInflater, parent: ViewGroup) : RecyclerView.ViewHolder(inflater.inflate(R.layout.item_nested, parent, false)){
+    inner class SubCategoryHolder(inflater : LayoutInflater, parent: ViewGroup) : RecyclerView.ViewHolder(inflater.inflate(R.layout.item_nested, parent, false)){
         val subProduct : TextView = itemView.findViewById(R.id.nestedItemTv)
         fun bind(item : SubCategoryModel) {
             subProduct.text = item.merchandise_name
-            Log.d("SUBSDUSFxx", "${item.merchandise_name}")
-
+            itemView.setOnClickListener {
+                listener.onClick(item)
+            }
         }
     }
 

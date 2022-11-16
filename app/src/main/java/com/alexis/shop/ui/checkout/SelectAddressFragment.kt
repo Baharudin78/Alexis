@@ -68,7 +68,7 @@ class SelectAddressFragment : BaseFragment<FragmentSelectAddressBinding>() {
     }
 
     private fun initRecyclerView() {
-        adapterIt = SelectAddressAdapter(object : OnClickItem {
+        adapterIt = SelectAddressAdapter(binding.root.context,object : OnClickItem {
             override fun onClick(item: Any) {
                 item as CheckoutAddressModelView
 //                changeChoosen(item)

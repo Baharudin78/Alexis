@@ -73,6 +73,11 @@ interface ApiService {
         @Field("product_item_code") productItemCode: String
     ): WishlistPostResponse
 
+    @POST("mw/products/size")
+    suspend fun postSize(
+        @Body productItemCode: List<Int>
+    ): ProductBaruResponse
+
     @GET("mw/wishlist")
     suspend fun getWishlist(
     ): WishlistGetResponse

@@ -14,4 +14,7 @@ class SizeFilterViewModel @Inject constructor(private val useCase: SizeFilterUse
     fun getSizeFilter(): LiveData<Resource<List<SizeFilterModel>>> {
         return useCase.getSizeFilter().asLiveData()
     }
+
+    fun postSizeFilter(sizeId : List<Int>) = useCase.postSizeFilter(sizeId).asLiveData()
+
 }

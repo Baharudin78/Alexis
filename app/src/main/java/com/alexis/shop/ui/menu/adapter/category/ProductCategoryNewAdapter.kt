@@ -47,14 +47,14 @@ class ProductCategoryNewAdapter(
         return categoryList.size
     }
 
-    class CategoryViewHolder(inflater : LayoutInflater, parent: ViewGroup
+   inner class CategoryViewHolder(inflater : LayoutInflater, parent: ViewGroup
     ) : RecyclerView.ViewHolder(inflater.inflate(R.layout.item_product_category_new, parent, false)) {
         var listSubProduct : List<SubCategoryModel> = ArrayList()
       //  var linearLayout : CardView = itemView.findViewById(R.id.linear_layout)
         var expandableLayout : RelativeLayout = itemView.findViewById(R.id.expandable_layout)
         var mTextView : TextView = itemView.findViewById(R.id.itemTv)
         var nestedRecyclerView : RecyclerView = itemView.findViewById(R.id.child_rv)
-        var subAdapter = SubCategoryNewAdapter(itemView.context)
+        var subAdapter = SubCategoryNewAdapter(itemView.context, listener)
 
         fun bindData(item :ProductCategoryNewItem ) {
             mTextView.text = item.category
@@ -64,6 +64,7 @@ class ProductCategoryNewAdapter(
             nestedRecyclerView.layoutManager = LinearLayoutManager(itemView.context)
             nestedRecyclerView.adapter = subAdapter
             subAdapter.setDataSub(listSubProduct as ArrayList<SubCategoryModel>)
+
             mTextView.setOnClickListener {
                 item.isExpandable = !item.isExpandable
                 listSubProduct = item.sub_category

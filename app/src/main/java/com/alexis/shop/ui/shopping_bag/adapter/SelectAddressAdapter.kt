@@ -1,5 +1,6 @@
 package com.alexis.shop.ui.shopping_bag.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -14,6 +15,7 @@ import com.alexis.shop.domain.model.checkout.CheckoutAddressModelView
 import com.alexis.shop.utils.*
 
 class SelectAddressAdapter(
+    private val context : Context,
     private val listener: OnClickItem
 ) : RecyclerView.Adapter<SelectAddressAdapter.SelectAddressViewHolder>() {
 

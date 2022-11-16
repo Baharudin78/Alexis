@@ -6,9 +6,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alexis.shop.databinding.SizeFilterItemLayoutBinding
 import com.alexis.shop.domain.model.sizefilter.SizeFilterModel
+import com.alexis.shop.utils.OnClickItem
 import com.alexis.shop.utils.common.withDelay
 
-class SizeFilterAdapter: RecyclerView.Adapter<SizeFilterAdapter.SizeViewHolder>() {
+class SizeFilterAdapter(private var listener : OnClickItem): RecyclerView.Adapter<SizeFilterAdapter.SizeViewHolder>() {
 
     private var sizeFilterData = ArrayList<List<SizeFilterModel>>()
     private val viewPool = RecyclerView.RecycledViewPool()
@@ -34,7 +35,7 @@ class SizeFilterAdapter: RecyclerView.Adapter<SizeFilterAdapter.SizeViewHolder>(
 
     inner class SizeViewHolder(var binding: SizeFilterItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(dataList: List<SizeFilterModel>) {
-            val itemAdapter = SizeFilterItemAdapter()
+            val itemAdapter = SizeFilterItemAdapter(listener)
             itemAdapter.setData(dataList as ArrayList<SizeFilterModel>)
             val layoutManager = GridLayoutManager(binding.recylerViewChildItem.context, 4)
             layoutManager.initialPrefetchItemCount = dataList.size
