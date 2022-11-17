@@ -12,6 +12,8 @@ import com.alexis.shop.domain.usecase.helpcenter.HelpCenterInteractor
 import com.alexis.shop.domain.usecase.helpcenter.HelpCenterUseCase
 import com.alexis.shop.domain.usecase.landing.LandingInteractor
 import com.alexis.shop.domain.usecase.landing.LandingUseCase
+import com.alexis.shop.domain.usecase.order.OrderIntactor
+import com.alexis.shop.domain.usecase.order.OrderUseCase
 import com.alexis.shop.domain.usecase.product.ProductInteractor
 import com.alexis.shop.domain.usecase.product.ProductUseCase
 import com.alexis.shop.domain.usecase.product.category.ProductCategoryInteractor
@@ -86,4 +88,8 @@ abstract class AppModule {
     @Binds
     @ViewModelScoped
     abstract fun provideContactUseCase(interactor : ContactInteractor) : ContactUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun provideOrderUseCase(interactor : OrderIntactor) : OrderUseCase
 }

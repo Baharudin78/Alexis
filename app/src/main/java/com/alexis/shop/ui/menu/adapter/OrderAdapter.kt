@@ -7,25 +7,31 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alexis.shop.R
+import com.alexis.shop.domain.model.order.OrderItemModel
 import com.alexis.shop.domain.model.product.ImageModel
 import com.alexis.shop.ui.detail.adapter.ImageOrderAdapter
 import com.alexis.shop.utils.animation.Animations
 import com.alexis.shop.utils.OnClickItem
 
 class OrderAdapter (private val context: Context,
-                    private val items : ArrayList<String>,
+                  //  private val items : ArrayList<String>,
                     private val listener: OnClickItem
 ) : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>() {
 
-    private var contactList: ArrayList<String> = items
+    private var orderList : ArrayList<OrderItemModel> = ArrayList()
 
+    fun setData(data : List<OrderItemModel>) {
+        orderList.clear()
+        orderList.addAll(data)
+        notifyDataSetChanged()
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return OrderViewHolder(inflater, parent)
     }
 
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
-        val item: String = contactList[position]
+        val item: OrderItemModel = orderList[position]
 
         Animations.runAnimation(
             context,
@@ -34,12 +40,12 @@ class OrderAdapter (private val context: Context,
             holder.itemView
         )
 
-        holder.bind(context, item, listener)
+        holder.bind(item)
 
         holder.itemView.setOnClickListener { listener.onClick(item) }
     }
 
-    override fun getItemCount(): Int = contactList.size
+    override fun getItemCount(): Int = orderList.size
 
     class OrderViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
             RecyclerView.ViewHolder(inflater.inflate(R.layout.item_order_list, parent, false)) {
@@ -50,14 +56,17 @@ class OrderAdapter (private val context: Context,
 
         var recycle_img: RecyclerView = itemView.findViewById(R.id.image_order)
 
-        fun bind(context: Context, item_it: String, listener: OnClickItem) {
-            date.text = item_it
+        fun bind(item: OrderItemModel) {
+            date.text = item.transaction_code
+            status.text = item.status.toString()
+            price.text = item.price.toString()
 
-            val images = ArrayList<ImageModel>()
-            images.add(ImageModel("https://cdn.tobi.com/product_images/sm/2/grey-ayda-cowl-neck-sweater-dress.jpg", false))
-            images.add(ImageModel("https://cdn.tobi.com/product_images/sm/1/grey-ayda-cowl-neck-sweater-dress.jpg", false))
-            images.add(ImageModel("https://cdn.tobi.com/product_images/sm/3/grey-ayda-cowl-neck-sweater-dress.jpg", false))
-            images.add(ImageModel("https://cdn.tobi.com/product_images/sm/4/grey-ayda-cowl-neck-sweater-dress.jpg", false))
+
+//            val images = ArrayList<ImageModel>()
+//            images.add(ImageModel("https://cdn.tobi.com/product_images/sm/2/grey-ayda-cowl-neck-sweater-dress.jpg", false))
+//            images.add(ImageModel("https://cdn.tobi.com/product_images/sm/1/grey-ayda-cowl-neck-sweater-dress.jpg", false))
+//            images.add(ImageModel("https://cdn.tobi.com/product_images/sm/3/grey-ayda-cowl-neck-sweater-dress.jpg", false))
+//            images.add(ImageModel("https://cdn.tobi.com/product_images/sm/4/grey-ayda-cowl-neck-sweater-dress.jpg", false))
 
 //            recycle_img.apply {
 //                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)

@@ -6,6 +6,7 @@ import com.alexis.shop.data.repository.city.CityRepository
 import com.alexis.shop.data.repository.contact.ContactRepository
 import com.alexis.shop.data.repository.helpcenter.HelpCenterRepository
 import com.alexis.shop.data.repository.landing.LandingRepository
+import com.alexis.shop.data.repository.order.OrderRepository
 import com.alexis.shop.data.repository.product.ProductCategoryRepository
 import com.alexis.shop.data.repository.product.ProductRepository
 import com.alexis.shop.data.repository.shoppingbag.ShoppingBagRepository
@@ -18,6 +19,7 @@ import com.alexis.shop.domain.repository.city.ICityRepository
 import com.alexis.shop.domain.repository.contact.IContactRepository
 import com.alexis.shop.domain.repository.helpcenter.IHelpCenterRepository
 import com.alexis.shop.domain.repository.landing.ILandingRepository
+import com.alexis.shop.domain.repository.order.IOrderRepository
 import com.alexis.shop.domain.repository.product.IProductCategoryRepository
 import com.alexis.shop.domain.repository.product.IProductRepository
 import com.alexis.shop.domain.repository.shoppingbag.IShoppingBagRepository
@@ -68,4 +70,7 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun provideContactRepository(repository : ContactRepository) :IContactRepository
+
+    @Binds
+    abstract fun provideOrderRepository(repository : OrderRepository) : IOrderRepository
 }

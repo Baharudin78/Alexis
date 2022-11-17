@@ -11,6 +11,7 @@ import com.alexis.shop.data.remote.response.auth.LogoutResponse
 import com.alexis.shop.data.remote.response.contact.ContactResponse
 import com.alexis.shop.data.remote.response.helpcenter.HelpCenterResponse
 import com.alexis.shop.data.remote.response.landing.LandingResponse
+import com.alexis.shop.data.remote.response.order.OrderResponse
 import com.alexis.shop.data.remote.response.product.ProductsGetByIdResponse
 import com.alexis.shop.data.remote.response.product.category.ProductCategoryNewResponse
 import com.alexis.shop.data.remote.response.shoppingbag.ShoppingBagDeleteResponse
@@ -87,6 +88,9 @@ interface ApiService {
 
     @GET("mw/products/")
     suspend fun getAllProduct(): ProductBaruResponse
+
+    @GET("mw/account/order")
+    suspend fun getAllOrder() : OrderResponse
 
     @GET("mw/product/{id}/detail")
     suspend fun getProductById(@Path("id") productId: Int): ProductsGetByIdResponse
