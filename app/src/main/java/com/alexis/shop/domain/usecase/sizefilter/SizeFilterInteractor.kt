@@ -12,7 +12,7 @@ class SizeFilterInteractor @Inject constructor(private val repository: ISizeFilt
         return repository.getSizeFilter()
     }
 
-    override fun postSizeFilter(sizeId: List<Int>): Flow<Resource<List<ProductBaruModel>>> {
+    override fun postSizeFilter(sizeId: Array<Int>): Flow<Resource<List<ProductBaruModel>>> {
         return repository.postProductFilter(sizeId)
     }
 }

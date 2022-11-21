@@ -132,7 +132,7 @@ class MainActivity : AppCompatActivity() {
         
         //Add Content
         getLandingImage()
-        addTitle()
+        //addTitle()
         getAllProduct()
         getStore()
        // addLandingPage()

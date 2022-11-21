@@ -14,7 +14,6 @@ import com.alexis.shop.utils.animation.Animations
 import com.alexis.shop.utils.OnClickItem
 
 class OrderAdapter (private val context: Context,
-                  //  private val items : ArrayList<String>,
                     private val listener: OnClickItem
 ) : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>() {
 

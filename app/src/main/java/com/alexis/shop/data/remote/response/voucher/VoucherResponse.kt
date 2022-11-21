@@ -19,20 +19,22 @@ data class VoucherItem(
     val id : Int,
     @field:SerializedName("name")
     val name : String,
-    @field:SerializedName("description")
-    val description : String,
-    @field:SerializedName("discount")
-    val discount : Int,
-    @field:SerializedName("expired_date")
+    @field:SerializedName("icon")
+    val icon : String,
+    @field:SerializedName("expiry")
+    val expiry : Int,
+    @field:SerializedName("expiry_date")
     val expiredDate : String,
+    @field:SerializedName("launch")
+    val launch : String,
+    @field:SerializedName("available_in")
+    val availableIn : Int,
     @field:SerializedName("voucher_type_id")
     val voucherTypeId : Int,
-    @field:SerializedName("voucher_type")
-    val voucherType : VoucherType
-)
-data class VoucherType(
-    @field:SerializedName("id")
-    val idVoucherType : Int,
-    @field:SerializedName("name")
-    val nameType : String
+    @field:SerializedName("amount")
+    val amount : Int,
+    @field:SerializedName("condition")
+    val condition : Int,
+    @field:SerializedName("minimum_purchase")
+    val minimumPurchase : Int
 )

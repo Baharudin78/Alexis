@@ -30,16 +30,19 @@ class SizeFilterRemoteDataSource @Inject constructor(private val apiService: Api
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun postSizeFilter(sizeId : List<Int>) : Flow<ApiResponse<ProductBaruResponse>> {
+    suspend fun postSizeFilter(sizeId : Array<Int>) : Flow<ApiResponse<ProductBaruResponse>> {
         return flow<ApiResponse<ProductBaruResponse>> {
             try {
                 val response = apiService.postSize(sizeId)
                 if (response.data?.product?.isNotEmpty()== true) {
+                    Log.d("FILTERDSDSDS"," berhasill")
                     emit(ApiResponse.Success(response))
                 }else {
+                    Log.d("FILTERDSDSDS", "kosong")
                     emit(ApiResponse.Empty)
                 }
             }catch (e : Exception) {
+                Log.d("FILTERDSDSDS", e.localizedMessage.orEmpty())
                 emit(ApiResponse.Error(e.toString()))
             }
         }.flowOn(Dispatchers.IO)

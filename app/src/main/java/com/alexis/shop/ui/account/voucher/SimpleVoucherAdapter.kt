@@ -34,7 +34,7 @@ class SimpleVoucherAdapter(private val context : Context, private val listener :
              tanggal.text = item.expiredDate
              name.text = item.name
              expired.text = item.expiredDate
-             potongan.text = item.discount.toString()
+             potongan.text = item.amount.toString()
          }
     }
 

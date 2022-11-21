@@ -7,5 +7,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface ISizeFilterRepository {
     fun getSizeFilter(): Flow<Resource<List<SizeFilterModel>>>
-    fun postProductFilter(sizeId : List<Int>) : Flow<Resource<List<ProductBaruModel>>>
+    fun postProductFilter(sizeId : Array<Int>) : Flow<Resource<List<ProductBaruModel>>>
 }

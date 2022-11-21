@@ -4,6 +4,7 @@ import android.util.Log
 import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.data.remote.network.ApiService
 import com.alexis.shop.domain.model.checkout.CheckoutAddressModelView
+import com.alexis.shop.utils.log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -62,12 +63,15 @@ class CheckoutAddressRemoteDataSource @Inject constructor(private val apiService
             try {
                 val response = apiService.getCheckOutAddress()
                 if (!response.data?.address.isNullOrEmpty()) {
+                    log("location adresss success")
                     emit(ApiResponse.Success(response))
                 } else {
+                    log("location adresss success")
                     emit(ApiResponse.Empty)
                 }
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
+                log("location adresss error + ${e.localizedMessage}")
                 Log.e("RemoteDataSource", e.toString())
             }
         }.flowOn(Dispatchers.IO)

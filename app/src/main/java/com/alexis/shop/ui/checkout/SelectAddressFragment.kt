@@ -24,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import eightbitlab.com.blurview.RenderScriptBlur
 
 @AndroidEntryPoint
-class SelectAddressFragment : BaseFragment<FragmentSelectAddressBinding>() {
+class SelectAddressFragment : BaseFragment<FragmentSelectAddressBinding>(), OnClickItem {
     private val viewModel: SelectAddressFragmentViewModel by viewModels()
     private var selectedDelivery: String = ""
     private var checkoutAddress = ArrayList<AddressItemModel>()
@@ -43,7 +43,12 @@ class SelectAddressFragment : BaseFragment<FragmentSelectAddressBinding>() {
 
     override fun main() {
         blurView()
+        adapterIt = SelectAddressAdapter(binding.root.context, this)
         with(binding) {
+            recycleAddress.apply {
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                adapter = adapterIt
+            }
             deliveryType1.background =
                 ContextCompat.getDrawable(requireContext(), R.drawable.rounder_white_transparent)
             selectedDelivery = "regular"
@@ -63,29 +68,29 @@ class SelectAddressFragment : BaseFragment<FragmentSelectAddressBinding>() {
                 requireActivity().supportFragmentManager.shopNavigator(fragment)
             }
         }
-        initRecyclerView()
+       // initRecyclerView()
         getCheckoutAddress()
     }
 
-    private fun initRecyclerView() {
-        adapterIt = SelectAddressAdapter(binding.root.context,object : OnClickItem {
-            override fun onClick(item: Any) {
-                item as CheckoutAddressModelView
-//                changeChoosen(item)
-//                if(item.getData().equals("Add_Location",true)){
-//                    val fragment = AddAddressFragment.newInstance(SELECT_ADDRESS,"")
-//                    requireActivity().supportFragmentManager.shopNavigator(fragment)
-//                }else{
+//    private fun initRecyclerView() {
+//        adapterIt = SelectAddressAdapter(binding.root.context,object : OnClickItem {
+//            override fun onClick(item: Any) {
+//                item as CheckoutAddressModelView
+////                changeChoosen(item)
+////                if(item.getData().equals("Add_Location",true)){
+////                    val fragment = AddAddressFragment.newInstance(SELECT_ADDRESS,"")
+////                    requireActivity().supportFragmentManager.shopNavigator(fragment)
+////                }else{
+////
+////                }
+//            }
+//        })
 //
-//                }
-            }
-        })
-
-        binding.recycleAddress.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            adapter = adapterIt
-        }
-    }
+//        binding.recycleAddress.apply {
+//            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+//            adapter = adapterIt
+//        }
+//    }
 
     private fun getCheckoutAddress() {
         viewModel.getCheckoutAddress().observe(viewLifecycleOwner) { response ->
@@ -93,11 +98,11 @@ class SelectAddressFragment : BaseFragment<FragmentSelectAddressBinding>() {
                 when (response) {
                     is Resource.Loading -> {}
                     is Resource.Success -> {
-                        response.data?.let {
-                            checkoutAddress.add(AddressItemModel())
-                            checkoutAddress.addAll(it as ArrayList<AddressItemModel>)
-                            adapterIt.setData(checkoutAddress)
-                        }
+                        log("berhasil")
+                        val addressValue = response.data?.address as ArrayList<AddressItemModel>
+                        log("berhasil $addressValue")
+                        checkoutAddress = addressValue
+                        adapterIt.setData(addressValue)
                     }
                     is Resource.Error -> {
                         Toast.makeText(
@@ -136,5 +141,9 @@ class SelectAddressFragment : BaseFragment<FragmentSelectAddressBinding>() {
 //        checkoutAddress.clear()
 //        checkoutAddress.addAll(ccc)
         adapterIt.notifyDataSetChanged()
+    }
+
+    override fun onClick(item: Any) {
+        TODO("Not yet implemented")
     }
 }

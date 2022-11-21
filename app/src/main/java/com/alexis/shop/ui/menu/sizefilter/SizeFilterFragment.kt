@@ -111,14 +111,16 @@ class SizeFilterFragment : Fragment(), OnClickItem{
         }
     }
 
-    private fun postSizeFilter(sizeId : List<Int>) {
+    private fun postSizeFilter(sizeId : Array<Int>) {
         viewModel.postSizeFilter(sizeId).observe(viewLifecycleOwner) { response ->
             if (response != null) {
                 when(response) {
                     is Resource.Loading -> {}
                     is Resource.Success -> {
                         response.data?.let { it ->
+                            Log.d("FILTERDSDSDS", "$it")
                             it.map { product ->
+                                Log.d("FILTERDSDSDS","$product")
                                 val intent = Intent(requireContext(), SubCategoryPageActivity::class.java)
                                     .putExtra("DATA", product)
                                 startActivity(intent)
@@ -166,8 +168,9 @@ class SizeFilterFragment : Fragment(), OnClickItem{
     override fun onClick(item: Any) {
         item as SizeFilterModel
         val listSizeId : List<Int> = listOf(item.id.toInt())
+        val list = arrayOf(1,3,4)
         btnSubmit.setOnClickListener {
-            postSizeFilter(listSizeId)
+            postSizeFilter(list)
         }
         log("$listSizeId")
         Log.d("LSIFAFDA", "${listSizeId.toList()}")

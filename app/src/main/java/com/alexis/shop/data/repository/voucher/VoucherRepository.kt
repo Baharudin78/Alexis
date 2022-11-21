@@ -41,10 +41,15 @@ class VoucherRepository @Inject constructor(
                     VoucherItemModel(
                         id = it?.id.orZero(),
                         name = it?.name.orEmpty(),
-                        description = it?.description.orEmpty(),
-                        discount = it?.discount.orZero(),
                         expiredDate = it?.expiredDate.orEmpty(),
                         voucherTypeId = it?.voucherTypeId.orZero(),
+                        icon = it?.icon.orEmpty(),
+                        expiry = it?.expiry.orZero(),
+                        launch = it?.launch.orEmpty(),
+                        availableIn = it?.availableIn.orZero(),
+                        amount = it?.amount.orZero(),
+                        minimumPurchase = it?.minimumPurchase.orZero(),
+                        condition = it?.condition.orZero()
                     )
                 }
             )

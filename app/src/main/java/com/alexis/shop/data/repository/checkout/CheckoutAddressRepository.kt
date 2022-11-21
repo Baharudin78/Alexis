@@ -1,5 +1,6 @@
 package com.alexis.shop.data.repository.checkout
 
+import android.util.Log
 import com.alexis.shop.data.Resource
 import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.data.remote.response.checkout.CheckoutAddressItem

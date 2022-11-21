@@ -1,18 +1,20 @@
 package com.alexis.shop.domain.model.voucher
 
+import com.google.gson.annotations.SerializedName
+
 data class AllVoucherModel (
     val data : List<VoucherItemModel> = mutableListOf()
 )
 data class VoucherItemModel(
-    val id : Int = 0,
-    val name : String = "",
-    val description : String = "",
-    val discount : Int = 0,
-    val expiredDate : String = "",
-    val voucherTypeId : Int = 0,
-    val voucherType : VoucerTypeModel? = null
-)
-data class VoucerTypeModel(
-    val idType : Int = 0,
-    val nameType : String = ""
+    val id : Int?= null,
+    val name : String?= null,
+    val icon : String?= null,
+    val expiry : Int?= null,
+    val expiredDate : String?= null,
+    val launch : String?= null,
+    val availableIn : Int?= null,
+    val voucherTypeId : Int?= null,
+    val amount : Int?= null,
+    val condition : Int?= null,
+    val minimumPurchase : Int?= null
 )

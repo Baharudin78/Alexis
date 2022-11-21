@@ -9,10 +9,12 @@ import com.alexis.shop.data.repository.landing.LandingRepository
 import com.alexis.shop.data.repository.order.OrderRepository
 import com.alexis.shop.data.repository.product.ProductCategoryRepository
 import com.alexis.shop.data.repository.product.ProductRepository
+import com.alexis.shop.data.repository.profil.ProfilRepository
 import com.alexis.shop.data.repository.shoppingbag.ShoppingBagRepository
 import com.alexis.shop.data.repository.sizefilter.SizeFilterRepository
 import com.alexis.shop.data.repository.storelocation.StoreLocationRepository
 import com.alexis.shop.data.repository.wishlist.WishlistRepository
+import com.alexis.shop.domain.repository.IProfilRepository
 import com.alexis.shop.domain.repository.auth.IAuthRepository
 import com.alexis.shop.domain.repository.checkout.ICheckoutAddressRepository
 import com.alexis.shop.domain.repository.city.ICityRepository
@@ -73,4 +75,7 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun provideOrderRepository(repository : OrderRepository) : IOrderRepository
+
+    @Binds
+    abstract fun provideProfilRepository(repository : ProfilRepository) : IProfilRepository
 }

@@ -14,6 +14,7 @@ import com.alexis.shop.data.remote.response.landing.LandingResponse
 import com.alexis.shop.data.remote.response.order.OrderResponse
 import com.alexis.shop.data.remote.response.product.ProductsGetByIdResponse
 import com.alexis.shop.data.remote.response.product.category.ProductCategoryNewResponse
+import com.alexis.shop.data.remote.response.profil.ProfilResponse
 import com.alexis.shop.data.remote.response.shoppingbag.ShoppingBagDeleteResponse
 import com.alexis.shop.data.remote.response.shoppingbag.ShoppingBagPostResponse
 import com.alexis.shop.data.remote.response.shoppingbag.ShopingBagNewResponse
@@ -76,7 +77,7 @@ interface ApiService {
 
     @POST("mw/products/size")
     suspend fun postSize(
-        @Body productItemCode: List<Int>
+        @Body productItemCode: Array<Int>
     ): ProductBaruResponse
 
     @GET("mw/wishlist")
@@ -118,7 +119,7 @@ interface ApiService {
     @GET("mw/product-size/")
     suspend fun getSizeFilter(): SizeFilterResponse
 
-    @GET("mw/voucher")
+    @GET("mw/account/voucher")
     suspend fun getVoucher(): VoucherResponse
 
     @GET("mw/help-center")
@@ -126,6 +127,10 @@ interface ApiService {
 
     @GET("mw/contact")
     suspend fun getContact() : ContactResponse
+
+
+    @GET("mw/account/profile")
+    suspend fun getProfile() : ProfilResponse
 
     /*
     ADDRESS
@@ -136,7 +141,7 @@ interface ApiService {
         @Query("name") name : String
     ) : CityResponse
 
-    @GET("mw/address")
+    @GET("mw/account/address")
     suspend fun getCheckOutAddress(): CheckoutAddressGetResponse
 
     @POST("mw/address")

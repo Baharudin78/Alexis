@@ -7,5 +7,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface SizeFilterUseCase {
     fun getSizeFilter(): Flow<Resource<List<SizeFilterModel>>>
-    fun postSizeFilter(sizeId : List<Int>) : Flow<Resource<List<ProductBaruModel>>>
+    fun postSizeFilter(sizeId : Array<Int>) : Flow<Resource<List<ProductBaruModel>>>
 }
