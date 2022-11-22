@@ -42,6 +42,11 @@ import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 import eightbitlab.com.blurview.RenderEffectBlur
 import eightbitlab.com.blurview.RenderScriptBlur
+import kotlinx.android.synthetic.main.activity_main.*
+
+//import kotlinx.android.synthetic.main.activity_main.*
+
+//import kotlinx.android.synthetic.main.activity_main.*
 
 
 @AndroidEntryPoint
@@ -179,7 +184,7 @@ class MenuFragment : BaseFragment<FragmentMenuBinding>(), OnClickItem{
                     "Help Center" -> fragManager?.menuNavigator(HelpCenterFragment.newInstance())
                     "About Us" -> fragManager?.menuNavigator(AboutUsFragment())
                     "Refer & Earn" -> fragManager?.menuNavigator(ReferAndEarnFragment.newInstance("",""))
-                    "Contact Us" -> fragManager?.menuNavigator(ContactUsFragment.newInstance("",""))
+                    "Contact Us" -> fragManager?.menuNavigator(ContactUsFragment())
                     "Login/Register" -> fragManager?.menuNavigator(LoginFragment())
                     "My Account" -> fragManager?.menuNavigator(MyAccountFragment.newInstance("",""))
                     "Store Location" -> fragManager?.menuNavigator(StoreLocationHomeFragment.newInstance())

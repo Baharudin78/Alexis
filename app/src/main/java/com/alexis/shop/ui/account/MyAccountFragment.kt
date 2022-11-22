@@ -10,8 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.alexis.shop.BaseFragment
 import com.alexis.shop.R
 import com.alexis.shop.data.Resource
+import com.alexis.shop.databinding.FragmentMyAccountBinding
 import com.alexis.shop.domain.model.menu.MenuModel
 import com.alexis.shop.ui.account.adapter.MyAccountAdapter
 import com.alexis.shop.ui.account.login.LoginFragment
@@ -31,7 +33,7 @@ import com.alexis.shop.utils.toast
 import com.google.android.material.transition.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
 import eightbitlab.com.blurview.RenderScriptBlur
-import kotlinx.android.synthetic.main.fragment_my_account.*
+//import kotlinx.android.synthetic.main.fragment_my_account.*
 import kotlinx.coroutines.withContext
 import kotlin.concurrent.thread
 
@@ -40,18 +42,18 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 @AndroidEntryPoint
-class MyAccountFragment : Fragment() {
+class MyAccountFragment : BaseFragment<FragmentMyAccountBinding>() {
     private var param1: String? = null
     private var param2: String? = null
 
-    lateinit var cancel_button: ImageView
-    lateinit var terms: TextView
-    lateinit var privacy: TextView
-    lateinit var listmenu: RecyclerView
+//    lateinit var cancel_button: ImageView
+//    lateinit var terms: TextView
+//    lateinit var privacy: TextView
+//    lateinit var listmenu: RecyclerView
     lateinit var sharefPref : SheredPreference
     private val menuViewModel: MenuViewModel by viewModels()
     private val viewModel : LoginViewModel by viewModels()
-
+    override fun getViewBinding() = FragmentMyAccountBinding.inflate(layoutInflater)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharefPref = SheredPreference(requireContext())
@@ -64,29 +66,29 @@ class MyAccountFragment : Fragment() {
         enterTransition = MaterialFadeThrough()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        val root = inflater.inflate(R.layout.fragment_my_account, container, false)
-        cancel_button   = root.findViewById(R.id.btn_cancel)
-        listmenu        = root.findViewById(R.id.recycle_myacc)
-        terms           = root.findViewById(R.id.t1)
-        privacy         = root.findViewById(R.id.t2)
-
-        return root
-    }
+//    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+//                              savedInstanceState: Bundle?): View? {
+//        val root = inflater.inflate(R.layout.fragment_my_account, container, false)
+//        cancel_button   = root.findViewById(R.id.btn_cancel)
+//        listmenu        = root.findViewById(R.id.recycle_myacc)
+//        terms           = root.findViewById(R.id.t1)
+//        privacy         = root.findViewById(R.id.t2)
+//
+//        return root
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         blurView()
-        cancel_button.setOnClickListener {
+        binding.btnCancel.setOnClickListener {
             requireActivity().supportFragmentManager.accountNavigator(MenuFragment.newInstance("","222"))
         }
 
-        terms.setOnClickListener {
+        binding.t1.setOnClickListener {
             requireActivity().supportFragmentManager.accountNavigator(TermsNConditionsFragment.newInstance("1",""))
         }
 
-        privacy.setOnClickListener {
+        binding.t2.setOnClickListener {
             requireActivity().supportFragmentManager.accountNavigator(TermsNConditionsFragment.newInstance("2",""))
         }
 
@@ -100,7 +102,7 @@ class MyAccountFragment : Fragment() {
         arraymenu.add(MenuModel(1, 1, R.drawable.ic_language,"Language"))
         arraymenu.add(MenuModel(1, 1, R.drawable.ic_logout,"Logout"))
 
-        listmenu.apply {
+        binding.recycleMyacc.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = MyAccountAdapter(requireContext(), arraymenu, object : OnClickItem {
                 override fun onClick(item: Any) {
@@ -181,7 +183,7 @@ class MyAccountFragment : Fragment() {
         val decorView : View = activity?.window!!.decorView
         val rootView = decorView.findViewById<View>(android.R.id.content) as ViewGroup
         val windowBackground = decorView.background
-        blurView.setupWith(rootView, RenderScriptBlur(requireContext()))
+        binding.blurView.setupWith(rootView, RenderScriptBlur(requireContext()))
             .setFrameClearDrawable(windowBackground)
             .setBlurRadius(radius)
             .setBlurAutoUpdate(true)

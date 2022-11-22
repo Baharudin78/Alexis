@@ -76,6 +76,7 @@ interface ApiService {
     ): WishlistPostResponse
 
     @POST("mw/products/size")
+    @FormUrlEncoded
     suspend fun postSize(
         @Body productItemCode: Array<Int>
     ): ProductBaruResponse

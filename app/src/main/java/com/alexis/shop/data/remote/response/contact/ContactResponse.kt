@@ -7,7 +7,7 @@ data class ContactResponse(
     val status: String
 )
 data class ContactItems(
-    val items: List<ContactData>
+    val item: ContactData
 )
 data class ContactData(
     val email: String,

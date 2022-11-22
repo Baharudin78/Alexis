@@ -27,7 +27,6 @@ import com.alexis.shop.domain.model.landing.LandingModelItem
 import com.alexis.shop.domain.model.product.category.ProductCategoryNewModel
 import com.alexis.shop.domain.model.product.modelbaru.ProductBaruModel
 import com.alexis.shop.domain.model.wishlist.WishlistModel
-import com.alexis.shop.ui.account.login.LoginFragment
 import com.alexis.shop.ui.detail.adapter.entity.SubCategoryProduct
 import com.alexis.shop.ui.detail.adapter.entity.SubCategoryTitle
 import com.alexis.shop.ui.detail.adapter.entity.SubCategoryTypeAProduct
@@ -44,7 +43,7 @@ import com.alexis.shop.utils.prefs.SheredPreference
 import com.dizcoding.mylibrv.BaseListAdapter
 import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_main.*
+//import kotlinx.android.synthetic.main.activity_main.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -52,19 +51,19 @@ class MainActivity : AppCompatActivity() {
     private val viewModelLoc : StoreLocationViewModel by viewModels()
     private var booleanColor = false
     private val double = "double"
-    lateinit var option: CheckBox
+//    lateinit var option: CheckBox
     lateinit var sharedPref : SheredPreference
     private lateinit var binding : ActivityMainBinding
-    private var product: ProductCategoryNewModel? = null
-    private var imageLanding : LandingModelItem? = null
-    private lateinit var cart: ImageView
-    private lateinit var count_cart: TextView
-    private lateinit var loved: ImageView
-    private lateinit var count_loved: TextView
-    private lateinit var logo: ImageView
+//    private var product: ProductCategoryNewModel? = null
+//    private var imageLanding : LandingModelItem? = null
+//    private lateinit var cart: ImageView
+//    private lateinit var count_cart: TextView
+//    private lateinit var loved: ImageView
+//    private lateinit var count_loved: TextView
+//    private lateinit var logo: ImageView
    // private lateinit var products: ArrayList<Product>
-    private var countCart = 0
-    private var countLoved = 0
+//    private var countCart = 0
+//    private var countLoved = 0
     private val adapters = BaseListAdapter(ItemTypeFactoryImpl())
  //   private lateinit var storeHomeAdapter : StoreHomeAdapter
 
@@ -85,16 +84,16 @@ class MainActivity : AppCompatActivity() {
 //            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 //            adapter = storeHomeAdapter
 //        }
-        option = findViewById(R.id.option)
-        cart = findViewById(R.id.cart)
-        count_cart = findViewById(R.id.count_cart)
-        loved = findViewById(R.id.loved)
-        count_loved = findViewById(R.id.count_loved)
-        logo = findViewById(R.id.logo_alexis)
+//        option = findViewById(R.id.option)
+//        cart = findViewById(R.id.cart)
+//        count_cart = findViewById(R.id.count_cart)
+//        loved = findViewById(R.id.loved)
+//        count_loved = findViewById(R.id.count_loved)
+//        logo = findViewById(R.id.logo_alexis)
 
         changeTopBarsColor(false)
-        count_loved.text = getSavedPrefsWish().toString()
-        count_cart.text = getSavedPrefsCount().toString()
+        binding.countLoved.text = getSavedPrefsWish().toString()
+        binding.countCart.text = getSavedPrefsCount().toString()
 
         //Animation bounce
         val ltr = AnimationUtils.loadAnimation(this, R.anim.bounce_in_left)
@@ -102,33 +101,33 @@ class MainActivity : AppCompatActivity() {
         val rtc = AnimationUtils.loadAnimation(this, R.anim.bounce_in_right)
 
         //Implement Animation bounce on menu option, cart, and wish list
-        option.startAnimation(ltr)
-        cart.invisible()
-        count_cart.invisible()
-        loved.invisible()
-        count_loved.invisible()
+        binding.option.startAnimation(ltr)
+        binding.cart.invisible()
+        binding.countCart.invisible()
+        binding.loved.invisible()
+        binding.countLoved.invisible()
 
         withDelayTime(800) {
-            cart.visible()
-            count_cart.visible()
+            binding.cart.visible()
+            binding.countCart.visible()
 
-            cart.startAnimation(rtl)
-            count_cart.startAnimation(rtl)
+            binding.cart.startAnimation(rtl)
+            binding.countCart.startAnimation(rtl)
         }
 
         withDelayTime(1600) {
-            loved.visible()
-            count_loved.visible()
+            binding.loved.visible()
+            binding.countLoved.visible()
 
-            loved.startAnimation(rtc)
-            count_loved.startAnimation(rtc)
+            binding.loved.startAnimation(rtc)
+            binding.countLoved.startAnimation(rtc)
         }
 
         hideBlur()
 
         val linearLayoutManager = LinearLayoutManager(this)
-        base_recycler.layoutManager = linearLayoutManager
-        base_recycler.adapter = adapters
+        binding.baseRecycler.layoutManager = linearLayoutManager
+        binding.baseRecycler.adapter = adapters
         
         //Add Content
         getLandingImage()
@@ -146,14 +145,14 @@ class MainActivity : AppCompatActivity() {
 //        addProductsA2(adapter)
 //        addProductsB(adapter)
 
-        nested_base.setOnScrollChangeListener { _: NestedScrollView?, _: Int, scrollY: Int, _: Int, _: Int ->
+        binding.nestedBase.setOnScrollChangeListener { _: NestedScrollView?, _: Int, scrollY: Int, _: Int, _: Int ->
             if (scrollY >= getTrullyHeightResolution(this) + 5) {
                 changeTopBarsColor(true)
             } else {
                 changeTopBarsColor(false)
             }
         }
-        option.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.option.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) withDelay(300) {
                 supportFragmentManager.commit {
                     add<MenuFragment>(R.id.transparent_menu)
@@ -162,7 +161,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        loved.setPushClickListener {
+        binding.loved.setPushClickListener {
             val fragment = WishlistFragment.newInstance(WishlistModel(), "")
             supportFragmentManager.commit {
                 add(R.id.transparent_menu, fragment)
@@ -171,15 +170,15 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        cart.setPushClickListener {
+        binding.cart.setPushClickListener {
             supportFragmentManager.commit {
                 add<ShoppingBagFragment>(R.id.transparent_menu)
                 addToBackStack("shopping_bag_fragments")
             }
         }
 
-        logo.setOnClickListener {
-            base_recycler.scrollToPosition(1)
+        binding.logoAlexis.setOnClickListener {
+            binding.baseRecycler.scrollToPosition(1)
             log("clicked")
         }
 
@@ -218,13 +217,13 @@ class MainActivity : AppCompatActivity() {
             true -> Color.BLACK
             false -> Color.WHITE
         }
-        a_tx.setColorFilter(ContextCompat.getColor(applicationContext, color))
-        logo_alexis.setColorFilter(ContextCompat.getColor(applicationContext, color))
-        option.buttonTintList = ColorStateList.valueOf(checkBoxColor)
-        cart.setColorFilter(ContextCompat.getColor(applicationContext, color))
-        count_cart.setTextColor(ContextCompat.getColor(applicationContext, color))
-        loved.setColorFilter(ContextCompat.getColor(applicationContext, color))
-        count_loved.setTextColor(ContextCompat.getColor(applicationContext, color))
+        binding.aTx.setColorFilter(ContextCompat.getColor(applicationContext, color))
+        binding.logoAlexis.setColorFilter(ContextCompat.getColor(applicationContext, color))
+        binding.option.buttonTintList = ColorStateList.valueOf(checkBoxColor)
+        binding.cart.setColorFilter(ContextCompat.getColor(applicationContext, color))
+        binding.countCart.setTextColor(ContextCompat.getColor(applicationContext, color))
+        binding.loved.setColorFilter(ContextCompat.getColor(applicationContext, color))
+        binding.countLoved.setTextColor(ContextCompat.getColor(applicationContext, color))
         customTopBarsColor(isBlack)
         booleanColor = isBlack
     }
@@ -233,7 +232,7 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         forceStatusBar(window, false)
         changeTopBarsColor(booleanColor)
-        if (blurView.isVisible) {
+        if (binding.blurView.isVisible) {
             hideBlur()
         }
     }
@@ -244,10 +243,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun hideBlur() {
-        blurView.visible()
+        binding.blurView.visible()
 
         withDelayTime(1000) {
-            blurView.invisible()
+            binding.blurView.invisible()
         }
     }
 
@@ -315,6 +314,7 @@ class MainActivity : AppCompatActivity() {
                     is Resource.Loading -> {}
                     is Resource.Success -> {
                         response.data?.let {
+                         //   val storeValue = response.data
 //                            val store = StoreLocationType(it)
 //                            adapters.addItem(store)
                         }
@@ -346,7 +346,7 @@ class MainActivity : AppCompatActivity() {
                     is Resource.Success -> {
                         response.data?.let {
                             savedWishToPrefs(it.size)
-                            count_loved.text = it.size.toString()
+                            binding.countLoved.text = it.size.toString()
                         }
                     }
                     is Resource.Error -> {

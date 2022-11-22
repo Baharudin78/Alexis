@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.add
+import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexis.shop.BaseFragment
@@ -11,6 +14,7 @@ import com.alexis.shop.R
 import com.alexis.shop.data.Resource
 import com.alexis.shop.databinding.FragmentShoppingBagBinding
 import com.alexis.shop.domain.model.shoppingbag.ShoppingBagModel
+import com.alexis.shop.ui.checkout.SelectAddressFragment
 import com.alexis.shop.ui.shopping_bag.adapter.ShoppingBagAdapter
 import com.alexis.shop.utils.*
 import com.google.android.material.transition.MaterialFadeThrough
@@ -28,6 +32,7 @@ class ShoppingBagFragment : BaseFragment<FragmentShoppingBagBinding>(), OnShoppi
     private val viewModel: ShoppingBagViewModel by viewModels()
     lateinit var adapterBill: ShoppingBagAdapter
     private var shoppingBagList = ArrayList<ShoppingBagModel>()
+    private var fragManager: FragmentManager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         StatusBarUtil.forceStatusBar(requireActivity().window, true)
@@ -46,9 +51,15 @@ class ShoppingBagFragment : BaseFragment<FragmentShoppingBagBinding>(), OnShoppi
             adapter = adapterBill
         }
         getShoppingBag()
+        setListener()
        // postWishlist()
     }
-
+    private fun setListener() {
+        val childFragmentManager = requireActivity().supportFragmentManager
+        binding.submit.setOnClickListener {
+            childFragmentManager.accountNavigator(SelectAddressFragment())
+        }
+    }
     private fun deleteFunc(item: ShoppingBagModel) {
         shoppingBagList.remove(item)
         adapterBill.setData(shoppingBagList)

@@ -21,12 +21,12 @@ class ContactRepository @Inject constructor(
     private val contactDataSource: ContactDataSource
 ) : IContactRepository{
 
-    override fun getContact(): Flow<Resource<ContactModel>> {
-        return flow<Resource<ContactModel>> {
+    override fun getContact(): Flow<Resource<ContactDataModel>> {
+        return flow<Resource<ContactDataModel>> {
             emit(Resource.Loading())
             when(val apiResponse = contactDataSource.getContact().first()) {
                 is ApiResponse.Success -> emit(
-                    Resource.Success(generateContactModel(apiResponse.data.data.items))
+                    Resource.Success(generateContactModel(apiResponse.data.data.item))
                 )
                 is ApiResponse.Empty -> listOf<ContactModel>()
                 is ApiResponse.Error -> emit(Resource.Error(apiResponse.errorMessage))
@@ -34,19 +34,15 @@ class ContactRepository @Inject constructor(
         }
     }
 
-    private fun generateContactModel (data : List<ContactData?>?) : ContactModel {
-        return if ((!data.isNullOrEmpty())) {
-            ContactModel(
-                items = data.map {
-                    ContactDataModel(
-                        email = it?.email.orEmpty(),
-                        id = it?.id.orZero(),
-                        whatsapp = it?.whatsapp.orEmpty()
-                    )
-                }
+    private fun generateContactModel (data : ContactData?) : ContactDataModel {
+        return if (data != null) {
+            ContactDataModel(
+                email = data.email.orEmpty(),
+                id = data.id.orZero(),
+                whatsapp = data.whatsapp.orEmpty()
             )
-        }else{
-            ContactModel()
+        } else {
+            ContactDataModel()
         }
     }
 }

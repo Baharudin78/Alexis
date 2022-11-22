@@ -20,7 +20,7 @@ class ContactDataSource  @Inject constructor(
          return flow {
              try {
                  val response = apiService.getContact()
-                 if (response.data.items.isNotEmpty()) {
+                 if (response.data.item != null) {
                      emit(ApiResponse.Success(response))
                  }else{
                      Log.d("REMOTES", "2")
