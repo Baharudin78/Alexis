@@ -34,6 +34,12 @@ class ShoppingBagAdapter (
         notifyDataSetChanged()
     }
 
+    fun getPrice(data: List<ShoppingBagModel>) {
+        for (i in contactList.indices) {
+
+        }
+    }
+
     override fun onBindViewHolder(holder: ShoppingBagViewHolder, position: Int) {
         val item: ShoppingBagModel = contactList[position]
         val motion = holder.itemView.findViewById<MotionLayout>(R.id.parent)
@@ -89,5 +95,7 @@ class ShoppingBagAdapter (
     }
 
     override fun getItemCount(): Int = contactList.size
+
+
 
 }

@@ -88,6 +88,9 @@ class ShoppingBagFragment : BaseFragment<FragmentShoppingBagBinding>(), OnShoppi
     }
 
     private fun deleteShoppingBag(item: ShoppingBagModel) {
+        shoppingBagList.map {
+            it.id
+        }
         viewModel.deleteShoppingBag(item.id.orZero()).observe(viewLifecycleOwner) { response ->
             if (response != null) {
                 when (response) {

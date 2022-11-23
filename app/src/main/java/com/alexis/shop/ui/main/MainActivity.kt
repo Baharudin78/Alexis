@@ -33,6 +33,7 @@ import com.alexis.shop.ui.detail.adapter.entity.SubCategoryTypeAProduct
 import com.alexis.shop.ui.detail.adapter.factory.ItemTypeFactoryImpl
 import com.alexis.shop.ui.menu.MenuFragment
 import com.alexis.shop.ui.menu.storelocation.StoreLocationViewModel
+import com.alexis.shop.ui.shopping_bag.ShopingBagActivity
 import com.alexis.shop.ui.shopping_bag.ShoppingBagFragment
 import com.alexis.shop.ui.wishlist.WishlistFragment
 import com.alexis.shop.utils.*
@@ -170,12 +171,15 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        binding.cart.setPushClickListener {
-            supportFragmentManager.commit {
-                add<ShoppingBagFragment>(R.id.transparent_menu)
-                addToBackStack("shopping_bag_fragments")
-            }
+        binding.cart.setOnClickListener{
+            startActivity(Intent(this, ShopingBagActivity::class.java))
         }
+//        binding.cart.setPushClickListener {
+//            supportFragmentManager.commit {
+//                add<ShoppingBagFragment>(R.id.transparent_menu)
+//                addToBackStack("shopping_bag_fragments")
+//            }
+//        }
 
         binding.logoAlexis.setOnClickListener {
             binding.baseRecycler.scrollToPosition(1)

@@ -1,16 +1,27 @@
 package com.alexis.shop.ui.shopping_bag
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.fragment.app.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexis.shop.R
+import com.alexis.shop.data.Resource
 import com.alexis.shop.databinding.ActivityShopingBagBinding
 import com.alexis.shop.domain.model.shoppingbag.ShoppingBagModel
 import com.alexis.shop.ui.shopping_bag.adapter.ShoppingBagAdapter
 import com.alexis.shop.utils.OnShoppingBagClickItem
+import com.alexis.shop.utils.StatusBarUtil
+import com.alexis.shop.utils.orZero
+import com.alexis.shop.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
+import eightbitlab.com.blurview.RenderScriptBlur
+import kotlinx.android.synthetic.main.activity_shoping_bag.*
+import kotlinx.android.synthetic.main.fragment_shopping_bag.*
+import kotlinx.android.synthetic.main.fragment_shopping_bag.blurView
 
 @AndroidEntryPoint
 class ShopingBagActivity : AppCompatActivity(), OnShoppingBagClickItem {
@@ -19,6 +30,8 @@ class ShopingBagActivity : AppCompatActivity(), OnShoppingBagClickItem {
     private val viewModel: ShoppingBagViewModel by viewModels()
     lateinit var adapterBill: ShoppingBagAdapter
     private var shoppingBagList = ArrayList<ShoppingBagModel>()
+    private var totalPrice = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +39,9 @@ class ShopingBagActivity : AppCompatActivity(), OnShoppingBagClickItem {
         setContentView(binding.root)
 
         setupRecycleview()
+        blurView()
+        getShopingBag()
+        getPrice()
     }
 
     private fun setupRecycleview() {
@@ -36,15 +52,103 @@ class ShopingBagActivity : AppCompatActivity(), OnShoppingBagClickItem {
         }
     }
 
+    private fun getShopingBag() {
+        viewModel.getShoppingCart().observe(this) { response ->
+            if (response != null) {
+                when (response) {
+                    is Resource.Loading -> {}
+                    is Resource.Success -> {
+                        val shoppingValue = response.data?.bag as ArrayList<ShoppingBagModel>
+                        shoppingBagList = shoppingValue
+                        adapterBill.setData(shoppingValue)
+                        for (i in 0 until shoppingBagList.size) {
+                            totalPrice += shoppingBagList[i].price
+                            Log.d("TOTAL", "$i")
+                            binding.tvTotal.text = totalPrice.toString()
+                            Log.d("TOTALLLLL", "$totalPrice")
+                        }
+                    }
+                    is Resource.Error -> {
+                        Toast.makeText(
+                            this.applicationContext,
+                            getString(R.string.auth_error, "Get Shopping Bag"),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        }
+    }
+
+
+    private fun deleteShoppingBag(item: ShoppingBagModel ) {
+        shoppingBagList.map {
+            it.id
+        }
+        viewModel.deleteShoppingBag(item.id.orZero()).observe(this) { response ->
+            if (response != null) {
+                when (response) {
+                    is Resource.Loading -> {}
+                    is Resource.Success -> deleteFunc(item)
+                    is Resource.Error -> {
+                        Toast.makeText(
+                            this.applicationContext,
+                            getString(R.string.auth_error, "Delete shopping bag"),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getPrice() {
+        for (i in 0 until shoppingBagList.size) {
+            totalPrice += shoppingBagList[i].price
+            Log.d("TOTAL", "$i")
+            Log.d("TOTALLLLL", "$totalPrice")
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        StatusBarUtil.forceStatusBar(window, false)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        StatusBarUtil.forceStatusBar(window, true)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        StatusBarUtil.forceStatusBar(window, true)
+    }
+
+    private fun deleteFunc(item: ShoppingBagModel) {
+        shoppingBagList.remove(item)
+        adapterBill.setData(shoppingBagList)
+    }
+    private fun blurView() {
+        val radius = 15f
+        val decorView : View = window!!.decorView
+        val rootView = decorView.findViewById<View>(android.R.id.content) as ViewGroup
+        val windowBackground = decorView.background
+        blurView.setupWith(rootView, RenderScriptBlur(applicationContext))
+            .setFrameClearDrawable(windowBackground)
+            .setBlurRadius(radius)
+            .setBlurAutoUpdate(true)
+    }
+
     override fun onDeleteItem(item: Any) {
-        TODO("Not yet implemented")
+       toast("CLICKED")
     }
 
     override fun onMove2WishList(item: Any) {
-        TODO("Not yet implemented")
+        toast("CLICKED")
     }
 
     override fun onEditItem(item: Any) {
-        TODO("Not yet implemented")
+        toast("CLICKED")
     }
 }

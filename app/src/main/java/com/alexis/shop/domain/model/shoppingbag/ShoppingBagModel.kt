@@ -8,7 +8,7 @@ data class ShoppingBagModel(
     val customer_id: Int,
     val final_price: Int,
     val id: Int,
-    val price: Int,
+    var price: Int,
     val product: ShopingProductModel?,
     val product_item_code: String,
     val product_size_id: Int,
