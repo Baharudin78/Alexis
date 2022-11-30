@@ -4,27 +4,30 @@ import com.google.gson.annotations.SerializedName
 
 data class WishlistPostResponse(
 
-	@field:SerializedName("code")
+	@SerializedName("code")
 	val code: Int? = null,
 
-	@field:SerializedName("data")
+	@SerializedName("data")
 	val data: DataPostWishlist? = null,
 
-	@field:SerializedName("error")
+	@SerializedName("error")
 	val error: Any? = null,
 
-	@field:SerializedName("status")
+	@SerializedName("status")
 	val status: String? = null
 )
 
 data class DataPostWishlist(
 
-	@field:SerializedName("item")
+	@SerializedName("item")
 	val postWishList: PostWishlist? = null
 )
 
 data class PostWishlist(
+	@SerializedName("id")
 	val id : Int? = null,
+	@SerializedName("customer_id")
 	val customeId : String? = null,
+	@SerializedName("product_item_code")
 	val productItemCode : String? = null
 )

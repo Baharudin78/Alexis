@@ -44,12 +44,12 @@ class ShoppingBagAdapter (
         val item: ShoppingBagModel = contactList[position]
         val motion = holder.itemView.findViewById<MotionLayout>(R.id.parent)
 
-        Animations.runAnimation(
-            holder.itemView.context,
-            Animations.ANIMATION_IN,
-            position,
-            holder.itemView
-        )
+//        Animations.runAnimation(
+//            holder.itemView.context,
+//            Animations.ANIMATION_IN,
+//            position,
+//            holder.itemView
+//        )
 
         holder.bind(item)
 

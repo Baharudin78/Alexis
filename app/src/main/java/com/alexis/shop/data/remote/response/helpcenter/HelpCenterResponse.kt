@@ -3,34 +3,40 @@ package com.alexis.shop.data.remote.response.helpcenter
 import com.google.gson.annotations.SerializedName
 
 data class HelpCenterResponse(
+    @SerializedName("code")
     val code: Int,
+    @SerializedName("data")
     val `data`: HelpCenterItemList,
+    @SerializedName("error")
     val error: Any,
+    @SerializedName("status")
     val status: String
 )
 data class HelpCenterItemList(
+    @SerializedName("items")
     val items: List<HelpCenterItem>
 )
 data class HelpCenterItem(
-    @field:SerializedName("help_center_detail")
+    @SerializedName("help_center_detail")
     val helpCenterDetail: HelpCenterDetailItem?,
-    @field:SerializedName("id")
+    @SerializedName("id")
     val id: Int,
-    @field:SerializedName("name")
+    @SerializedName("name")
     val name: String
 )
 data class HelpCenterDetailItem(
-    @field:SerializedName("items")
+    @SerializedName("items")
     val helpCenterDetail: List<HelpCenterDetail>
 )
 data class HelpCenterDetail(
-    @field:SerializedName("answer")
+    @SerializedName("answer")
     val answer: String,
-    @field:SerializedName("help_center_id")
+    @SerializedName("help_center_id")
     val helpCenterId: Int,
-    @field:SerializedName("id")
+    @SerializedName("id")
     val id: Int,
-    @field:SerializedName("question")
+    @SerializedName("question")
     val question: String,
+    @SerializedName("choosec")
     val choosed : Boolean
 )

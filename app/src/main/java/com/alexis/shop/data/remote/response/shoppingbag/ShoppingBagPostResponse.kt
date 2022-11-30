@@ -4,39 +4,39 @@ import com.google.gson.annotations.SerializedName
 
 data class ShoppingBagPostResponse(
 
-	@field:SerializedName("code")
+	@SerializedName("code")
 	val code: Int? = null,
 
-	@field:SerializedName("data")
+	@SerializedName("data")
 	val data: ShoppingBagPostData? = null,
 
-	@field:SerializedName("error")
+	@SerializedName("error")
 	val error: String? = null,
 
-	@field:SerializedName("status")
+	@SerializedName("status")
 	val status: String? = null
 )
 
 data class ShoppingBagPostData(
 
-	@field:SerializedName("item")
+	@SerializedName("item")
 	val shopingBagPostData : ShoppingBagPostDataItem? = null,
 )
 
 data class ShoppingBagPostDataItem(
-	@field:SerializedName("id")
+	@SerializedName("id")
 	val id : Int? = null,
-	@field:SerializedName("customer_id")
+	@SerializedName("customer_id")
 	val customerId : Int? = null,
-	@field:SerializedName("product_item_code")
+	@SerializedName("product_item_code")
 	val productItemCode : String? = null,
-	@field:SerializedName("product_size_id")
+	@SerializedName("product_size_id")
 	val productSizeId : String? = null,
-	@field:SerializedName("unit")
+	@SerializedName("unit")
 	val unit : String? = null,
-	@field:SerializedName("price")
+	@SerializedName("price")
 	val price : Int? = null,
-	@field:SerializedName("final_price")
+	@SerializedName("final_price")
 	val finalPrice : Int? = null
 )
 

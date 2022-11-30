@@ -4,88 +4,74 @@ import com.google.gson.annotations.SerializedName
 
 data class WishlistGetResponse(
 
-	@field:SerializedName("code")
+	@SerializedName("code")
 	val code: Int? = null,
 
-	@field:SerializedName("data")
+	@SerializedName("data")
 	val data: DataGetWishlist? = null,
 
-	@field:SerializedName("error")
+	@SerializedName("error")
 	val error: Any? = null,
 
-	@field:SerializedName("status")
+	@SerializedName("status")
 	val status: String? = null
 )
 
 data class DataGetWishlist(
 
-	@field:SerializedName("items")
+	@SerializedName("items")
 	val wishlist: List<WishlistItem>? = null
 )
 
 data class WishlistItem(
 
-	//val id : Int? = null,
+	@SerializedName("customer_id")
 	val customer_id : Int? = null,
+	@SerializedName("product_item_code")
 	val product_item_code : String? = null,
+	@SerializedName("product")
 	val product : ProductItem? = null,
-
-//	@field:SerializedName("updated_at")
-//	val updatedAt: String? = null,
-//
-//	@field:SerializedName("wishlist_id")
-//	val wishlistId: Int? = null,
-//
-//	@field:SerializedName("product_id")
-//	val productId: Int? = null,
-//
-//	@field:SerializedName("created_at")
-//	val createdAt: String? = null,
-//
-//	@field:SerializedName("indonesia_name")
-//	val indonesiaName: String? = null,
-//
-//	@field:SerializedName("english_name")
-//	val englishName: String? = null,
-//
-//	@field:SerializedName("image_url")
-//	val imageUrl: String? = null,
-//
-//	@field:SerializedName("price")
-//	val price: Int? = null,
-//
-//	@field:SerializedName("weight")
-//	val weight: Int? = null,
-//
-//	@field:SerializedName("qty")
-//	val qty: Int? = null,
-//
-//	@field:SerializedName("id")
-//	val id: Int? = null,
-//
-//	@field:SerializedName("customer_id")
-//	val customerId: Int? = null
 )
 
 data class ProductItem(
+	@SerializedName("id")
 	val id : Int? = null,
+	@SerializedName("barcode")
 	val barcode : String? = null,
+	@SerializedName("stock_keeping_unit")
 	val stock_keeping_unit : String? = null,
+	@SerializedName("item_code")
 	val item_code : String? = null,
+	@SerializedName("name")
 	val name : String? = null,
+	@SerializedName("product_subcategory_id")
 	val product_subcategory_id : Int? = null,
+	@SerializedName("stock")
 	val stock : Int? = null,
+	@SerializedName("price")
 	val price : Int? = null,
+	@SerializedName("weight")
 	val weight : Int? = null,
+	@SerializedName("style_code")
 	val style_code : String? = null,
+	@SerializedName("product_material_id")
 	val product_material_id : String? = null,
+	@SerializedName("color_code")
 	val color_code : String? = null,
+	@SerializedName("product_size_id")
 	val product_size_id : String? = null,
+	@SerializedName("packaging_id")
 	val packaging_id : Int? = null,
+	@SerializedName("status")
 	val status : String? = null,
+	@SerializedName("change_to_stored")
 	val change_to_stored : String? = null,
+	@SerializedName("change_to_listed")
 	val change_to_listed : String? = null,
+	@SerializedName("change_to_delisted")
 	val change_to_delisted : String? = null,
+	@SerializedName("store_location_id")
 	val store_location_id : Int? = null,
+	@SerializedName("user_id")
 	val user_id : Int? = null
 )

@@ -4,49 +4,49 @@ import com.google.gson.annotations.SerializedName
 
 data class CheckoutAddressGetResponse(
 
-	@field:SerializedName("code")
+	@SerializedName("code")
 	val code: Int? = null,
 
-	@field:SerializedName("data")
+	@SerializedName("data")
 	val data: CheckoutAddressData? = null,
 
-	@field:SerializedName("error")
+	@SerializedName("error")
 	val error: String? = null,
 
-	@field:SerializedName("status")
+	@SerializedName("status")
 	val status: String? = null
 )
 
 data class CheckoutAddressData(
 
-	@field:SerializedName("items")
+	@SerializedName("items")
 	val address: List<CheckoutAddressItem>? = null
 )
 
 data class CheckoutAddressItem(
-	@field:SerializedName("id")
+	@SerializedName("id")
 	val id : Int? = null,
-	@field:SerializedName("customer_id")
+	@SerializedName("customer_id")
 	val customerId : Int? = null,
-	@field:SerializedName("recipient_name")
+	@SerializedName("recipient_name")
 	val recipientName : String? = null,
-	@field:SerializedName("address")
+	@SerializedName("address")
 	val address : String? = null,
-	@field:SerializedName("address_2")
+	@SerializedName("address_2")
 	val addressTwo : String? = null,
-	@field:SerializedName("village_id")
+	@SerializedName("village_id")
 	val villageId : String? = null,
-	@field:SerializedName("latitude")
+	@SerializedName("latitude")
 	val latitude : String? = null,
-	@field:SerializedName("longitude")
+	@SerializedName("longitude")
 	val longitude : String? = null,
-	@field:SerializedName("postal_code")
+	@SerializedName("postal_code")
 	val postalCode : String? = null,
-	@field:SerializedName("recipient_phone_number")
+	@SerializedName("recipient_phone_number")
 	val recipientPhoneNumber : String? = null,
-	@field:SerializedName("is_default")
+	@SerializedName("is_default")
 	val isDefault : Int? = null,
-	@field:SerializedName("as_dropship")
+	@SerializedName("as_dropship")
 	val asDropship : Int? = null
 )
 

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/containerShoping"
     tools:context=".ui.shopping_bag.ShopingBagActivity">
 
 
@@ -71,6 +72,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:src="@drawable/ic_cancel"
+                android:visibility="gone"
                 app:layout_constraintLeft_toRightOf="@+id/cancel_left"
                 app:layout_constraintRight_toLeftOf="@id/cancel_right"
                 app:layout_constraintTop_toBottomOf="@id/cancel_top"
@@ -265,7 +267,7 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:gravity="center|right"
-                            android:text="200.000"
+                            android:text="0"
                             android:textStyle="bold"
                             android:textColor="@color/white"
                             app:layout_constraintRight_toRightOf="parent"

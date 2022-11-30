@@ -1,5 +1,6 @@
 package com.alexis.shop.ui.shopping_bag
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -7,27 +8,29 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexis.shop.R
 import com.alexis.shop.data.Resource
 import com.alexis.shop.databinding.ActivityShopingBagBinding
 import com.alexis.shop.domain.model.shoppingbag.ShoppingBagModel
+import com.alexis.shop.ui.checkout.SelectAdressActivity
 import com.alexis.shop.ui.shopping_bag.adapter.ShoppingBagAdapter
-import com.alexis.shop.utils.OnShoppingBagClickItem
-import com.alexis.shop.utils.StatusBarUtil
-import com.alexis.shop.utils.orZero
-import com.alexis.shop.utils.toast
+import com.alexis.shop.ui.wishlist.WishlistViewModel
+import com.alexis.shop.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import eightbitlab.com.blurview.RenderScriptBlur
 import kotlinx.android.synthetic.main.activity_shoping_bag.*
 import kotlinx.android.synthetic.main.fragment_shopping_bag.*
 import kotlinx.android.synthetic.main.fragment_shopping_bag.blurView
 
+
 @AndroidEntryPoint
 class ShopingBagActivity : AppCompatActivity(), OnShoppingBagClickItem {
 
     private lateinit var binding : ActivityShopingBagBinding
     private val viewModel: ShoppingBagViewModel by viewModels()
+    private val wishListViewModel : WishlistViewModel by viewModels()
     lateinit var adapterBill: ShoppingBagAdapter
     private var shoppingBagList = ArrayList<ShoppingBagModel>()
     private var totalPrice = 0
@@ -38,10 +41,16 @@ class ShopingBagActivity : AppCompatActivity(), OnShoppingBagClickItem {
         binding = ActivityShopingBagBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        resetAnimation()
         setupRecycleview()
         blurView()
         getShopingBag()
+        setListener()
         getPrice()
+    }
+
+    private fun resetAnimation() {
+        binding.gilding.resetLottieAnimation()
     }
 
     private fun setupRecycleview() {
@@ -52,6 +61,25 @@ class ShopingBagActivity : AppCompatActivity(), OnShoppingBagClickItem {
         }
     }
 
+    private fun postWishlist(itemCode : String) {
+                viewModel.postWishlist(itemCode).observe(this) { response ->
+                    if (response != null) {
+                        when (response) {
+                            is Resource.Loading -> {}
+                            is Resource.Success -> {
+                                Toast.makeText(applicationContext, "Ditambakan ke Wishlist", Toast.LENGTH_SHORT).show()
+                            }
+                            is Resource.Error -> {
+                                Toast.makeText(
+                                    applicationContext,
+                                    getString(R.string.auth_error, "Post Wishlist"),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                    }
+                }
+    }
     private fun getShopingBag() {
         viewModel.getShoppingCart().observe(this) { response ->
             if (response != null) {
@@ -80,6 +108,15 @@ class ShopingBagActivity : AppCompatActivity(), OnShoppingBagClickItem {
         }
     }
 
+
+    private fun setListener() {
+        with(binding) {
+            submit.setOnClickListener {
+                val intent = Intent(this@ShopingBagActivity, SelectAdressActivity::class.java)
+                startActivity(intent)
+            }
+        }
+    }
 
     private fun deleteShoppingBag(item: ShoppingBagModel ) {
         shoppingBagList.map {
@@ -145,10 +182,13 @@ class ShopingBagActivity : AppCompatActivity(), OnShoppingBagClickItem {
     }
 
     override fun onMove2WishList(item: Any) {
-        toast("CLICKED")
+        item as ShoppingBagModel
+        postWishlist(item.product_item_code)
     }
 
     override fun onEditItem(item: Any) {
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.containerShoping, EditShoppingBagFragment()).commit()
         toast("CLICKED")
     }
 }

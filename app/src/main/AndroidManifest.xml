@@ -31,6 +31,12 @@
         android:theme="@style/Theme.Alexis"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.menu.address.AddAddressActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.shopping_bag.SelectVoucherActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.checkout.SelectAdressActivity"
             android:exported="false" />
         <activity

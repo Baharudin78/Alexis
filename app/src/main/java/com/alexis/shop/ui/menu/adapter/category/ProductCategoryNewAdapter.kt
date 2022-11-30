@@ -71,12 +71,5 @@ class ProductCategoryNewAdapter(
                 subAdapter.setDataSub(listSubProduct as ArrayList<SubCategoryModel>)
             }
         }
-
     }
-
-
-
-
-
-
 }

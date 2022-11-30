@@ -71,6 +71,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:src="@drawable/ic_cancel"
+                android:visibility="gone"
                 app:layout_constraintLeft_toRightOf="@+id/cancel_left"
                 app:layout_constraintRight_toLeftOf="@id/cancel_right"
                 app:layout_constraintTop_toBottomOf="@id/cancel_top"

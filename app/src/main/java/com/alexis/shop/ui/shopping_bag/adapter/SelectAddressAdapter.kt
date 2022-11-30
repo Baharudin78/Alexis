@@ -29,7 +29,7 @@ class SelectAddressAdapter(
     override fun onBindViewHolder(holder: SelectAddressViewHolder, position: Int) {
         val item = items[position]
         holder.bind(item)
-        holder.itemView.setOnClickListener { listener.onClick(item) }
+      //  holder.itemView.setOnClickListener { listener.onClick(item) }
     }
 
     override fun getItemCount(): Int = items.size
@@ -40,7 +40,7 @@ class SelectAddressAdapter(
         notifyDataSetChanged()
     }
 
-    class SelectAddressViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
+   inner class SelectAddressViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
         RecyclerView.ViewHolder(inflater.inflate(R.layout.item_change_address, parent, false)) {
         var title: TextView = itemView.findViewById(R.id.txt_1)
         var name: TextView = itemView.findViewById(R.id.txt_2)
@@ -64,6 +64,9 @@ class SelectAddressAdapter(
                 address.text = fullAddress
                 telp.text = item.recipientPhoneNumber
 
+                itemView.setOnClickListener {
+                    listener.onClick(item)
+                }
                 when (item.isDefault) {
                     1 -> mode_normal.background =
                         ContextCompat.getDrawable(

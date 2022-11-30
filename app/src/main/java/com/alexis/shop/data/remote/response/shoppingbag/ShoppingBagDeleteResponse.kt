@@ -4,21 +4,21 @@ import com.google.gson.annotations.SerializedName
 
 data class ShoppingBagDeleteResponse(
 
-	@field:SerializedName("code")
+	@SerializedName("code")
 	val code: Int? = null,
 
-	@field:SerializedName("data")
+	@SerializedName("data")
 	val data: ShoppingBagDeleteResponseData? = null,
 
-	@field:SerializedName("error")
+	@SerializedName("error")
 	val error: Any? = null,
 
-	@field:SerializedName("status")
+	@SerializedName("status")
 	val status: String? = null
 )
 
 data class ShoppingBagDeleteResponseData(
 
-	@field:SerializedName("message")
+	@SerializedName("message")
 	val message: String? = null
 )

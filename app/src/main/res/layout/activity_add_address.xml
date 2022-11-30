@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/black"
+    android:layout_height="match_parent">
+
+
+    <eightbitlab.com.blurview.BlurView
+        android:id="@+id/blurView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:blurOverlayColor="@color/transparent_expanmenu">
+
+        <!--    <com.github.mmin18.widget.RealtimeBlurView-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="match_parent"-->
+        <!--        app:realtimeBlurRadius="20dp"-->
+        <!--        app:realtimeOverlayColor="@color/transparent_expanmenu" />-->
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:fitsSystemWindows="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/hGuideTop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.15"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/cancel_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.03"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/cancel_mid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.09"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/cancel_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.03"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/cancel_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.1"/>
+
+            <TextView
+                android:id="@+id/txt_wl"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:fontFamily="@font/alexis_gtwalsheim_bold"
+                android:fontFeatureSettings="tnum"
+                android:gravity="center|top"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@id/hGuideTop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cancel_mid" />
+
+            <ImageView
+                android:id="@+id/btn_cancel"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_cancel"
+                app:layout_constraintLeft_toRightOf="@+id/cancel_left"
+                app:layout_constraintRight_toLeftOf="@id/cancel_right"
+                app:layout_constraintTop_toBottomOf="@id/cancel_top"
+                app:layout_constraintBottom_toTopOf="@+id/cancel_mid"
+                app:tint="@color/white" />
+
+            <ImageView
+                android:id="@+id/btn_back"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_back"
+                app:layout_constraintLeft_toRightOf="@+id/cancel_left"
+                app:layout_constraintRight_toLeftOf="@id/cancel_right"
+                app:layout_constraintTop_toBottomOf="@id/btn_cancel"
+                app:layout_constraintBottom_toBottomOf="@+id/txt_wl"
+                app:tint="@color/white" />
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:isScrollContainer="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_wl">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp"
+                    android:layout_marginBottom="200dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_wl">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_alias"
+                        style="@style/Widget.Design.TextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:textColorHint="@color/white1">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ed_alias"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/white"
+                            android:fontFamily="@font/alexis_gtwalsheim_light"
+                            android:hint="Alias"
+                            android:lines="1"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:textSize="15sp"
+                            android:textColor="@color/white" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_recname"
+                        style="@style/Widget.Design.TextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:textColorHint="@color/white1">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ed_recname"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/white"
+                            android:fontFamily="@font/alexis_gtwalsheim_light"
+                            android:hint="Receipient Name"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:lines="1"
+                            android:textSize="15sp"
+                            android:textColor="@color/white" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_adress1"
+                        style="@style/Widget.Design.TextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:textColorHint="@color/white1">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ed_adress1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/white"
+                            android:fontFamily="@font/alexis_gtwalsheim_light"
+                            android:hint="Address 1"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:textSize="15sp"
+                            android:textColor="@color/white" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_adress2"
+                        style="@style/Widget.Design.TextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:textColorHint="@color/white1">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ed_adress2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/white"
+                            android:fontFamily="@font/alexis_gtwalsheim_light"
+                            android:hint="Address 2"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:textSize="15sp"
+                            android:textColor="@color/white" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_kecamatan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/alexis_gtwalsheim_light"
+                            android:text="Kecamatan"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="10dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/etKec"
+                                android:focusable="false"
+                                android:clickable="true"
+                                android:layout_width="match_parent"
+                                android:textColor="@color/white"
+                                android:backgroundTint="@color/white"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+
+
+                        <TextView
+                            android:id="@+id/kecamatan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Kecamatan"
+                            android:visibility="invisible"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="20dp" />
+                    </LinearLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_pocode"
+                        style="@style/Widget.Design.TextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:textColorHint="@color/white1">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ed_pocode"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/white"
+                            android:fontFamily="@font/alexis_gtwalsheim_light"
+                            android:hint="Postal Code"
+                            android:inputType="number"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:lines="1"
+                            android:textSize="15sp"
+                            android:textColor="@color/white" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/longidute"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/alexis_gtwalsheim_light"
+                            android:text="Location"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="10dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/etLtlon"
+                                android:focusable="false"
+                                android:clickable="true"
+                                android:layout_width="match_parent"
+                                android:textColor="@color/white"
+                                android:backgroundTint="@color/white"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_phone"
+                        style="@style/Widget.Design.TextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:textColorHint="@color/white1">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ed_phone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/white"
+                            android:fontFamily="@font/alexis_gtwalsheim_light"
+                            android:hint="Mobile Phone"
+                            android:inputType="number"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:lines="1"
+                            android:textSize="15sp"
+                            android:textColor="@color/white" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingLeft="20dp">
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/gtL"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.08" />
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/gtM"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.45" />
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/gtR"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.9" />
+
+                        <CheckBox
+                            android:id="@+id/cb_defAdress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/alexis_gtwalsheim_regular"
+                            android:text="Default Address"
+                            android:textColor="@color/white"
+                            android:layout_marginTop="10dp"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <CheckBox
+                            android:id="@+id/cb_drShiping"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/alexis_gtwalsheim_regular"
+                            android:text="Drop Shipping"
+                            android:textColor="@color/white"
+                            app:layout_constraintTop_toBottomOf="@+id/cb_defAdress" />
+
+                        <View
+                            android:id="@+id/vvv"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            app:layout_constraintBottom_toBottomOf="@id/cb_drShiping"
+                            app:layout_constraintTop_toTopOf="@+id/cb_drShiping" />
+
+                        <RelativeLayout
+                            android:id="@+id/ds_click"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            app:layout_constraintBottom_toBottomOf="@id/cb_drShiping"
+                            app:layout_constraintLeft_toRightOf="@id/gtL"
+                            app:layout_constraintRight_toLeftOf="@id/gtM"
+                            app:layout_constraintTop_toTopOf="@id/cb_drShiping" />
+
+                        <TextView
+                            android:id="@+id/txtInfo"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/alexis_gtwalsheim_regular"
+                            android:fontFeatureSettings="tnum"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:textSize="12sp"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/en_infodropshiping"
+                            android:textColor="@color/white1"
+                            app:layout_constraintLeft_toRightOf="@+id/gtL"
+                            app:layout_constraintRight_toLeftOf="@id/gtR"
+                            app:layout_constraintTop_toBottomOf="@+id/vvv" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/ehL"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.37" />
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/ehR"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.63" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/btn_submit"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="200dp"
+                            android:layout_marginTop="30dp"
+                            android:background="@drawable/rounder_button_whiteborder_25dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toRightOf="@+id/ehL"
+                            app:layout_constraintRight_toLeftOf="@id/ehR"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="10dp"
+                                android:src="@drawable/ic_check"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:tint="@color/white" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </eightbitlab.com.blurview.BlurView>
+
+</FrameLayout>

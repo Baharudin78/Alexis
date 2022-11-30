@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.ViewParent
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.alexis.shop.R
@@ -22,19 +23,23 @@ class SimpleVoucherAdapter(private val context : Context, private val listener :
         itemList = data
         notifyDataSetChanged()
     }
-     class SimpleVoucherHolder(inflater: LayoutInflater, parent: ViewGroup) :
+    inner class SimpleVoucherHolder(inflater: LayoutInflater, parent: ViewGroup) :
              RecyclerView.ViewHolder(inflater.inflate(R.layout.item_voucher_list, parent, false)) {
 
          var tanggal : TextView = itemView.findViewById(R.id.date)
          var name : TextView = itemView.findViewById(R.id.v_name)
          var expired : TextView = itemView.findViewById(R.id.v_exp)
          var potongan : TextView = itemView.findViewById(R.id.count)
+         var select : ImageView = itemView.findViewById(R.id.img_btn)
 
          fun bindItem(item : VoucherItemModel) {
              tanggal.text = item.expiredDate
              name.text = item.name
              expired.text = item.expiredDate
              potongan.text = item.amount.toString()
+             select.setOnClickListener {
+                 listener.onClick(item)
+             }
          }
     }
 

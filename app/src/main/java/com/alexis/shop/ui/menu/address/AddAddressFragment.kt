@@ -32,7 +32,6 @@ private const val ARG_PARAM2 = "param2"
 class AddAddressFragment : BaseFragment<FragmentAddAddressBinding>() {
 
     override fun getViewBinding(): FragmentAddAddressBinding = FragmentAddAddressBinding.inflate(layoutInflater)
-    private val cityViewModel : CityViewModel by viewModels()
     private val addressViewModel : SelectAddressFragmentViewModel by viewModels()
     private lateinit var fusedLocationClient : FusedLocationProviderClient
     private var whereFrom: Int? = null
@@ -186,16 +185,6 @@ class AddAddressFragment : BaseFragment<FragmentAddAddressBinding>() {
             phoneError("Masukkan hp")
             return false
         }
-
-//        if (isDropship.equals(0))) {
-//            isDropError("Masukkan drop")
-//            return false
-//        }
-//
-//        if (isDefault.isEmpty()) {
-//            isDropError("Masukkan default")
-//            return false
-//        }
         return true
     }
 

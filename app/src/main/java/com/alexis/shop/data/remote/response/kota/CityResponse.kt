@@ -3,19 +3,21 @@ package com.alexis.shop.data.remote.response.kota
 import com.google.gson.annotations.SerializedName
 
 data class CityResponse (
-    @field:SerializedName("code")
+    @SerializedName("code")
     val code : Int? = null,
-    @field:SerializedName("data")
+    @SerializedName("data")
     val data : CityList? = null,
-    @field:SerializedName("status")
+    @SerializedName("status")
     val status : String
 )
 data class CityList(
-    @field:SerializedName("items")
+    @SerializedName("items")
     val cityItem : List<CityItem>? = null
 )
 
 data class CityItem(
+    @SerializedName("village_id")
     val village_id : String,
+    @SerializedName("full_name")
     val full_name : String
 )

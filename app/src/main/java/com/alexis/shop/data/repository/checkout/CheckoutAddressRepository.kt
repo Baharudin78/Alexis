@@ -1,23 +1,17 @@
 package com.alexis.shop.data.repository.checkout
 
-import android.util.Log
 import com.alexis.shop.data.Resource
 import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.data.remote.response.checkout.CheckoutAddressItem
-import com.alexis.shop.data.remote.response.checkout.CheckoutAddressPostResponse
-import com.alexis.shop.data.remote.response.checkout.CheckoutAddressRemoteDataSource
+import com.alexis.shop.data.remote.datasource.CheckoutAddressRemoteDataSource
 import com.alexis.shop.domain.model.address.AddressItemModel
 import com.alexis.shop.domain.model.address.AddressListModel
 import com.alexis.shop.domain.model.checkout.CheckoutAddressModelView
 import com.alexis.shop.domain.repository.checkout.ICheckoutAddressRepository
 import com.alexis.shop.utils.orZero
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.withContext
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import javax.inject.Inject
 
 class CheckoutAddressRepository @Inject constructor(

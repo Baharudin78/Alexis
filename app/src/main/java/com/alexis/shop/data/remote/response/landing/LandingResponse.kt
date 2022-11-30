@@ -6,36 +6,36 @@ import com.dizcoding.mylibrv.BaseItemTypeFactory
 import com.google.gson.annotations.SerializedName
 
 data class LandingResponse(
-    @field:SerializedName("code")
+    @SerializedName("code")
     val code: Int? = null,
-    @field:SerializedName("data")
+    @SerializedName("data")
     val `data`: LandingDataItem? = null,
-    @field:SerializedName("error")
+    @SerializedName("error")
     val error: Any?= null,
-    @field:SerializedName("status")
+    @SerializedName("status")
     val status: String? = null
 )
 data class LandingDataItem(
-    @field:SerializedName("item")
+    @SerializedName("item")
     val landingItem : LandingItem? = null
 )
 
 data class LandingItem(
-    @field:SerializedName("mobile_landing_image")
+    @SerializedName("mobile_landing_image")
     val mobileLandingImage: String? = null,
-    @field:SerializedName("desktop_landing_image")
+    @SerializedName("desktop_landing_image")
     val desktopLandingImage: String? = null,
-    @field:SerializedName("end_date")
+    @SerializedName("end_date")
     val endDate: String? = null,
-    @field:SerializedName("hyperlink")
+    @SerializedName("hyperlink")
     val hyperlink: String? = null,
-    @field:SerializedName("id")
+    @SerializedName("id")
     val id: Int? = null,
-    @field:SerializedName("logo_color_mobile")
+    @SerializedName("logo_color_mobile")
     val logoColorMobile: String? = null,
-    @field:SerializedName("name")
+    @SerializedName("name")
     val name: String? = null,
-    @field:SerializedName("start_date")
+    @SerializedName("start_date")
     val startDate: String? = null,
     val layoutHeight: Int = 0
 ): BaseItemModel() {
