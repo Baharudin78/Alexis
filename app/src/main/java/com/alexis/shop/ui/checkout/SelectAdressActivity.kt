@@ -22,7 +22,7 @@ import eightbitlab.com.blurview.RenderScriptBlur
 
 
 @AndroidEntryPoint
-class SelectAdressActivity : AppCompatActivity() , OnClickItem{
+class SelectAdressActivity : AppCompatActivity(){
 
     private val viewModel : SelectAddressFragmentViewModel by viewModels()
     private lateinit var binding : ActivitySelectAdressBinding
@@ -48,7 +48,12 @@ class SelectAdressActivity : AppCompatActivity() , OnClickItem{
     }
 
     private fun initRecycleview() {
-        adapterAddress = SelectAddressAdapter(binding.root.context, this)
+        adapterAddress = SelectAddressAdapter(binding.root.context, object : OnClickItem{
+            override fun onClick(item: Any) {
+                item as AddressItemModel
+                Toast.makeText(this@SelectAdressActivity, "Click ${item.address}", Toast.LENGTH_SHORT).show()
+            }
+        })
         with(binding.recycleAddress) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = adapterAddress
@@ -105,10 +110,5 @@ class SelectAdressActivity : AppCompatActivity() , OnClickItem{
             .setFrameClearDrawable(windowBackground)
             .setBlurRadius(radius)
             .setBlurAutoUpdate(true)
-    }
-
-    override fun onClick(item: Any) {
-        item as AddressItemModel
-        toast("Clicked ${item.address}")
     }
 }

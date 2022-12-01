@@ -46,6 +46,7 @@ class ShopingBagActivity : AppCompatActivity(), OnShoppingBagClickItem {
         blurView()
         getShopingBag()
         setListener()
+        validateButton()
         getPrice()
     }
 
@@ -108,6 +109,12 @@ class ShopingBagActivity : AppCompatActivity(), OnShoppingBagClickItem {
         }
     }
 
+    private fun validateButton() {
+        val totalHarga = binding.tvTotal.text
+        if (totalHarga.toString().equals(null)) {
+            binding.submit.visibility = View.GONE
+        }
+    }
 
     private fun setListener() {
         with(binding) {

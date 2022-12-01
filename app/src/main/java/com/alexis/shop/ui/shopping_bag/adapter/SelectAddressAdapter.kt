@@ -29,7 +29,7 @@ class SelectAddressAdapter(
     override fun onBindViewHolder(holder: SelectAddressViewHolder, position: Int) {
         val item = items[position]
         holder.bind(item)
-      //  holder.itemView.setOnClickListener { listener.onClick(item) }
+        holder.itemView.setOnClickListener { listener.onClick(item) }
     }
 
     override fun getItemCount(): Int = items.size
@@ -54,6 +54,8 @@ class SelectAddressAdapter(
         var btn_edit: ImageView = itemView.findViewById(R.id.btn_edit)
 
         fun bind(item: AddressItemModel) {
+
+
             if (item.isDefault!! == -1) {
                 mode_normal.gone()
             } else {
@@ -64,9 +66,6 @@ class SelectAddressAdapter(
                 address.text = fullAddress
                 telp.text = item.recipientPhoneNumber
 
-                itemView.setOnClickListener {
-                    listener.onClick(item)
-                }
                 when (item.isDefault) {
                     1 -> mode_normal.background =
                         ContextCompat.getDrawable(

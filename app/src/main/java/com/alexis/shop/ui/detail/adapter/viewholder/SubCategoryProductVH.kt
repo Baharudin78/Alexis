@@ -49,15 +49,16 @@ class SubCategoryProductVH(
         Log.d("TAFFFF",element.productModels.name)
         Log.d("TAFFFF",element.productModels.price.toString())
         Log.d("TAFFFF","$imageUri" )
-        val imageType = element.productModels.product_image?.map { it.type }
-        when(element.productModels.product_image?.map { it.type }) {
-//            "double" -> typeASetting(element)
+       // val imageType = element.productModels.product_image?.map { it.product_list_display }.orEmpty()
+        //element.productModels.product_image?.map { it.product_list_display}
+//        when(imageType.first().orEmpty()) {
+//            "AA-B" -> typeASetting(element)
 //            "" -> typeBSetting(element)
-            else -> typeCSetting(element)
-        }
-//        when (element.productModels.imageType) {
-//            "double" -> typeASetting(element)
-//            "single" -> typeBSetting(element)
+//            else -> typeCSetting(element)
+//        }
+//        when (imageType.first().orEmpty()) {
+//            "AA-B" -> typeASetting(element)
+//            "AA" -> typeBSetting(element)
 //            "C" -> typeCSetting(element)
 //            else -> typeCSetting(element)
 //        }

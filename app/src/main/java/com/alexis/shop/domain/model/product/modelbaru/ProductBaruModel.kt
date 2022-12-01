@@ -27,11 +27,11 @@ data class ProductBaruModel(
 
 @Parcelize
 data class ImagesModel(
-    val bag_wishlist_order_display: Int,
-    val image_url: String,
-    val product_detail_display: Int,
-    val product_image_id: Int,
-    val product_item_code: String,
-    val product_list_display: String,
-    val type: String
+    val bag_wishlist_order_display: Int? = null,
+    val image_url: String? = null,
+    val product_detail_display: Int?= null,
+    val product_image_id: Int?= null,
+    val product_item_code: String?= null,
+    val product_list_display: String?= null,
+    val type: String?= null
 ) : Parcelable
