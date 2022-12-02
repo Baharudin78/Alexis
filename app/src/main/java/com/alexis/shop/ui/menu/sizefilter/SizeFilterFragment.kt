@@ -111,7 +111,7 @@ class SizeFilterFragment : Fragment(), OnClickItem{
         }
     }
 
-    private fun postSizeFilter(sizeId : Array<Int>) {
+    private fun postSizeFilter(sizeId :  IntArray) {
         viewModel.postSizeFilter(sizeId).observe(viewLifecycleOwner) { response ->
             if (response != null) {
                 when(response) {
@@ -168,9 +168,9 @@ class SizeFilterFragment : Fragment(), OnClickItem{
     override fun onClick(item: Any) {
         item as SizeFilterModel
         val listSizeId : List<Int> = listOf(item.id.toInt())
-        val list = arrayOf(1,3,4)
+        val numbers: IntArray = intArrayOf(1, 3, 4)
         btnSubmit.setOnClickListener {
-            postSizeFilter(list)
+            postSizeFilter(numbers)
         }
         log("$listSizeId")
         Log.d("LSIFAFDA", "${listSizeId.toList()}")

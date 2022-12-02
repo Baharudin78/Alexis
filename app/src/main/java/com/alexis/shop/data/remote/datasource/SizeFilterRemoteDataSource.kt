@@ -30,7 +30,7 @@ class SizeFilterRemoteDataSource @Inject constructor(private val apiService: Api
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun postSizeFilter(sizeId : Array<Int>) : Flow<ApiResponse<ProductBaruResponse>> {
+    suspend fun postSizeFilter(sizeId :  IntArray) : Flow<ApiResponse<ProductBaruResponse>> {
         return flow<ApiResponse<ProductBaruResponse>> {
             try {
                 val response = apiService.postSize(sizeId)

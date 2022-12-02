@@ -78,7 +78,7 @@ interface ApiService {
     @POST("mw/products/size")
     @FormUrlEncoded
     suspend fun postSize(
-        @Body productItemCode: Array<Int>
+        @Field("size_id") productItemCode: IntArray
     ): ProductBaruResponse
 
     @GET("mw/wishlist")

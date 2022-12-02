@@ -32,7 +32,7 @@ class SizeFilterRepository @Inject constructor(
         }
     }
 
-    override fun postProductFilter(sizeId: Array<Int>): Flow<Resource<List<ProductBaruModel>>> {
+    override fun postProductFilter(sizeId:  IntArray): Flow<Resource<List<ProductBaruModel>>> {
         return flow<Resource<List<ProductBaruModel>>> {
             emit(Resource.Loading())
             when(val apiResponse = remoteDataSource.postSizeFilter(sizeId).first()) {
