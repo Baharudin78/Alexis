@@ -1,5 +1,6 @@
 package com.alexis.shop.ui.shopping_bag
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -97,6 +98,10 @@ class SelectVoucherActivity : AppCompatActivity(), OnClickItem {
                 Handler(Looper.getMainLooper()).postDelayed({
                     finish()
                 }, 1000L)
+            }
+            binding.btnSubmit.setOnClickListener {
+                val intent = Intent(this@SelectVoucherActivity, SelectPromoActivity::class.java)
+                startActivity(intent)
             }
         }
     }

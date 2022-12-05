@@ -196,6 +196,5 @@ class ShopingBagActivity : AppCompatActivity(), OnShoppingBagClickItem {
     override fun onEditItem(item: Any) {
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.containerShoping, EditShoppingBagFragment()).commit()
-        toast("CLICKED")
     }
 }

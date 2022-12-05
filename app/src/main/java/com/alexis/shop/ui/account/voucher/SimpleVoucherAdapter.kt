@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.view.ViewParent
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.alexis.shop.R
 import com.alexis.shop.domain.model.voucher.AllVoucherModel
@@ -31,13 +33,18 @@ class SimpleVoucherAdapter(private val context : Context, private val listener :
          var expired : TextView = itemView.findViewById(R.id.v_exp)
          var potongan : TextView = itemView.findViewById(R.id.count)
          var select : ImageView = itemView.findViewById(R.id.img_btn)
-
+         var border : ConstraintLayout = itemView.findViewById(R.id.round_border)
          fun bindItem(item : VoucherItemModel) {
              tanggal.text = item.expiredDate
              name.text = item.name
              expired.text = item.expiredDate
              potongan.text = item.amount.toString()
-             select.setOnClickListener {
+             itemView.setOnClickListener {
+                 border.background =
+                     ContextCompat.getDrawable(
+                         itemView.context,
+                         R.drawable.rounder_white_transparent_withborder
+                     )
                  listener.onClick(item)
              }
          }

@@ -15,6 +15,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/rounder_white_transparent"
         android:paddingTop="10dp"
+        android:id="@+id/round_border"
         android:paddingBottom="10dp"
         app:layout_constraintTop_toTopOf="parent">
 
