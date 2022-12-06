@@ -16,5 +16,7 @@ data class AddressItemModel(
     val postalCode : String? = null,
     val recipientPhoneNumber : String? = null,
     val isDefault : Int? = null,
-    val asDropship : Int? = null
+    val asDropship : Int? = null,
+
+    var isSelectedItem : Boolean = false
 )

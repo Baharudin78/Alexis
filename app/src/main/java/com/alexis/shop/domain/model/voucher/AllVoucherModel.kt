@@ -16,5 +16,7 @@ data class VoucherItemModel(
     val voucherTypeId : Int?= null,
     val amount : Int?= null,
     val condition : Int?= null,
-    val minimumPurchase : Int?= null
-)
+    val minimumPurchase : Int?= null,
+    var isSelected: Boolean = false,
+
+    )

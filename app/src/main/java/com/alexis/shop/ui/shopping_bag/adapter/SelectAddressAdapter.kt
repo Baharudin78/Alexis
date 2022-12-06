@@ -13,6 +13,7 @@ import com.alexis.shop.R
 import com.alexis.shop.domain.model.address.AddressItemModel
 import com.alexis.shop.domain.model.checkout.CheckoutAddressModelView
 import com.alexis.shop.utils.*
+import com.alexis.shop.utils.common.withDelay
 
 class SelectAddressAdapter(
     private val context : Context,
@@ -20,6 +21,7 @@ class SelectAddressAdapter(
 ) : RecyclerView.Adapter<SelectAddressAdapter.SelectAddressViewHolder>() {
 
     private val items = ArrayList<AddressItemModel>()
+    private var selectedPosition = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectAddressViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -28,8 +30,8 @@ class SelectAddressAdapter(
 
     override fun onBindViewHolder(holder: SelectAddressViewHolder, position: Int) {
         val item = items[position]
-        holder.bind(item)
-        holder.itemView.setOnClickListener { listener.onClick(item) }
+        holder.bind(item, position)
+       // holder.itemView.setOnClickListener { listener.onClick(item) }
     }
 
     override fun getItemCount(): Int = items.size
@@ -53,9 +55,17 @@ class SelectAddressAdapter(
         var btn_dropship: ImageView = itemView.findViewById(R.id.btn_dropship)
         var btn_edit: ImageView = itemView.findViewById(R.id.btn_edit)
 
-        fun bind(item: AddressItemModel) {
+        fun bind(item: AddressItemModel, position: Int) {
+            title.text = item.address
+            name.text = item.recipientName
+            val fullAddress = item.address + item.addressTwo
+            address.text = fullAddress
+            telp.text = item.recipientPhoneNumber
 
-
+            itemView.setOnClickListener {
+                listener.onClick(item)
+                selectItem(position)
+            }
             if (item.isDefault!! == -1) {
                 mode_normal.gone()
             } else {
@@ -90,6 +100,18 @@ class SelectAddressAdapter(
                 parent.transitionToEnd()
             }
         }
+
+       private fun selectItem(position: Int) {
+           if (position != selectedPosition ) {
+               items[selectedPosition].isSelectedItem = false
+               notifyItemChanged(selectedPosition)
+           }
+           selectedPosition = position
+           items[position].isSelectedItem = true
+           withDelay {
+               notifyItemChanged(position)
+           }
+       }
 
         private fun setButtonDropship(isShow: Int?) {
             if (isShow == 1) {
