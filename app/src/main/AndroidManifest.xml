@@ -32,6 +32,9 @@
         android:theme="@style/Theme.Alexis"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.shopping_bag.ReviewOrderActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.shopping_bag.SelectPromoActivity"
             android:exported="false" />
         <activity
