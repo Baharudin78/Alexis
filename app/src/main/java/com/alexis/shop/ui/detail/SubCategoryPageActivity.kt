@@ -2,6 +2,7 @@ package com.alexis.shop.ui.detail
 
 import android.os.Bundle
 import android.view.Window
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
@@ -10,6 +11,7 @@ import com.alexis.shop.R
 import com.alexis.shop.domain.model.product.ImageModel
 import com.alexis.shop.domain.model.product.Product
 import com.alexis.shop.data.source.dummy.getListProduct
+import com.alexis.shop.databinding.ActivitySubcategoryPageBinding
 import com.alexis.shop.domain.model.wishlist.WishlistModel
 import com.alexis.shop.ui.menu.MenuFragment
 import com.alexis.shop.ui.shopping_bag.ShoppingBagFragment
@@ -19,6 +21,7 @@ import com.alexis.shop.ui.detail.adapter.entity.SubCategoryProduct
 import com.alexis.shop.ui.detail.adapter.entity.SubCategoryTitle
 import com.alexis.shop.ui.detail.adapter.entity.SubCategoryTypeAProduct
 import com.alexis.shop.ui.detail.adapter.factory.ItemTypeFactoryImpl
+import com.alexis.shop.ui.main.MainViewModel
 import com.dizcoding.mylibrv.BaseListAdapter
 import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,6 +33,9 @@ class SubCategoryPageActivity : AppCompatActivity() {
     val adapter: BaseListAdapter = BaseListAdapter(ItemTypeFactoryImpl())
     var category = ""
     private lateinit var products: ArrayList<Product>
+    private lateinit var binding : ActivitySubcategoryPageBinding
+    private val viewModel : MainViewModel by viewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         window.requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)

@@ -4,6 +4,7 @@ import android.util.Log
 import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.data.remote.network.ApiService
 import com.alexis.shop.data.remote.response.product.category.ProductCategoryNewResponse
+import com.alexis.shop.data.remote.response.productbaru.ProductBaruResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -27,6 +28,21 @@ class ProductCategoryRemoteDataSource @Inject constructor(private val apiService
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
                 Log.e("RemoteDataS", e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getCategoryById(id : String) : Flow<ApiResponse<ProductBaruResponse>>{
+        return flow<ApiResponse<ProductBaruResponse>> {
+            try {
+                val response = apiService.getCategoryById(id)
+                if (response.data?.product?.isNotEmpty() == true){
+                    emit(ApiResponse.Success(response))
+                }else{
+                    emit(ApiResponse.Empty)
+                }
+            }catch (e : Exception){
+                emit(ApiResponse.Error(e.toString()))
             }
         }.flowOn(Dispatchers.IO)
     }

@@ -31,9 +31,7 @@ class MainViewModel @Inject constructor(
 
     fun getLandingImage() = landingImge.getLandingImage().asLiveData()
 
-    fun getProductCategoryData(): MutableLiveData<List<ProductCategoryNewModel>> {
-        return productCategory
-    }
+    fun getCategoryById(id : String) = productCategoryUseCase.getCatergoryById(id)
 
     fun getWishlist() = wishlistUseCase.getWishlist().asLiveData()
 

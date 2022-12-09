@@ -101,6 +101,11 @@ interface ApiService {
     suspend fun getAllProductCategory(): ProductCategoryNewResponse
 
     @GET("mw/products")
+    suspend fun getCategoryById(
+        @Query("subcategory") id : String
+    ) : ProductBaruResponse
+
+    @GET("mw/products")
     suspend fun getProductByBarcode(
         @Query("bpcs") barcode : String
     ) : ProductsGetByIdResponse

@@ -26,7 +26,7 @@ import eightbitlab.com.blurview.RenderScriptBlur
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-class DetailOrderFragment : Fragment(R.layout.fragment_detail_order) {
+class  DetailOrderFragment : Fragment(R.layout.fragment_detail_order) {
 
     private val binding: FragmentDetailOrderBinding by viewBinding()
     private val trackingAdapter = GroupAdapter<GroupieViewHolder>()
