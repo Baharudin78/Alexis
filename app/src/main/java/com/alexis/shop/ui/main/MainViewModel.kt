@@ -31,7 +31,7 @@ class MainViewModel @Inject constructor(
 
     fun getLandingImage() = landingImge.getLandingImage().asLiveData()
 
-    fun getCategoryById(id : String) = productCategoryUseCase.getCatergoryById(id)
+    fun getCategoryById(id : Int) = productCategoryUseCase.getCatergoryById(id).asLiveData()
 
     fun getWishlist() = wishlistUseCase.getWishlist().asLiveData()
 

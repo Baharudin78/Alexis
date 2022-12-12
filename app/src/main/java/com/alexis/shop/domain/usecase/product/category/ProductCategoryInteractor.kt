@@ -2,6 +2,7 @@ package com.alexis.shop.domain.usecase.product.category
 
 import com.alexis.shop.data.Resource
 import com.alexis.shop.domain.model.product.category.ProductCategoryNewModel
+import com.alexis.shop.domain.model.product.modelbaru.AllProductBaruModel
 import com.alexis.shop.domain.model.product.modelbaru.ProductBaruModel
 import com.alexis.shop.domain.repository.product.IProductCategoryRepository
 import kotlinx.coroutines.flow.Flow
@@ -14,7 +15,7 @@ class ProductCategoryInteractor @Inject constructor(
         return repository.getAllProductCategory()
     }
 
-    override fun getCatergoryById(id: String): Flow<Resource<List<ProductBaruModel>>> {
+    override fun getCatergoryById(id: Int): Flow<Resource<AllProductBaruModel>> {
         return repository.getCategoryById(id)
     }
 }

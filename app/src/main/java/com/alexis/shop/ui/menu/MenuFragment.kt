@@ -22,6 +22,7 @@ import com.alexis.shop.domain.model.product.category.ProductCategoryNewItem
 import com.alexis.shop.domain.model.product.category.SubCategoryModel
 import com.alexis.shop.ui.account.MyAccountFragment
 import com.alexis.shop.ui.account.login.LoginFragment
+import com.alexis.shop.ui.detail.SubCategoryPageActivity
 import com.alexis.shop.ui.main.MainActivity
 import com.alexis.shop.ui.main.MainViewModel
 import com.alexis.shop.ui.menu.aboutus.AboutUsFragment
@@ -282,5 +283,10 @@ class MenuFragment : BaseFragment<FragmentMenuBinding>(), OnClickItem{
     override fun onClick(item: Any) {
         item as SubCategoryModel
         Toast.makeText(requireContext(), item.merchandise_name, Toast.LENGTH_SHORT).show()
+        val intent = Intent(requireContext(), SubCategoryPageActivity::class.java)
+            .putExtra(SubCategoryPageActivity.CATEGORY_ID, item.id)
+            .putExtra(SubCategoryPageActivity.CATEGORY_NAME, item.merchandise_name)
+
+        startActivity(intent)
     }
 }

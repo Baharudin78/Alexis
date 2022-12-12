@@ -11,6 +11,7 @@ import com.alexis.shop.data.remote.response.productbaru.ProductItems
 import com.alexis.shop.domain.model.product.category.ProductCategoryNewItem
 import com.alexis.shop.domain.model.product.category.ProductCategoryNewModel
 import com.alexis.shop.domain.model.product.category.SubCategoryModel
+import com.alexis.shop.domain.model.product.modelbaru.AllProductBaruModel
 import com.alexis.shop.domain.model.product.modelbaru.ImagesModel
 import com.alexis.shop.domain.model.product.modelbaru.ProductBaruModel
 import com.alexis.shop.domain.repository.product.IProductCategoryRepository
@@ -41,8 +42,8 @@ class ProductCategoryRepository @Inject constructor(
         }
     }
 
-    override fun getCategoryById(id: String): Flow<Resource<List<ProductBaruModel>>> {
-        return flow<Resource<List<ProductBaruModel>>> {
+    override fun getCategoryById(id: Int): Flow<Resource<AllProductBaruModel>> {
+        return flow<Resource<AllProductBaruModel>> {
             emit(Resource.Loading())
             when(val apiResource = remoteDataSource.getCategoryById(id).first()){
                 is ApiResponse.Success -> emit(Resource.Success(generateListProducts(apiResource.data.data?.product)))
@@ -81,28 +82,32 @@ class ProductCategoryRepository @Inject constructor(
         return generateValue
     }
 
-    private fun generateListProducts(products: List<ProductItems>?): List<ProductBaruModel> {
-        return products?.map {
-            ProductBaruModel(
-                id = it.id.orZero(),
-                barcode = it.barcode.orEmpty(),
-                name = it.name.orEmpty(),
-                product_image = generateProductImage(it.product_image),
-                price = it.price.orZero(),
-                stock = it.stock.orZero(),
-                status = it.status.orEmpty(),
-                subcategory_id = it.subcategory_id.orZero(),
-                weight = it.weight.orZero(),
-                stock_keeping_unit = it.stock_keeping_unit.orEmpty(),
-                product_size_id = it.product_size_id.orEmpty(),
-                material_id = it.product_material_id.orEmpty(),
-                item_code = it.item_code.orEmpty(),
-                color_id = it.color_id.orEmpty(),
-                change_to_stored = it.change_to_stored.orEmpty(),
-                change_to_listed = it.change_to_listed.orEmpty(),
-                style_id = it.style_id.orEmpty()
+    private fun generateListProducts(products: List<ProductItems>?): AllProductBaruModel {
+        return if (!products.isNullOrEmpty()){
+            AllProductBaruModel(
+                data = products.map {
+                    ProductBaruModel(
+                        id = it.id.orZero(),
+                        barcode = it.barcode.orEmpty(),
+                        name = it.name.orEmpty(),
+                        product_image = generateProductImage(it.product_image),
+                        price = it.price.orZero(),
+                        stock = it.stock.orZero(),
+                        status = it.status.orEmpty(),
+                        subcategory_id = it.subcategory_id.orZero(),
+                        weight = it.weight.orZero(),
+                        stock_keeping_unit = it.stock_keeping_unit.orEmpty(),
+                        product_size_id = it.product_size_id.orEmpty(),
+                        material_id = it.product_material_id.orEmpty(),
+                        item_code = it.item_code.orEmpty(),
+                        color_id = it.color_id.orEmpty(),
+                        change_to_stored = it.change_to_stored.orEmpty(),
+                        change_to_listed = it.change_to_listed.orEmpty(),
+                        style_id = it.style_id.orEmpty()
+                    )
+                }
             )
-        } ?: listOf()
+        } else AllProductBaruModel()
     }
 
     private fun generateProductImage(image : List<ImageModel>?) : List<ImagesModel> {

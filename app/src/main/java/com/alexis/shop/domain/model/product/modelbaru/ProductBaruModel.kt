@@ -4,6 +4,10 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.RawValue
 
+data class AllProductBaruModel(
+    val data : List<ProductBaruModel> = mutableListOf()
+)
+
 @Parcelize
 data class ProductBaruModel(
     val id: Int,

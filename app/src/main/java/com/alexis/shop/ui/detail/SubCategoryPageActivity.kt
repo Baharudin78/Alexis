@@ -1,18 +1,25 @@
 package com.alexis.shop.ui.detail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Window
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.afollestad.materialdialogs.utils.MDUtil.getStringArray
 import com.alexis.shop.R
+import com.alexis.shop.data.Resource
 import com.alexis.shop.domain.model.product.ImageModel
 import com.alexis.shop.domain.model.product.Product
 import com.alexis.shop.data.source.dummy.getListProduct
 import com.alexis.shop.databinding.ActivitySubcategoryPageBinding
+import com.alexis.shop.domain.model.product.modelbaru.ProductBaruModel
 import com.alexis.shop.domain.model.wishlist.WishlistModel
+import com.alexis.shop.ui.detail.adapter.SubProductAdapter
 import com.alexis.shop.ui.menu.MenuFragment
 import com.alexis.shop.ui.shopping_bag.ShoppingBagFragment
 import com.alexis.shop.ui.wishlist.WishlistFragment
@@ -26,30 +33,38 @@ import com.dizcoding.mylibrv.BaseListAdapter
 import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_subcategory_page.*
+import kotlinx.coroutines.flow.observeOn
 
 @AndroidEntryPoint
 class SubCategoryPageActivity : AppCompatActivity() {
 
-    val adapter: BaseListAdapter = BaseListAdapter(ItemTypeFactoryImpl())
-    var category = ""
-    private lateinit var products: ArrayList<Product>
     private lateinit var binding : ActivitySubcategoryPageBinding
     private val viewModel : MainViewModel by viewModels()
-
+    private var product = ArrayList<ProductBaruModel>()
+    private var productData: ProductBaruModel? = null
+    private lateinit var subProductAdapter : SubProductAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        window.requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
-        setExitSharedElementCallback(MaterialContainerTransformSharedElementCallback())
-        window.sharedElementsUseOverlay = false
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_subcategory_page)
+        binding = ActivitySubcategoryPageBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         customTopBarsColor(true)
 
-        recycler_products.layoutManager = LinearLayoutManager(this)
-        recycler_products.adapter = adapter
 
-        products = getListProduct()
-        category = intent.getStringExtra("category").toString()
+        val idProduct = intent.getIntExtra(CATEGORY_ID, 0)
+        val nameCategory = intent.getStringExtra(CATEGORY_NAME)
+        binding.title.text = nameCategory
+
+        Log.d("CATEGIRIEESS", "$idProduct")
+        Log.d("CATEGIRIEESS", nameCategory.orEmpty())
+        initRecycleview()
+        getSubProduct(idProduct)
+
+//        recycler_products.layoutManager = LinearLayoutManager(this)
+//        recycler_products.adapter = adapter
+//
+//        products = getListProduct()
+//        category = intent.getStringExtra("category").toString()
 
         option.setOnClickListener {
             supportFragmentManager.commit {
@@ -83,22 +98,22 @@ class SubCategoryPageActivity : AppCompatActivity() {
         }
 
         //Set the activity Content
-        addTitle()
-        if(category.equals("Bags",true)){
-            out_of_stock.visible()
-        }else {
-            addProductsA()
-            addProductsC()
-            addProductsA2()
-            addProductsB()
-        }
+   //     addTitle()
+//        if(category.equals("Bags",true)){
+//            out_of_stock.visible()
+//        }else {
+//            addProductsA()
+//            addProductsC()
+//            addProductsA2()
+//            addProductsB()
+//        }
     }
 
-    private fun addTitle() {
-        val subCategoryTitle = SubCategoryTitle(category,
-                getOneXMeters(applicationContext), true)
-        adapter.addItem(subCategoryTitle)
-    }
+//    private fun addTitle() {
+//        val subCategoryTitle = SubCategoryTitle(category,
+//                getOneXMeters(applicationContext), true)
+//        adapter.addItem(subCategoryTitle)
+//    }
 
     private fun addProductsA() {
 //        val subCategoryProduct = SubCategoryTypeAProduct(
@@ -165,8 +180,45 @@ class SubCategoryPageActivity : AppCompatActivity() {
 //        log("expan onStop")
 //    }
 
+    private fun initRecycleview(){
+        subProductAdapter = SubProductAdapter(this, object : OnClickItem{
+            override fun onClick(item: Any) {
+                TODO("Not yet implemented")
+            }
+        })
+        with(binding.recyclerProducts){
+            layoutManager = GridLayoutManager(context,2)
+            adapter = subProductAdapter
+        }
+    }
+
+    private fun getSubProduct(id : Int){
+        viewModel.getCategoryById(id).observe(this){response ->
+            if (response != null){
+                when(response) {
+                    is Resource.Loading -> {}
+                    is Resource.Success -> {
+                        val getProductValue = response.data?.data as ArrayList<ProductBaruModel>
+                        product = getProductValue
+                        subProductAdapter.setData(getProductValue)
+                    }
+                    is Resource.Error -> {
+                        Toast.makeText(
+                            this, "" +
+                                    "${response.message},"
+                            , Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        }
+    }
     override fun onBackPressed() {
         super.onBackPressed()
         finish()
+    }
+    companion object{
+        const val CATEGORY_ID = "CATEGORY_ID"
+        const val CATEGORY_NAME = "CATEGORY_NAME"
     }
 }

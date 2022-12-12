@@ -32,7 +32,7 @@ class ProductCategoryRemoteDataSource @Inject constructor(private val apiService
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun getCategoryById(id : String) : Flow<ApiResponse<ProductBaruResponse>>{
+    suspend fun getCategoryById(id : Int) : Flow<ApiResponse<ProductBaruResponse>>{
         return flow<ApiResponse<ProductBaruResponse>> {
             try {
                 val response = apiService.getCategoryById(id)

@@ -102,7 +102,7 @@ interface ApiService {
 
     @GET("mw/products")
     suspend fun getCategoryById(
-        @Query("subcategory") id : String
+        @Query("subcategory") id : Int
     ) : ProductBaruResponse
 
     @GET("mw/products")
