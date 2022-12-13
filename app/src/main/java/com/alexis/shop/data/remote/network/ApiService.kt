@@ -91,6 +91,8 @@ interface ApiService {
     @GET("mw/products/")
     suspend fun getAllProduct(): ProductBaruResponse
 
+    suspend fun funDeleteWish(@Query("id") id : Int) : WishlistGetResponse
+
     @GET("mw/account/order")
     suspend fun getAllOrder() : OrderResponse
 
