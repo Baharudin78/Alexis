@@ -4,6 +4,7 @@ import com.alexis.shop.data.Resource
 import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.data.remote.response.wishlist.WishlistItem
 import com.alexis.shop.data.remote.datasource.WishlistRemoteDataSource
+import com.alexis.shop.data.remote.response.wishlist.delete.MessageResponse
 import com.alexis.shop.domain.model.wishlist.WishlistModel
 import com.alexis.shop.domain.repository.wishlist.IWishlistRepository
 import kotlinx.coroutines.flow.Flow
@@ -39,9 +40,21 @@ class WishlistRepository @Inject constructor(
         }
     }
 
+    override fun deleteWishlist(id: Int): Flow<Resource<MessageResponse>> {
+        return flow<Resource<MessageResponse>> {
+            emit(Resource.Loading())
+            when(val apiResponse = remoteDataSource.deleteWishlist(id).first()) {
+                is ApiResponse.Success -> emit(Resource.Success(apiResponse.data))
+                is ApiResponse.Empty -> {}
+                is ApiResponse.Error -> emit(Resource.Error(apiResponse.errorMessage))
+            }
+        }
+    }
+
     private fun generateWishlistGetModel(data: List<WishlistItem>?): List<WishlistModel> {
         return data?.map {
             WishlistModel(
+                id = it.id,
                 customerId = it.customer_id,
                 productItemCode = it.product_item_code,
                 product = it.product

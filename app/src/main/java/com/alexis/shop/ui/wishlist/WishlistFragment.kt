@@ -93,11 +93,30 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding>(), OnWishlistClic
         }
     }
 
+    private fun deleteWishlist(id : Int){
+        viewModel.deleteWishlist(id).observe(this){response ->
+            if (response != null) {
+                when(response) {
+                    is Resource.Loading -> {}
+                    is Resource.Success -> {
+                        response.data?.let {
+                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    is Resource.Error -> {
+                        Toast.makeText(binding.root.context.applicationContext, "Delete Wishlist Failed", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+    }
+
     private fun initRecyclerView(wishlist: List<WishlistModel>) {
         adapterBill.setData(wishlist)
         binding.recycleWishlist.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = adapterBill
+            adapterBill.notifyDataSetChanged()
         }
     }
 
@@ -122,7 +141,8 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding>(), OnWishlistClic
     }
 
     override fun onDeleteItem(item: Any) {
-        deleteFunc(item as WishlistModel)
+        item as WishlistModel
+        deleteWishlist(item.id!!)
     }
 
     override fun onMove2BasketClick(item: Any) {

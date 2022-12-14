@@ -5,6 +5,7 @@ import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.data.remote.network.ApiService
 import com.alexis.shop.data.remote.response.wishlist.WishlistGetResponse
 import com.alexis.shop.data.remote.response.wishlist.WishlistPostResponse
+import com.alexis.shop.data.remote.response.wishlist.delete.MessageResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -43,6 +44,17 @@ class WishlistRemoteDataSource @Inject constructor(private val apiService: ApiSe
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
                 Log.e("RemoteDataSource", e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun deleteWishlist(id : Int) : Flow<ApiResponse<MessageResponse>> {
+        return flow {
+            try {
+                val response = apiService.deleteWishlist(id)
+                emit(ApiResponse.Success(response))
+            }catch (e : Exception) {
+                emit(ApiResponse.Error(e.localizedMessage.orEmpty()))
             }
         }.flowOn(Dispatchers.IO)
     }

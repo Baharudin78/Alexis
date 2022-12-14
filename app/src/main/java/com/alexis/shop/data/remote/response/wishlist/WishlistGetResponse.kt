@@ -24,7 +24,8 @@ data class DataGetWishlist(
 )
 
 data class WishlistItem(
-
+	@SerializedName("id")
+	val id : Int? = null,
 	@SerializedName("customer_id")
 	val customer_id : Int? = null,
 	@SerializedName("product_item_code")

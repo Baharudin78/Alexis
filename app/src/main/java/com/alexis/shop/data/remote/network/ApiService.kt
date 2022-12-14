@@ -23,6 +23,7 @@ import com.alexis.shop.data.remote.response.storelocation.AllStoreLocationRespon
 import com.alexis.shop.data.remote.response.storelocation.StoreLocationByNameResponse
 import com.alexis.shop.data.remote.response.wishlist.WishlistGetResponse
 import com.alexis.shop.data.remote.response.wishlist.WishlistPostResponse
+import com.alexis.shop.data.remote.response.wishlist.delete.MessageResponse
 import retrofit2.http.*
 
 interface ApiService {
@@ -85,8 +86,11 @@ interface ApiService {
     suspend fun getWishlist(
     ): WishlistGetResponse
 
-    @DELETE(UrlConstant.WISHLIST_URL)
-    suspend fun deleteWishlist(@Query("wishlist_id") wishlistId: Int): WishlistGetResponse
+
+    @DELETE("mw/wishlist/{id}")
+    suspend fun deleteWishlist(
+        @Path("id") wishlistId: Int
+    ): MessageResponse
 
     @GET("mw/products/")
     suspend fun getAllProduct(): ProductBaruResponse

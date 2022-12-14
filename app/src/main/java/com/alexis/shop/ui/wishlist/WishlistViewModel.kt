@@ -21,4 +21,6 @@ class WishlistViewModel @Inject constructor(
         shoppingBagUseCase.postShoppingBag(productItemCode, productSizeId, quantity).asLiveData()
 
     fun getWishlist() = useCase.getWishlist().asLiveData()
+
+    fun deleteWishlist(id : Int) = useCase.deleteWishlist(id).asLiveData()
 }

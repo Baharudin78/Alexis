@@ -142,8 +142,7 @@ class MyAccountFragment : BaseFragment<FragmentMyAccountBinding>() {
         viewModel.logOut().observe(viewLifecycleOwner) { response ->
             if (response != null) {
                 when(response) {
-                    is Resource.Loading -> {
-                    }
+                    is Resource.Loading -> {}
                     is Resource.Success -> {
                         response.data?.let {
                             thread {
