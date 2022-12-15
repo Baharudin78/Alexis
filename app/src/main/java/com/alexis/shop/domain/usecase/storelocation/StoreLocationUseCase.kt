@@ -8,6 +8,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface StoreLocationUseCase {
     fun getAllStoreLocation(): Flow<Resource<AllStoreLocationModel>>
-    fun getStoreHome() : Flow<Resource<List<AllStoreItemModel>>>
+    fun getStoreHome() : Flow<Resource<AllStoreLocationModel>>
     fun getStoreLocationByName(name: String): Flow<Resource<List<StoreLocationByNameModel>>>
 }

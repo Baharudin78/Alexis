@@ -14,7 +14,7 @@ class StoreLocationInteractor @Inject constructor(private val repository: IStore
         return repository.getAllStoreLocation()
     }
 
-    override fun getStoreHome(): Flow<Resource<List<AllStoreItemModel>>> {
+    override fun getStoreHome(): Flow<Resource<AllStoreLocationModel>> {
         return repository.getStoreHome()
     }
 

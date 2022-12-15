@@ -24,6 +24,8 @@ import com.alexis.shop.domain.usecase.shoppingbag.ShoppingBagInteractor
 import com.alexis.shop.domain.usecase.shoppingbag.ShoppingBagUseCase
 import com.alexis.shop.domain.usecase.sizefilter.SizeFilterInteractor
 import com.alexis.shop.domain.usecase.sizefilter.SizeFilterUseCase
+import com.alexis.shop.domain.usecase.sosmed.SosmedInteractor
+import com.alexis.shop.domain.usecase.sosmed.SosmedUseCase
 import com.alexis.shop.domain.usecase.storelocation.StoreLocationInteractor
 import com.alexis.shop.domain.usecase.storelocation.StoreLocationUseCase
 import com.alexis.shop.domain.usecase.voucher.VoucherInteractor
@@ -98,4 +100,8 @@ abstract class AppModule {
     @Binds
     @ViewModelScoped
     abstract fun provideProfilUseCase(interactor : ProfilInteractor) : ProfilUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun provideSosmedUseCase(interactor : SosmedInteractor) : SosmedUseCase
 }

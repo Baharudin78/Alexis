@@ -37,8 +37,8 @@ class StoreLocationRepository @Inject constructor(
         }
     }
 
-    override fun getStoreHome(): Flow<Resource<List<AllStoreItemModel>>> {
-        return flow <Resource<List<AllStoreItemModel>>>{
+    override fun getStoreHome(): Flow<Resource<AllStoreLocationModel>> {
+        return flow <Resource<AllStoreLocationModel>>{
             emit(Resource.Loading())
             when(val apiResponse = remoteDataSource.getLocationHome().first()) {
                 is ApiResponse.Success ->
@@ -60,17 +60,21 @@ class StoreLocationRepository @Inject constructor(
         }
     }
 
-    private fun convertLocationStore(location : List<AllStoreItemResponse>?) : List<AllStoreItemModel> {
-        return location?.map {
-            AllStoreItemModel(
-                province = it.province.orEmpty(),
-                name = it.name.orEmpty(),
-                city = it.city.orEmpty(),
-                phoneNumber = it.phoneNumber.orEmpty(),
-                openTime = it.openTime.orEmpty(),
-                closeTime = it.closeTime.orEmpty()
+    private fun convertLocationStore(location : List<AllStoreItemResponse>?) : AllStoreLocationModel {
+        return if (!location.isNullOrEmpty()) {
+            AllStoreLocationModel(
+                data = location.map {
+                    AllStoreItemModel(
+                        province = it.province.orEmpty(),
+                        name = it.name.orEmpty(),
+                        city = it.city.orEmpty(),
+                        phoneNumber = it.phoneNumber.orEmpty(),
+                        openTime = it.openTime.orEmpty(),
+                        closeTime = it.closeTime.orEmpty()
+                    )
+                }
             )
-        }?: listOf()
+        } else AllStoreLocationModel()
     }
 
     private fun convertAllStoreResponseToModel(data: List<AllStoreItemResponse?>?): AllStoreLocationModel {

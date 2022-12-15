@@ -9,6 +9,7 @@ import com.alexis.shop.domain.usecase.landing.LandingUseCase
 import com.alexis.shop.domain.usecase.product.ProductUseCase
 import com.alexis.shop.domain.usecase.product.category.ProductCategoryUseCase
 import com.alexis.shop.domain.usecase.shoppingbag.ShoppingBagUseCase
+import com.alexis.shop.domain.usecase.sosmed.SosmedUseCase
 import com.alexis.shop.domain.usecase.wishlist.WishlistUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -19,6 +20,7 @@ class MainViewModel @Inject constructor(
     private val wishlistUseCase: WishlistUseCase,
     private val shoppingBagUseCase: ShoppingBagUseCase,
     private val authUseCase: AuthUseCase,
+    private val sosmedUseCase: SosmedUseCase,
     private val landingImge : LandingUseCase,
     private val productCategoryUseCase: ProductCategoryUseCase
 ) : ViewModel() {
@@ -28,6 +30,7 @@ class MainViewModel @Inject constructor(
 
     fun getProductCategory() = productCategoryUseCase.getAllProductCategory().asLiveData()
 
+    fun getSosialMedia() = sosmedUseCase.getSosmed().asLiveData()
 
     fun getLandingImage() = landingImge.getLandingImage().asLiveData()
 

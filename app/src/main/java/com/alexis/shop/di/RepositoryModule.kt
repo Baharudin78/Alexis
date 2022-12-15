@@ -12,6 +12,7 @@ import com.alexis.shop.data.repository.product.ProductRepository
 import com.alexis.shop.data.repository.profil.ProfilRepository
 import com.alexis.shop.data.repository.shoppingbag.ShoppingBagRepository
 import com.alexis.shop.data.repository.sizefilter.SizeFilterRepository
+import com.alexis.shop.data.repository.sosmed.SosialMediaRepository
 import com.alexis.shop.data.repository.storelocation.StoreLocationRepository
 import com.alexis.shop.data.repository.wishlist.WishlistRepository
 import com.alexis.shop.domain.repository.IProfilRepository
@@ -26,6 +27,7 @@ import com.alexis.shop.domain.repository.product.IProductCategoryRepository
 import com.alexis.shop.domain.repository.product.IProductRepository
 import com.alexis.shop.domain.repository.shoppingbag.IShoppingBagRepository
 import com.alexis.shop.domain.repository.sizefilter.ISizeFilterRepository
+import com.alexis.shop.domain.repository.social.ISosialMediaRepository
 import com.alexis.shop.domain.repository.storelocation.IStoreLocationRepository
 import com.alexis.shop.domain.repository.wishlist.IWishlistRepository
 import dagger.Binds
@@ -78,4 +80,7 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun provideProfilRepository(repository : ProfilRepository) : IProfilRepository
+
+    @Binds
+    abstract fun provideSosmedRepository(repository : SosialMediaRepository) : ISosialMediaRepository
 }

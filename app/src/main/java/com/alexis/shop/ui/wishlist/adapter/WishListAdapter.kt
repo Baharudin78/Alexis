@@ -49,6 +49,7 @@ class WishListAdapter: RecyclerView.Adapter<WishListViewHolder>() {
                     motion.transitionToEnd()
                     withDelay(1000) {
                         listener?.onDeleteItem(item)
+                        notifyDataSetChanged()
                         withDelay(300) { resetTransition(motion) }
                     }
                 }

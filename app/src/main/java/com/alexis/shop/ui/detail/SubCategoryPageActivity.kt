@@ -1,11 +1,14 @@
 package com.alexis.shop.ui.detail
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.Window
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.GridLayoutManager
@@ -28,7 +31,10 @@ import com.alexis.shop.ui.detail.adapter.entity.SubCategoryProduct
 import com.alexis.shop.ui.detail.adapter.entity.SubCategoryTitle
 import com.alexis.shop.ui.detail.adapter.entity.SubCategoryTypeAProduct
 import com.alexis.shop.ui.detail.adapter.factory.ItemTypeFactoryImpl
+import com.alexis.shop.ui.main.MainActivity
 import com.alexis.shop.ui.main.MainViewModel
+import com.alexis.shop.ui.shopping_bag.ShopingBagActivity
+import com.alexis.shop.utils.common.withDelay
 import com.dizcoding.mylibrv.BaseListAdapter
 import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback
 import dagger.hilt.android.AndroidEntryPoint
@@ -59,6 +65,7 @@ class SubCategoryPageActivity : AppCompatActivity() {
         Log.d("CATEGIRIEESS", nameCategory.orEmpty())
         initRecycleview()
         getSubProduct(idProduct)
+        setListener()
 
 //        recycler_products.layoutManager = LinearLayoutManager(this)
 //        recycler_products.adapter = adapter
@@ -66,36 +73,36 @@ class SubCategoryPageActivity : AppCompatActivity() {
 //        products = getListProduct()
 //        category = intent.getStringExtra("category").toString()
 
-        option.setOnClickListener {
-            supportFragmentManager.commit {
-                add<MenuFragment>(R.id.transparent_menu)
-                addToBackStack("menu_fragments")
-            }
-        }
-
-        cart.setOnClickListener {
-            supportFragmentManager.commit {
-                add<ShoppingBagFragment>(R.id.transparent_menu)
-                addToBackStack("shopping_bag_fragments")
-            }
-        }
-
-        loved.setOnClickListener {
-            val fragment = WishlistFragment.newInstance(WishlistModel(), "")
-            supportFragmentManager.commit {
-                add(R.id.transparent_menu, fragment)
-                addToBackStack("wishlist_fragments")
-            }
-        }
-
-        btn_back.setOnClickListener {
-            finish()
-        }
-
-        logo_alexis.setOnClickListener {
-            finish()
-//            customTopBarsColor(true)
-        }
+//        option.setOnClickListener {
+//            supportFragmentManager.commit {
+//                add<MenuFragment>(R.id.transparent_menu)
+//                addToBackStack("menu_fragments")
+//            }
+//        }
+//
+//        cart.setOnClickListener {
+//            supportFragmentManager.commit {
+//                add<ShoppingBagFragment>(R.id.transparent_menu)
+//                addToBackStack("shopping_bag_fragments")
+//            }
+//        }
+//
+//        loved.setOnClickListener {
+//            val fragment = WishlistFragment.newInstance(WishlistModel(), "")
+//            supportFragmentManager.commit {
+//                add(R.id.transparent_menu, fragment)
+//                addToBackStack("wishlist_fragments")
+//            }
+//        }
+//
+//        btn_back.setOnClickListener {
+//            finish()
+//        }
+//
+//        logo_alexis.setOnClickListener {
+//            finish()
+////            customTopBarsColor(true)
+//        }
 
         //Set the activity Content
    //     addTitle()
@@ -183,7 +190,8 @@ class SubCategoryPageActivity : AppCompatActivity() {
     private fun initRecycleview(){
         subProductAdapter = SubProductAdapter(this, object : OnClickItem{
             override fun onClick(item: Any) {
-                TODO("Not yet implemented")
+                item as ProductBaruModel
+                openDetail(item)
             }
         })
         with(binding.recyclerProducts){
@@ -210,6 +218,44 @@ class SubCategoryPageActivity : AppCompatActivity() {
                         ).show()
                     }
                 }
+            }
+        }
+    }
+    private fun openDetail(data: ProductBaruModel) {
+        val intent = Intent(this, ExpanItemPagersActivity::class.java).apply {
+            Log.d("DAFASJHDAD", "${data}")
+            putExtra(ExpanItemPagersActivity.EXTRA_DATA, data)
+        }
+        startActivity(intent)
+    }
+
+    private fun setListener() {
+        with(binding){
+            option.setOnCheckedChangeListener{ buttonView, isChecked ->
+                if (isChecked) withDelay(300){
+                    supportFragmentManager.commit {
+                        add<MenuFragment>(R.id.transparent_menu)
+                        addToBackStack("menu_fragments")
+                    }
+                }
+            }
+            loved.setPushClickListener {
+                val fragment = WishlistFragment.newInstance(WishlistModel(), "")
+                supportFragmentManager.commit {
+                    add(R.id.transparent_menu, fragment)
+                    addToBackStack("wishlist_fragments")
+                }
+            }
+            cart.setOnClickListener {
+                startActivity(Intent(this@SubCategoryPageActivity, ShopingBagActivity::class.java))
+            }
+            btnBack.setOnClickListener {
+                finish()
+            }
+
+            logoAlexis.setOnClickListener {
+                finish()
+//            customTopBarsColor(true)
             }
         }
     }

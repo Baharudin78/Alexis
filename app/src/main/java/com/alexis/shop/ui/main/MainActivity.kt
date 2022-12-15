@@ -26,12 +26,15 @@ import com.alexis.shop.databinding.ActivityMainBinding
 import com.alexis.shop.domain.model.landing.LandingModelItem
 import com.alexis.shop.domain.model.product.category.ProductCategoryNewModel
 import com.alexis.shop.domain.model.product.modelbaru.ProductBaruModel
+import com.alexis.shop.domain.model.store_location.AllStoreItemModel
+import com.alexis.shop.domain.model.voucher.VoucherItemModel
 import com.alexis.shop.domain.model.wishlist.WishlistModel
 import com.alexis.shop.ui.detail.adapter.entity.SubCategoryProduct
 import com.alexis.shop.ui.detail.adapter.entity.SubCategoryTitle
 import com.alexis.shop.ui.detail.adapter.entity.SubCategoryTypeAProduct
 import com.alexis.shop.ui.detail.adapter.factory.ItemTypeFactoryImpl
 import com.alexis.shop.ui.menu.MenuFragment
+import com.alexis.shop.ui.menu.adapter.StoreHomeAdapter
 import com.alexis.shop.ui.menu.storelocation.StoreLocationViewModel
 import com.alexis.shop.ui.shopping_bag.ShopingBagActivity
 import com.alexis.shop.ui.shopping_bag.ShoppingBagFragment
@@ -54,6 +57,7 @@ class MainActivity : AppCompatActivity() {
     private val double = "double"
 //    lateinit var option: CheckBox
     lateinit var sharedPref : SheredPreference
+    private var storeLocation = ArrayList<AllStoreItemModel>()
     private lateinit var binding : ActivityMainBinding
 //    private var product: ProductCategoryNewModel? = null
 //    private var imageLanding : LandingModelItem? = null
@@ -65,6 +69,7 @@ class MainActivity : AppCompatActivity() {
    // private lateinit var products: ArrayList<Product>
 //    private var countCart = 0
 //    private var countLoved = 0
+    private lateinit var storeAdapter : StoreHomeAdapter
     private val adapters = BaseListAdapter(ItemTypeFactoryImpl())
  //   private lateinit var storeHomeAdapter : StoreHomeAdapter
 
@@ -78,6 +83,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
         sharedPref = SheredPreference(this)
+        initRecycleview()
         //    storeHomeAdapter = StoreHomeAdapter(binding.root.context)
 
       //  products = getListProduct()
@@ -187,6 +193,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         getUserData()
+    }
+
+    private fun initRecycleview() {
+        storeAdapter = StoreHomeAdapter(this, object : OnClickItem{
+            override fun onClick(item: Any) {
+                TODO("Not yet implemented")
+            }
+        })
+        with(binding.locRecycler){
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = storeAdapter
+        }
     }
 
 //    val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -317,11 +335,9 @@ class MainActivity : AppCompatActivity() {
                 when(response) {
                     is Resource.Loading -> {}
                     is Resource.Success -> {
-                        response.data?.let {
-                         //   val storeValue = response.data
-//                            val store = StoreLocationType(it)
-//                            adapters.addItem(store)
-                        }
+                        val locationValue = response.data?.data as ArrayList<AllStoreItemModel>
+                        storeLocation = locationValue
+                        storeAdapter.setData(locationValue)
                     }
                     is Resource.Error -> {
                         Toast.makeText(

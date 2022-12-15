@@ -115,12 +115,12 @@
                     android:orientation="vertical"
                     app:layout_constraintGuide_percent="0.13"/>
 
-                <ImageView
+                <CheckBox
                     android:id="@+id/option"
                     android:layout_width="0dp"
                     android:padding="3dp"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_option"
+                    android:button="@drawable/menu_to_close"
                     app:tint="@color/black"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintLeft_toRightOf="@+id/vGuideHome0"

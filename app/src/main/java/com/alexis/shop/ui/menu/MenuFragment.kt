@@ -18,8 +18,10 @@ import com.alexis.shop.data.Resource
 import com.alexis.shop.data.source.dummy.getMenuList
 import com.alexis.shop.databinding.FragmentMenuBinding
 import com.alexis.shop.domain.model.menu.MenuModel
+import com.alexis.shop.domain.model.product.ProductsByIdModel
 import com.alexis.shop.domain.model.product.category.ProductCategoryNewItem
 import com.alexis.shop.domain.model.product.category.SubCategoryModel
+import com.alexis.shop.domain.model.sosmed.SosialMediaModel
 import com.alexis.shop.ui.account.MyAccountFragment
 import com.alexis.shop.ui.account.login.LoginFragment
 import com.alexis.shop.ui.detail.SubCategoryPageActivity
@@ -57,6 +59,7 @@ class MenuFragment : BaseFragment<FragmentMenuBinding>(), OnClickItem{
     private var categoryProduct = ArrayList<ProductCategoryNewItem>()
     private var param1: String? = null
     private var param2: String? = null
+    private var sosialMedia : SosialMediaModel? = null
     private lateinit var adapterCategory: ProductCategoryNewAdapter
     private val menuAdapter = GroupAdapter<GroupieViewHolder>()
     private val sosmedAdapter = GroupAdapter<GroupieViewHolder>()
@@ -99,6 +102,7 @@ class MenuFragment : BaseFragment<FragmentMenuBinding>(), OnClickItem{
         }
         blurView()
         getProductCategory()
+        getSosialMedia()
         menuAdapter.clear()
         sosmedAdapter.clear()
         initMenu()
@@ -129,6 +133,59 @@ class MenuFragment : BaseFragment<FragmentMenuBinding>(), OnClickItem{
                         ).show()
                     }
                 }
+            }
+        }
+    }
+
+    private fun getSosialMedia(){
+        mainViewModel.getSosialMedia().observe(viewLifecycleOwner) {response ->
+            if (response != null) {
+                when(response){
+                    is Resource.Loading -> {}
+                    is Resource.Success -> {
+                        response.data.let {
+                            sosialMedia = it
+                            setLinkSosmed(it)
+                        }
+                    }
+                    is Resource.Error -> {
+                        Toast.makeText(
+                            binding.root.context.applicationContext,
+                            "Failed Get Sosial Media",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setLinkSosmed(sosialLink : SosialMediaModel?) {
+        with(binding) {
+            ivFacebook.setOnClickListener {
+                val intent = Intent(requireContext(), SosialMediaActivity::class.java)
+                    .putExtra(SosialMediaActivity.SOSIAL_URL, sosialLink?.facebookLink)
+                startActivity(intent)
+            }
+            ivGoogle.setOnClickListener {
+                val intent = Intent(requireContext(), SosialMediaActivity::class.java)
+                    .putExtra(SosialMediaActivity.SOSIAL_URL, sosialLink?.googlePlayLink)
+                startActivity(intent)
+            }
+            ivInstagram.setOnClickListener {
+                val intent = Intent(requireContext(), SosialMediaActivity::class.java)
+                    .putExtra(SosialMediaActivity.SOSIAL_URL, sosialLink?.instagramLink)
+                startActivity(intent)
+            }
+            ivTiktok.setOnClickListener {
+                val intent = Intent(requireContext(), SosialMediaActivity::class.java)
+                    .putExtra(SosialMediaActivity.SOSIAL_URL, sosialLink?.tiktokLink)
+                startActivity(intent)
+            }
+            ivYoutube.setOnClickListener {
+                val intent = Intent(requireContext(), SosialMediaActivity::class.java)
+                    .putExtra(SosialMediaActivity.SOSIAL_URL, sosialLink?.youtubeLink)
+                startActivity(intent)
             }
         }
     }

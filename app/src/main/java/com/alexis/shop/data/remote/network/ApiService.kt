@@ -19,6 +19,7 @@ import com.alexis.shop.data.remote.response.shoppingbag.ShoppingBagDeleteRespons
 import com.alexis.shop.data.remote.response.shoppingbag.ShoppingBagPostResponse
 import com.alexis.shop.data.remote.response.shoppingbag.ShopingBagNewResponse
 import com.alexis.shop.data.remote.response.sizefilter.SizeFilterResponse
+import com.alexis.shop.data.remote.response.sosmed.SosialMediaResponse
 import com.alexis.shop.data.remote.response.storelocation.AllStoreLocationResponse
 import com.alexis.shop.data.remote.response.storelocation.StoreLocationByNameResponse
 import com.alexis.shop.data.remote.response.wishlist.WishlistGetResponse
@@ -143,6 +144,9 @@ interface ApiService {
 
     @GET("mw/account/profile")
     suspend fun getProfile() : ProfilResponse
+
+    @GET("mw/social")
+    suspend fun getSosialMedia() : SosialMediaResponse
 
     /*
     ADDRESS
