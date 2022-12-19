@@ -1,5 +1,6 @@
 package com.alexis.shop.ui.menu.storelocation
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -108,9 +109,13 @@ class StoreLocationHomeFragment : BaseFragment<FragmentStoreLocationBinding>(), 
     }
 
     override fun onClick(item: Any) {
-        requireActivity().supportFragmentManager.menuNavigator(
-            StoreLocationDetailFragment.newInstance(item as String)
-        )
+        item as AllStoreItemModel
+        val intent = Intent(requireContext(), StoreLocationDetailActivity::class.java)
+            .putExtra(StoreLocationDetailActivity.STORE_NAME, item.province)
+        startActivity(intent)
+//        requireActivity().supportFragmentManager.menuNavigator(
+//            StoreLocationDetailFragment.newInstance(item as String)
+//        )
     }
 
     companion object {

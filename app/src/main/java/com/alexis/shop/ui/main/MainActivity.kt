@@ -7,9 +7,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Window
 import android.view.animation.AnimationUtils
-import android.widget.CheckBox
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -23,11 +20,8 @@ import com.alexis.shop.R
 import com.alexis.shop.data.Resource
 import com.alexis.shop.data.remote.response.landing.LandingItem
 import com.alexis.shop.databinding.ActivityMainBinding
-import com.alexis.shop.domain.model.landing.LandingModelItem
-import com.alexis.shop.domain.model.product.category.ProductCategoryNewModel
 import com.alexis.shop.domain.model.product.modelbaru.ProductBaruModel
 import com.alexis.shop.domain.model.store_location.AllStoreItemModel
-import com.alexis.shop.domain.model.voucher.VoucherItemModel
 import com.alexis.shop.domain.model.wishlist.WishlistModel
 import com.alexis.shop.ui.detail.adapter.entity.SubCategoryProduct
 import com.alexis.shop.ui.detail.adapter.entity.SubCategoryTitle
@@ -35,9 +29,9 @@ import com.alexis.shop.ui.detail.adapter.entity.SubCategoryTypeAProduct
 import com.alexis.shop.ui.detail.adapter.factory.ItemTypeFactoryImpl
 import com.alexis.shop.ui.menu.MenuFragment
 import com.alexis.shop.ui.menu.adapter.StoreHomeAdapter
+import com.alexis.shop.ui.menu.storelocation.StoreLocationDetailActivity
 import com.alexis.shop.ui.menu.storelocation.StoreLocationViewModel
 import com.alexis.shop.ui.shopping_bag.ShopingBagActivity
-import com.alexis.shop.ui.shopping_bag.ShoppingBagFragment
 import com.alexis.shop.ui.wishlist.WishlistFragment
 import com.alexis.shop.utils.*
 import com.alexis.shop.utils.StatusBarUtil.forceStatusBar
@@ -47,6 +41,7 @@ import com.alexis.shop.utils.prefs.SheredPreference
 import com.dizcoding.mylibrv.BaseListAdapter
 import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback
 import dagger.hilt.android.AndroidEntryPoint
+
 //import kotlinx.android.synthetic.main.activity_main.*
 
 @AndroidEntryPoint
@@ -198,7 +193,10 @@ class MainActivity : AppCompatActivity() {
     private fun initRecycleview() {
         storeAdapter = StoreHomeAdapter(this, object : OnClickItem{
             override fun onClick(item: Any) {
-                TODO("Not yet implemented")
+                item as AllStoreItemModel
+                val intent = Intent(this@MainActivity, StoreLocationDetailActivity::class.java)
+                    .putExtra(StoreLocationDetailActivity.STORE_NAME, item.province)
+                startActivity(intent)
             }
         })
         with(binding.locRecycler){

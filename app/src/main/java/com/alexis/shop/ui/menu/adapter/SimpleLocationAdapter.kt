@@ -34,7 +34,7 @@ class SimpleLocationAdapter (
         holder.bind(item)
         Animations.runAnimation(context, Animations.ANIMATION_IN, position, holder.itemView)
         holder.itemView.setOnClickListener {
-            listener.onClick(item.province)
+            listener.onClick(item)
         }
     }
 
