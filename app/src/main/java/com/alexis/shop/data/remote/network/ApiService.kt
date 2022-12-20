@@ -14,6 +14,7 @@ import com.alexis.shop.data.remote.response.landing.LandingResponse
 import com.alexis.shop.data.remote.response.order.OrderResponse
 import com.alexis.shop.data.remote.response.product.ProductsGetByIdResponse
 import com.alexis.shop.data.remote.response.product.category.ProductCategoryNewResponse
+import com.alexis.shop.data.remote.response.product.size.ProductSizeResponse
 import com.alexis.shop.data.remote.response.profil.ProfilResponse
 import com.alexis.shop.data.remote.response.shoppingbag.ShoppingBagDeleteResponse
 import com.alexis.shop.data.remote.response.shoppingbag.ShoppingBagPostResponse
@@ -131,6 +132,11 @@ interface ApiService {
 
     @GET("mw/product-size/")
     suspend fun getSizeFilter(): SizeFilterResponse
+
+    @GET("mw/product-size/{id}/list")
+    suspend fun getProductSize(
+        @Path("id") productId : Int
+    ) : ProductSizeResponse
 
     @GET("mw/account/voucher")
     suspend fun getVoucher(): VoucherResponse

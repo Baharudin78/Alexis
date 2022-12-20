@@ -7,6 +7,7 @@ import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.data.remote.network.ApiService
 import com.alexis.shop.data.remote.response.barcode.ProductsGetByBarcodeResponse
 import com.alexis.shop.data.remote.response.product.ProductsGetByIdResponse
+import com.alexis.shop.data.remote.response.product.size.ProductSizeResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -71,5 +72,18 @@ class ProductRemoteDataSource @Inject constructor(private val apiService: ApiSer
         }.flowOn(Dispatchers.IO)
     }
 
-
+    suspend fun getProductSize(id : Int) : Flow<ApiResponse<ProductSizeResponse>>{
+        return flow {
+            try {
+                val response = apiService.getProductSize(id)
+                if (response.data?.items != null){
+                    emit(ApiResponse.Success(response))
+                }else{
+                    emit(ApiResponse.Empty)
+                }
+            }catch (e : Exception){
+                emit(ApiResponse.Error(e.localizedMessage.orEmpty()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
 }

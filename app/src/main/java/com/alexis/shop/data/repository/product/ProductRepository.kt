@@ -7,10 +7,13 @@ import com.alexis.shop.data.remote.datasource.ProductRemoteDataSource
 import com.alexis.shop.data.remote.response.productbaru.ImageModel
 import com.alexis.shop.data.remote.response.productbaru.ProductItems
 import com.alexis.shop.data.remote.response.product.*
+import com.alexis.shop.data.remote.response.product.size.ProductSize
 import com.alexis.shop.domain.model.product.*
 import com.alexis.shop.domain.model.product.barcode.ProductsByBarcodeModel
 import com.alexis.shop.domain.model.product.modelbaru.ImagesModel
 import com.alexis.shop.domain.model.product.modelbaru.ProductBaruModel
+import com.alexis.shop.domain.model.product.size.ProductSizeListModel
+import com.alexis.shop.domain.model.product.size.ProductSizeModel
 import com.alexis.shop.utils.orZero
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -53,6 +56,15 @@ class ProductRepository @Inject constructor(
                 is ApiResponse.Success -> emit(Resource.Success(generateProductByIdModel(apiResponse.data.data?.product)))
                 is ApiResponse.Empty -> ProductsByIdModel()
                 is ApiResponse.Error -> emit(Resource.Error(apiResponse.errorMessage))
+            }
+        }
+    }
+
+    override fun getProductSize(id: Int): Flow<Resource<ProductSizeListModel>> {
+        return flow<Resource<ProductSizeListModel>> {
+            emit(Resource.Loading())
+            when(val apiResponse = remoteDataSource.getProductSize(id).first()) {
+                is ApiResponse.Success ->emit(Resource.Success(convertProductSizeModel(apiResponse.data.data?.items)))
             }
         }
     }
@@ -183,6 +195,18 @@ class ProductRepository @Inject constructor(
         )
     }
 
+    private fun convertProductSizeModel(data : List<ProductSize?>?) : ProductSizeListModel {
+        return if (!data.isNullOrEmpty()){
+            ProductSizeListModel(
+                size = data.map {
+                    ProductSizeModel(
+                        id = it?.id.orZero(),
+                        name = it?.name.orEmpty()
+                    )
+                }
+            )
+        }else ProductSizeListModel()
+    }
     private fun generateProductByIdSizeModel(data: List<ProductsGetByIdSizeItem>?): List<ProductsGetByIdSizeModel> {
         return data?.map {
             ProductsGetByIdSizeModel(

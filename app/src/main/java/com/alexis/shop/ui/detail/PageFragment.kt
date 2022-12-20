@@ -161,6 +161,26 @@ class PageFragment : Fragment(R.layout.fragment_page) {
         }
     }
 
+    private fun getProductSize(id : Int) {
+        viewModel.getProductSize(id).observe(viewLifecycleOwner) {response ->
+            if (response != null){
+                when(response){
+                    is Resource.Loading -> {}
+                    is Resource.Success -> {
+
+                    }
+                    is Resource.Error -> {
+                        Toast.makeText(
+                            binding.root.context.applicationContext,
+                            "Failed Get Size",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        }
+    }
+
     private fun setupView(data: ProductsByIdModel) {
         binding.itemName.text = data.productName
         binding.itemPrice.text = getString(R.string.price, data.price.toString())

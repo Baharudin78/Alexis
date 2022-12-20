@@ -19,6 +19,8 @@ class DetailViewModel @Inject constructor(
 
     fun getProductById(productId: Int) = productUseCase.getProductById(productId).asLiveData()
 
+    fun getProductSize(id : Int) = productUseCase.getProductSize(id).asLiveData()
+
     fun postWishlist(productItemCode: String) =
         wishlistUseCase.postWishlist(productItemCode).asLiveData()
 
