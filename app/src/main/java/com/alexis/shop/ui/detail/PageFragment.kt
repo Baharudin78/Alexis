@@ -32,11 +32,13 @@ import com.alexis.shop.databinding.BottomsheetAddcartItemBinding
 import com.alexis.shop.databinding.FragmentPageBinding
 import com.alexis.shop.domain.model.product.*
 import com.alexis.shop.domain.model.product.modelbaru.ProductBaruModel
+import com.alexis.shop.domain.model.product.size.ProductSizeModel
 import com.alexis.shop.ui.detail.ExpanItemPagersActivity.Companion.BACK_TO_CART
 import com.alexis.shop.ui.detail.ExpanItemPagersActivity.Companion.BACK_TO_WISHLIST
 import com.alexis.shop.ui.detail.adapter.ImageOrderAdapter
 import com.alexis.shop.ui.detail.adapter.ImageViewPagerItem
 import com.alexis.shop.ui.detail.adapter.SizeChooserAdapter
+import com.alexis.shop.ui.detail.adapter.SizeSelectionAdapter
 import com.alexis.shop.ui.detail.bottomsheets.TestingUntukMyAccount
 import com.alexis.shop.ui.detail.bottomsheets.bottomsheetSizeInfo
 import com.alexis.shop.ui.menu.scanqr.ScanBarcodeViewModel
@@ -59,7 +61,7 @@ class PageFragment : Fragment(R.layout.fragment_page) {
    // private var barcode : String = ""
     private val viewModel: DetailViewModel by viewModels()
   //  private val barcodeViewModel : ScanBarcodeViewModel by viewModels()
-
+    private var sizeProduct = ArrayList<ProductSizeModel>()
     private val binding: FragmentPageBinding by viewBinding()
     private var product: ProductBaruModel? = null
     lateinit var sharedPref : SheredPreference
@@ -68,7 +70,7 @@ class PageFragment : Fragment(R.layout.fragment_page) {
     private lateinit var ivArrayDotsPager: Array<ImageView?>
 
     private val imagePagerAdapter = GroupAdapter<GroupieViewHolder>()
-    private lateinit var adapterSize: SizeChooserAdapter
+    private lateinit var adapterSize: SizeSelectionAdapter
     private lateinit var adapterPic: ImageOrderAdapter
     private var quantity : String = ""
 
@@ -109,6 +111,7 @@ class PageFragment : Fragment(R.layout.fragment_page) {
         setupMoreInfo()
         quantity = binding.includeBottomSheet.etQty.text.trim().toString()
         getProductById(product?.id.orZero())
+        getProductSize(product?.id.orZero())
         var produkIdCode = product?.product_image?.map { it.product_item_code }
         Log.d("Pjsdalsjdlfjijfiod","$productId")
         Log.d("Pjsdalsjdlfjijfiod","$produkIdCode")
@@ -116,6 +119,13 @@ class PageFragment : Fragment(R.layout.fragment_page) {
             startAnimation()
         }
 
+
+        adapterSize = SizeSelectionAdapter(requireContext(), sizeProduct) {
+            sizeSelected = it.name.orEmpty()
+            log("selected $sizeSelected")
+            binding.greyButtonAddkranjang.gone()
+            binding.tvSelectSize.gone()
+        }
         binding.btnAdd2love.setPushClickListener {
             postWishlist()
         }
@@ -167,7 +177,9 @@ class PageFragment : Fragment(R.layout.fragment_page) {
                 when(response){
                     is Resource.Loading -> {}
                     is Resource.Success -> {
-
+                        val sizeValue = response.data?.size as ArrayList<ProductSizeModel>
+                        sizeProduct = sizeValue
+                        adapterSize.updateData(sizeValue)
                     }
                     is Resource.Error -> {
                         Toast.makeText(
@@ -309,13 +321,12 @@ class PageFragment : Fragment(R.layout.fragment_page) {
         arraySize = SizeList.getListSize()
 
 //        val sizeList = productDetailData?.size as ArrayList<ProductsGetByIdSizeModel>
-//        adapterSize = SizeChooserAdapter(requireContext(), sizeList) {
-//            sizeSelected = it.name
-//            log("selected $sizeSelected")
-//            binding.greyButtonAddkranjang.gone()
-//            binding.tvSelectSize.gone()
-//        }
-
+        adapterSize = SizeSelectionAdapter(requireContext(), sizeProduct) {
+            sizeSelected = it.name.orEmpty()
+            log("selected $sizeSelected")
+            binding.greyButtonAddkranjang.gone()
+            binding.tvSelectSize.gone()
+        }
         val linearLayoutManager = LinearLayoutManager(requireContext(), HORIZONTAL, false)
 
         with(binding.recySizeChooser) {
@@ -333,14 +344,14 @@ class PageFragment : Fragment(R.layout.fragment_page) {
                 synchronized(this) {
                     if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                         val position = linearLayoutManager.findFirstVisibleItemPosition()
-//                        sizeList.forEachIndexed { index, item ->
-//                            item.isSelected = index == position
-//                        }
-                        //sizeSelected = sizeList[position].name
-//                        adapterSize.updateItems(sizeList)
-//                        (0 until arraySize.size).forEach {
-//                            if (position >= it) changeThisSize(arraySize[position])
-//                        }
+                        sizeProduct.forEachIndexed { index, item ->
+                            item.isSelected = index == position
+                        }
+                        sizeSelected = sizeProduct[position].name.orEmpty()
+                        adapterSize.updateData(sizeProduct)
+                        (0 until arraySize.size).forEach {
+                            if (position >= it) changeThisSize(arraySize[position])
+                        }
                         binding.greyButtonAddkranjang.gone()
                         binding.tvSelectSize.gone()
                     }
