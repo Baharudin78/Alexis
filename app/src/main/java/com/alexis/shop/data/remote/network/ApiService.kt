@@ -166,6 +166,21 @@ interface ApiService {
     @GET("mw/account/address")
     suspend fun getCheckOutAddress(): CheckoutAddressGetResponse
 
+    @PUT("mw/address/{id}")
+    suspend fun updateAdress(
+        @Path("id") id : String,
+        @Field("recipient_name") recipientName: String,
+        @Field("address") address: String,
+        @Field("address_2") addressTwo: String,
+        @Field("village_id")villageId : String,
+        @Field("postal_code") postalCode: String,
+        @Field("recipient_phone_number") recipientPhoneNumber: String,
+        @Field("is_default") isDefault: Int,
+        @Field("as_dropship") asDropship: Int,
+        @Field("latitude") latitide: String,
+        @Field("longitude") longitude: String,
+    ): MessageResponse
+
     @POST("mw/address")
     @FormUrlEncoded
     suspend fun postCheckOutAddress(

@@ -19,3 +19,8 @@ interface OnShoppingBagClickItem{
     fun onMove2WishList(item : Any)
     fun onEditItem(item : Any)
 }
+
+interface OnAddressClick{
+    fun delete(item : Any)
+    fun updateItem(item : Any)
+}

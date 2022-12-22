@@ -5,6 +5,7 @@ import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.data.remote.network.ApiService
 import com.alexis.shop.data.remote.response.checkout.CheckoutAddressGetResponse
 import com.alexis.shop.data.remote.response.checkout.CheckoutAddressPostResponse
+import com.alexis.shop.data.remote.response.wishlist.delete.MessageResponse
 import com.alexis.shop.utils.log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -53,6 +54,45 @@ class CheckoutAddressRemoteDataSource @Inject constructor(private val apiService
                 Log.e("RemoteDataSource", e.toString())
             }
         }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun updateAddress(
+        id : String,
+        recipientName: String,
+        address: String,
+        addressTwo: String,
+        villageId: String ,
+        postalCode: String ,
+        recipientPhoneNumber: String ,
+        asDropship: Int ,
+        isDefault: Int ,
+        latitude: String ,
+        longitude: String ,
+    ) : Flow<ApiResponse<MessageResponse>> {
+        return flow {
+            try {
+                val response = apiService.updateAdress(
+                    id,
+                    recipientName,
+                    address,
+                    addressTwo,
+                    villageId,
+                    postalCode,
+                    recipientPhoneNumber,
+                    asDropship,
+                    isDefault,
+                    latitude,
+                    longitude
+                )
+                if (response.code == 202) {
+                    emit(ApiResponse.Success(response))
+                }else{
+                    emit(ApiResponse.Empty)
+                }
+            }catch (e : Exception){
+                emit(ApiResponse.Error(e.localizedMessage.orEmpty()))
+            }
+        }
     }
 
 

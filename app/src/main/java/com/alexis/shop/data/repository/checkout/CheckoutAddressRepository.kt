@@ -4,6 +4,7 @@ import com.alexis.shop.data.Resource
 import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.data.remote.response.checkout.CheckoutAddressItem
 import com.alexis.shop.data.remote.datasource.CheckoutAddressRemoteDataSource
+import com.alexis.shop.data.remote.response.wishlist.delete.MessageResponse
 import com.alexis.shop.domain.model.address.AddressItemModel
 import com.alexis.shop.domain.model.address.AddressListModel
 import com.alexis.shop.domain.model.checkout.CheckoutAddressModelView
@@ -71,6 +72,27 @@ class CheckoutAddressRepository @Inject constructor(
                 )
                 is ApiResponse.Empty -> listOf<AddressItemModel>()
                 is ApiResponse.Error -> emit(Resource.Error(apiResponse.errorMessage))
+            }
+        }
+    }
+
+    override fun updateAddress(
+        id: String,
+        recipientName: String,
+        address: String,
+        addressTwo: String,
+        villageId: String,
+        postalCode: String,
+        recipientPhoneNumber: String,
+        asDropship: Int,
+        isDefault: Int,
+        latitude: String,
+        longitude: String
+    ): Flow<Resource<MessageResponse>> {
+        return flow<Resource<MessageResponse>> {
+            emit(Resource.Loading())
+            when(val apiResponse = remoteDataSource.updateAddress(id, recipientName, address, addressTwo, villageId, postalCode, recipientPhoneNumber, asDropship, isDefault, latitude, longitude).first()){
+                is ApiResponse.Success -> emit(Resource.Success(apiResponse.data))
             }
         }
     }
