@@ -99,8 +99,8 @@ class AddAddressFragment : BaseFragment<FragmentAddAddressBinding>() {
 
         }
         binding.btnSubmit.setOnClickListener {
-            val isDropShiped  = 1
-            val isDefaults = 1
+            var isDrop = 0
+            var isDefault = 0
             val nama = binding.edRecname.text.toString().trim()
             val address = binding.edAdress1.text.toString().trim()
             val addressTwo = binding.edAdress2.text.toString().trim()
@@ -109,14 +109,16 @@ class AddAddressFragment : BaseFragment<FragmentAddAddressBinding>() {
             val latitude = binding.etLtlon.text.toString().trim()
             val longitude = binding.etLtlon.text.toString().trim()
             val noHp = binding.edPhone.text.toString().trim()
-            val isDefault = isDefaults
-            val isDrop = isDropShiped
-//            if (binding.cbDrShiping.isChecked) {
-//                isDrop = 1.toString()
-//            }
-//            if (binding.cbDefAdress.isChecked) {
-//                isDefault = 1.toString()
-//            }
+            isDrop = if (binding.cbDrShiping.isChecked) {
+                1
+            }else{
+                0
+            }
+            isDefault = if (binding.cbDefAdress.isChecked) {
+                1
+            }else{
+                0
+            }
             if (validateField(nama, address, addressTwo, idKecamatan, kodePos, latitude, longitude, noHp, isDefault, isDrop)) {
                postAddressss(
                    nama,

@@ -1,9 +1,14 @@
 package com.alexis.shop.domain.model.address
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
 
 data class AddressListModel(
     val address : List<AddressItemModel> = mutableListOf()
 )
+
+@Parcelize
 data class AddressItemModel(
     val id : Int? = null,
     val customerId : Int? = null,
@@ -19,4 +24,4 @@ data class AddressItemModel(
     val asDropship : Int? = null,
 
     var isSelectedItem : Boolean = false
-)
+) : Parcelable

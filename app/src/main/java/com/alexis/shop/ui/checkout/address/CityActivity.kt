@@ -16,7 +16,7 @@ import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.databinding.ActivityCityBinding
 import com.alexis.shop.domain.model.city.CityItemModel
 import com.alexis.shop.ui.account.adapter.CityAdapter
-import com.alexis.shop.ui.menu.address.AddAddressFragment
+import com.alexis.shop.ui.menu.address.AddAddressActivity
 import com.alexis.shop.utils.OnClickItem
 import com.alexis.shop.utils.prefs.SheredPreference
 import dagger.hilt.android.AndroidEntryPoint
@@ -84,8 +84,8 @@ class CityActivity : BaseActivity<ActivityCityBinding>(), OnClickItem {
 
     override fun onClick(item: Any) {
         item as CityItemModel
-        val intent = Intent(this, AddAddressFragment::class.java).apply {
-            putExtra(AddAddressFragment.ADDRESS, item as CityItemModel)
+        val intent = Intent(this, AddAddressActivity::class.java).apply {
+            putExtra(AddAddressActivity.ADDRESS_ID, item)
         }
         setResult(100, intent)
         finish()

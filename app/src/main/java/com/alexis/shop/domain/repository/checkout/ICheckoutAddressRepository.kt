@@ -27,7 +27,7 @@ interface ICheckoutAddressRepository {
     fun getCheckoutAddress(): Flow<Resource<AddressListModel>>
 
     fun updateAddress(
-        id : String,
+        id : Int,
         recipientName: String,
         address: String,
         addressTwo: String,

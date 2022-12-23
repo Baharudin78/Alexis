@@ -32,6 +32,9 @@
         android:theme="@style/Theme.Alexis"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.menu.address.UpdateAddressActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.menu.storelocation.StoreLocationDetailActivity"
             android:exported="false" />
         <activity

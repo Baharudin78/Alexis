@@ -1,5 +1,6 @@
 package com.alexis.shop.ui.menu.address
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +20,6 @@ import com.alexis.shop.databinding.FragmentChangeAddressBinding
 import com.alexis.shop.domain.model.address.AddressItemModel
 import com.alexis.shop.ui.account.MyAccountFragment
 import com.alexis.shop.ui.checkout.SelectAddressFragmentViewModel
-import com.alexis.shop.ui.menu.address.AddAddressFragment.Companion.CHANGE_ADDRESS
 import com.alexis.shop.ui.menu.adapter.ChangeAddressAdapter
 import com.alexis.shop.ui.shopping_bag.adapter.SelectAddressAdapter
 import com.alexis.shop.utils.*
@@ -31,7 +31,7 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 @AndroidEntryPoint
-class ChangeAddressFragment : BaseFragment<FragmentChangeAddressBinding>(), OnClickItem {
+class ChangeAddressFragment : BaseFragment<FragmentChangeAddressBinding>(), OnAddressClick {
     private var param1: String? = null
     private var param2: String? = null
 
@@ -73,8 +73,8 @@ class ChangeAddressFragment : BaseFragment<FragmentChangeAddressBinding>(), OnCl
                 requireActivity().supportFragmentManager.popBackStack()
             }
             buttonAddAddress.setOnClickListener {
-                val fragment = AddAddressFragment.newInstance(AddAddressFragment.SELECT_ADDRESS, "")
-                requireActivity().supportFragmentManager.shopNavigator(fragment)
+                val intent = Intent(requireContext(), AddAddressActivity::class.java)
+                startActivity(intent)
             }
         }
         getAddress()
@@ -140,9 +140,9 @@ class ChangeAddressFragment : BaseFragment<FragmentChangeAddressBinding>(), OnCl
         addressAdapter.notifyDataSetChanged()
     }
 
-    override fun onClick(item: Any) {
-        log(item.toString())
-    }
+//    override fun onClick(item: Any) {
+//        log(item.toString())
+//    }
 
     private fun blurView() {
         val radius = 15f
@@ -164,5 +164,25 @@ class ChangeAddressFragment : BaseFragment<FragmentChangeAddressBinding>(), OnCl
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun delete(item: Any) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onDropship(item: Any) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClick(item: Any) {
+        item as AddressItemModel
+        Toast.makeText(requireContext(), "Click ${item.address}", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun updateItem(item: Any) {
+        item as AddressItemModel
+        val intent = Intent(requireContext(), AddAddressActivity::class.java)
+            .putExtra(UpdateAddressActivity.ADDRESS_DATA, item)
+        startActivity(intent)
     }
 }

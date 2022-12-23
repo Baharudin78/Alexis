@@ -57,7 +57,7 @@ class CheckoutAddressRemoteDataSource @Inject constructor(private val apiService
     }
 
     suspend fun updateAddress(
-        id : String,
+        id : Int,
         recipientName: String,
         address: String,
         addressTwo: String,

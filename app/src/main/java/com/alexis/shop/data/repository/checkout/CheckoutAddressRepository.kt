@@ -77,7 +77,7 @@ class CheckoutAddressRepository @Inject constructor(
     }
 
     override fun updateAddress(
-        id: String,
+        id: Int,
         recipientName: String,
         address: String,
         addressTwo: String,

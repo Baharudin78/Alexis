@@ -22,5 +22,7 @@ interface OnShoppingBagClickItem{
 
 interface OnAddressClick{
     fun delete(item : Any)
+    fun onDropship(item : Any)
     fun updateItem(item : Any)
+    fun onClick(item : Any)
 }

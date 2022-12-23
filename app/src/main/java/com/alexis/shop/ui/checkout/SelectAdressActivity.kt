@@ -12,7 +12,7 @@ import com.alexis.shop.data.Resource
 import com.alexis.shop.databinding.ActivitySelectAdressBinding
 import com.alexis.shop.domain.model.address.AddressItemModel
 import com.alexis.shop.ui.menu.address.AddAddressActivity
-import com.alexis.shop.ui.menu.address.AddAddressFragment
+import com.alexis.shop.ui.menu.address.UpdateAddressActivity
 import com.alexis.shop.ui.shopping_bag.SelectVoucherActivity
 import com.alexis.shop.ui.shopping_bag.adapter.SelectAddressAdapter
 import com.alexis.shop.utils.*
@@ -48,11 +48,27 @@ class SelectAdressActivity : AppCompatActivity(){
     }
 
     private fun initRecycleview() {
-        adapterAddress = SelectAddressAdapter(binding.root.context, object : OnClickItem{
+        adapterAddress = SelectAddressAdapter(binding.root.context, object : OnAddressClick{
+            override fun delete(item: Any) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onDropship(item: Any) {
+                TODO("Not yet implemented")
+            }
+
+            override fun updateItem(item: Any) {
+                item as AddressItemModel
+                val intent = Intent(this@SelectAdressActivity, AddAddressActivity::class.java)
+                    .putExtra(UpdateAddressActivity.ADDRESS_DATA, item)
+                startActivity(intent)
+            }
+
             override fun onClick(item: Any) {
                 item as AddressItemModel
                 Toast.makeText(this@SelectAdressActivity, "Click ${item.address}", Toast.LENGTH_SHORT).show()
             }
+
         })
         with(binding.recycleAddress) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)

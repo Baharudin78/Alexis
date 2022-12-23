@@ -168,7 +168,7 @@ interface ApiService {
 
     @PUT("mw/address/{id}")
     suspend fun updateAdress(
-        @Path("id") id : String,
+        @Path("id") id : Int,
         @Field("recipient_name") recipientName: String,
         @Field("address") address: String,
         @Field("address_2") addressTwo: String,

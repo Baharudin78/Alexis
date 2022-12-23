@@ -1,5 +1,6 @@
 package com.alexis.shop.ui.checkout
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
@@ -12,10 +13,9 @@ import com.alexis.shop.R
 import com.alexis.shop.data.Resource
 import com.alexis.shop.databinding.FragmentSelectAddressBinding
 import com.alexis.shop.domain.model.address.AddressItemModel
-import com.alexis.shop.domain.model.address.AddressListModel
 import com.alexis.shop.domain.model.checkout.CheckoutAddressModelView
-import com.alexis.shop.ui.menu.address.AddAddressFragment
-import com.alexis.shop.ui.menu.address.AddAddressFragment.Companion.SELECT_ADDRESS
+import com.alexis.shop.ui.menu.address.AddAddressActivity
+import com.alexis.shop.ui.menu.address.UpdateAddressActivity
 import com.alexis.shop.ui.shopping_bag.SelectVoucherFragment
 import com.alexis.shop.ui.shopping_bag.adapter.SelectAddressAdapter
 import com.alexis.shop.utils.*
@@ -24,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import eightbitlab.com.blurview.RenderScriptBlur
 
 @AndroidEntryPoint
-class SelectAddressFragment : BaseFragment<FragmentSelectAddressBinding>(), OnClickItem {
+class SelectAddressFragment : BaseFragment<FragmentSelectAddressBinding>(), OnAddressClick {
     private val viewModel: SelectAddressFragmentViewModel by viewModels()
     private var selectedDelivery: String = ""
     private var checkoutAddress = ArrayList<AddressItemModel>()
@@ -37,8 +37,6 @@ class SelectAddressFragment : BaseFragment<FragmentSelectAddressBinding>(), OnCl
         super.onCreate(savedInstanceState)
         sharedPref = SheredPreference(requireContext())
         handleBackPressed()
-//        enterTransition = MaterialFadeThrough()
-//        exitTransition = MaterialFadeThrough()
     }
 
     override fun main() {
@@ -60,8 +58,8 @@ class SelectAddressFragment : BaseFragment<FragmentSelectAddressBinding>(), OnCl
                 requireActivity().supportFragmentManager.popBackStack()
             }
             addMode.setOnClickListener {
-                val fragment = AddAddressFragment.newInstance(SELECT_ADDRESS, "")
-                requireActivity().supportFragmentManager.shopNavigator(fragment)
+                val intent = Intent(requireContext(), AddAddressActivity::class.java)
+                startActivity(intent)
             }
             btnSubmit.setOnClickListener {
                 val fragment = SelectVoucherFragment.newInstance("", "")
@@ -143,7 +141,24 @@ class SelectAddressFragment : BaseFragment<FragmentSelectAddressBinding>(), OnCl
         adapterIt.notifyDataSetChanged()
     }
 
-    override fun onClick(item: Any) {
+    override fun delete(item: Any) {
         TODO("Not yet implemented")
     }
+
+    override fun onDropship(item: Any) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClick(item: Any) {
+        item as AddressItemModel
+        Toast.makeText(requireContext(), "Click ${item.address}", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun updateItem(item: Any) {
+        item as AddressItemModel
+        val intent = Intent(requireContext(), AddAddressActivity::class.java)
+            .putExtra(UpdateAddressActivity.ADDRESS_DATA, item)
+        startActivity(intent)
+    }
+
 }

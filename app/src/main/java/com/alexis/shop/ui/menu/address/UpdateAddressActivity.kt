@@ -17,15 +17,16 @@ import com.alexis.shop.domain.model.address.AddressItemModel
 import com.alexis.shop.domain.model.city.CityItemModel
 import com.alexis.shop.ui.checkout.SelectAddressFragmentViewModel
 import com.alexis.shop.ui.checkout.address.CityActivity
-import com.alexis.shop.utils.handleBackPressed
 import com.alexis.shop.utils.hideSoftKeyboard
+import com.alexis.shop.utils.orZero
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import dagger.hilt.android.AndroidEntryPoint
 import eightbitlab.com.blurview.RenderScriptBlur
 
+
 @AndroidEntryPoint
-class AddAddressActivity : AppCompatActivity() {
+class UpdateAddressActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityAddAddressBinding
     private val viewModel : SelectAddressFragmentViewModel by viewModels()
@@ -37,21 +38,59 @@ class AddAddressActivity : AppCompatActivity() {
         binding = ActivityAddAddressBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val data = intent.getParcelableExtra<AddressItemModel>(ADDRESS_DATA)
-        Log.d("ADRESSSS", "$data")
-        binding.edRecname.setText(data?.recipientName.orEmpty())
-        binding.edAdress1.setText(data?.address.orEmpty())
-        binding.edAdress2.setText(data?.addressTwo.orEmpty())
-        binding.kecamatan.setText(data?.villageId.orEmpty())
-        binding.edPocode.setText(data?.postalCode.orEmpty())
-        binding.etLtlon.setText(data?.latitude.orEmpty())
-        binding.etLtlon.setText(data?.longitude.orEmpty())
-        binding.edPhone.setText(data?.recipientPhoneNumber.orEmpty())
-
-        blurView()
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(applicationContext)
+
+        val data = intent.getParcelableExtra<AddressItemModel>(AddAddressActivity.ADDRESS_DATA)
+        Log.d("ADRESSSS", "$data")
+        val idAddress = data?.id.orZero()
+        val nama = binding.edRecname.setText(data?.recipientName.orEmpty())
+        val address1 = binding.edAdress1.setText(data?.address.orEmpty())
+        val address2 = binding.edAdress2.setText(data?.addressTwo.orEmpty())
+        val vilageId = binding.kecamatan.setText(data?.villageId.orEmpty())
+        val kodePos = binding.edPocode.setText(data?.postalCode.orEmpty())
+        val lat = binding.etLtlon.setText(data?.latitude.orEmpty())
+        val long = binding.etLtlon.setText(data?.longitude.orEmpty())
+        val phone = binding.edPhone.setText(data?.recipientPhoneNumber.orEmpty())
+        binding.btnSubmit.setOnClickListener {
+            var isDrop = 0
+            var isDefault = 0
+            val name = nama.toString()
+            val addressOne = address1.toString()
+            val addressTwo = address2.toString()
+            val kecId = vilageId.toString()
+            val kodePost = kodePos.toString()
+            val latitude = lat.toString()
+            val longitude = long.toString()
+            val noHp = phone.toString()
+            isDrop = if (binding.cbDrShiping.isChecked) {
+                1
+            }else{
+                0
+            }
+            isDefault = if (binding.cbDefAdress.isChecked) {
+                1
+            }else{
+                0
+            }
+            if (validateField(name, addressOne,addressTwo, kecId, kodePost, latitude, longitude, noHp, isDrop, isDefault)) {
+                updateAddressss(
+                    idAddress,
+                    name,
+                    addressOne,
+                    addressTwo,
+                    kecId,
+                    kodePost,
+                    latitude,
+                    longitude,
+                    noHp,
+                    isDrop,
+                    isDefault
+                )
+            }
+
+        }
+        blurView()
         setListener()
-        submitAddress()
     }
 
     private fun setListener() {
@@ -72,53 +111,8 @@ class AddAddressActivity : AppCompatActivity() {
         binding.etLtlon.setOnClickListener {
             getLocation()
         }
-
     }
 
-    private fun submitAddress() {
-        postAddress()
-    }
-
-    private fun postAddress() {
-
-        binding.btnSubmit.setOnClickListener {
-            var isDrop = 0
-            var isDefault = 0
-            val nama = binding.edRecname.text.toString().trim()
-            val address = binding.edAdress1.text.toString().trim()
-            val addressTwo = binding.edAdress2.text.toString().trim()
-            val idKecamatan = binding.kecamatan.text.toString().trim()
-            val kodePos = binding.edPocode.text.toString().trim()
-            val latitude = binding.etLtlon.text.toString().trim()
-            val longitude = binding.etLtlon.text.toString().trim()
-            val noHp = binding.edPhone.text.toString().trim()
-            isDrop = if (binding.cbDrShiping.isChecked) {
-                1
-            }else{
-                0
-            }
-            isDefault = if (binding.cbDefAdress.isChecked) {
-                1
-            }else{
-                0
-            }
-
-            if (validateField(nama, address, addressTwo, idKecamatan, kodePos, latitude, longitude, noHp, isDefault, isDrop)) {
-                postAddressss(
-                    nama,
-                    address,
-                    addressTwo,
-                    idKecamatan,
-                    kodePos,
-                    noHp,
-                    isDefault,
-                    isDrop,
-                    latitude,
-                    longitude,
-                )
-            }
-        }
-    }
 
     private fun validateField(
         name : String,
@@ -187,8 +181,6 @@ class AddAddressActivity : AppCompatActivity() {
         isDropError(null)
     }
 
-
-
     private fun namaError(e : String?) {
         binding.edRecname.error = e
     }
@@ -220,20 +212,21 @@ class AddAddressActivity : AppCompatActivity() {
         binding.cbDrShiping.error = e
     }
 
-    private fun postAddressss(
+    private fun updateAddressss(
+        id : Int,
         name : String,
         address : String,
         addressTwo : String,
         idKecamatan : String,
         kodePos : String,
         phone : String,
-        isDefault : Int,
-        isDropship : Int,
         latitude : String,
         longitude : String,
-
+        isDefault : Int,
+        isDropship : Int,
         ) {
-        viewModel.postCheckoutAddress(
+        viewModel.updateAddress(
+            id,
             name,
             address,
             addressTwo,
@@ -274,6 +267,8 @@ class AddAddressActivity : AppCompatActivity() {
             .setBlurAutoUpdate(true)
     }
 
+
+
     private fun getLocation() {
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
             != PackageManager.PERMISSION_GRANTED &&
@@ -295,7 +290,7 @@ class AddAddressActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 100 && data != null) {
-            (data.extras?.get(ADDRESS_ID) as CityItemModel?)?.let { it ->
+            (data.extras?.get(AddAddressActivity.ADDRESS_ID) as CityItemModel?)?.let { it ->
                 idKecamatan = it.villageId
                 Log.d("NAMASASAS", idKecamatan)
                 binding.etKec.setText(it.fullName)

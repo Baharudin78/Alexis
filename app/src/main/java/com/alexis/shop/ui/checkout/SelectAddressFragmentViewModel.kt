@@ -51,5 +51,21 @@ class SelectAddressFragmentViewModel @Inject constructor(
         longitude
     ).asLiveData()
 
+    fun updateAddress(
+        id : Int,
+        recipientName: String,
+        address: String,
+        addressTwo: String,
+        villageId: String ,
+        postalCode: String ,
+        recipientPhoneNumber: String ,
+        asDropship: Int ,
+        isDefault: Int ,
+        latitude: String ,
+        longitude: String ,
+    ) = checkoutAddressUseCase.updateAddress(
+        id, recipientName, address, addressTwo, villageId, postalCode, recipientPhoneNumber, asDropship, isDefault, latitude, longitude
+    ).asLiveData()
+
 
 }
