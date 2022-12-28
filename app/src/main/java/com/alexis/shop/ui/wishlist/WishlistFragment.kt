@@ -64,11 +64,6 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding>(), OnWishlistClic
 //        }
     }
 
-    private fun deleteFunc(item: WishlistModel) {
-        wishlistData.remove(item)
-        adapterBill.setData(wishlistData)
-    }
-
     private fun setAdapter() {
         adapterBill = WishListAdapter()
         adapterBill.setListener(this)
@@ -93,13 +88,14 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding>(), OnWishlistClic
         }
     }
 
-    private fun deleteWishlist(id : Int){
-        viewModel.deleteWishlist(id).observe(this){response ->
+    private fun deleteWishlist(item : WishlistModel){
+        viewModel.deleteWishlist(item.id.orZero()).observe(this){response ->
             if (response != null) {
                 when(response) {
                     is Resource.Loading -> {}
                     is Resource.Success -> {
                         response.data?.let {
+                            deleteWish(item)
                             Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                         }
                     }
@@ -118,6 +114,11 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding>(), OnWishlistClic
             adapter = adapterBill
             adapterBill.notifyDataSetChanged()
         }
+    }
+
+    private fun deleteWish(item : WishlistModel){
+        wishlistData.remove(item)
+        adapterBill.setData(wishlistData)
     }
 
     override fun onDestroyView() {
@@ -142,7 +143,7 @@ class WishlistFragment : BaseFragment<FragmentWishlistBinding>(), OnWishlistClic
 
     override fun onDeleteItem(item: Any) {
         item as WishlistModel
-        deleteWishlist(item.id!!)
+        deleteWishlist(item)
     }
 
     override fun onMove2BasketClick(item: Any) {

@@ -47,7 +47,7 @@ class ShopingBagActivity : AppCompatActivity(), OnShoppingBagClickItem {
         getShopingBag()
         setListener()
         validateButton()
-        getPrice()
+        //getPrice()
     }
 
     private fun resetAnimation() {
@@ -90,11 +90,11 @@ class ShopingBagActivity : AppCompatActivity(), OnShoppingBagClickItem {
                         val shoppingValue = response.data?.bag as ArrayList<ShoppingBagModel>
                         shoppingBagList = shoppingValue
                         adapterBill.setData(shoppingValue)
+                        val position = shoppingBagList.size
                         for (i in 0 until shoppingBagList.size) {
                             totalPrice += shoppingBagList[i].price
-                            Log.d("TOTAL", "$i")
                             binding.tvTotal.text = totalPrice.toString()
-                            Log.d("TOTALLLLL", "$totalPrice")
+                            adapterBill.notifyItemRemoved(position)
                         }
                     }
                     is Resource.Error -> {
@@ -125,11 +125,8 @@ class ShopingBagActivity : AppCompatActivity(), OnShoppingBagClickItem {
         }
     }
 
-    private fun deleteShoppingBag(item: ShoppingBagModel ) {
-        shoppingBagList.map {
-            it.id
-        }
-        viewModel.deleteShoppingBag(item.id.orZero()).observe(this) { response ->
+    private fun deleteShoppingBag(item : ShoppingBagModel ) {
+        viewModel.deleteShoppingBag(item.id).observe(this) { response ->
             if (response != null) {
                 when (response) {
                     is Resource.Loading -> {}
@@ -149,8 +146,6 @@ class ShopingBagActivity : AppCompatActivity(), OnShoppingBagClickItem {
     private fun getPrice() {
         for (i in 0 until shoppingBagList.size) {
             totalPrice += shoppingBagList[i].price
-            Log.d("TOTAL", "$i")
-            Log.d("TOTALLLLL", "$totalPrice")
         }
     }
 
@@ -185,7 +180,8 @@ class ShopingBagActivity : AppCompatActivity(), OnShoppingBagClickItem {
     }
 
     override fun onDeleteItem(item: Any) {
-       toast("CLICKED")
+        item as ShoppingBagModel
+        deleteShoppingBag(item)
     }
 
     override fun onMove2WishList(item: Any) {

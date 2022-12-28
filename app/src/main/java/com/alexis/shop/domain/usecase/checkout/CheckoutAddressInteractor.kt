@@ -43,4 +43,8 @@ class CheckoutAddressInteractor @Inject constructor(private val repository: IChe
     override fun getCheckoutAddress(): Flow<Resource<AddressListModel>> {
         return repository.getCheckoutAddress()
     }
+
+    override fun deleteAddress(id: Int): Flow<Resource<MessageResponse>> {
+        return repository.deleteAddress(id)
+    }
 }

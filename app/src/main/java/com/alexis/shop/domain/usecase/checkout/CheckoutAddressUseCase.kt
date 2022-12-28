@@ -35,4 +35,5 @@ interface CheckoutAddressUseCase {
     ) : Flow<Resource<MessageResponse>>
 
     fun getCheckoutAddress(): Flow<Resource<AddressListModel>>
+    fun deleteAddress(id : Int) : Flow<Resource<MessageResponse>>
 }

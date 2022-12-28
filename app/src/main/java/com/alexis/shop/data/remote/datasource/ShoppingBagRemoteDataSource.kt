@@ -5,6 +5,7 @@ import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.data.remote.network.ApiService
 import com.alexis.shop.data.remote.response.shoppingbag.ShoppingBagPostData
 import com.alexis.shop.data.remote.response.shoppingbag.ShopingBagNewResponse
+import com.alexis.shop.data.remote.response.wishlist.delete.MessageResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -47,12 +48,12 @@ class ShoppingBagRemoteDataSource @Inject constructor(private val apiService: Ap
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun deleteShoppingBag(cartId: Int): Flow<ApiResponse<String>> {
+    suspend fun deleteShoppingBag(id: Int): Flow<ApiResponse<MessageResponse>> {
         return flow {
             try {
-                val response = apiService.deleteShoppingBag(cartId)
-                if (!response.data?.message.isNullOrEmpty()) {
-                    emit(ApiResponse.Success(response.data?.message.orEmpty()))
+                val response = apiService.deleteShoppingBag(id)
+                if (response.data != null) {
+                    emit(ApiResponse.Success(response))
                 } else {
                     emit(ApiResponse.Empty)
                 }

@@ -69,8 +69,10 @@ interface ApiService {
     @GET("mw/customer-cart")
     suspend fun getShoppingBag(): ShopingBagNewResponse
 
-    @DELETE(UrlConstant.SHOPPING_BAG_URL)
-    suspend fun deleteShoppingBag(@Query("cart_id") cartId: Int): ShoppingBagDeleteResponse
+    @DELETE("mw/customer-cart/{id}")
+    suspend fun deleteShoppingBag(
+        @Path("id") id: Int
+    ): MessageResponse
 
     @POST("mw/wishlist")
     @FormUrlEncoded
@@ -96,8 +98,6 @@ interface ApiService {
 
     @GET("mw/products/")
     suspend fun getAllProduct(): ProductBaruResponse
-
-    suspend fun funDeleteWish(@Query("id") id : Int) : WishlistGetResponse
 
     @GET("mw/account/order")
     suspend fun getAllOrder() : OrderResponse
@@ -165,6 +165,9 @@ interface ApiService {
 
     @GET("mw/account/address")
     suspend fun getCheckOutAddress(): CheckoutAddressGetResponse
+
+    @DELETE("mw/address/{id}")
+    suspend fun deleteAddress() : MessageResponse
 
     @PUT("mw/address/{id}")
     suspend fun updateAdress(

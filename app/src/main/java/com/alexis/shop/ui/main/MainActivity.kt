@@ -308,6 +308,10 @@ class MainActivity : AppCompatActivity() {
                         response.data?.let {
                             Log.d("LANDNUG", "$it")
                             val lanpage = LandingItem(it.mobileLandingImage, layoutHeight =  getTrullyHeightResolution(this))
+//                            binding.aTx.setColorFilter(9303837)
+//                            //binding.option.colo
+//                            binding.cart.setColorFilter(it.logoColorMobile?.toInt().orZero())
+//                            binding.loved.setColorFilter(it.logoColorMobile?.toInt().orZero())
                             adapters.addItem(lanpage)
                         }
                     }

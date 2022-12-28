@@ -6,6 +6,7 @@ import com.alexis.shop.data.remote.datasource.ShoppingBagRemoteDataSource
 import com.alexis.shop.data.remote.response.product.*
 import com.alexis.shop.data.remote.response.shoppingbag.ShopingBagItem
 import com.alexis.shop.data.remote.response.shoppingbag.ShopingProduct
+import com.alexis.shop.data.remote.response.wishlist.delete.MessageResponse
 import com.alexis.shop.domain.model.product.*
 import com.alexis.shop.domain.model.shoppingbag.ShopingBagListModel
 import com.alexis.shop.domain.model.shoppingbag.ShopingBagPostModel
@@ -47,10 +48,10 @@ class ShoppingBagRepository @Inject constructor(
         }
     }
 
-    override fun deleteShoppingBag(cardId: Int): Flow<Resource<String>> {
-        return flow<Resource<String>> {
+    override fun deleteShoppingBag(id: Int): Flow<Resource<MessageResponse>> {
+        return flow<Resource<MessageResponse>> {
             emit(Resource.Loading())
-            when (val apiResponse = remoteDataSource.deleteShoppingBag(cardId).first()) {
+            when (val apiResponse = remoteDataSource.deleteShoppingBag(id).first()) {
                 is ApiResponse.Success -> emit(Resource.Success(apiResponse.data))
                 is ApiResponse.Empty -> {}
                 is ApiResponse.Error -> emit(Resource.Error(apiResponse.errorMessage))

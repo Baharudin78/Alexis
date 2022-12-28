@@ -40,4 +40,6 @@ interface ICheckoutAddressRepository {
         longitude: String ,
     ) : Flow<Resource<MessageResponse>>
 
+    fun deleteAddress(id : Int) : Flow<Resource<MessageResponse>>
+
 }

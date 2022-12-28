@@ -10,6 +10,7 @@ import com.alexis.shop.domain.model.address.AddressListModel
 import com.alexis.shop.domain.model.checkout.CheckoutAddressModelView
 import com.alexis.shop.domain.repository.checkout.ICheckoutAddressRepository
 import com.alexis.shop.utils.orZero
+import com.google.android.gms.common.api.Api
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
@@ -93,6 +94,17 @@ class CheckoutAddressRepository @Inject constructor(
             emit(Resource.Loading())
             when(val apiResponse = remoteDataSource.updateAddress(id, recipientName, address, addressTwo, villageId, postalCode, recipientPhoneNumber, asDropship, isDefault, latitude, longitude).first()){
                 is ApiResponse.Success -> emit(Resource.Success(apiResponse.data))
+            }
+        }
+    }
+
+    override fun deleteAddress(id: Int): Flow<Resource<MessageResponse>> {
+        return flow<Resource<MessageResponse>> {
+            emit(Resource.Loading())
+            when(val apiResponse = remoteDataSource.deleteAddress(id).first()){
+                is ApiResponse.Success -> emit(Resource.Success(apiResponse.data))
+                is ApiResponse.Empty -> emit(Resource.Loading())
+                is ApiResponse.Error -> emit(Resource.Error(apiResponse.errorMessage))
             }
         }
     }
