@@ -99,6 +99,9 @@ interface ApiService {
     @GET("mw/products/")
     suspend fun getAllProduct(): ProductBaruResponse
 
+    @GET("mw/product-new")
+    suspend fun getProductNewIn() : ProductBaruResponse
+
     @GET("mw/account/order")
     suspend fun getAllOrder() : OrderResponse
 
@@ -167,7 +170,9 @@ interface ApiService {
     suspend fun getCheckOutAddress(): CheckoutAddressGetResponse
 
     @DELETE("mw/address/{id}")
-    suspend fun deleteAddress() : MessageResponse
+    suspend fun deleteAddress(
+        @Path("id") id : Int
+    ) : MessageResponse
 
     @PUT("mw/address/{id}")
     suspend fun updateAdress(

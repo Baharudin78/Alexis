@@ -15,10 +15,20 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <include layout="@layout/item_dashboard_title"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_newin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:layout_marginBottom="15dp"/>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/base_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
                 android:nestedScrollingEnabled="false" />
 
             <androidx.recyclerview.widget.RecyclerView

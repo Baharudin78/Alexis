@@ -10,11 +10,13 @@ import com.alexis.shop.data.remote.response.product.*
 import com.alexis.shop.data.remote.response.product.size.ProductSize
 import com.alexis.shop.domain.model.product.*
 import com.alexis.shop.domain.model.product.barcode.ProductsByBarcodeModel
+import com.alexis.shop.domain.model.product.modelbaru.AllProductBaruModel
 import com.alexis.shop.domain.model.product.modelbaru.ImagesModel
 import com.alexis.shop.domain.model.product.modelbaru.ProductBaruModel
 import com.alexis.shop.domain.model.product.size.ProductSizeListModel
 import com.alexis.shop.domain.model.product.size.ProductSizeModel
 import com.alexis.shop.utils.orZero
+import com.google.android.gms.common.api.Api
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
@@ -32,6 +34,17 @@ class ProductRepository @Inject constructor(
             when (val apiResponse = remoteDataSource.getAllProduct().first()) {
                 is ApiResponse.Success ->
                     emit(Resource.Success(generateListProducts(apiResponse.data.data?.product)))
+                is ApiResponse.Empty -> listOf<ProductBaruModel>()
+                is ApiResponse.Error -> emit(Resource.Error(apiResponse.errorMessage))
+            }
+        }
+    }
+
+    override fun getProductNewIn(): Flow<Resource<AllProductBaruModel>> {
+        return flow<Resource<AllProductBaruModel>> {
+            emit(Resource.Loading())
+            when(val apiResponse = remoteDataSource.getProductNewIn().first()){
+                is ApiResponse.Success -> emit(Resource.Success(convertProductNewIn(apiResponse.data.data?.product)))
                 is ApiResponse.Empty -> listOf<ProductBaruModel>()
                 is ApiResponse.Error -> emit(Resource.Error(apiResponse.errorMessage))
             }
@@ -67,6 +80,34 @@ class ProductRepository @Inject constructor(
                 is ApiResponse.Success ->emit(Resource.Success(convertProductSizeModel(apiResponse.data.data?.items)))
             }
         }
+    }
+
+    private fun convertProductNewIn(product : List<ProductItems>?) : AllProductBaruModel{
+        return if (!product.isNullOrEmpty()){
+            AllProductBaruModel(
+                data = product.map {
+                    ProductBaruModel(
+                        id = it.id.orZero(),
+                        barcode = it.barcode.orEmpty(),
+                        name = it.name.orEmpty(),
+                        product_image = generateProductImage(it.product_image),
+                        price = it.price.orZero(),
+                        stock = it.stock.orZero(),
+                        status = it.status.orEmpty(),
+                        subcategory_id = it.subcategory_id.orZero(),
+                        weight = it.weight.orZero(),
+                        stock_keeping_unit = it.stock_keeping_unit.orEmpty(),
+                        product_size_id = it.product_size_id.orEmpty(),
+                        material_id = it.product_material_id.orEmpty(),
+                        item_code = it.item_code.orEmpty(),
+                        color_id = it.color_id.orEmpty(),
+                        change_to_stored = it.change_to_stored.orEmpty(),
+                        change_to_listed = it.change_to_listed.orEmpty(),
+                        style_id = it.style_id.orEmpty()
+                    )
+                }
+            )
+        } else AllProductBaruModel()
     }
 
     private fun generateListProducts(products: List<ProductItems>?): List<ProductBaruModel> {

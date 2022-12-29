@@ -28,7 +28,7 @@
         android:gravity="center"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:text="Tops"
+        android:text="New In"
         android:textColor="@color/black"
         android:textSize="18pt"
         android:textStyle="bold"

@@ -40,6 +40,21 @@ class ProductRemoteDataSource @Inject constructor(private val apiService: ApiSer
         }.flowOn(Dispatchers.IO)
     }
 
+    suspend fun getProductNewIn() : Flow<ApiResponse<ProductBaruResponse>> {
+        return flow{
+            try {
+                val response = apiService.getProductNewIn()
+                if (response.data?.product?.isNotEmpty() == true) {
+                    emit(ApiResponse.Success(response))
+                }else{
+                    emit(ApiResponse.Empty)
+                }
+            }catch (e : Exception) {
+                emit(ApiResponse.Error(e.localizedMessage.orEmpty()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
     suspend fun getProductById(productId: Int): Flow<ApiResponse<ProductsGetByIdResponse>> {
         return flow {
             try {

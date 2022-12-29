@@ -98,7 +98,7 @@ class CheckoutAddressRemoteDataSource @Inject constructor(private val apiService
     suspend fun deleteAddress(id : Int) : Flow<ApiResponse<MessageResponse>> {
         return flow {
             try {
-                val response = apiService.deleteAddress()
+                val response = apiService.deleteAddress(id)
                 if (response.data != null){
                     emit(ApiResponse.Success(response))
                 }else{
@@ -107,7 +107,7 @@ class CheckoutAddressRemoteDataSource @Inject constructor(private val apiService
             }catch (e : Exception) {
                 emit(ApiResponse.Error(e.localizedMessage.orEmpty()))
             }
-        }
+        }.flowOn(Dispatchers.IO)
     }
 
     suspend fun getCheckoutAddress(): Flow<ApiResponse<CheckoutAddressGetResponse>> {

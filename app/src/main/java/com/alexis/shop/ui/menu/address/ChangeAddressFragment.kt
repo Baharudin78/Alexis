@@ -79,37 +79,24 @@ class ChangeAddressFragment : BaseFragment<FragmentChangeAddressBinding>(), OnAd
         }
         getAddress()
     }
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//
-//        blurView()
-//        cancel_button.setOnClickListener {
-//            justOut()
-//        }
-//        back_button.setOnClickListener {
-//            val fragment = MyAccountFragment.newInstance("", "")
-//            requireActivity().supportFragmentManager.accountNavigator(fragment)
-//        }
-//        add_button.setOnClickListener {
-//            val fragment = AddAddressFragment.newInstance(CHANGE_ADDRESS, "")
-//            requireActivity().supportFragmentManager.accountNavigator(fragment)
-//        }
-//
-//        //Array using sample Address Name
-//        arrayDate.add("Office")
-//        arrayDate.add("Home")
-//        arrayDate.add("Kost A")
-//        arrayDate.add("Kost B")
-//        arrayDate.add("Kost C")
-//
-//        addressAdapter = ChangeAddressAdapter(arrayDate, listener = this, onDeleteClick = ::deleteItem)
-//
-//        recycle.apply {
-//            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-//            adapter = addressAdapter
-//        }
-//    }
 
+    private fun deleteAddress(item : AddressItemModel){
+        viewModel.deleteAddress(item.id.orZero()).observe(viewLifecycleOwner) { response ->
+            if (response != null) {
+                when(response) {
+                    is Resource.Loading -> {}
+                    is Resource.Success -> deleteFunc(item)
+                    is Resource.Error -> {
+                        Toast.makeText(
+                            requireContext(),
+                            getString(R.string.auth_error, "Delete  address"),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        }
+    }
     private fun getAddress() {
         viewModel.getCheckoutAddress().observe(viewLifecycleOwner) { response ->
             if (response != null) {
@@ -134,16 +121,6 @@ class ChangeAddressFragment : BaseFragment<FragmentChangeAddressBinding>(), OnAd
         }
     }
 
-
-    private fun deleteItem(position: Int) {
-        arrayDate.removeAt(position)
-        addressAdapter.notifyDataSetChanged()
-    }
-
-//    override fun onClick(item: Any) {
-//        log(item.toString())
-//    }
-
     private fun blurView() {
         val radius = 15f
         val decorView : View = activity?.window!!.decorView
@@ -166,8 +143,13 @@ class ChangeAddressFragment : BaseFragment<FragmentChangeAddressBinding>(), OnAd
             }
     }
 
+    private fun deleteFunc(item : AddressItemModel){
+        checkoutAddress.remove(item)
+        adapterIt.setData(checkoutAddress)
+    }
     override fun delete(item: Any) {
-        TODO("Not yet implemented")
+        item as AddressItemModel
+        deleteAddress(item)
     }
 
     override fun onDropship(item: Any) {

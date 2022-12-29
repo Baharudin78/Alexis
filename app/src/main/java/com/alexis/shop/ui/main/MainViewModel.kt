@@ -28,6 +28,8 @@ class MainViewModel @Inject constructor(
 
     fun getAllProduct() = productUseCase.getAllProduct().asLiveData()
 
+    fun getProductNewIn() = productUseCase.getProductNewIn().asLiveData()
+
     fun getProductCategory() = productCategoryUseCase.getAllProductCategory().asLiveData()
 
     fun getSosialMedia() = sosmedUseCase.getSosmed().asLiveData()

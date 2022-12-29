@@ -114,6 +114,24 @@ class SelectAddressFragment : BaseFragment<FragmentSelectAddressBinding>(), OnAd
         }
     }
 
+    private fun deleteAddress(item : AddressItemModel) {
+        viewModel.deleteAddress(item.id.orZero()).observe(viewLifecycleOwner) { response ->
+            if (response != null) {
+                when(response) {
+                    is Resource.Loading -> {}
+                    is Resource.Success -> deleteFunc(item)
+                    is Resource.Error -> {
+                        Toast.makeText(
+                            requireContext(),
+                            getString(R.string.auth_error, "Delete  address"),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        }
+    }
+
     private fun blurView() {
         val radius = 15f
         val decorView : View = activity?.window!!.decorView
@@ -141,8 +159,14 @@ class SelectAddressFragment : BaseFragment<FragmentSelectAddressBinding>(), OnAd
         adapterIt.notifyDataSetChanged()
     }
 
+    private fun deleteFunc(item : AddressItemModel){
+        checkoutAddress.remove(item)
+        adapterIt.setData(checkoutAddress)
+    }
+
     override fun delete(item: Any) {
-        TODO("Not yet implemented")
+        item as AddressItemModel
+        deleteAddress(item)
     }
 
     override fun onDropship(item: Any) {
