@@ -16,7 +16,7 @@ class ProductInteractor @Inject constructor(
         return repository.getAllProduct()
     }
 
-    override fun getProductNewIn(): Flow<Resource<AllProductBaruModel>> {
+    override fun getProductNewIn(): Flow<Resource<List<ProductBaruModel>>>{
         return repository.getProductNewIn()
     }
 

@@ -40,11 +40,11 @@ class ProductRepository @Inject constructor(
         }
     }
 
-    override fun getProductNewIn(): Flow<Resource<AllProductBaruModel>> {
-        return flow<Resource<AllProductBaruModel>> {
+    override fun getProductNewIn(): Flow<Resource<List<ProductBaruModel>>> {
+        return flow<Resource<List<ProductBaruModel>>> {
             emit(Resource.Loading())
             when(val apiResponse = remoteDataSource.getProductNewIn().first()){
-                is ApiResponse.Success -> emit(Resource.Success(convertProductNewIn(apiResponse.data.data?.product)))
+                is ApiResponse.Success -> emit(Resource.Success(generateListProducts(apiResponse.data.data?.product)))
                 is ApiResponse.Empty -> listOf<ProductBaruModel>()
                 is ApiResponse.Error -> emit(Resource.Error(apiResponse.errorMessage))
             }

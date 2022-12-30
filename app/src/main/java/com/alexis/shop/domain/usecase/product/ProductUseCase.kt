@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface ProductUseCase {
     fun getAllProduct(): Flow<Resource<List<ProductBaruModel>>>
-    fun getProductNewIn(): Flow<Resource<AllProductBaruModel>>
+    fun getProductNewIn(): Flow<Resource<List<ProductBaruModel>>>
     fun getProductById(productId: Int): Flow<Resource<ProductsByIdModel>>
     fun getProductByBarcode(barcode : String) : Flow<Resource<ProductsByIdModel>>
     fun getProductSize(id : Int) : Flow<Resource<ProductSizeListModel>>

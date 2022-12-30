@@ -78,6 +78,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
         sharedPref = SheredPreference(this)
+
         initRecycleview()
         //    storeHomeAdapter = StoreHomeAdapter(binding.root.context)
 
@@ -135,6 +136,7 @@ class MainActivity : AppCompatActivity() {
         getLandingImage()
         //addTitle()
         getAllProduct()
+        getProductNewIn()
         getStore()
        // addLandingPage()
 //        addProductsA(adapter)
@@ -278,19 +280,34 @@ class MainActivity : AppCompatActivity() {
                     is Resource.Success -> {
                         response.data?.let {
                             addProductToAdapter(it)
-                            it.map {
-                                Log.d("asdjasldhlj", "${it.id}")
-                                Log.d("asdjasldhlj", "${it.name}")
-                                Log.d("asdjasldhlj", "${it.price}")
-                                Log.d("asdjasldhlj", "${it.barcode}")
-                                Log.d("asdjasldhlj", "${it.item_code}")
-                            }
                         }
                     }
                     is Resource.Error -> {
                         Toast.makeText(
                             applicationContext,
                              getString(R.string.auth_error, "Get Product"),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getProductNewIn(){
+        viewModel.getProductNewIn().observe(this){response ->
+            if (response != null){
+                when(response){
+                    is Resource.Loading -> {}
+                    is Resource.Success -> {
+                        response.data?.let {
+                            addProductToAdapter(it)
+                        }
+                    }
+                    is Resource.Error -> {
+                        Toast.makeText(
+                            applicationContext,
+                            getString(R.string.auth_error, "Get Product"),
                             Toast.LENGTH_SHORT
                         ).show()
                     }
