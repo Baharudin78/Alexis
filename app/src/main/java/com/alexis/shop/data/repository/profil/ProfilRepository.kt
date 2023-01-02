@@ -4,6 +4,7 @@ import com.alexis.shop.data.Resource
 import com.alexis.shop.data.remote.datasource.ProfilDataSource
 import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.data.remote.response.profil.Profil
+import com.alexis.shop.data.remote.response.wishlist.delete.MessageResponse
 import com.alexis.shop.domain.model.profil.ProfilModel
 import com.alexis.shop.domain.repository.IProfilRepository
 import com.google.android.gms.common.api.Api
@@ -28,6 +29,18 @@ class ProfilRepository @Inject constructor(
             }
         }
     }
+
+    override fun updateName(name: String): Flow<Resource<ProfilModel>> {
+        return flow<Resource<ProfilModel>> {
+            emit(Resource.Loading())
+            when(val apiResponse = profilDataSource.updateName(name).first()){
+                is ApiResponse.Success -> emit(Resource.Success(generateProfilModel(apiResponse.data.data.item)))
+                is ApiResponse.Empty ->{}
+                is ApiResponse.Error -> emit(Resource.Error(apiResponse.errorMessage))
+            }
+        }
+    }
+
 
     private fun generateProfilModel(profil : Profil?) : ProfilModel {
         return if (profil != null) {

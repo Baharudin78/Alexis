@@ -10,4 +10,5 @@ import javax.inject.Inject
 @HiltViewModel
 class ProfileViewModel @Inject constructor(private val useCase: ProfilUseCase) : ViewModel() {
     fun getProfileData() = useCase.getProfil().asLiveData()
+    fun updateName(name : String) = useCase.updateName(name).asLiveData()
 }

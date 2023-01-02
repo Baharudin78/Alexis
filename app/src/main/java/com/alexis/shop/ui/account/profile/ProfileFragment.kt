@@ -101,6 +101,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                 showName.visible()
                 lshowName.visible()
                 editnameMode.gone()
+                val nama = binding.edName.text.toString().trim()
+                updateName(nama)
             }
             sumbitBrdate.setOnClickListener {
                 showBrdate.visible()
@@ -175,6 +177,29 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                         response.data?.let {
                             profilModel = it
                             setupView(it)
+                        }
+                    }
+                    is Resource.Error -> {
+                        Toast.makeText(
+                            binding.root.context.applicationContext,
+                            "Failed Get Profil",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun updateName(name :String){
+        viewModel.updateName(name).observe(viewLifecycleOwner){response ->
+            if (response != null) {
+                when(response){
+                    is Resource.Loading ->{}
+                    is Resource.Success ->{
+                        response.data?.let {
+                            profilModel= it
+                           setupView(it)
                         }
                     }
                     is Resource.Error -> {

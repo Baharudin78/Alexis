@@ -158,6 +158,22 @@ interface ApiService {
     suspend fun getSosialMedia() : SosialMediaResponse
 
     /*
+    PROFILE
+     */
+
+    @PUT("mw/account/profile")
+    @FormUrlEncoded
+    suspend fun updateNoTelp(
+        @Field("no_telp") noTelp : String
+    ): ProfilResponse
+
+    @PUT("mw/account/profile/change")
+    @FormUrlEncoded
+    suspend fun updateNama(
+        @Field("nama_lengkap") namaLengkap : String
+    ) : ProfilResponse
+
+    /*
     ADDRESS
      */
 
