@@ -21,7 +21,6 @@ class AuthInteractor @Inject constructor(private val repository: IAuthRepository
         tanggalLahir : String
     ): Flow<Resource<RegisterModel>> = repository.register(name, phone, email, password,confirmPassword, tanggalLahir)
 
-    override fun activeUser(email: String): Flow<Resource<ActivateUserModel>> = repository.activeUser(email)
     override fun logOut(): Flow<Resource<LogoutResponse>> {
         return repository.logOut()
     }

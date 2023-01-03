@@ -8,7 +8,9 @@ import com.alexis.shop.domain.repository.checkout.ICheckoutAddressRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class CheckoutAddressInteractor @Inject constructor(private val repository: ICheckoutAddressRepository): CheckoutAddressUseCase {
+class CheckoutAddressInteractor @Inject constructor(
+    private val repository: ICheckoutAddressRepository
+ ): CheckoutAddressUseCase {
     override fun postCheckoutAddress(
         recipientName: String,
         address: String,
@@ -46,5 +48,9 @@ class CheckoutAddressInteractor @Inject constructor(private val repository: IChe
 
     override fun deleteAddress(id: Int): Flow<Resource<MessageResponse>> {
         return repository.deleteAddress(id)
+    }
+
+    override fun setActiveAddress(id: Int): Flow<Resource<MessageResponse>> {
+        return repository.setActiveAddress(id)
     }
 }

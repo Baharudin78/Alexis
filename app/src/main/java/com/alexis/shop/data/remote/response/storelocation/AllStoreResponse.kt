@@ -21,6 +21,8 @@ data class DataStoreLocationResponse(
 data class AllStoreItemResponse(
 	@SerializedName("id")
 	val id : Int? = null,
+	@SerializedName("store_area")
+	val storeArea : Int? = null,
 	@SerializedName("province")
 	val province: String? = null,
 	@SerializedName("name")
@@ -32,7 +34,14 @@ data class AllStoreItemResponse(
 	@SerializedName("open_time")
 	val openTime : String? = null,
 	@SerializedName("close_time")
-	val closeTime : String? = null
+	val closeTime : String? = null,
+	@SerializedName("latitude")
+	val latitude : String? = null,
+	@SerializedName("longitude")
+	val longitude : String? = null,
+	@SerializedName("image_url")
+	val imageUrl : String? = null
+
 ) : BaseItemModel() {
 	override fun type(typeFactoryBase: BaseItemTypeFactory): Int {
 		typeVH = LocationTypeVH.LAYOUT

@@ -54,9 +54,6 @@ interface ApiService {
     @POST("mw/auth/logout")
     suspend fun logOut() : LogoutResponse
 
-    @POST(UrlConstant.ACTIVATE_URL)
-    @FormUrlEncoded
-    suspend fun activateUser(@Field("email") email: String): Any
 
     @POST("mw/customer-cart")
     @FormUrlEncoded
@@ -189,6 +186,11 @@ interface ApiService {
     suspend fun deleteAddress(
         @Path("id") id : Int
     ) : MessageResponse
+
+    @PUT("mw/address-active/{id}")
+    suspend fun setActivateAddress(
+        @Path("id") id: Int
+    ): MessageResponse
 
     @PUT("mw/address/{id}")
     suspend fun updateAdress(

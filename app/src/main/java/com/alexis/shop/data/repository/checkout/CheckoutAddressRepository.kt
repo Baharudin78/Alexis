@@ -109,6 +109,17 @@ class CheckoutAddressRepository @Inject constructor(
         }
     }
 
+    override fun setActiveAddress(id: Int): Flow<Resource<MessageResponse>> {
+        return flow<Resource<MessageResponse>> {
+            emit(Resource.Loading())
+            when(val apiResponse = remoteDataSource.setActiveAddress(id).first()){
+                is ApiResponse.Success -> emit(Resource.Success(apiResponse.data))
+                is ApiResponse.Empty -> emit(Resource.Loading())
+                is ApiResponse.Error -> emit(Resource.Error(apiResponse.errorMessage))
+            }
+        }
+    }
+
 
     private fun generateCheckoutAddressModelView(response: List<CheckoutAddressItem?>?): AddressListModel {
         return if (!response.isNullOrEmpty()) {

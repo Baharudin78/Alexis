@@ -110,6 +110,21 @@ class CheckoutAddressRemoteDataSource @Inject constructor(private val apiService
         }.flowOn(Dispatchers.IO)
     }
 
+    suspend fun setActiveAddress(id : Int) : Flow<ApiResponse<MessageResponse>> {
+        return flow {
+            try {
+                val response = apiService.setActivateAddress(id)
+                if (response.data != null){
+                    emit(ApiResponse.Success(response))
+                }else{
+                    emit(ApiResponse.Empty)
+                }
+            }catch (e : Exception) {
+                emit(ApiResponse.Error(e.localizedMessage.orEmpty()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
     suspend fun getCheckoutAddress(): Flow<ApiResponse<CheckoutAddressGetResponse>> {
         return flow {
             try {

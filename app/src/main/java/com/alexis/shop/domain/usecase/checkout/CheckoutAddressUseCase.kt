@@ -36,4 +36,5 @@ interface CheckoutAddressUseCase {
 
     fun getCheckoutAddress(): Flow<Resource<AddressListModel>>
     fun deleteAddress(id : Int) : Flow<Resource<MessageResponse>>
+    fun setActiveAddress(id : Int) : Flow<Resource<MessageResponse>>
 }

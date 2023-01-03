@@ -41,5 +41,6 @@ interface ICheckoutAddressRepository {
     ) : Flow<Resource<MessageResponse>>
 
     fun deleteAddress(id : Int) : Flow<Resource<MessageResponse>>
+    fun setActiveAddress(id : Int) : Flow<Resource<MessageResponse>>
 
 }

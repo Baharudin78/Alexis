@@ -76,15 +76,4 @@ class AuthRemoteDataSource @Inject constructor(private val apiService: ApiServic
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun activate(email: String): Flow<ApiResponse<String>> {
-        return flow {
-            try {
-                apiService.activateUser(email)
-                emit(ApiResponse.Success(ResponseConstant.RESPONSE_200))
-            } catch (e: Exception) {
-                emit(ApiResponse.Error(e.message.toString()))
-                Log.e("RemoteDataSource", e.message.toString())
-            }
-        }.flowOn(Dispatchers.IO)
-    }
 }

@@ -86,16 +86,6 @@ class AuthRepository @Inject constructor(
         }
     }
 
-    override fun activeUser(email: String): Flow<Resource<ActivateUserModel>> {
-        return flow<Resource<ActivateUserModel>> {
-            emit(Resource.Loading())
-            when (val apiResponse = remoteDataSource.activate(email).first()) {
-                is ApiResponse.Success -> emit(Resource.Success(ActivateUserModel(id = apiResponse.data)))
-                is ApiResponse.Empty -> emit(Resource.Error(RESPONSE_EMPTY))
-                is ApiResponse.Error -> emit(Resource.Error(apiResponse.errorMessage))
-            }
-        }
-    }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun logOut(): Flow<Resource<LogoutResponse>> {

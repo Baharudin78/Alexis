@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.alexis.shop.R
 import com.alexis.shop.data.Resource
 import com.alexis.shop.databinding.ActivitySelectAdressBinding
 import com.alexis.shop.domain.model.address.AddressItemModel
@@ -50,7 +51,8 @@ class SelectAdressActivity : AppCompatActivity(){
     private fun initRecycleview() {
         adapterAddress = SelectAddressAdapter(binding.root.context, object : OnAddressClick{
             override fun delete(item: Any) {
-                TODO("Not yet implemented")
+                item as AddressItemModel
+                deleteAddress(item)
             }
 
             override fun onDropship(item: Any) {
@@ -91,6 +93,29 @@ class SelectAdressActivity : AppCompatActivity(){
                 startActivity(intent)
             }
         }
+    }
+
+    private fun deleteAddress(item : AddressItemModel) {
+        viewModel.deleteAddress(item.id.orZero()).observe(this) { response ->
+            if (response != null) {
+                when(response) {
+                    is Resource.Loading -> {}
+                    is Resource.Success -> deleteFunc(item)
+                    is Resource.Error -> {
+                        Toast.makeText(
+                            this,
+                            getString(R.string.auth_error, "Delete  address"),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun deleteFunc(item : AddressItemModel){
+        checkoutAddress.remove(item)
+        adapterAddress.setData(checkoutAddress)
     }
 
     private fun getCheckoutAddress() {

@@ -65,12 +65,17 @@ class StoreLocationRepository @Inject constructor(
             AllStoreLocationModel(
                 data = location.map {
                     AllStoreItemModel(
+                        id = it.id.orZero(),
+                        storeArea = it.storeArea.orZero(),
                         province = it.province.orEmpty(),
                         name = it.name.orEmpty(),
                         city = it.city.orEmpty(),
                         phoneNumber = it.phoneNumber.orEmpty(),
                         openTime = it.openTime.orEmpty(),
-                        closeTime = it.closeTime.orEmpty()
+                        closeTime = it.closeTime.orEmpty(),
+                        latitude = it.latitude.orEmpty(),
+                        longitude = it.longitude.orEmpty(),
+                        imageUrl = it.imageUrl.orEmpty()
                     )
                 }
             )

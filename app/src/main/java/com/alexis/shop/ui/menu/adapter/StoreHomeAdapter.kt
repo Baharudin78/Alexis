@@ -5,11 +5,13 @@ import android.print.PrintDocumentAdapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.ViewParent
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.alexis.shop.R
 import com.alexis.shop.domain.model.store_location.AllStoreItemModel
 import com.alexis.shop.utils.OnClickItem
+import com.bumptech.glide.Glide
 
 class StoreHomeAdapter(private val context : Context,
                        private val listener : OnClickItem
@@ -26,11 +28,14 @@ class StoreHomeAdapter(private val context : Context,
         : RecyclerView.ViewHolder(inflater.inflate(R.layout.item_store_home, parent, false)) {
         var tvTitle : TextView = itemView.findViewById(R.id.tv_nama)
         var tvLokasi : TextView = itemView.findViewById(R.id.tv_lokasi)
+        var ivPoto : ImageView = itemView.findViewById(R.id.imageView)
 
         fun bind(item : AllStoreItemModel) {
             tvTitle.text = item.name
             tvLokasi.text = item.city
-
+            Glide.with(itemView)
+                .load(item.imageUrl)
+                .into(ivPoto)
             itemView.setOnClickListener {
                 listener.onClick(item)
             }

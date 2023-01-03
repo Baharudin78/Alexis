@@ -21,6 +21,9 @@ class SelectAddressFragmentViewModel @Inject constructor(
     fun deleteAddress(id : Int) =
         checkoutAddressUseCase.deleteAddress(id).asLiveData()
 
+    fun setSetActive(id : Int) =
+        checkoutAddressUseCase.setActiveAddress(id).asLiveData()
+
     fun postCheckoutAddress(
         recipientName: String,
         address: String,
