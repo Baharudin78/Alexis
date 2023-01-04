@@ -214,6 +214,29 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         }
     }
 
+    private fun updatePhone(phone :String){
+        viewModel.updatePhone(phone).observe(viewLifecycleOwner){response ->
+            if (response != null) {
+                when(response){
+                    is Resource.Loading ->{}
+                    is Resource.Success ->{
+                        response.data?.let {
+                            profilModel= it
+                            setupView(it)
+                        }
+                    }
+                    is Resource.Error -> {
+                        Toast.makeText(
+                            binding.root.context.applicationContext,
+                            "Failed Get Profil",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        }
+    }
+
     private fun setupView(data : ProfilModel) {
         binding.showName.setText(data.nama_lengkap.toString())
         binding.inputEmail.setText(data.email.toString())

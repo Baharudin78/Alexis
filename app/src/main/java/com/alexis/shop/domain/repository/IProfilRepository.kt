@@ -8,4 +8,5 @@ import kotlinx.coroutines.flow.Flow
 interface IProfilRepository {
     fun getProfil() : Flow<Resource<ProfilModel>>
     fun updateName(name : String): Flow<Resource<ProfilModel>>
+    fun updateNoTelp(phone : String) : Flow<Resource<ProfilModel>>
 }

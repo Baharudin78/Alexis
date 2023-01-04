@@ -41,6 +41,18 @@ class ProfilRepository @Inject constructor(
         }
     }
 
+    override fun updateNoTelp(phone: String): Flow<Resource<ProfilModel>> {
+        return flow<Resource<ProfilModel>>{
+            emit(Resource.Loading())
+            when(val apiResponse = profilDataSource.updateNoPhone(phone).first()) {
+                is ApiResponse.Success -> emit(Resource.Success(generateProfilModel(apiResponse.data.data.item)))
+                is ApiResponse.Empty -> {}
+                is ApiResponse.Error -> emit(Resource.Error(apiResponse.errorMessage))
+            }
+
+        }
+    }
+
 
     private fun generateProfilModel(profil : Profil?) : ProfilModel {
         return if (profil != null) {
