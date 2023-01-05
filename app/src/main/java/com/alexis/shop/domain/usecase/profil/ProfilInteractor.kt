@@ -18,7 +18,15 @@ class ProfilInteractor @Inject constructor(
         return repository.updateName(name)
     }
 
-    override fun updatePhone(phone: String): Flow<Resource<ProfilModel>> {
-        return repository.updateNoTelp(phone)
+    override fun updatePhone(phone: String, password : String): Flow<Resource<ProfilModel>> {
+        return repository.updateNoTelp(phone, password)
+    }
+
+    override fun updateEmail(email: String, password: String): Flow<Resource<ProfilModel>> {
+        return repository.updateEmail(email, password)
+    }
+
+    override fun updateTanggal(tanggal: String): Flow<Resource<ProfilModel>> {
+        return repository.updateTanggal(tanggal)
     }
 }

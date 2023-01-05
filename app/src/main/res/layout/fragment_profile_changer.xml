@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:background="@color/black"
     tools:context=".ui.account.ProfileChangerFragment">
 
 
@@ -115,9 +116,6 @@
                         android:textColorHint="@color/white1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:passwordToggleTint="@color/white1"
-                        app:passwordToggleEnabled="true"
-                        app:passwordToggleDrawable="@drawable/custom_password_eye"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -125,7 +123,10 @@
                             android:paddingStart="10dp"
                             android:paddingEnd="0dp"
                             android:id="@+id/ed_satu"
-                            android:inputType="textPassword"
+                            android:enabled="false"
+                            android:hint="Old Number"
+                            android:inputType="none"
+                            android:focusable="true"
                             android:textColor="@color/white"
                             android:textSize="13sp"
                             android:backgroundTint="@color/white1"
@@ -166,18 +167,16 @@
                         android:textColorHint="@color/white1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:passwordToggleTint="@color/white1"
-                        app:passwordToggleEnabled="true"
-                        app:passwordToggleDrawable="@drawable/custom_password_eye"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:fontFamily="@font/alexis_gtwalsheim_light"
                             android:paddingLeft="10dp"
                             android:id="@+id/ed_dua"
+                            android:hint="New Number"
                             android:textColor="@color/white"
                             android:textSize="13sp"
-                            android:inputType="textPassword"
+                            android:inputType="number"
                             android:backgroundTint="@color/white1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"/>
@@ -214,11 +213,11 @@
                         android:id="@+id/input_tiga"
                         style="@style/Widget.Design.TextInputLayout"
                         android:textColorHint="@color/white1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         app:passwordToggleTint="@color/white1"
                         app:passwordToggleEnabled="true"
                         app:passwordToggleDrawable="@drawable/custom_password_eye"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -227,6 +226,7 @@
                             android:id="@+id/ed_tiga"
                             android:textColor="@color/white"
                             android:textSize="13sp"
+                            android:hint="password"
                             android:inputType="textPassword"
                             android:backgroundTint="@color/white1"
                             android:layout_width="match_parent"

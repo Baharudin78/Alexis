@@ -2,6 +2,7 @@ package com.alexis.shop.ui.account.profile
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ import com.alexis.shop.R
 import com.alexis.shop.data.Resource
 import com.alexis.shop.databinding.FragmentProfileBinding
 import com.alexis.shop.domain.model.profil.ProfilModel
+import com.alexis.shop.ui.account.ProfileChangeEmailFragement
 import com.alexis.shop.ui.account.ProfileChangerFragment
 import com.alexis.shop.utils.*
 import com.alexis.shop.utils.common.withDelayTime
@@ -68,7 +70,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                 }
             }
             inputEmail.setOnClickListener {
-                val fragment = ProfileChangerFragment.newInstance("email", inputEmail.text.toString())
+                val fragment = ProfileChangeEmailFragement.newInstance("email", inputEmail.text.toString())
                 requireActivity().supportFragmentManager.accountNavigator(fragment)
             }
             inputPhone.setOnClickListener {
@@ -108,6 +110,15 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                 showBrdate.visible()
                 lshowBrdate.visible()
                 editbrdateMode.gone()
+
+                val hari = binding.brdateDay.text.toString().trim()
+                val bulan = binding.brdateMonth.text.toString().trim()
+                val tahun = binding.brdateYear.text.toString().trim()
+
+                val tanggal = "${tahun}/${bulan}/${hari}"
+                Log.d("TAGG", tanggal)
+                updateTanggal(tanggal)
+
             }
 
             brdateDay.doOnTextChanged{text, start, before, count ->
@@ -214,13 +225,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         }
     }
 
-    private fun updatePhone(phone :String){
-        viewModel.updatePhone(phone).observe(viewLifecycleOwner){response ->
+    private fun updateTanggal(tanggal :String){
+        viewModel.updateTanggal(tanggal).observe(viewLifecycleOwner){response ->
             if (response != null) {
                 when(response){
                     is Resource.Loading ->{}
                     is Resource.Success ->{
                         response.data?.let {
+                            Toast.makeText(requireContext(), "Bsrhasil", Toast.LENGTH_SHORT).show()
                             profilModel= it
                             setupView(it)
                         }
@@ -228,7 +240,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                     is Resource.Error -> {
                         Toast.makeText(
                             binding.root.context.applicationContext,
-                            "Failed Get Profil",
+                            response.message,
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -236,6 +248,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
             }
         }
     }
+
 
     private fun setupView(data : ProfilModel) {
         binding.showName.setText(data.nama_lengkap.toString())

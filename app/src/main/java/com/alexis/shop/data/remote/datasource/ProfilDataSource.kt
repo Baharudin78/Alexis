@@ -49,16 +49,46 @@ class ProfilDataSource @Inject constructor(
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun updateNoPhone(notelp : String) : Flow<ApiResponse<ProfilResponse>>{
+    suspend fun updateNoPhone(notelp : String, password : String) : Flow<ApiResponse<ProfilResponse>>{
         return flow<ApiResponse<ProfilResponse>> {
             try {
-                val response = apiService.updateNoTelp(notelp)
+                val response = apiService.updateNoTelp(notelp, password)
                 if (response.data?.item != null){
                     emit(ApiResponse.Success(response))
                 }else{
                     emit(ApiResponse.Empty)
                 }
             }catch (e : Exception){
+                emit(ApiResponse.Error(e.localizedMessage.orEmpty()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun updateEmail(email : String,  password : String) : Flow<ApiResponse<ProfilResponse>> {
+        return flow {
+            try {
+                val response = apiService.updateEmail(email, password)
+                if (response.data?.item != null) {
+                    emit(ApiResponse.Success(response))
+                }else{
+                    emit(ApiResponse.Empty)
+                }
+            }catch (e : Exception) {
+                emit(ApiResponse.Error(e.localizedMessage.orEmpty()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun updateTanggalLahir(tanggal : String) : Flow<ApiResponse<ProfilResponse>> {
+        return flow {
+            try {
+                val response = apiService.updateBirthDay(tanggal)
+                if (response.data?.item != null) {
+                    emit(ApiResponse.Success(response))
+                }else{
+                    emit(ApiResponse.Empty)
+                }
+            }catch (e : Exception) {
                 emit(ApiResponse.Error(e.localizedMessage.orEmpty()))
             }
         }.flowOn(Dispatchers.IO)

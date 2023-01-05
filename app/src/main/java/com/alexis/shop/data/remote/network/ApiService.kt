@@ -161,7 +161,8 @@ interface ApiService {
     @PUT("mw/account/profile/change/phonenumber")
     @FormUrlEncoded
     suspend fun updateNoTelp(
-        @Field("no_telp") noTelp : String
+        @Field("phonenumber") noTelp : String,
+        @Field("password") password : String
     ): ProfilResponse
 
     @PUT("mw/account/profile/change")
@@ -172,8 +173,16 @@ interface ApiService {
 
     @PUT("mw/account/profile/change")
     @FormUrlEncoded
+    suspend fun updateBirthDay(
+        @Field("tanggal_lahir") tanggalLahir: String
+    ): ProfilResponse
+
+
+    @PUT("mw/account/profile/change/email")
+    @FormUrlEncoded
     suspend fun updateEmail(
-        @Field("nama_lengkap") namaLengkap : String
+        @Field("email") email : String,
+        @Field("password") password : String
     ) : ProfilResponse
 
     /*

@@ -11,5 +11,7 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(private val useCase: ProfilUseCase) : ViewModel() {
     fun getProfileData() = useCase.getProfil().asLiveData()
     fun updateName(name : String) = useCase.updateName(name).asLiveData()
-    fun updatePhone(phone : String) = useCase.updatePhone(phone).asLiveData()
+    fun updatePhone(phone : String, password : String) = useCase.updatePhone(phone, password).asLiveData()
+    fun updateEmail(email : String, password: String) = useCase.updateEmail(email, password).asLiveData()
+    fun updateTanggal(tanggal : String) = useCase.updateTanggal(tanggal).asLiveData()
 }

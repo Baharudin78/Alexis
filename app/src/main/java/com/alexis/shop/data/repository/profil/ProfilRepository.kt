@@ -41,15 +41,37 @@ class ProfilRepository @Inject constructor(
         }
     }
 
-    override fun updateNoTelp(phone: String): Flow<Resource<ProfilModel>> {
+    override fun updateNoTelp(phone: String, password : String): Flow<Resource<ProfilModel>> {
         return flow<Resource<ProfilModel>>{
             emit(Resource.Loading())
-            when(val apiResponse = profilDataSource.updateNoPhone(phone).first()) {
+            when(val apiResponse = profilDataSource.updateNoPhone(phone, password).first()) {
                 is ApiResponse.Success -> emit(Resource.Success(generateProfilModel(apiResponse.data.data.item)))
                 is ApiResponse.Empty -> {}
                 is ApiResponse.Error -> emit(Resource.Error(apiResponse.errorMessage))
             }
 
+        }
+    }
+
+    override fun updateEmail(email: String, password: String): Flow<Resource<ProfilModel>> {
+        return flow<Resource<ProfilModel>>{
+            emit(Resource.Loading())
+            when(val apiResponse = profilDataSource.updateEmail(email, password).first()){
+                is ApiResponse.Success -> emit(Resource.Success(generateProfilModel(apiResponse.data.data.item)))
+                is ApiResponse.Empty -> {}
+                is ApiResponse.Error -> emit(Resource.Error(apiResponse.errorMessage))
+            }
+        }
+    }
+
+    override fun updateTanggal(tanggal: String): Flow<Resource<ProfilModel>> {
+        return flow<Resource<ProfilModel>>{
+            emit(Resource.Loading())
+            when(val apiResponse = profilDataSource.updateTanggalLahir(tanggal).first()){
+                is ApiResponse.Success -> emit(Resource.Success(generateProfilModel(apiResponse.data.data.item)))
+                is ApiResponse.Empty -> {}
+                is ApiResponse.Error -> emit(Resource.Error(apiResponse.errorMessage))
+            }
         }
     }
 
