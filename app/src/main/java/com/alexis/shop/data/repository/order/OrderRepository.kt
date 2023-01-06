@@ -4,8 +4,14 @@ import com.alexis.shop.data.Resource
 import com.alexis.shop.data.remote.datasource.OrderRemoteDataSource
 import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.data.remote.response.order.*
+import com.alexis.shop.data.remote.response.point.CustomerPointItem
+import com.alexis.shop.data.remote.response.point.PointItemList
+import com.alexis.shop.data.remote.response.point.PointsItem
 import com.alexis.shop.data.remote.response.shoppingbag.ShopingProduct
 import com.alexis.shop.domain.model.order.*
+import com.alexis.shop.domain.model.points.CustomerItemModel
+import com.alexis.shop.domain.model.points.PointItemModel
+import com.alexis.shop.domain.model.points.PointListModel
 import com.alexis.shop.domain.model.shoppingbag.ShopingProductModel
 import com.alexis.shop.domain.repository.order.IOrderRepository
 import com.alexis.shop.utils.orZero
@@ -34,6 +40,53 @@ class OrderRepository @Inject constructor(
                 is ApiResponse.Error -> emit(Resource.Error(apiResponse.errorMessage))
             }
         }
+    }
+
+    override fun getPoint(): Flow<Resource<PointListModel>> {
+        return flow<Resource<PointListModel>>{
+            emit(Resource.Loading())
+            when(val apiResponse = orderRemoteDataSource.getPointHitory().first()) {
+                is ApiResponse.Success -> emit(Resource.Success(convertPointToModel(apiResponse.data.data.item)))
+                is ApiResponse.Empty -> {}
+                is ApiResponse.Error -> emit(Resource.Error(apiResponse.errorMessage))
+            }
+        }
+    }
+
+    private fun convertPointToModel(data : List<PointsItem?>?) : PointListModel {
+        return if (!data.isNullOrEmpty()) {
+            PointListModel(
+                points = data.map {
+                    PointItemModel(
+                        createdAt = it?.createdAt.orEmpty(),
+                        customer = convertConsumenModel(it?.customer),
+                        customer_id = it?.customer_id.orZero(),
+                        id = it?.id.orZero(),
+                        name = it?.name.orEmpty(),
+                        point = it?.point.orZero(),
+                        updatedAt = it?.updatedAt.orEmpty()
+                    )
+                }
+            )
+        } else{
+            PointListModel()
+        }
+    }
+
+    private fun convertConsumenModel(customer : CustomerPointItem?) : CustomerItemModel {
+        return CustomerItemModel(
+            createdAt = customer?.createdAt.orEmpty(),
+            email = customer?.email.orEmpty(),
+            id = customer?.id.orZero(),
+            isBlacklist = customer?.is_blacklist.orZero(),
+            kodeReferal = customer?.kode_referal.toString(),
+            namaLengkap = customer?.nama_lengkap.orEmpty(),
+            noTelp = customer?.no_telp.orEmpty(),
+            tanggalLahir = customer?.tanggal_lahir.orEmpty(),
+            totalPoin = customer?.total_poin.orZero(),
+            updatedAt = customer?.updatedAt.orEmpty(),
+            userId = customer?.user_id.orZero()
+        )
     }
 
     private fun generateOrderModel(data : List<OrderItem?>?) : OrderListModel {

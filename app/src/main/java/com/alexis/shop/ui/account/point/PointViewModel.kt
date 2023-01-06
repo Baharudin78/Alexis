@@ -1,4 +1,4 @@
-package com.alexis.shop.ui.account.order
+package com.alexis.shop.ui.account.point
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -7,10 +7,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class OrderViewModel @Inject constructor(
-    private var orderUseCase: OrderUseCase
+class PointViewModel @Inject constructor(
+    private val orderUseCase: OrderUseCase
 ) : ViewModel(){
 
-    fun getOrder() = orderUseCase.getOrder().asLiveData()
-
+    fun getPointHistory() = orderUseCase.getPointHistory().asLiveData()
 }

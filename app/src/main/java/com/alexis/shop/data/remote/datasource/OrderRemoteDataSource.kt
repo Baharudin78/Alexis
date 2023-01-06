@@ -4,6 +4,7 @@ import android.util.Log
 import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.data.remote.network.ApiService
 import com.alexis.shop.data.remote.response.order.OrderResponse
+import com.alexis.shop.data.remote.response.point.PointResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -27,6 +28,21 @@ class OrderRemoteDataSource @Inject constructor(
             }catch (e : Exception) {
                 emit(ApiResponse.Error(e.localizedMessage.orEmpty()))
                 Log.d("REMOTEDATASOURCE", e.localizedMessage.orEmpty())
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getPointHitory() : Flow<ApiResponse<PointResponse>> {
+        return flow {
+            try {
+                val response = apiService.getPointHistory()
+                if (response.data.item.isNotEmpty()) {
+                    emit(ApiResponse.Success(response))
+                }else{
+                    emit(ApiResponse.Empty)
+                }
+            }catch (e: Exception) {
+                emit(ApiResponse.Error(e.localizedMessage.orEmpty()))
             }
         }.flowOn(Dispatchers.IO)
     }

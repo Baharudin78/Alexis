@@ -12,6 +12,7 @@ import com.alexis.shop.data.remote.response.contact.ContactResponse
 import com.alexis.shop.data.remote.response.helpcenter.HelpCenterResponse
 import com.alexis.shop.data.remote.response.landing.LandingResponse
 import com.alexis.shop.data.remote.response.order.OrderResponse
+import com.alexis.shop.data.remote.response.point.PointResponse
 import com.alexis.shop.data.remote.response.product.ProductsGetByIdResponse
 import com.alexis.shop.data.remote.response.product.category.ProductCategoryNewResponse
 import com.alexis.shop.data.remote.response.product.size.ProductSizeResponse
@@ -140,6 +141,9 @@ interface ApiService {
 
     @GET("mw/account/voucher")
     suspend fun getVoucher(): VoucherResponse
+
+    @GET("mw/points-history")
+    suspend fun getPointHistory() : PointResponse
 
     @GET("mw/help-center")
     suspend fun getHelpCenter(): HelpCenterResponse

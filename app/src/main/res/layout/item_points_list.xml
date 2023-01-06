@@ -2,8 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
+    tools:background="@color/black"
     android:paddingTop="20dp"
     android:paddingBottom="5dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -14,7 +16,8 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.8"/>
     <TextView
-        android:fontFeatureSettings="tnum" android:fontFamily="@font/alexis_gtwalsheim_regular"  android:id="@+id/id4"
+        android:fontFeatureSettings="tnum" android:fontFamily="@font/alexis_gtwalsheim_regular"
+        android:id="@+id/tv_total_point"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="42.923"
@@ -55,7 +58,9 @@
             app:layout_constraintGuide_percent="0.95"/>
 
         <TextView
-            android:fontFeatureSettings="tnum" android:fontFamily="@font/alexis_gtwalsheim_regular"  android:id="@+id/id1"
+            android:fontFeatureSettings="tnum"
+            android:fontFamily="@font/alexis_gtwalsheim_regular"
+            android:id="@+id/tv_tanggal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="20 Jul 20"
@@ -69,7 +74,8 @@
             app:layout_constraintRight_toLeftOf="@+id/mid"/>
 
         <TextView
-            android:fontFeatureSettings="tnum" android:fontFamily="@font/alexis_gtwalsheim_regular"  android:id="@+id/id2"
+            android:fontFeatureSettings="tnum" android:fontFamily="@font/alexis_gtwalsheim_regular"
+            android:id="@+id/tv_nama"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Online Shop"
@@ -80,12 +86,12 @@
             android:textColor="@color/white"
             app:layout_constraintLeft_toRightOf="@+id/maxA"
             app:layout_constraintRight_toLeftOf="@+id/mid"
-            app:layout_constraintTop_toBottomOf="@+id/id1"/>
+            app:layout_constraintTop_toBottomOf="@+id/tv_tanggal"/>
 
         <TextView
             android:fontFeatureSettings="tnum"
             android:fontFamily="@font/alexis_gtwalsheim_regular"
-            android:id="@+id/id3"
+            android:id="@+id/tv_point"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="1.142.923"
@@ -93,7 +99,7 @@
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@id/id2"
+            app:layout_constraintBottom_toBottomOf="@id/tv_nama"
             app:layout_constraintLeft_toRightOf="@+id/mid"
             app:layout_constraintRight_toLeftOf="@+id/maxB"/>
 
