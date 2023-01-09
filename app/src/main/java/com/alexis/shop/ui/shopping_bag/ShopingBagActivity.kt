@@ -13,11 +13,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexis.shop.R
 import com.alexis.shop.data.Resource
 import com.alexis.shop.databinding.ActivityShopingBagBinding
+import com.alexis.shop.domain.model.shoppingbag.ShopingBagListModel
 import com.alexis.shop.domain.model.shoppingbag.ShoppingBagModel
+import com.alexis.shop.ui.account.login.LoginFragment
 import com.alexis.shop.ui.checkout.SelectAdressActivity
 import com.alexis.shop.ui.shopping_bag.adapter.ShoppingBagAdapter
 import com.alexis.shop.ui.wishlist.WishlistViewModel
 import com.alexis.shop.utils.*
+import com.alexis.shop.utils.prefs.SheredPreference
 import dagger.hilt.android.AndroidEntryPoint
 import eightbitlab.com.blurview.RenderScriptBlur
 import kotlinx.android.synthetic.main.activity_shoping_bag.*
@@ -30,7 +33,7 @@ class ShopingBagActivity : AppCompatActivity(), OnShoppingBagClickItem {
 
     private lateinit var binding : ActivityShopingBagBinding
     private val viewModel: ShoppingBagViewModel by viewModels()
-    private val wishListViewModel : WishlistViewModel by viewModels()
+    lateinit var sharedPref : SheredPreference
     lateinit var adapterBill: ShoppingBagAdapter
     private var shoppingBagList = ArrayList<ShoppingBagModel>()
     private var totalPrice = 0
@@ -41,14 +44,20 @@ class ShopingBagActivity : AppCompatActivity(), OnShoppingBagClickItem {
         binding = ActivityShopingBagBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        sharedPref = SheredPreference(this)
+
         resetAnimation()
         setupRecycleview()
         blurView()
         getShopingBag()
+        getShipping()
         setListener()
         validateButton()
+        userIsLogedIn()
         //getPrice()
     }
+
+
 
     private fun resetAnimation() {
         binding.gilding.resetLottieAnimation()
@@ -88,14 +97,47 @@ class ShopingBagActivity : AppCompatActivity(), OnShoppingBagClickItem {
                     is Resource.Loading -> {}
                     is Resource.Success -> {
                         val shoppingValue = response.data?.bag as ArrayList<ShoppingBagModel>
-                        shoppingBagList = shoppingValue
                         adapterBill.setData(shoppingValue)
-                        val position = shoppingBagList.size
-                        for (i in 0 until shoppingBagList.size) {
-                            totalPrice += shoppingBagList[i].price
-                            binding.tvTotal.text = totalPrice.toString()
-                            adapterBill.notifyItemRemoved(position)
-                        }
+//                        val position = shoppingBagList.size
+//                        for (i in 0 until shoppingBagList.size) {
+//                            totalPrice += shoppingBagList[i].price
+//                            binding.tvTotal.text = totalPrice.toString()
+//                            adapterBill.notifyItemRemoved(position)
+//                        }
+                    }
+                    is Resource.Error -> {
+                        Toast.makeText(
+                            this.applicationContext,
+                            getString(R.string.auth_error, "Get Shopping Bag"),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun userIsLogedIn() {
+        if(sharedPref.getToken().isEmpty()){
+            Log.d("TAGG",sharedPref.getToken())
+            goToLoginPage()
+        }
+    }
+
+    private fun goToLoginPage(){
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.mainactivity, LoginFragment()).commit()
+    }
+
+    private fun getShipping() {
+        viewModel.getShipping().observe(this) { response ->
+            if (response != null) {
+                when(response) {
+                    is Resource.Loading -> {}
+                    is Resource.Success -> {
+                        val shipper = response.data?.shipping
+                        binding.tvTotal.text = shipper
+                        Log.d("TAGSSS", shipper.orEmpty())
                     }
                     is Resource.Error -> {
                         Toast.makeText(
@@ -156,6 +198,7 @@ class ShopingBagActivity : AppCompatActivity(), OnShoppingBagClickItem {
 
     override fun onStart() {
         super.onStart()
+        userIsLogedIn()
         StatusBarUtil.forceStatusBar(window, true)
     }
 

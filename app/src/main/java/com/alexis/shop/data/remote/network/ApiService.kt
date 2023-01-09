@@ -67,6 +67,9 @@ interface ApiService {
     @GET("mw/customer-cart")
     suspend fun getShoppingBag(): ShopingBagNewResponse
 
+    @GET("mw/customer-cart")
+    suspend fun getShipping(): ShopingBagNewResponse
+
     @DELETE("mw/customer-cart/{id}")
     suspend fun deleteShoppingBag(
         @Path("id") id: Int

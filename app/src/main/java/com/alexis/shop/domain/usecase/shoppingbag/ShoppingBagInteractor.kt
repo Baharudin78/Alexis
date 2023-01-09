@@ -21,4 +21,8 @@ class ShoppingBagInteractor @Inject constructor(private val repository: IShoppin
     override fun getShoppingBag(): Flow<Resource<ShopingBagListModel>> {
         return repository.getShoppingBag()
     }
+
+    override fun getShipping(): Flow<Resource<ShopingBagListModel>> {
+        return repository.getShipping()
+    }
 }

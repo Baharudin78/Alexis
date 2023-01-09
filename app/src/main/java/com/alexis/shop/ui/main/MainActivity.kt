@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,6 +24,7 @@ import com.alexis.shop.databinding.ActivityMainBinding
 import com.alexis.shop.domain.model.product.modelbaru.ProductBaruModel
 import com.alexis.shop.domain.model.store_location.AllStoreItemModel
 import com.alexis.shop.domain.model.wishlist.WishlistModel
+import com.alexis.shop.ui.account.login.LoginFragment
 import com.alexis.shop.ui.detail.adapter.entity.SubCategoryProduct
 import com.alexis.shop.ui.detail.adapter.entity.SubCategoryTitle
 import com.alexis.shop.ui.detail.adapter.entity.SubCategoryTypeAProduct
@@ -31,6 +33,7 @@ import com.alexis.shop.ui.menu.MenuFragment
 import com.alexis.shop.ui.menu.adapter.StoreHomeAdapter
 import com.alexis.shop.ui.menu.storelocation.StoreLocationDetailActivity
 import com.alexis.shop.ui.menu.storelocation.StoreLocationViewModel
+import com.alexis.shop.ui.shopping_bag.ReviewOrderSummaryFragment
 import com.alexis.shop.ui.shopping_bag.ShopingBagActivity
 import com.alexis.shop.ui.wishlist.WishlistFragment
 import com.alexis.shop.utils.*
@@ -261,6 +264,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+       // userIsLogedIn()
         forceStatusBar(window, false)
     }
 
@@ -371,6 +375,17 @@ class MainActivity : AppCompatActivity() {
             getWishlist()
             getShoppingBag()
         }
+    }
+
+    private fun userIsLogedIn() {
+        if(sharedPref.getToken().isEmpty()){
+            goToLoginPage()
+        }
+    }
+
+    private fun goToLoginPage(){
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.mainactivity, LoginFragment()).commit()
     }
 
     private fun getWishlist() {

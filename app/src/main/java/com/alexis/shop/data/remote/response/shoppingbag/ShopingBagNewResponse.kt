@@ -15,7 +15,9 @@ data class ShopingBagNewResponse(
 
 data class ShopingBagList(
     @SerializedName("items")
-    val items: List<ShopingBagItem>
+    val items: List<ShopingBagItem>,
+    @SerializedName("shipping")
+    val shipping : String? = null
 )
 
 data class ShopingBagItem(

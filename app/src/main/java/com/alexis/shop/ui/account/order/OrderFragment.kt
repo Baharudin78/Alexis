@@ -1,25 +1,18 @@
 package com.alexis.shop.ui.account.order
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.alexis.shop.BaseFragment
-import com.alexis.shop.R
 import com.alexis.shop.data.Resource
 import com.alexis.shop.databinding.FragmentOrderBinding
 import com.alexis.shop.domain.model.order.OrderItemModel
-import com.alexis.shop.ui.account.DetailOrderFragment
-import com.alexis.shop.ui.account.MyAccountFragment
 import com.alexis.shop.ui.menu.adapter.OrderAdapter
-import com.alexis.shop.utils.*
+import com.alexis.shop.utils.OnClickItem
+import com.alexis.shop.utils.handleBackPressed
 import dagger.hilt.android.AndroidEntryPoint
 import eightbitlab.com.blurview.RenderScriptBlur
 import kotlinx.android.synthetic.main.fragment_order.*

@@ -46,22 +46,24 @@ class SubCategoryProductVH(
             Log.d("TAFFF", e.localizedMessage.orEmpty())
         }
 
-        Log.d("TAFFFF",element.productModels.name)
-        Log.d("TAFFFF",element.productModels.price.toString())
-        Log.d("TAFFFF","$imageUri" )
-       // val imageType = element.productModels.product_image?.map { it.product_list_display }.orEmpty()
-        //element.productModels.product_image?.map { it.product_list_display}
-//        when(imageType.first().orEmpty()) {
-//            "AA-B" -> typeASetting(element)
-//            "" -> typeBSetting(element)
-//            else -> typeCSetting(element)
-//        }
-//        when (imageType.first().orEmpty()) {
-//            "AA-B" -> typeASetting(element)
-//            "AA" -> typeBSetting(element)
-//            "C" -> typeCSetting(element)
-//            else -> typeCSetting(element)
-//        }
+        try {
+            val imageType = element.productModels.product_image?.map { it.product_list_display }.orEmpty()
+            element.productModels.product_image?.map { it.product_list_display}
+            when(imageType.first().orEmpty()) {
+                "AA-B" -> typeASetting(element)
+                "B" -> typeBSetting(element)
+                else -> typeCSetting(element)
+            }
+            when (imageType.first().orEmpty()) {
+                "AA-B" -> typeASetting(element)
+                "AA" -> typeBSetting(element)
+                "C" -> typeCSetting(element)
+                else -> typeCSetting(element)
+            }
+        }catch (e : Exception){
+            Log.d("TAGGG", e.localizedMessage.orEmpty())
+        }
+
 
         itemView.setOnClickListener {
             openDetail(itemView, element.productModels)

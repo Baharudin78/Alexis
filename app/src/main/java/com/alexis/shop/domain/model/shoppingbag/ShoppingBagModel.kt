@@ -1,7 +1,8 @@
 package com.alexis.shop.domain.model.shoppingbag
 
 data class ShopingBagListModel(
-    var bag : List<ShoppingBagModel> = mutableListOf()
+    var bag : List<ShoppingBagModel> = mutableListOf(),
+    var shipping : String? = null
 )
 
 data class ShoppingBagModel(

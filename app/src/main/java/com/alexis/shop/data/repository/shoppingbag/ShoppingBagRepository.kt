@@ -74,6 +74,19 @@ class ShoppingBagRepository @Inject constructor(
         }
     }
 
+    override fun getShipping(): Flow<Resource<ShopingBagListModel>> {
+        return flow<Resource<ShopingBagListModel>> {
+            emit(Resource.Loading())
+            when (val apiResponse = remoteDataSource.getShipping().first()) {
+                is ApiResponse.Success -> emit(
+                    Resource.Success(generateShipping(apiResponse.data.data.shipping.orEmpty()))
+                )
+                is ApiResponse.Empty -> {}
+                is ApiResponse.Error -> emit(Resource.Error(apiResponse.errorMessage))
+            }
+        }
+    }
+
     private fun generateShoppingBagModel(data: List<ShopingBagItem?>?): ShopingBagListModel {
         return if (!data.isNullOrEmpty()) {
             ShopingBagListModel(
@@ -93,6 +106,12 @@ class ShoppingBagRepository @Inject constructor(
         }else{
             ShopingBagListModel()
         }
+    }
+
+    private fun generateShipping(shipper : String) : ShopingBagListModel {
+        return ShopingBagListModel(
+            shipping = shipper
+        )
     }
 
     private fun generateShopingProduct(data : ShopingProduct? ) : ShopingProductModel? {

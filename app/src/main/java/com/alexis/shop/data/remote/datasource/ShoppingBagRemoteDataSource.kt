@@ -48,6 +48,22 @@ class ShoppingBagRemoteDataSource @Inject constructor(private val apiService: Ap
         }.flowOn(Dispatchers.IO)
     }
 
+    suspend fun getShipping(): Flow<ApiResponse<ShopingBagNewResponse>> {
+        return flow {
+            try {
+                val response = apiService.getShipping()
+                if (response.data.shipping != null) {
+                    emit(ApiResponse.Success(response))
+                }else{
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+                Log.e("RemoteDataSource", e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
     suspend fun deleteShoppingBag(id: Int): Flow<ApiResponse<MessageResponse>> {
         return flow {
             try {

@@ -21,6 +21,7 @@ data class ShoppingBagPostData(
 
 	@SerializedName("item")
 	val shopingBagPostData : ShoppingBagPostDataItem? = null,
+
 )
 
 data class ShoppingBagPostDataItem(

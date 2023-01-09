@@ -11,4 +11,5 @@ interface ShoppingBagUseCase {
     fun postShoppingBag(productItemCode : String, productSizeId : String, quantity : String): Flow<Resource<ShopingBagPostModel>>
     fun deleteShoppingBag(cardId: Int): Flow<Resource<MessageResponse>>
     fun getShoppingBag(): Flow<Resource<ShopingBagListModel>>
+    fun getShipping(): Flow<Resource<ShopingBagListModel>>
 }
