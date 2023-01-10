@@ -91,10 +91,16 @@ class SelectAddressAdapter(
     }
 
     private fun selectItem(position: Int) {
+//        items.removeAt(position)
+//        items.add(index = 0, items[position])
+//        notifyDataSetChanged()
+//
+//
         if (position != selectedPosition ) {
             items[selectedPosition].isSelectedItem = false
             notifyItemChanged(selectedPosition)
         }
+
         selectedPosition = position
         items[position].isSelectedItem = true
         withDelay {

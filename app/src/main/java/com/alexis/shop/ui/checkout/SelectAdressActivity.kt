@@ -113,6 +113,24 @@ class SelectAdressActivity : AppCompatActivity(){
         }
     }
 
+    private fun setActive(item : AddressItemModel) {
+        viewModel.setSetActive(item.id.orZero()).observe(this) { response ->
+            if (response != null) {
+                when(response) {
+                    is Resource.Loading -> {}
+                    is Resource.Success -> deleteFunc(item)
+                    is Resource.Error -> {
+                        Toast.makeText(
+                            this,
+                            getString(R.string.auth_error, "Delete  address"),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        }
+    }
+
     private fun deleteFunc(item : AddressItemModel){
         checkoutAddress.remove(item)
         adapterAddress.setData(checkoutAddress)

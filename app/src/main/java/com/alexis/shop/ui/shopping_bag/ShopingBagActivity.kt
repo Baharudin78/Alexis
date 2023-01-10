@@ -118,7 +118,7 @@ class ShopingBagActivity : AppCompatActivity(), OnShoppingBagClickItem {
     }
 
     private fun userIsLogedIn() {
-        if(sharedPref.getToken().isEmpty()){
+        if(sharedPref.getToken().isNullOrEmpty()){
             Log.d("TAGG",sharedPref.getToken())
             goToLoginPage()
         }

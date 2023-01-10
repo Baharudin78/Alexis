@@ -97,6 +97,24 @@ class ChangeAddressFragment : BaseFragment<FragmentChangeAddressBinding>(), OnAd
             }
         }
     }
+
+    private fun activeAddress(item : AddressItemModel){
+        viewModel.setSetActive(item.id.orZero()).observe(viewLifecycleOwner) { response ->
+            if (response != null) {
+                when(response) {
+                    is Resource.Loading -> {}
+                    is Resource.Success -> deleteFunc(item)
+                    is Resource.Error -> {
+                        Toast.makeText(
+                            requireContext(),
+                            getString(R.string.auth_error, "Delete  address"),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        }
+    }
     private fun getAddress() {
         viewModel.getCheckoutAddress().observe(viewLifecycleOwner) { response ->
             if (response != null) {
