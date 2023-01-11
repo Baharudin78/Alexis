@@ -193,6 +193,12 @@ interface ApiService {
     ) : ProfilResponse
 
     /*
+    Kurir Metrik
+     */
+    @GET("")
+    suspend fun getCourierMetrix() : MessageResponse
+
+    /*
     ADDRESS
      */
 

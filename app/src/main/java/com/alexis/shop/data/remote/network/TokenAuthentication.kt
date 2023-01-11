@@ -1,5 +1,6 @@
 package com.alexis.shop.data.remote.network
 
+import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject

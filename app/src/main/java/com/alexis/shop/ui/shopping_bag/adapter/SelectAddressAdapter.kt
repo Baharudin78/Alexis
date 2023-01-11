@@ -44,6 +44,9 @@ class SelectAddressAdapter(
         holder.binding.btnEdit.setOnClickListener {
             listener.updateItem(item)
         }
+        holder.binding.btnDropship.setOnClickListener {
+            listener.onDropship(item)
+        }
     }
 
     override fun getItemCount(): Int = items.size

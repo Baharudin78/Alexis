@@ -2,6 +2,7 @@ package com.alexis.shop.ui.checkout
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -44,6 +45,12 @@ class SelectAdressActivity : AppCompatActivity(){
         setListener()
     }
 
+    override fun onResume() {
+        super.onResume()
+        getCheckoutAddress()
+    }
+
+
     private fun resetAnimation() {
         binding.gilding.resetLottieAnimation()
     }
@@ -56,7 +63,8 @@ class SelectAdressActivity : AppCompatActivity(){
             }
 
             override fun onDropship(item: Any) {
-                TODO("Not yet implemented")
+                item as AddressItemModel
+                setActive(item.id.orZero())
             }
 
             override fun updateItem(item: Any) {
@@ -113,12 +121,14 @@ class SelectAdressActivity : AppCompatActivity(){
         }
     }
 
-    private fun setActive(item : AddressItemModel) {
-        viewModel.setSetActive(item.id.orZero()).observe(this) { response ->
+    private fun setActive(item : Int) {
+        viewModel.setSetActive(item).observe(this) { response ->
             if (response != null) {
                 when(response) {
                     is Resource.Loading -> {}
-                    is Resource.Success -> deleteFunc(item)
+                    is Resource.Success -> {
+                        Log.d("TAGG", "Berhasil")
+                    }
                     is Resource.Error -> {
                         Toast.makeText(
                             this,
