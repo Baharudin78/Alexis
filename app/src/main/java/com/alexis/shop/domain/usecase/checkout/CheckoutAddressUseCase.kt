@@ -4,6 +4,7 @@ import com.alexis.shop.data.Resource
 import com.alexis.shop.data.remote.response.wishlist.delete.MessageResponse
 import com.alexis.shop.domain.model.address.AddressListModel
 import com.alexis.shop.domain.model.checkout.CheckoutAddressModelView
+import com.alexis.shop.domain.model.courier.CourierModel
 import kotlinx.coroutines.flow.Flow
 
 interface CheckoutAddressUseCase {
@@ -37,4 +38,5 @@ interface CheckoutAddressUseCase {
     fun getCheckoutAddress(): Flow<Resource<AddressListModel>>
     fun deleteAddress(id : Int) : Flow<Resource<MessageResponse>>
     fun setActiveAddress(id : Int) : Flow<Resource<MessageResponse>>
+    fun getCourierMetrix(id : Int) : Flow<Resource<CourierModel>>
 }

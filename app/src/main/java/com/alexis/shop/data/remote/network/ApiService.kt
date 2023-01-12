@@ -9,6 +9,7 @@ import com.alexis.shop.data.remote.response.productbaru.ProductBaruResponse
 import com.alexis.shop.data.remote.response.voucher.VoucherResponse
 import com.alexis.shop.data.remote.response.auth.LogoutResponse
 import com.alexis.shop.data.remote.response.contact.ContactResponse
+import com.alexis.shop.data.remote.response.courier.CourierResponse
 import com.alexis.shop.data.remote.response.helpcenter.HelpCenterResponse
 import com.alexis.shop.data.remote.response.landing.LandingResponse
 import com.alexis.shop.data.remote.response.order.OrderResponse
@@ -195,8 +196,11 @@ interface ApiService {
     /*
     Kurir Metrik
      */
-    @GET("")
-    suspend fun getCourierMetrix() : MessageResponse
+    @GET("mw/cutomer-cart/calculate-shipping-cost")
+    @FormUrlEncoded
+    suspend fun getCourierMetrix(
+        @Field("address_id") id : Int
+    ) : CourierResponse
 
     /*
     ADDRESS

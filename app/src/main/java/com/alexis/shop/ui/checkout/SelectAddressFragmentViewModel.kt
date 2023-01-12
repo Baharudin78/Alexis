@@ -18,6 +18,9 @@ class SelectAddressFragmentViewModel @Inject constructor(
     fun getCheckoutAddress() =
         checkoutAddressUseCase.getCheckoutAddress().asLiveData()
 
+    fun getCourierMatrix(id : Int) =
+        checkoutAddressUseCase.getCourierMetrix(id).asLiveData()
+
     fun deleteAddress(id : Int) =
         checkoutAddressUseCase.deleteAddress(id).asLiveData()
 

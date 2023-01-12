@@ -5,6 +5,7 @@ import com.alexis.shop.data.remote.response.checkout.CheckoutAddressPostResponse
 import com.alexis.shop.data.remote.response.wishlist.delete.MessageResponse
 import com.alexis.shop.domain.model.address.AddressListModel
 import com.alexis.shop.domain.model.checkout.CheckoutAddressModelView
+import com.alexis.shop.domain.model.courier.CourierModel
 import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -25,6 +26,8 @@ interface ICheckoutAddressRepository {
     ): Flow<Resource<CheckoutAddressModelView>>
 
     fun getCheckoutAddress(): Flow<Resource<AddressListModel>>
+
+    fun getCourierMatrix(id : Int): Flow<Resource<CourierModel>>
 
     fun updateAddress(
         id : Int,

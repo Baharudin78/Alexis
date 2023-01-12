@@ -5,6 +5,7 @@ import com.alexis.shop.data.remote.network.ApiResponse
 import com.alexis.shop.data.remote.network.ApiService
 import com.alexis.shop.data.remote.response.checkout.CheckoutAddressGetResponse
 import com.alexis.shop.data.remote.response.checkout.CheckoutAddressPostResponse
+import com.alexis.shop.data.remote.response.courier.CourierResponse
 import com.alexis.shop.data.remote.response.wishlist.delete.MessageResponse
 import com.alexis.shop.utils.log
 import kotlinx.coroutines.Dispatchers
@@ -140,6 +141,21 @@ class CheckoutAddressRemoteDataSource @Inject constructor(private val apiService
                 emit(ApiResponse.Error(e.toString()))
                 log("location adresss error + ${e.localizedMessage}")
                 Log.e("RemoteDataSource", e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getCourierMetrix(id : Int) : Flow<ApiResponse<CourierResponse>> {
+        return flow<ApiResponse<CourierResponse>> {
+            try {
+                val response = apiService.getCourierMetrix(id)
+                if (response.data?.courier != null) {
+                    emit(ApiResponse.Success(response))
+                } else{
+                    emit(ApiResponse.Empty)
+                }
+            }catch (e : Exception) {
+                emit(ApiResponse.Error(e.localizedMessage.orEmpty()))
             }
         }.flowOn(Dispatchers.IO)
     }

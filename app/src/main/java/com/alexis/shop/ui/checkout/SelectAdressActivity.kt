@@ -13,6 +13,7 @@ import com.alexis.shop.R
 import com.alexis.shop.data.Resource
 import com.alexis.shop.databinding.ActivitySelectAdressBinding
 import com.alexis.shop.domain.model.address.AddressItemModel
+import com.alexis.shop.domain.model.courier.CourierModel
 import com.alexis.shop.ui.menu.address.AddAddressActivity
 import com.alexis.shop.ui.menu.address.UpdateAddressActivity
 import com.alexis.shop.ui.shopping_bag.SelectVoucherActivity
@@ -32,6 +33,7 @@ class SelectAdressActivity : AppCompatActivity(){
     private var checkoutAddress = ArrayList<AddressItemModel>()
     lateinit var adapterAddress : SelectAddressAdapter
     lateinit var sharedPref : SheredPreference
+    private var courierModel : CourierModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,6 +78,7 @@ class SelectAdressActivity : AppCompatActivity(){
 
             override fun onClick(item: Any) {
                 item as AddressItemModel
+                getCourierMatrix(item.id.orZero())
                 Toast.makeText(this@SelectAdressActivity, "Click ${item.address}", Toast.LENGTH_SHORT).show()
             }
 
@@ -168,6 +171,33 @@ class SelectAdressActivity : AppCompatActivity(){
                 }
             }
         }
+    }
+
+    private fun getCourierMatrix(id : Int) {
+        viewModel.getCourierMatrix(id).observe(this) { response ->
+            if (response != null) {
+                when(response) {
+                    is Resource.Loading -> {}
+                    is Resource.Success -> {
+                        response.data?.let {
+                            courierModel = it
+                            setupView(it)
+                        }
+                    }
+                    is Resource.Error -> {
+                        Toast.makeText(
+                            binding.root.context,
+                                    "Failed get Courir ${response.message.orEmpty()}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setupView(item : CourierModel) {
+        binding.tvKurir.text = "${item.rateName}, ${item.name} Rp${item.finalRate}"
     }
 
     private fun blurView() {

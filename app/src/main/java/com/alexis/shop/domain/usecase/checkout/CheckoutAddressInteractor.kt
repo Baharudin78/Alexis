@@ -4,6 +4,7 @@ import com.alexis.shop.data.Resource
 import com.alexis.shop.data.remote.response.wishlist.delete.MessageResponse
 import com.alexis.shop.domain.model.address.AddressListModel
 import com.alexis.shop.domain.model.checkout.CheckoutAddressModelView
+import com.alexis.shop.domain.model.courier.CourierModel
 import com.alexis.shop.domain.repository.checkout.ICheckoutAddressRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -52,5 +53,9 @@ class CheckoutAddressInteractor @Inject constructor(
 
     override fun setActiveAddress(id: Int): Flow<Resource<MessageResponse>> {
         return repository.setActiveAddress(id)
+    }
+
+    override fun getCourierMetrix(id: Int): Flow<Resource<CourierModel>> {
+        return repository.getCourierMatrix(id)
     }
 }
