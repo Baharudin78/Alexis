@@ -8,5 +8,6 @@ import kotlinx.coroutines.flow.Flow
 interface IWishlistRepository {
     fun postWishlist(productItemCode: String): Flow<Resource<String>>
     fun getWishlist(): Flow<Resource<List<WishlistModel>>>
+    fun getWishlistBySize(sizeId : Int) : Flow<Resource<List<WishlistModel>>>
     fun deleteWishlist(id : Int) : Flow<Resource<MessageResponse>>
 }

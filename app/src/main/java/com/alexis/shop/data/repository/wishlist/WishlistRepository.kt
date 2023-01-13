@@ -40,6 +40,17 @@ class WishlistRepository @Inject constructor(
         }
     }
 
+    override fun getWishlistBySize(sizeId: Int): Flow<Resource<List<WishlistModel>>> {
+        return flow<Resource<List<WishlistModel>>> {
+            emit(Resource.Loading())
+            when (val apiResponse = remoteDataSource.getWishlistBySize(sizeId).first()) {
+                is ApiResponse.Success -> emit(Resource.Success(generateWishlistGetModel(apiResponse.data.data?.wishlist)))
+                is ApiResponse.Empty -> {}
+                is ApiResponse.Error -> emit(Resource.Error(apiResponse.errorMessage))
+            }
+        }
+    }
+
     override fun deleteWishlist(id: Int): Flow<Resource<MessageResponse>> {
         return flow<Resource<MessageResponse>> {
             emit(Resource.Loading())

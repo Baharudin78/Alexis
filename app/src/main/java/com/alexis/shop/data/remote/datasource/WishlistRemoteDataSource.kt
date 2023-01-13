@@ -48,6 +48,21 @@ class WishlistRemoteDataSource @Inject constructor(private val apiService: ApiSe
         }.flowOn(Dispatchers.IO)
     }
 
+    suspend fun getWishlistBySize(sizeId : Int) : Flow<ApiResponse<WishlistGetResponse>> {
+        return flow {
+            try {
+                val response = apiService.getWishlistBySize(sizeId)
+                if (!response.data?.wishlist.isNullOrEmpty()) {
+                    emit(ApiResponse.Success(response))
+                }else{
+                    emit(ApiResponse.Empty)
+                }
+            }catch (e : Exception) {
+                emit(ApiResponse.Error(e.localizedMessage.orEmpty()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
     suspend fun deleteWishlist(id : Int) : Flow<ApiResponse<MessageResponse>> {
         return flow {
             try {

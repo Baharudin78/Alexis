@@ -7,7 +7,9 @@ import com.alexis.shop.data.remote.response.wishlist.delete.MessageResponse
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class WishlistInteractor @Inject constructor(private val repository: IWishlistRepository): WishlistUseCase {
+class WishlistInteractor @Inject constructor(
+    private val repository: IWishlistRepository
+): WishlistUseCase {
     override fun postWishlist(productItemCode: String): Flow<Resource<String>> {
         return repository.postWishlist(productItemCode)
     }
@@ -18,5 +20,9 @@ class WishlistInteractor @Inject constructor(private val repository: IWishlistRe
 
     override fun deleteWishlist(id: Int): Flow<Resource<MessageResponse>> {
         return repository.deleteWishlist(id)
+    }
+
+    override fun getWishlistBySize(sizeId: Int): Flow<Resource<List<WishlistModel>>> {
+        return repository.getWishlistBySize(sizeId)
     }
 }

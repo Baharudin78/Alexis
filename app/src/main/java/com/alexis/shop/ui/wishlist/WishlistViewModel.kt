@@ -22,5 +22,7 @@ class WishlistViewModel @Inject constructor(
 
     fun getWishlist() = useCase.getWishlist().asLiveData()
 
+    fun getWishlistById(sizeId : Int) = useCase.getWishlistBySize(sizeId).asLiveData()
+
     fun deleteWishlist(id : Int) = useCase.deleteWishlist(id).asLiveData()
 }

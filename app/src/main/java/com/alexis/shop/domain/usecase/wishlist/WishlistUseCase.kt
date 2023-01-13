@@ -9,4 +9,5 @@ interface WishlistUseCase {
     fun postWishlist(productItemCode: String): Flow<Resource<String>>
     fun getWishlist(): Flow<Resource<List<WishlistModel>>>
     fun deleteWishlist(id : Int) : Flow<Resource<MessageResponse>>
+    fun getWishlistBySize(sizeId : Int) : Flow<Resource<List<WishlistModel>>>
 }
